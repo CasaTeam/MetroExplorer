@@ -1,0 +1,14 @@
+C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\MetroExplorer.core\bin\Debug\MetroExplorer.core.dll
+C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\MetroExplorer.core\bin\Debug\MetroExplorer.core.pdb
+C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\MetroExplorer.core\bin\Debug\MetroExplorer.core.pri
+C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\MetroExplorer.core\obj\Debug\MetroExplorer.core.dll
+C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\MetroExplorer.core\obj\Debug\MetroExplorer.core.pdb
+C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\MetroExplorer.core\obj\Debug\priconfig.xml
+C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\MetroExplorer.core\obj\Debug\layout.resfiles
+C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\MetroExplorer.core\obj\Debug\resources.resfiles
+C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\MetroExplorer.core\obj\Debug\pri.resfiles
+C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\MetroExplorer.core\obj\Debug\LanguageQualifiers.txt
+C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\MetroExplorer.core\obj\Debug\priconfig.xml.intermediate
+C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\MetroExplorer.core\obj\Debug\layout.resfiles.intermediate
+C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\MetroExplorer.core\obj\Debug\resources.resfiles.intermediate
+C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\MetroExplorer.core\obj\Debug\pri.resfiles.intermediate

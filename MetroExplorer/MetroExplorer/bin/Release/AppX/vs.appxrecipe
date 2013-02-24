@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Machine>PERSONNALISER</Machine>
+    <WindowsUser>Rue Cadet</WindowsUser>
+    <SolutionConfiguration>Release|AnyCPU</SolutionConfiguration>
+    <PackageArchitecture>neutral</PackageArchitecture>
+    <RegisteredManifestChecksum>240BB8CB7755D6174AA3B906250944E9485D04ACCE21E96723AB9165867E124B</RegisteredManifestChecksum>
+    <RegisteredPackageMoniker>075dcb47-665f-49de-8937-068336dd4f9a_1.0.0.0_neutral__c767cq6be7kte</RegisteredPackageMoniker>
+    <RegisteredUserModeAppID>075dcb47-665f-49de-8937-068336dd4f9a_c767cq6be7kte!App</RegisteredUserModeAppID>
+    <RegisteredPackageID>075dcb47-665f-49de-8937-068336dd4f9a</RegisteredPackageID>
+    <RegisteredPackagePublisher>CN=Rue Cadet</RegisteredPackagePublisher>
+    <RegisteredVersion>1.0.0.0</RegisteredVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <AppXManifest Include="C:\GitHub\Windows8MetroExplorer\Windows8MetroExplorer\bin\Release\AppxManifest.xml">
+      <PackagePath>AppxManifest.xml</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2013-02-10T16:18:25.074</Modified>
+    </AppXManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxPackagedFile Include="C:\GitHub\Windows8MetroExplorer\Windows8MetroExplorer\bin\Release\Windows8MetroExplorer.exe">
+      <PackagePath>Windows8MetroExplorer.exe</PackagePath>
+      <Modified>2013-02-10T16:18:42.322</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\GitHub\Windows8MetroExplorer\Windows8MetroExplorer\bin\Release\Windows8MetroExplorer.pdb">
+      <PackagePath>Windows8MetroExplorer.pdb</PackagePath>
+      <Modified>2013-02-10T16:18:42.299</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\GitHub\Windows8MetroExplorer\Windows8MetroExplorer\Assets\Logo.png">
+      <PackagePath>Assets\Logo.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2012-03-15T19:42:52.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\GitHub\Windows8MetroExplorer\Windows8MetroExplorer\Assets\SmallLogo.png">
+      <PackagePath>Assets\SmallLogo.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2012-03-15T19:42:52.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\GitHub\Windows8MetroExplorer\Windows8MetroExplorer\Assets\SplashScreen.png">
+      <PackagePath>Assets\SplashScreen.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2012-03-15T19:42:52.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\GitHub\Windows8MetroExplorer\Windows8MetroExplorer\Assets\StoreLogo.png">
+      <PackagePath>Assets\StoreLogo.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2012-03-15T19:42:52.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\GitHub\Windows8MetroExplorer\Windows8MetroExplorer\bin\Release\App.xaml">
+      <PackagePath>App.xaml</PackagePath>
+      <Modified>2013-02-10T12:48:50.426</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\GitHub\Windows8MetroExplorer\Windows8MetroExplorer\bin\Release\Common\StandardStyles.xaml">
+      <PackagePath>Common\StandardStyles.xaml</PackagePath>
+      <Modified>2012-06-26T15:19:20.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\GitHub\Windows8MetroExplorer\Windows8MetroExplorer\bin\Release\MainPage.xaml">
+      <PackagePath>MainPage.xaml</PackagePath>
+      <Modified>2013-02-10T15:14:09.929</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\GitHub\Windows8MetroExplorer\Windows8MetroExplorer\bin\Release\resources.pri">
+      <PackagePath>resources.pri</PackagePath>
+      <Modified>2013-02-10T16:18:25.014</Modified>
+    </AppxPackagedFile>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+</Project>

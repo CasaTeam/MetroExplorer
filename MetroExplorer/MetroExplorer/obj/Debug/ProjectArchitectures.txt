@@ -1,0 +1,3 @@
+C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\MetroExplorer.Components.CopyCutPanel\MetroExplorer.Components.CopyCutPanel.csproj;neutral
+C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\MetroExplorer.core\MetroExplorer.core.csproj;neutral
+C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\MetroExplorer\MetroExplorer.csproj;neutral

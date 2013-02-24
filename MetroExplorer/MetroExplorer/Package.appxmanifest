@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
+  <Identity Name="075dcb47-665f-49de-8937-068336dd4f9a" Publisher="CN=Rue Cadet" Version="1.0.0.0" />
+  <Properties>
+    <DisplayName>Windows8MetroExplorer</DisplayName>
+    <PublisherDisplayName>Rue Cadet</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+  <Prerequisites>
+    <OSMinVersion>6.2.1</OSMinVersion>
+    <OSMaxVersionTested>6.2.1</OSMaxVersionTested>
+  </Prerequisites>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="Windows8MetroExplorer.App">
+      <VisualElements DisplayName="Windows8MetroExplorer" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="Windows8MetroExplorer" ForegroundText="light" BackgroundColor="#464646">
+        <DefaultTile ShowName="allLogos" />
+        <SplashScreen Image="Assets\SplashScreen.png" />
+      </VisualElements>
+      <Extensions>
+        <Extension Category="windows.fileTypeAssociation" StartPage=".pdf">
+          <FileTypeAssociation Name="type">
+            <SupportedFileTypes>
+              <FileType>.mp4</FileType>
+              <FileType>.txt</FileType>
+            </SupportedFileTypes>
+          </FileTypeAssociation>
+        </Extension>
+      </Extensions>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="sharedUserCertificates" />
+    <Capability Name="internetClientServer" />
+    <Capability Name="privateNetworkClientServer" />
+    <Capability Name="enterpriseAuthentication" />
+    <Capability Name="documentsLibrary" />
+    <Capability Name="videosLibrary" />
+    <Capability Name="removableStorage" />
+    <Capability Name="picturesLibrary" />
+    <Capability Name="musicLibrary" />
+    <Capability Name="internetClient" />
+    <DeviceCapability Name="webcam" />
+    <DeviceCapability Name="location" />
+    <DeviceCapability Name="proximity" />
+    <DeviceCapability Name="microphone" />
+  </Capabilities>
+</Package>
