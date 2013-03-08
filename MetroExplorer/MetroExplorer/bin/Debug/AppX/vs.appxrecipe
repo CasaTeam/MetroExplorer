@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <Machine>PC</Machine>
-    <WindowsUser>Sawyer</WindowsUser>
+    <Machine>PERSONNALISER</Machine>
+    <WindowsUser>Rue Cadet</WindowsUser>
     <SolutionConfiguration>Debug|AnyCPU</SolutionConfiguration>
     <PackageArchitecture>neutral</PackageArchitecture>
-    <RegisteredManifestChecksum>2E407D16F1C68DEE5637239F415589BEBF8EF359555C01B2A7D80108354518BD</RegisteredManifestChecksum>
+    <RegisteredManifestChecksum>FAA60BD1CB8612B1848EA4BB3D651ACBBC4FBC8BECD7C819E10DB0761D7E1449</RegisteredManifestChecksum>
     <RegisteredPackageMoniker>075dcb47-665f-49de-8937-068336dd4f9a_1.0.0.0_neutral__c767cq6be7kte</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>075dcb47-665f-49de-8937-068336dd4f9a_c767cq6be7kte!App</RegisteredUserModeAppID>
     <RegisteredPackageID>075dcb47-665f-49de-8937-068336dd4f9a</RegisteredPackageID>
@@ -13,148 +13,152 @@
     <RegisteredVersion>1.0.0.0</RegisteredVersion>
   </PropertyGroup>
   <ItemGroup>
-    <AppXManifest Include="C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\MetroExplorer\bin\Debug\AppxManifest.xml">
+    <AppXManifest Include="D:\Project\GitHub\MetroExplorer\MetroExplorer\MetroExplorer\bin\Debug\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2013-02-24T16:01:37.751</Modified>
+      <Modified>2013-03-03T17:19:55.036</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
-    <AppxPackagedFile Include="C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\MetroExplorer\bin\Debug\MetroExplorer.exe">
+    <AppxPackagedFile Include="D:\Project\GitHub\MetroExplorer\MetroExplorer\MetroExplorer\bin\Debug\MetroExplorer.exe">
       <PackagePath>MetroExplorer.exe</PackagePath>
-      <Modified>2013-02-24T16:36:17.641</Modified>
+      <Modified>2013-03-03T17:19:51.355</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\MetroExplorer\bin\Debug\MetroExplorer.pdb">
+    <AppxPackagedFile Include="D:\Project\GitHub\MetroExplorer\MetroExplorer\MetroExplorer\bin\Debug\MetroExplorer.pdb">
       <PackagePath>MetroExplorer.pdb</PackagePath>
-      <Modified>2013-02-24T16:36:17.624</Modified>
+      <Modified>2013-03-03T17:19:51.321</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\MetroExplorer.Components.CopyCutPanel\bin\Debug\MetroExplorer.Components.CopyCutPanel.pdb">
+    <AppxPackagedFile Include="D:\Project\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.Components.CopyCutPanel\bin\Debug\MetroExplorer.Components.CopyCutPanel.pdb">
       <PackagePath>MetroExplorer.Components.CopyCutPanel.pdb</PackagePath>
-      <Modified>2013-02-24T16:01:04.262</Modified>
+      <Modified>2013-03-03T12:18:36.531</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\MetroExplorer.core\bin\Debug\MetroExplorer.core.pdb">
+    <AppxPackagedFile Include="D:\Project\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.core\bin\Debug\MetroExplorer.core.pdb">
       <PackagePath>MetroExplorer.core.pdb</PackagePath>
-      <Modified>2013-02-24T16:01:02.748</Modified>
+      <Modified>2013-03-03T12:18:35.396</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\MetroExplorer.Components.CopyCutPanel\bin\Debug\MetroExplorer.Components.CopyCutPanel.winmd">
+    <AppxPackagedFile Include="D:\Project\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.Components.CopyCutPanel\bin\Debug\MetroExplorer.Components.CopyCutPanel.winmd">
       <PackagePath>MetroExplorer.Components.CopyCutPanel.winmd</PackagePath>
-      <Modified>2013-02-24T16:01:04.272</Modified>
+      <Modified>2013-03-03T12:18:36.545</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\MetroExplorer.core\bin\Debug\MetroExplorer.core.dll">
+    <AppxPackagedFile Include="D:\Project\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.core\bin\Debug\MetroExplorer.core.dll">
       <PackagePath>MetroExplorer.core.dll</PackagePath>
-      <Modified>2013-02-24T16:01:02.767</Modified>
+      <Modified>2013-03-03T12:18:35.424</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\packages\winrtxamltoolkit.1.3.5.3\lib\netcore45\WinRTXamlToolkit.dll">
+    <AppxPackagedFile Include="D:\Project\GitHub\MetroExplorer\MetroExplorer\packages\winrtxamltoolkit.1.3.5.3\lib\netcore45\WinRTXamlToolkit.dll">
       <PackagePath>WinRTXamlToolkit.dll</PackagePath>
-      <Modified>2013-02-24T15:24:17.410</Modified>
+      <Modified>2013-03-03T11:24:11.692</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\MetroExplorer\Assets\Background.jpg">
+    <AppxPackagedFile Include="D:\Project\GitHub\MetroExplorer\MetroExplorer\MetroExplorer\Assets\Background.jpg">
       <PackagePath>Assets\Background.jpg</PackagePath>
-      <Modified>2013-02-24T15:06:01.068</Modified>
+      <Modified>2013-03-03T11:24:10.887</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\MetroExplorer\Assets\Logo.png">
+    <AppxPackagedFile Include="D:\Project\GitHub\MetroExplorer\MetroExplorer\MetroExplorer\Assets\Logo.png">
       <PackagePath>Assets\Logo.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2012-03-15T19:42:52.000</Modified>
+      <Modified>2013-03-03T11:24:10.888</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\MetroExplorer\Assets\SmallLogo.png">
+    <AppxPackagedFile Include="D:\Project\GitHub\MetroExplorer\MetroExplorer\MetroExplorer\Assets\SmallLogo.png">
       <PackagePath>Assets\SmallLogo.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2012-03-15T19:42:52.000</Modified>
+      <Modified>2013-03-03T11:24:10.889</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\MetroExplorer\Assets\SplashScreen.png">
+    <AppxPackagedFile Include="D:\Project\GitHub\MetroExplorer\MetroExplorer\MetroExplorer\Assets\SplashScreen.png">
       <PackagePath>Assets\SplashScreen.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2012-03-15T19:42:52.000</Modified>
+      <Modified>2013-03-03T11:24:10.890</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\MetroExplorer\Assets\StoreLogo.png">
+    <AppxPackagedFile Include="D:\Project\GitHub\MetroExplorer\MetroExplorer\MetroExplorer\Assets\StoreLogo.png">
       <PackagePath>Assets\StoreLogo.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2012-03-15T19:42:52.000</Modified>
+      <Modified>2013-03-03T11:24:10.891</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\MetroExplorer\Common\ReadMe.txt">
+    <AppxPackagedFile Include="D:\Project\GitHub\MetroExplorer\MetroExplorer\MetroExplorer\Common\ReadMe.txt">
       <PackagePath>Common\ReadMe.txt</PackagePath>
-      <Modified>2013-02-24T12:26:26.128</Modified>
+      <Modified>2013-03-03T11:24:10.909</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\MetroExplorer\bin\Debug\App.xaml">
+    <AppxPackagedFile Include="D:\Project\GitHub\MetroExplorer\MetroExplorer\MetroExplorer\bin\Debug\App.xaml">
       <PackagePath>App.xaml</PackagePath>
-      <Modified>2013-02-10T12:48:50.426</Modified>
+      <Modified>2013-03-03T11:24:10.852</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\MetroExplorer\bin\Debug\Common\StandardStyles.xaml">
+    <AppxPackagedFile Include="D:\Project\GitHub\MetroExplorer\MetroExplorer\MetroExplorer\bin\Debug\Common\StandardStyles.xaml">
       <PackagePath>Common\StandardStyles.xaml</PackagePath>
-      <Modified>2012-06-26T15:19:20.000</Modified>
+      <Modified>2013-03-03T11:24:10.922</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\MetroExplorer\bin\Debug\GroupedItemsPage1.xaml">
+    <AppxPackagedFile Include="D:\Project\GitHub\MetroExplorer\MetroExplorer\MetroExplorer\bin\Debug\GroupedItemsPage1.xaml">
       <PackagePath>GroupedItemsPage1.xaml</PackagePath>
-      <Modified>2013-02-24T14:17:17.054</Modified>
+      <Modified>2013-03-03T11:24:10.931</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\MetroExplorer\bin\Debug\MainPage.xaml">
+    <AppxPackagedFile Include="D:\Project\GitHub\MetroExplorer\MetroExplorer\MetroExplorer\bin\Debug\ItemsPage1.xaml">
+      <PackagePath>ItemsPage1.xaml</PackagePath>
+      <Modified>2013-03-03T14:53:34.626</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="D:\Project\GitHub\MetroExplorer\MetroExplorer\MetroExplorer\bin\Debug\MainPage.xaml">
       <PackagePath>MainPage.xaml</PackagePath>
-      <Modified>2013-02-17T10:56:59.259</Modified>
+      <Modified>2013-03-03T11:24:10.937</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\MetroExplorer\bin\Debug\PageExplorer.xaml">
+    <AppxPackagedFile Include="D:\Project\GitHub\MetroExplorer\MetroExplorer\MetroExplorer\bin\Debug\PageExplorer.xaml">
       <PackagePath>PageExplorer.xaml</PackagePath>
-      <Modified>2013-02-24T14:49:22.959</Modified>
+      <Modified>2013-03-03T11:24:10.950</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\MetroExplorer\bin\Debug\PageMain.xaml">
+    <AppxPackagedFile Include="D:\Project\GitHub\MetroExplorer\MetroExplorer\MetroExplorer\bin\Debug\PageMain.xaml">
       <PackagePath>PageMain.xaml</PackagePath>
-      <Modified>2013-02-24T16:34:39.653</Modified>
+      <Modified>2013-03-03T16:29:53.839</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\MetroExplorer\bin\Debug\PagePreview.xaml">
+    <AppxPackagedFile Include="D:\Project\GitHub\MetroExplorer\MetroExplorer\MetroExplorer\bin\Debug\PagePreview.xaml">
       <PackagePath>PagePreview.xaml</PackagePath>
-      <Modified>2013-02-24T10:40:06.022</Modified>
+      <Modified>2013-03-03T11:24:10.964</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\MetroExplorer\bin\Debug\PageUserGuide.xaml">
+    <AppxPackagedFile Include="D:\Project\GitHub\MetroExplorer\MetroExplorer\MetroExplorer\bin\Debug\PageUserGuide.xaml">
       <PackagePath>PageUserGuide.xaml</PackagePath>
-      <Modified>2013-02-24T10:38:59.325</Modified>
+      <Modified>2013-03-03T11:24:10.970</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\MetroExplorer.Components.CopyCutPanel\bin\Debug\CopyCutPanel.xaml">
+    <AppxPackagedFile Include="D:\Project\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.Components.CopyCutPanel\bin\Debug\CopyCutPanel.xaml">
       <PackagePath>MetroExplorer.Components.CopyCutPanel\CopyCutPanel.xaml</PackagePath>
-      <Modified>2013-02-24T12:23:52.599</Modified>
+      <Modified>2013-03-03T11:24:10.662</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\packages\winrtxamltoolkit.1.3.5.3\lib\netcore45\WinRTXamlToolkit\Controls\AnimatingContainer.xaml">
+    <AppxPackagedFile Include="D:\Project\GitHub\MetroExplorer\MetroExplorer\packages\winrtxamltoolkit.1.3.5.3\lib\netcore45\WinRTXamlToolkit\Controls\AnimatingContainer.xaml">
       <PackagePath>WinRTXamlToolkit\Controls\AnimatingContainer.xaml</PackagePath>
-      <Modified>2013-02-24T15:24:17.417</Modified>
+      <Modified>2013-03-03T11:24:11.695</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\packages\winrtxamltoolkit.1.3.5.3\lib\netcore45\WinRTXamlToolkit\Controls\CascadingTextBlock.xaml">
+    <AppxPackagedFile Include="D:\Project\GitHub\MetroExplorer\MetroExplorer\packages\winrtxamltoolkit.1.3.5.3\lib\netcore45\WinRTXamlToolkit\Controls\CascadingTextBlock.xaml">
       <PackagePath>WinRTXamlToolkit\Controls\CascadingTextBlock.xaml</PackagePath>
-      <Modified>2013-02-24T15:24:17.455</Modified>
+      <Modified>2013-03-03T11:24:11.697</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\packages\winrtxamltoolkit.1.3.5.3\lib\netcore45\WinRTXamlToolkit\Controls\CountdownControl.xaml">
+    <AppxPackagedFile Include="D:\Project\GitHub\MetroExplorer\MetroExplorer\packages\winrtxamltoolkit.1.3.5.3\lib\netcore45\WinRTXamlToolkit\Controls\CountdownControl.xaml">
       <PackagePath>WinRTXamlToolkit\Controls\CountdownControl.xaml</PackagePath>
-      <Modified>2013-02-24T15:24:17.464</Modified>
+      <Modified>2013-03-03T11:24:11.702</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\packages\winrtxamltoolkit.1.3.5.3\lib\netcore45\WinRTXamlToolkit\Controls\CascadingImageControl\CascadingImageControl.xaml">
+    <AppxPackagedFile Include="D:\Project\GitHub\MetroExplorer\MetroExplorer\packages\winrtxamltoolkit.1.3.5.3\lib\netcore45\WinRTXamlToolkit\Controls\CascadingImageControl\CascadingImageControl.xaml">
       <PackagePath>WinRTXamlToolkit\Controls\CascadingImageControl\CascadingImageControl.xaml</PackagePath>
-      <Modified>2013-02-24T15:24:17.420</Modified>
+      <Modified>2013-03-03T11:24:11.696</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\packages\winrtxamltoolkit.1.3.5.3\lib\netcore45\WinRTXamlToolkit\Controls\ColorPicker\ColorPicker.xaml">
+    <AppxPackagedFile Include="D:\Project\GitHub\MetroExplorer\MetroExplorer\packages\winrtxamltoolkit.1.3.5.3\lib\netcore45\WinRTXamlToolkit\Controls\ColorPicker\ColorPicker.xaml">
       <PackagePath>WinRTXamlToolkit\Controls\ColorPicker\ColorPicker.xaml</PackagePath>
-      <Modified>2013-02-24T15:24:17.458</Modified>
+      <Modified>2013-03-03T11:24:11.701</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\packages\winrtxamltoolkit.1.3.5.3\lib\netcore45\WinRTXamlToolkit\Controls\CustomAppBar\CustomAppBar.xaml">
+    <AppxPackagedFile Include="D:\Project\GitHub\MetroExplorer\MetroExplorer\packages\winrtxamltoolkit.1.3.5.3\lib\netcore45\WinRTXamlToolkit\Controls\CustomAppBar\CustomAppBar.xaml">
       <PackagePath>WinRTXamlToolkit\Controls\CustomAppBar\CustomAppBar.xaml</PackagePath>
-      <Modified>2013-02-24T15:24:17.467</Modified>
+      <Modified>2013-03-03T11:24:11.706</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\packages\winrtxamltoolkit.1.3.5.3\lib\netcore45\WinRTXamlToolkit\Controls\DelayedLoadControl\DelayedLoadControl.xaml">
+    <AppxPackagedFile Include="D:\Project\GitHub\MetroExplorer\MetroExplorer\packages\winrtxamltoolkit.1.3.5.3\lib\netcore45\WinRTXamlToolkit\Controls\DelayedLoadControl\DelayedLoadControl.xaml">
       <PackagePath>WinRTXamlToolkit\Controls\DelayedLoadControl\DelayedLoadControl.xaml</PackagePath>
-      <Modified>2013-02-24T15:24:17.476</Modified>
+      <Modified>2013-03-03T11:24:11.707</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\packages\winrtxamltoolkit.1.3.5.3\lib\netcore45\WinRTXamlToolkit\Controls\InputDialog\InputDialog.xaml">
+    <AppxPackagedFile Include="D:\Project\GitHub\MetroExplorer\MetroExplorer\packages\winrtxamltoolkit.1.3.5.3\lib\netcore45\WinRTXamlToolkit\Controls\InputDialog\InputDialog.xaml">
       <PackagePath>WinRTXamlToolkit\Controls\InputDialog\InputDialog.xaml</PackagePath>
-      <Modified>2013-02-24T15:24:17.480</Modified>
+      <Modified>2013-03-03T11:24:11.712</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\packages\winrtxamltoolkit.1.3.5.3\lib\netcore45\WinRTXamlToolkit\Controls\WebBrowser\WebBrowser.xaml">
+    <AppxPackagedFile Include="D:\Project\GitHub\MetroExplorer\MetroExplorer\packages\winrtxamltoolkit.1.3.5.3\lib\netcore45\WinRTXamlToolkit\Controls\WebBrowser\WebBrowser.xaml">
       <PackagePath>WinRTXamlToolkit\Controls\WebBrowser\WebBrowser.xaml</PackagePath>
-      <Modified>2013-02-24T15:24:17.484</Modified>
+      <Modified>2013-03-03T11:24:11.717</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\packages\winrtxamltoolkit.1.3.5.3\lib\netcore45\WinRTXamlToolkit\Themes\Generic.xaml">
+    <AppxPackagedFile Include="D:\Project\GitHub\MetroExplorer\MetroExplorer\packages\winrtxamltoolkit.1.3.5.3\lib\netcore45\WinRTXamlToolkit\Themes\Generic.xaml">
       <PackagePath>WinRTXamlToolkit\Themes\Generic.xaml</PackagePath>
-      <Modified>2013-02-24T15:24:17.488</Modified>
+      <Modified>2013-03-03T11:24:11.722</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\Sawyer\Documents\Dev\Windows8MetroExplorer\MetroExplorer\bin\Debug\resources.pri">
+    <AppxPackagedFile Include="D:\Project\GitHub\MetroExplorer\MetroExplorer\MetroExplorer\bin\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2013-02-24T16:01:37.008</Modified>
+      <Modified>2013-03-03T15:02:36.983</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>
