@@ -19,6 +19,7 @@ using Windows.Storage;
 using Windows.Storage.Pickers;
 using WinRTXamlToolkit.Controls.Extensions;
 using Windows.Storage.AccessCache;
+using MetroExplorer.core;
 
 // Pour en savoir plus sur le modèle d'élément Page Éléments groupés, consultez la page http://go.microsoft.com/fwlink/?LinkId=234231
 
@@ -29,29 +30,34 @@ namespace MetroExplorer
     /// </summary>
     public sealed partial class PageMain : LayoutAwarePage, INotifyPropertyChanged
     {
-        private ObservableCollection<ExplorerItem> _explorerItems;
-        public ObservableCollection<ExplorerItem> ExplorerItems
+        ObservableCollection<GroupInfoList<ExplorerItem>> explorerGroups;
+        public ObservableCollection<GroupInfoList<ExplorerItem>> ExplorerGroups
         {
-            get { return _explorerItems; }
+            get
+            {
+                return explorerGroups;
+            }
             set
             {
-                _explorerItems = value;
-                NotifyPropertyChanged("ExplorerItems");
+                explorerGroups = value;
+                NotifyPropertyChanged("ExplorerGroups");   
             }
         }
+
+        Dictionary<ExplorerItem, string> dicItemToken = new Dictionary<ExplorerItem, string>();
 
         public PageMain()
         {
             this.InitializeComponent();
             DataContext = this;
-            ExplorerItems = new ObservableCollection<ExplorerItem>();
-
+            ExplorerGroups = new ObservableCollection<GroupInfoList<ExplorerItem>>();
+            ExplorerGroups.Add(new GroupInfoList<ExplorerItem>() { Key = StringResources.ResourceLoader.GetString("MainPage_UserFolderGroupTitle") });
+            ExplorerGroups.Add(new GroupInfoList<ExplorerItem>() { Key = StringResources.ResourceLoader.GetString("MainPage_SystemFolderGroupTitle") });
             this.Loaded += PageMain_Loaded;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            this.AppBar_BottomAppBar.IsOpen = true;
         }
 
         async void PageMain_Loaded(object sender, RoutedEventArgs e)
@@ -73,42 +79,56 @@ namespace MetroExplorer
                     if (retrievedItem is StorageFolder)
                     {
                         StorageFolder retrievedFolder = retrievedItem as StorageFolder;
-                        ExplorerItems.Add(new ExplorerItem()
+                        if (retrievedFolder.Name.Contains(":\\"))
                         {
-                            Name = retrievedFolder.Name,
-                            Path = retrievedFolder.Path,
-                            StorageFolder = retrievedFolder,
-                            Type = ExplorerItemType.Folder
-                        });
+                            addNewItem(ExplorerGroups[0], retrievedFolder, item.Token);
+                        }
+                        else
+                        {
+                            addNewItem(ExplorerGroups[1], retrievedFolder, item.Token);
+                        }
                     }
                 }
             }
         }
 
+        private void addNewItem(GroupInfoList<ExplorerItem> itemList, StorageFolder retrievedFolder, string token)
+        {
+            ExplorerItem item = new ExplorerItem()
+            {
+                Name = retrievedFolder.Name,
+                Path = retrievedFolder.Path,
+                StorageFolder = retrievedFolder,
+                Type = ExplorerItemType.Folder
+            };
+            itemList.Add(item);
+            dicItemToken.Add(item, token);
+        }
+
         private void initializeSystemFolders()
         {
-            ExplorerItems.Add(new ExplorerItem()
+            ExplorerGroups[0].Add(new ExplorerItem()
             {
                 Name = KnownFolders.PicturesLibrary.Name,
                 Path = KnownFolders.PicturesLibrary.Path,
                 StorageFolder = KnownFolders.PicturesLibrary,
                 Type = ExplorerItemType.Folder
             });
-            ExplorerItems.Add(new ExplorerItem()
+            ExplorerGroups[0].Add(new ExplorerItem()
             {
                 Name = KnownFolders.MusicLibrary.Name,
                 Path = KnownFolders.MusicLibrary.Path,
                 StorageFolder = KnownFolders.MusicLibrary,
                 Type = ExplorerItemType.Folder
             });
-            ExplorerItems.Add(new ExplorerItem()
+            ExplorerGroups[0].Add(new ExplorerItem()
             {
                 Name = KnownFolders.DocumentsLibrary.Name,
                 Path = KnownFolders.DocumentsLibrary.Path,
                 StorageFolder = KnownFolders.DocumentsLibrary,
                 Type = ExplorerItemType.Folder
             });
-            ExplorerItems.Add(new ExplorerItem()
+            ExplorerGroups[0].Add(new ExplorerItem()
             {
                 Name = KnownFolders.VideosLibrary.Name,
                 Path = KnownFolders.VideosLibrary.Path,
@@ -117,7 +137,7 @@ namespace MetroExplorer
             });
             if (KnownFolders.RemovableDevices != null)
             {
-                ExplorerItems.Add(new ExplorerItem()
+                ExplorerGroups[0].Add(new ExplorerItem()
                 {
                     Name = KnownFolders.RemovableDevices.Name,
                     Path = KnownFolders.RemovableDevices.Path,
@@ -127,7 +147,7 @@ namespace MetroExplorer
             }
             if (KnownFolders.MediaServerDevices != null)
             {
-                ExplorerItems.Add(new ExplorerItem()
+                ExplorerGroups[0].Add(new ExplorerItem()
                 {
                     Name = KnownFolders.MediaServerDevices.Name,
                     Path = KnownFolders.MediaServerDevices.Path,
@@ -142,7 +162,7 @@ namespace MetroExplorer
             double offset = ((Windows.UI.Xaml.Controls.ScrollViewer)sender).HorizontalOffset;
             double scroll = ((Windows.UI.Xaml.Controls.ScrollViewer)sender).ScrollableWidth;
             double viewportwidth = ((Windows.UI.Xaml.Controls.ScrollViewer)sender).ViewportWidth;
-            var delta = offset * 90;
+            var delta = offset * 50;
             //var delta = (offset / scroll) * (Image_Background.ActualWidth - viewportwidth);
             Image_Background.Margin = new Thickness(-delta, 0, 0, 0);
 
@@ -165,9 +185,6 @@ namespace MetroExplorer
         private void itemGridView_Tapped(object sender, TappedRoutedEventArgs e)
         {
             ExplorerItem item = itemGridView.SelectedItem as ExplorerItem;
-
-                itemGridView.SelectedItem = null;
-
         }
 
         private async System.Threading.Tasks.Task addNewFolder()
@@ -179,15 +196,13 @@ namespace MetroExplorer
             StorageFolder storageFolder = await folderPicker.PickSingleFolderAsync();
             if (storageFolder != null)
             {
-                ExplorerItem eplItem = new ExplorerItem()
+                string token = Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList.Add(storageFolder, storageFolder.Name);
+                if (storageFolder.Name.Contains(":\\"))
                 {
-                    Name = storageFolder.Name,
-                    Path = storageFolder.Path,
-                    StorageFolder = storageFolder,
-                    Type = ExplorerItemType.Folder
-                };
-                ExplorerItems.Add(eplItem);
-                Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList.Add(storageFolder, storageFolder.Name);
+                    addNewItem(ExplorerGroups[0], storageFolder, token);
+                }
+                else
+                    addNewItem(ExplorerGroups[1], storageFolder, token);
             }
         }
 
@@ -199,9 +214,17 @@ namespace MetroExplorer
         private void Button_RemoveDiskFolder_Click(object sender, RoutedEventArgs e)
         {
             if (itemGridView.SelectedItems == null || itemGridView.SelectedItems.Count == 0) return;
-            for (int i = itemGridView.SelectedItems.Count - 1; i > -1 ; i--)
+            while (itemGridView.SelectedItems.Count > 0)
             {
-                ExplorerItems.Remove(itemGridView.SelectedItems[i] as ExplorerItem);
+                Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList.Remove(dicItemToken[(itemGridView.SelectedItems[0] as ExplorerItem)]);
+                if (ExplorerGroups[0].Contains(itemGridView.SelectedItems[0] as ExplorerItem))
+                {
+                    ExplorerGroups[0].Remove(itemGridView.SelectedItems[0] as ExplorerItem);
+                }
+                else if (ExplorerGroups[1].Contains(itemGridView.SelectedItems[0] as ExplorerItem))
+                {
+                    ExplorerGroups[1].Remove(itemGridView.SelectedItems[0] as ExplorerItem);
+                }
             }
         }
 
@@ -220,16 +243,6 @@ namespace MetroExplorer
         private void itemGridView_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
             BottomAppBar.IsOpen = true;
-        }
-    }
-
-    public class GroupInfoList<T> : ObservableCollection<T>
-    {
-        public string Key { get; set; }
-
-        public new IEnumerator<T> GetEnumerator()
-        {
-            return (System.Collections.Generic.IEnumerator<T>)base.GetEnumerator();
         }
     }
 }

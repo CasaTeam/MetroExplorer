@@ -6,7 +6,6 @@ Assets\StoreLogo.png
 App.xaml
 Common\StandardStyles.xaml
 GroupedItemsPage1.xaml
-ItemsPage1.xaml
 MainPage.xaml
 PageExplorer.xaml
 PageMain.xaml

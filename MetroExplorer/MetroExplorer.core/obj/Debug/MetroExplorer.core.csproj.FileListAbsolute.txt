@@ -26,3 +26,17 @@ D:\Project\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.core\obj\Debug\prico
 D:\Project\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.core\obj\Debug\layout.resfiles.intermediate
 D:\Project\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.core\obj\Debug\resources.resfiles.intermediate
 D:\Project\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.core\obj\Debug\pri.resfiles.intermediate
+C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.core\bin\Debug\MetroExplorer.core.dll
+C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.core\bin\Debug\MetroExplorer.core.pdb
+C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.core\bin\Debug\MetroExplorer.core.pri
+C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.core\obj\Debug\MetroExplorer.core.dll
+C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.core\obj\Debug\MetroExplorer.core.pdb
+C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.core\obj\Debug\priconfig.xml.intermediate
+C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.core\obj\Debug\layout.resfiles.intermediate
+C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.core\obj\Debug\resources.resfiles.intermediate
+C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.core\obj\Debug\pri.resfiles.intermediate
+C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.core\obj\Debug\priconfig.xml
+C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.core\obj\Debug\layout.resfiles
+C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.core\obj\Debug\resources.resfiles
+C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.core\obj\Debug\pri.resfiles
+C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.core\obj\Debug\LanguageQualifiers.txt

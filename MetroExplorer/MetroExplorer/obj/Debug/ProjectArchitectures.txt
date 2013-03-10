@@ -1,3 +1,3 @@
-D:\Project\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.Components.CopyCutPanel\MetroExplorer.Components.CopyCutPanel.csproj;neutral
-D:\Project\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.core\MetroExplorer.core.csproj;neutral
-D:\Project\GitHub\MetroExplorer\MetroExplorer\MetroExplorer\MetroExplorer.csproj;neutral
+C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.Components.CopyCutPanel\MetroExplorer.Components.CopyCutPanel.csproj;neutral
+C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.core\MetroExplorer.core.csproj;neutral
+C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer\MetroExplorer.csproj;neutral
