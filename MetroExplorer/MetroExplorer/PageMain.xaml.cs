@@ -20,6 +20,7 @@ using Windows.Storage.Pickers;
 using WinRTXamlToolkit.Controls.Extensions;
 using Windows.Storage.AccessCache;
 using MetroExplorer.core;
+using Windows.UI.Popups;
 
 // Pour en savoir plus sur le modèle d'élément Page Éléments groupés, consultez la page http://go.microsoft.com/fwlink/?LinkId=234231
 
@@ -59,6 +60,12 @@ namespace MetroExplorer
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
         }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+
+        }
+
 
         async void PageMain_Loaded(object sender, RoutedEventArgs e)
         {
@@ -157,15 +164,19 @@ namespace MetroExplorer
             }
         }
 
+        double lastOffset = 0;
+        double lastDelta = 0;
         void myScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
             double offset = ((Windows.UI.Xaml.Controls.ScrollViewer)sender).HorizontalOffset;
             double scroll = ((Windows.UI.Xaml.Controls.ScrollViewer)sender).ScrollableWidth;
             double viewportwidth = ((Windows.UI.Xaml.Controls.ScrollViewer)sender).ViewportWidth;
-            var delta = offset * 50;
+            var delta = lastDelta + (offset - lastOffset) * 80;
             //var delta = (offset / scroll) * (Image_Background.ActualWidth - viewportwidth);
-            Image_Background.Margin = new Thickness(-delta, 0, 0, 0);
-
+            if (Math.Abs(Image_Background.ActualWidth) > Math.Abs(offset * 90))
+                Image_Background.Margin = new Thickness(-delta, 0, 0, 0);
+            lastOffset = offset;
+            lastDelta = delta;
         }
 
         /// <summary>
@@ -184,7 +195,7 @@ namespace MetroExplorer
 
         private void itemGridView_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            ExplorerItem item = itemGridView.SelectedItem as ExplorerItem;
+
         }
 
         private async System.Threading.Tasks.Task addNewFolder()
@@ -208,7 +219,19 @@ namespace MetroExplorer
 
         private async void Button_AddNewDiskFolder_Click(object sender, RoutedEventArgs e)
         {
-            await addNewFolder();
+            //var menu = new PopupMenu();
+            //menu.Commands.Add(new UICommand(StringResources.ResourceLoader.GetString("MainPage_PopContextMenu_AddNewDiskOrFolder"), async (command) => 
+            //{
+                await addNewFolder();
+            //}));
+            //await menu.ShowForSelectionAsync(GetElementRect((FrameworkElement)sender));
+        }
+
+        public Rect GetElementRect(FrameworkElement element)
+        {
+            GeneralTransform buttonTransform = element.TransformToVisual(null);
+            Point point = buttonTransform.TransformPoint(new Point());
+            return new Rect(point, new Size(element.ActualWidth, element.ActualHeight));
         }
 
         private void Button_RemoveDiskFolder_Click(object sender, RoutedEventArgs e)
@@ -226,6 +249,7 @@ namespace MetroExplorer
                     ExplorerGroups[1].Remove(itemGridView.SelectedItems[0] as ExplorerItem);
                 }
             }
+            BottomAppBar.IsOpen = false;
         }
 
         #region propertychanged
@@ -242,7 +266,14 @@ namespace MetroExplorer
 
         private void itemGridView_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
-            BottomAppBar.IsOpen = true;
+            if(itemGridView.SelectedItems.Count > 0)
+                BottomAppBar.IsOpen = true;
+        }
+
+        private void itemGridView_ItemClick_1(object sender, ItemClickEventArgs e)
+        {
+            ExplorerItem item = e.ClickedItem as ExplorerItem;
+            this.Frame.Navigate(typeof(PageExplorer), item.StorageFolder);
         }
     }
 }

@@ -83,6 +83,19 @@ namespace MetroExplorer.core.Objects
         }
 
         [XmlIgnore]
+        private StorageFile storageFile;
+        [XmlIgnore]
+        public StorageFile StorageFile
+        {
+            get { return storageFile; }
+            set
+            {
+                storageFile = value;
+                NotifyPropertyChanged("StorageFile");
+            }
+        }
+
+        [XmlIgnore]
         private BitmapImage image;
         [XmlIgnore]
         public BitmapImage Image

@@ -105,6 +105,10 @@
       <Project>{e075fa51-c48a-4143-bbb7-e60d13015797}</Project>
       <Name>MetroExplorer.Components.CopyCutPanel</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MetroExplorer.Components.Navigator\MetroExplorer.Components.Navigator.csproj">
+      <Project>{d7f662d5-755f-4a66-ae24-c07654af3b04}</Project>
+      <Name>MetroExplorer.Components.Navigator</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MetroExplorer.core\MetroExplorer.core.csproj">
       <Project>{efff2bc1-84e8-4343-9e49-07cc4d0c8f7b}</Project>
       <Name>MetroExplorer.core</Name>
@@ -195,6 +199,7 @@
       <HintPath>..\packages\winrtxamltoolkit.1.3.5.3\lib\netcore45\WinRTXamlToolkit.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
   </PropertyGroup>

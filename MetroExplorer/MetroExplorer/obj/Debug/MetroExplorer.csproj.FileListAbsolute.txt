@@ -145,10 +145,6 @@ C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer\ob
 C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer\obj\Debug\MetroExplorer.exe
 C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer\obj\Debug\MetroExplorer.pdb
 C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer\obj\Debug\MetroExplorer.csproj.GenerateResource.Cache
-C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer\obj\Debug\priconfig.xml.intermediate
-C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer\obj\Debug\layout.resfiles.intermediate
-C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer\obj\Debug\resources.resfiles.intermediate
-C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer\obj\Debug\pri.resfiles.intermediate
 C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer\obj\Debug\priconfig.xml
 C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer\obj\Debug\layout.resfiles
 C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer\obj\Debug\resources.resfiles
@@ -156,3 +152,6 @@ C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer\ob
 C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer\obj\Debug\LanguageQualifiers.txt
 C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer\obj\Debug\WinRTXamlToolkit.pri.xml
 C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer\obj\Debug\ProjectArchitectures.txt
+C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer\bin\Debug\MetroExplorer.Components.Navigator.winmd
+C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer\bin\Debug\MetroExplorer.Components.Navigator.pdb
+C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer\bin\Debug\MetroExplorer.Components.Navigator.pri

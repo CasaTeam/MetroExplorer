@@ -34,3 +34,23 @@ D:\Project\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.Components.CopyCutPa
 D:\Project\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.Components.CopyCutPanel\obj\Debug\resources.resfiles
 D:\Project\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.Components.CopyCutPanel\obj\Debug\pri.resfiles
 D:\Project\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.Components.CopyCutPanel\obj\Debug\LanguageQualifiers.txt
+C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.Components.CopyCutPanel\bin\Debug\MetroExplorer.Components.CopyCutPanel.winmd
+C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.Components.CopyCutPanel\bin\Debug\MetroExplorer.Components.CopyCutPanel.pdb
+C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.Components.CopyCutPanel\bin\Debug\MetroExplorer.Components.CopyCutPanel.pri
+C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.Components.CopyCutPanel\obj\Debug\CopyCutPanel.g.i.cs
+C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.Components.CopyCutPanel\obj\Debug\CopyCutPanel.g.cs
+C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.Components.CopyCutPanel\obj\Debug\XamlTypeInfo.g.cs
+C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.Components.CopyCutPanel\obj\Debug\CopyCutPanel.xaml
+C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.Components.CopyCutPanel\obj\Debug\MetroExplorer.Components.CopyCutPanel.winmd
+C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.Components.CopyCutPanel\obj\Debug\MetroExplorer.Components.CopyCutPanel.pdb
+C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.Components.CopyCutPanel\obj\Debug\MetroExplorer.Components.CopyCutPanel.winmdobj
+C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.Components.CopyCutPanel\obj\Debug\MetroExplorer.Components.CopyCutPanel.compile.pdb
+C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.Components.CopyCutPanel\obj\Debug\priconfig.xml
+C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.Components.CopyCutPanel\obj\Debug\layout.resfiles
+C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.Components.CopyCutPanel\obj\Debug\resources.resfiles
+C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.Components.CopyCutPanel\obj\Debug\pri.resfiles
+C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.Components.CopyCutPanel\obj\Debug\LanguageQualifiers.txt
+C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.Components.CopyCutPanel\obj\Debug\priconfig.xml.intermediate
+C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.Components.CopyCutPanel\obj\Debug\layout.resfiles.intermediate
+C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.Components.CopyCutPanel\obj\Debug\resources.resfiles.intermediate
+C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.Components.CopyCutPanel\obj\Debug\pri.resfiles.intermediate

@@ -128,53 +128,53 @@ namespace MetroExplorer.MetroExplorer_XamlTypeInfo
 
         private object Activate_3_PageExplorer() { return new global::MetroExplorer.PageExplorer(); }
 
-        private object Activate_4_PageMain() { return new global::MetroExplorer.PageMain(); }
+        private object Activate_4_ObservableCollection() { return new global::System.Collections.ObjectModel.ObservableCollection<MetroExplorer.core.GroupInfoList<global::MetroExplorer.core.Objects.ExplorerItem>>(); }
 
-        private object Activate_5_ObservableCollection() { return new global::System.Collections.ObjectModel.ObservableCollection<MetroExplorer.core.GroupInfoList<global::MetroExplorer.core.Objects.ExplorerItem>>(); }
+        private object Activate_5_Collection() { return new global::System.Collections.ObjectModel.Collection<MetroExplorer.core.GroupInfoList<global::MetroExplorer.core.Objects.ExplorerItem>>(); }
 
-        private object Activate_6_Collection() { return new global::System.Collections.ObjectModel.Collection<MetroExplorer.core.GroupInfoList<global::MetroExplorer.core.Objects.ExplorerItem>>(); }
+        private object Activate_6_GroupInfoList() { return new global::MetroExplorer.core.GroupInfoList<global::MetroExplorer.core.Objects.ExplorerItem>(); }
 
-        private object Activate_7_GroupInfoList() { return new global::MetroExplorer.core.GroupInfoList<global::MetroExplorer.core.Objects.ExplorerItem>(); }
+        private object Activate_7_ObservableCollection() { return new global::System.Collections.ObjectModel.ObservableCollection<global::MetroExplorer.core.Objects.ExplorerItem>(); }
 
-        private object Activate_8_ObservableCollection() { return new global::System.Collections.ObjectModel.ObservableCollection<global::MetroExplorer.core.Objects.ExplorerItem>(); }
+        private object Activate_8_Collection() { return new global::System.Collections.ObjectModel.Collection<global::MetroExplorer.core.Objects.ExplorerItem>(); }
 
-        private object Activate_9_Collection() { return new global::System.Collections.ObjectModel.Collection<global::MetroExplorer.core.Objects.ExplorerItem>(); }
+        private object Activate_9_ExplorerItem() { return new global::MetroExplorer.core.Objects.ExplorerItem(); }
 
-        private object Activate_10_ExplorerItem() { return new global::MetroExplorer.core.Objects.ExplorerItem(); }
+        private object Activate_15_PageMain() { return new global::MetroExplorer.PageMain(); }
 
-        private object Activate_15_PagePreview() { return new global::Windows8MetroExplorer.PagePreview(); }
+        private object Activate_16_PagePreview() { return new global::Windows8MetroExplorer.PagePreview(); }
 
-        private object Activate_16_PageUserGuide() { return new global::Windows8MetroExplorer.PageUserGuide(); }
+        private object Activate_17_PageUserGuide() { return new global::Windows8MetroExplorer.PageUserGuide(); }
 
-        private void VectorAdd_5_ObservableCollection(object instance, object item)
+        private void VectorAdd_4_ObservableCollection(object instance, object item)
         {
             var collection = (global::System.Collections.Generic.ICollection<global::MetroExplorer.core.GroupInfoList<global::MetroExplorer.core.Objects.ExplorerItem>>)instance;
             var newItem = (global::MetroExplorer.core.GroupInfoList<global::MetroExplorer.core.Objects.ExplorerItem>)item;
             collection.Add(newItem);
         }
 
-        private void VectorAdd_6_Collection(object instance, object item)
+        private void VectorAdd_5_Collection(object instance, object item)
         {
             var collection = (global::System.Collections.Generic.ICollection<global::MetroExplorer.core.GroupInfoList<global::MetroExplorer.core.Objects.ExplorerItem>>)instance;
             var newItem = (global::MetroExplorer.core.GroupInfoList<global::MetroExplorer.core.Objects.ExplorerItem>)item;
             collection.Add(newItem);
         }
 
-        private void VectorAdd_7_GroupInfoList(object instance, object item)
+        private void VectorAdd_6_GroupInfoList(object instance, object item)
         {
             var collection = (global::System.Collections.Generic.ICollection<global::MetroExplorer.core.Objects.ExplorerItem>)instance;
             var newItem = (global::MetroExplorer.core.Objects.ExplorerItem)item;
             collection.Add(newItem);
         }
 
-        private void VectorAdd_8_ObservableCollection(object instance, object item)
+        private void VectorAdd_7_ObservableCollection(object instance, object item)
         {
             var collection = (global::System.Collections.Generic.ICollection<global::MetroExplorer.core.Objects.ExplorerItem>)instance;
             var newItem = (global::MetroExplorer.core.Objects.ExplorerItem)item;
             collection.Add(newItem);
         }
 
-        private void VectorAdd_9_Collection(object instance, object item)
+        private void VectorAdd_8_Collection(object instance, object item)
         {
             var collection = (global::System.Collections.Generic.ICollection<global::MetroExplorer.core.Objects.ExplorerItem>)instance;
             var newItem = (global::MetroExplorer.core.Objects.ExplorerItem)item;
@@ -238,12 +238,6 @@ namespace MetroExplorer.MetroExplorer_XamlTypeInfo
             case "MetroExplorer.PageExplorer":
                 userType = new global::MetroExplorer.MetroExplorer_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::MetroExplorer.PageExplorer), GetXamlTypeByName("MetroExplorer.Common.LayoutAwarePage"));
                 userType.Activator = Activate_3_PageExplorer;
-                xamlType = userType;
-                break;
-
-            case "MetroExplorer.PageMain":
-                userType = new global::MetroExplorer.MetroExplorer_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::MetroExplorer.PageMain), GetXamlTypeByName("MetroExplorer.Common.LayoutAwarePage"));
-                userType.Activator = Activate_4_PageMain;
                 userType.AddMemberName("ExplorerGroups");
                 AddToMapOfTypeToStandardName(typeof(global::System.Collections.ObjectModel.ObservableCollection<MetroExplorer.core.GroupInfoList<global::MetroExplorer.core.Objects.ExplorerItem>>),
                                                    "System.Collections.ObjectModel.ObservableCollection<MetroExplorer.core.GroupInfoList<MetroExplorer.core.Objects.ExplorerItem>>");
@@ -254,8 +248,8 @@ namespace MetroExplorer.MetroExplorer_XamlTypeInfo
                 userType = new global::MetroExplorer.MetroExplorer_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::System.Collections.ObjectModel.ObservableCollection<MetroExplorer.core.GroupInfoList<global::MetroExplorer.core.Objects.ExplorerItem>>), GetXamlTypeByName("System.Collections.ObjectModel.Collection<MetroExplorer.core.GroupInfoList<MetroExplorer.core.Objects.ExplorerItem>>"));
                 AddToMapOfTypeToStandardName(typeof(global::System.Collections.ObjectModel.ObservableCollection<MetroExplorer.core.GroupInfoList<global::MetroExplorer.core.Objects.ExplorerItem>>),
                                                    "System.Collections.ObjectModel.ObservableCollection<MetroExplorer.core.GroupInfoList<MetroExplorer.core.Objects.ExplorerItem>>");
-                userType.Activator = Activate_5_ObservableCollection;
-                userType.CollectionAdd = VectorAdd_5_ObservableCollection;
+                userType.Activator = Activate_4_ObservableCollection;
+                userType.CollectionAdd = VectorAdd_4_ObservableCollection;
                 xamlType = userType;
                 break;
 
@@ -263,8 +257,8 @@ namespace MetroExplorer.MetroExplorer_XamlTypeInfo
                 userType = new global::MetroExplorer.MetroExplorer_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::System.Collections.ObjectModel.Collection<MetroExplorer.core.GroupInfoList<global::MetroExplorer.core.Objects.ExplorerItem>>), GetXamlTypeByName("Object"));
                 AddToMapOfTypeToStandardName(typeof(global::System.Collections.ObjectModel.Collection<MetroExplorer.core.GroupInfoList<global::MetroExplorer.core.Objects.ExplorerItem>>),
                                                    "System.Collections.ObjectModel.Collection<MetroExplorer.core.GroupInfoList<MetroExplorer.core.Objects.ExplorerItem>>");
-                userType.Activator = Activate_6_Collection;
-                userType.CollectionAdd = VectorAdd_6_Collection;
+                userType.Activator = Activate_5_Collection;
+                userType.CollectionAdd = VectorAdd_5_Collection;
                 xamlType = userType;
                 break;
 
@@ -272,8 +266,8 @@ namespace MetroExplorer.MetroExplorer_XamlTypeInfo
                 userType = new global::MetroExplorer.MetroExplorer_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::MetroExplorer.core.GroupInfoList<global::MetroExplorer.core.Objects.ExplorerItem>), GetXamlTypeByName("System.Collections.ObjectModel.ObservableCollection<MetroExplorer.core.Objects.ExplorerItem>"));
                 AddToMapOfTypeToStandardName(typeof(global::MetroExplorer.core.GroupInfoList<global::MetroExplorer.core.Objects.ExplorerItem>),
                                                    "MetroExplorer.core.GroupInfoList<MetroExplorer.core.Objects.ExplorerItem>");
-                userType.Activator = Activate_7_GroupInfoList;
-                userType.CollectionAdd = VectorAdd_7_GroupInfoList;
+                userType.Activator = Activate_6_GroupInfoList;
+                userType.CollectionAdd = VectorAdd_6_GroupInfoList;
                 userType.AddMemberName("Key");
                 AddToMapOfTypeToStandardName(typeof(global::System.String),
                                                    "String");
@@ -284,8 +278,8 @@ namespace MetroExplorer.MetroExplorer_XamlTypeInfo
                 userType = new global::MetroExplorer.MetroExplorer_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::System.Collections.ObjectModel.ObservableCollection<global::MetroExplorer.core.Objects.ExplorerItem>), GetXamlTypeByName("System.Collections.ObjectModel.Collection<MetroExplorer.core.Objects.ExplorerItem>"));
                 AddToMapOfTypeToStandardName(typeof(global::System.Collections.ObjectModel.ObservableCollection<global::MetroExplorer.core.Objects.ExplorerItem>),
                                                    "System.Collections.ObjectModel.ObservableCollection<MetroExplorer.core.Objects.ExplorerItem>");
-                userType.Activator = Activate_8_ObservableCollection;
-                userType.CollectionAdd = VectorAdd_8_ObservableCollection;
+                userType.Activator = Activate_7_ObservableCollection;
+                userType.CollectionAdd = VectorAdd_7_ObservableCollection;
                 xamlType = userType;
                 break;
 
@@ -293,8 +287,8 @@ namespace MetroExplorer.MetroExplorer_XamlTypeInfo
                 userType = new global::MetroExplorer.MetroExplorer_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::System.Collections.ObjectModel.Collection<global::MetroExplorer.core.Objects.ExplorerItem>), GetXamlTypeByName("Object"));
                 AddToMapOfTypeToStandardName(typeof(global::System.Collections.ObjectModel.Collection<global::MetroExplorer.core.Objects.ExplorerItem>),
                                                    "System.Collections.ObjectModel.Collection<MetroExplorer.core.Objects.ExplorerItem>");
-                userType.Activator = Activate_9_Collection;
-                userType.CollectionAdd = VectorAdd_9_Collection;
+                userType.Activator = Activate_8_Collection;
+                userType.CollectionAdd = VectorAdd_8_Collection;
                 userType.AddMemberName("Count");
                 AddToMapOfTypeToStandardName(typeof(global::System.Int32),
                                                    "Int32");
@@ -303,7 +297,7 @@ namespace MetroExplorer.MetroExplorer_XamlTypeInfo
 
             case "MetroExplorer.core.Objects.ExplorerItem":
                 userType = new global::MetroExplorer.MetroExplorer_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::MetroExplorer.core.Objects.ExplorerItem), GetXamlTypeByName("Object"));
-                userType.Activator = Activate_10_ExplorerItem;
+                userType.Activator = Activate_9_ExplorerItem;
                 userType.AddMemberName("Name");
                 AddToMapOfTypeToStandardName(typeof(global::System.String),
                                                    "String");
@@ -318,6 +312,7 @@ namespace MetroExplorer.MetroExplorer_XamlTypeInfo
                                                    "Double");
                 userType.AddMemberName("Type");
                 userType.AddMemberName("StorageFolder");
+                userType.AddMemberName("StorageFile");
                 userType.AddMemberName("Image");
                 xamlType = userType;
                 break;
@@ -344,15 +339,29 @@ namespace MetroExplorer.MetroExplorer_XamlTypeInfo
                 xamlType = userType;
                 break;
 
+            case "Windows.Storage.StorageFile":
+                userType = new global::MetroExplorer.MetroExplorer_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::Windows.Storage.StorageFile), GetXamlTypeByName("Object"));
+                xamlType = userType;
+                break;
+
+            case "MetroExplorer.PageMain":
+                userType = new global::MetroExplorer.MetroExplorer_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::MetroExplorer.PageMain), GetXamlTypeByName("MetroExplorer.Common.LayoutAwarePage"));
+                userType.Activator = Activate_15_PageMain;
+                userType.AddMemberName("ExplorerGroups");
+                AddToMapOfTypeToStandardName(typeof(global::System.Collections.ObjectModel.ObservableCollection<MetroExplorer.core.GroupInfoList<global::MetroExplorer.core.Objects.ExplorerItem>>),
+                                                   "System.Collections.ObjectModel.ObservableCollection<MetroExplorer.core.GroupInfoList<MetroExplorer.core.Objects.ExplorerItem>>");
+                xamlType = userType;
+                break;
+
             case "Windows8MetroExplorer.PagePreview":
                 userType = new global::MetroExplorer.MetroExplorer_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::Windows8MetroExplorer.PagePreview), GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_15_PagePreview;
+                userType.Activator = Activate_16_PagePreview;
                 xamlType = userType;
                 break;
 
             case "Windows8MetroExplorer.PageUserGuide":
                 userType = new global::MetroExplorer.MetroExplorer_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::Windows8MetroExplorer.PageUserGuide), GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_16_PageUserGuide;
+                userType.Activator = Activate_17_PageUserGuide;
                 xamlType = userType;
                 break;
 
@@ -370,6 +379,8 @@ namespace MetroExplorer.MetroExplorer_XamlTypeInfo
                     _otherProviders = new global::System.Collections.Generic.List<global::Windows.UI.Xaml.Markup.IXamlMetadataProvider>();
                     global::Windows.UI.Xaml.Markup.IXamlMetadataProvider provider;
                     provider = new global::MetroExplorer.Components.CopyCutPanel.MetroExplorer_Components_CopyCutPanel_XamlTypeInfo.XamlMetaDataProvider() as global::Windows.UI.Xaml.Markup.IXamlMetadataProvider;
+                    _otherProviders.Add(provider); 
+                    provider = new global::MetroExplorer.Components.Navigator.MetroExplorer_Components_Navigator_XamlTypeInfo.XamlMetaDataProvider() as global::Windows.UI.Xaml.Markup.IXamlMetadataProvider;
                     _otherProviders.Add(provider); 
                     provider = new global::WinRTXamlToolkit.WinRTXamlToolkit_XamlTypeInfo.XamlMetaDataProvider() as global::Windows.UI.Xaml.Markup.IXamlMetadataProvider;
                     _otherProviders.Add(provider); 
@@ -406,14 +417,14 @@ namespace MetroExplorer.MetroExplorer_XamlTypeInfo
             return null;
         }
 
-        private object get_0_PageMain_ExplorerGroups(object instance)
+        private object get_0_PageExplorer_ExplorerGroups(object instance)
         {
-            var that = (global::MetroExplorer.PageMain)instance;
+            var that = (global::MetroExplorer.PageExplorer)instance;
             return that.ExplorerGroups;
         }
-        private void set_0_PageMain_ExplorerGroups(object instance, object Value)
+        private void set_0_PageExplorer_ExplorerGroups(object instance, object Value)
         {
-            var that = (global::MetroExplorer.PageMain)instance;
+            var that = (global::MetroExplorer.PageExplorer)instance;
             that.ExplorerGroups = (global::System.Collections.ObjectModel.ObservableCollection<MetroExplorer.core.GroupInfoList<global::MetroExplorer.core.Objects.ExplorerItem>>)Value;
         }
         private object get_1_ExplorerItem_Name(object instance)
@@ -476,30 +487,50 @@ namespace MetroExplorer.MetroExplorer_XamlTypeInfo
             var that = (global::MetroExplorer.core.Objects.ExplorerItem)instance;
             that.StorageFolder = (global::Windows.Storage.StorageFolder)Value;
         }
-        private object get_7_ExplorerItem_Image(object instance)
+        private object get_7_ExplorerItem_StorageFile(object instance)
+        {
+            var that = (global::MetroExplorer.core.Objects.ExplorerItem)instance;
+            return that.StorageFile;
+        }
+        private void set_7_ExplorerItem_StorageFile(object instance, object Value)
+        {
+            var that = (global::MetroExplorer.core.Objects.ExplorerItem)instance;
+            that.StorageFile = (global::Windows.Storage.StorageFile)Value;
+        }
+        private object get_8_ExplorerItem_Image(object instance)
         {
             var that = (global::MetroExplorer.core.Objects.ExplorerItem)instance;
             return that.Image;
         }
-        private void set_7_ExplorerItem_Image(object instance, object Value)
+        private void set_8_ExplorerItem_Image(object instance, object Value)
         {
             var that = (global::MetroExplorer.core.Objects.ExplorerItem)instance;
             that.Image = (global::Windows.UI.Xaml.Media.Imaging.BitmapImage)Value;
         }
-        private object get_8_GroupInfoList_Key(object instance)
+        private object get_9_GroupInfoList_Key(object instance)
         {
             var that = (global::MetroExplorer.core.GroupInfoList<global::MetroExplorer.core.Objects.ExplorerItem>)instance;
             return that.Key;
         }
-        private void set_8_GroupInfoList_Key(object instance, object Value)
+        private void set_9_GroupInfoList_Key(object instance, object Value)
         {
             var that = (global::MetroExplorer.core.GroupInfoList<global::MetroExplorer.core.Objects.ExplorerItem>)instance;
             that.Key = (global::System.String)Value;
         }
-        private object get_9_Collection_Count(object instance)
+        private object get_10_Collection_Count(object instance)
         {
             var that = (global::System.Collections.ObjectModel.Collection<global::MetroExplorer.core.Objects.ExplorerItem>)instance;
             return that.Count;
+        }
+        private object get_11_PageMain_ExplorerGroups(object instance)
+        {
+            var that = (global::MetroExplorer.PageMain)instance;
+            return that.ExplorerGroups;
+        }
+        private void set_11_PageMain_ExplorerGroups(object instance, object Value)
+        {
+            var that = (global::MetroExplorer.PageMain)instance;
+            that.ExplorerGroups = (global::System.Collections.ObjectModel.ObservableCollection<MetroExplorer.core.GroupInfoList<global::MetroExplorer.core.Objects.ExplorerItem>>)Value;
         }
 
         private global::Windows.UI.Xaml.Markup.IXamlMember CreateXamlMember(string longMemberName)
@@ -509,11 +540,11 @@ namespace MetroExplorer.MetroExplorer_XamlTypeInfo
 
             switch (longMemberName)
             {
-            case "MetroExplorer.PageMain.ExplorerGroups":
-                userType = (global::MetroExplorer.MetroExplorer_XamlTypeInfo.XamlUserType)GetXamlTypeByName("MetroExplorer.PageMain");
+            case "MetroExplorer.PageExplorer.ExplorerGroups":
+                userType = (global::MetroExplorer.MetroExplorer_XamlTypeInfo.XamlUserType)GetXamlTypeByName("MetroExplorer.PageExplorer");
                 xamlMember = new global::MetroExplorer.MetroExplorer_XamlTypeInfo.XamlMember(this, "ExplorerGroups", "System.Collections.ObjectModel.ObservableCollection<MetroExplorer.core.GroupInfoList<MetroExplorer.core.Objects.ExplorerItem>>");
-                xamlMember.Getter = get_0_PageMain_ExplorerGroups;
-                xamlMember.Setter = set_0_PageMain_ExplorerGroups;
+                xamlMember.Getter = get_0_PageExplorer_ExplorerGroups;
+                xamlMember.Setter = set_0_PageExplorer_ExplorerGroups;
                 break;
             case "MetroExplorer.core.Objects.ExplorerItem.Name":
                 userType = (global::MetroExplorer.MetroExplorer_XamlTypeInfo.XamlUserType)GetXamlTypeByName("MetroExplorer.core.Objects.ExplorerItem");
@@ -551,23 +582,35 @@ namespace MetroExplorer.MetroExplorer_XamlTypeInfo
                 xamlMember.Getter = get_6_ExplorerItem_StorageFolder;
                 xamlMember.Setter = set_6_ExplorerItem_StorageFolder;
                 break;
+            case "MetroExplorer.core.Objects.ExplorerItem.StorageFile":
+                userType = (global::MetroExplorer.MetroExplorer_XamlTypeInfo.XamlUserType)GetXamlTypeByName("MetroExplorer.core.Objects.ExplorerItem");
+                xamlMember = new global::MetroExplorer.MetroExplorer_XamlTypeInfo.XamlMember(this, "StorageFile", "Windows.Storage.StorageFile");
+                xamlMember.Getter = get_7_ExplorerItem_StorageFile;
+                xamlMember.Setter = set_7_ExplorerItem_StorageFile;
+                break;
             case "MetroExplorer.core.Objects.ExplorerItem.Image":
                 userType = (global::MetroExplorer.MetroExplorer_XamlTypeInfo.XamlUserType)GetXamlTypeByName("MetroExplorer.core.Objects.ExplorerItem");
                 xamlMember = new global::MetroExplorer.MetroExplorer_XamlTypeInfo.XamlMember(this, "Image", "Windows.UI.Xaml.Media.Imaging.BitmapImage");
-                xamlMember.Getter = get_7_ExplorerItem_Image;
-                xamlMember.Setter = set_7_ExplorerItem_Image;
+                xamlMember.Getter = get_8_ExplorerItem_Image;
+                xamlMember.Setter = set_8_ExplorerItem_Image;
                 break;
             case "MetroExplorer.core.GroupInfoList<MetroExplorer.core.Objects.ExplorerItem>.Key":
                 userType = (global::MetroExplorer.MetroExplorer_XamlTypeInfo.XamlUserType)GetXamlTypeByName("MetroExplorer.core.GroupInfoList<MetroExplorer.core.Objects.ExplorerItem>");
                 xamlMember = new global::MetroExplorer.MetroExplorer_XamlTypeInfo.XamlMember(this, "Key", "String");
-                xamlMember.Getter = get_8_GroupInfoList_Key;
-                xamlMember.Setter = set_8_GroupInfoList_Key;
+                xamlMember.Getter = get_9_GroupInfoList_Key;
+                xamlMember.Setter = set_9_GroupInfoList_Key;
                 break;
             case "System.Collections.ObjectModel.Collection<MetroExplorer.core.Objects.ExplorerItem>.Count":
                 userType = (global::MetroExplorer.MetroExplorer_XamlTypeInfo.XamlUserType)GetXamlTypeByName("System.Collections.ObjectModel.Collection<MetroExplorer.core.Objects.ExplorerItem>");
                 xamlMember = new global::MetroExplorer.MetroExplorer_XamlTypeInfo.XamlMember(this, "Count", "Int32");
-                xamlMember.Getter = get_9_Collection_Count;
+                xamlMember.Getter = get_10_Collection_Count;
                 xamlMember.SetIsReadOnly();
+                break;
+            case "MetroExplorer.PageMain.ExplorerGroups":
+                userType = (global::MetroExplorer.MetroExplorer_XamlTypeInfo.XamlUserType)GetXamlTypeByName("MetroExplorer.PageMain");
+                xamlMember = new global::MetroExplorer.MetroExplorer_XamlTypeInfo.XamlMember(this, "ExplorerGroups", "System.Collections.ObjectModel.ObservableCollection<MetroExplorer.core.GroupInfoList<MetroExplorer.core.Objects.ExplorerItem>>");
+                xamlMember.Getter = get_11_PageMain_ExplorerGroups;
+                xamlMember.Setter = set_11_PageMain_ExplorerGroups;
                 break;
             }
             return xamlMember;

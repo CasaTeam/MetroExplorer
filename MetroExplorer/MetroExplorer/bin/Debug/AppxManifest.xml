@@ -61,6 +61,10 @@
         <Path>CLRHost.dll</Path>
         <ActivatableClass ActivatableClassId="MetroExplorer.Components.CopyCutPanel.MetroExplorer_Components_CopyCutPanel_XamlTypeInfo.XamlMetaDataProvider" ThreadingModel="both" />
         <ActivatableClass ActivatableClassId="MetroExplorer.Components.CopyCutPanel.CopyCutPanel" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="MetroExplorer.Components.Navigator.MetroExplorer_Components_Navigator_XamlTypeInfo.XamlMetaDataProvider" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="MetroExplorer.Components.Navigator.Navigator" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="MetroExplorer.Components.Navigator.Objects.NavigatorNodeCommand" ThreadingModel="both" />
+        <ActivatableClass ActivatableClassId="MetroExplorer.Components.Navigator.Objects.NavigatorNode" ThreadingModel="both" />
       </InProcessServer>
     </Extension>
   </Extensions>

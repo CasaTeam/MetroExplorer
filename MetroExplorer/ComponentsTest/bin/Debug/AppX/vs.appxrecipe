@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Machine>PERSONNALISER</Machine>
+    <WindowsUser>Rue Cadet</WindowsUser>
+    <SolutionConfiguration>Debug|AnyCPU</SolutionConfiguration>
+    <PackageArchitecture>neutral</PackageArchitecture>
+    <RegisteredManifestChecksum>0A2A5CA24085A92979FD2FD90427BC9B39D4FF93CE4CB2A7F6C6AA4E6CE37A4C</RegisteredManifestChecksum>
+    <RegisteredPackageMoniker>4ca50d4f-a1b2-463f-9823-c767aefcfbe8_1.0.0.0_neutral__y4fp65qnpbpxr</RegisteredPackageMoniker>
+    <RegisteredUserModeAppID>4ca50d4f-a1b2-463f-9823-c767aefcfbe8_y4fp65qnpbpxr!App</RegisteredUserModeAppID>
+    <RegisteredPackageID>4ca50d4f-a1b2-463f-9823-c767aefcfbe8</RegisteredPackageID>
+    <RegisteredPackagePublisher>CN=Sawyer</RegisteredPackagePublisher>
+    <RegisteredVersion>1.0.0.0</RegisteredVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <AppXManifest Include="C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\ComponentsTest\bin\Debug\AppxManifest.xml">
+      <PackagePath>AppxManifest.xml</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2013-03-10T14:30:56.807</Modified>
+    </AppXManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxPackagedFile Include="C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\ComponentsTest\bin\Debug\ComponentsTest.exe">
+      <PackagePath>ComponentsTest.exe</PackagePath>
+      <Modified>2013-03-10T14:30:55.185</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\ComponentsTest\bin\Debug\ComponentsTest.pdb">
+      <PackagePath>ComponentsTest.pdb</PackagePath>
+      <Modified>2013-03-10T14:30:55.171</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.Components.Navigator\bin\Debug\MetroExplorer.Components.Navigator.pdb">
+      <PackagePath>MetroExplorer.Components.Navigator.pdb</PackagePath>
+      <Modified>2013-03-10T14:30:53.971</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.Components.Navigator\bin\Debug\MetroExplorer.Components.Navigator.winmd">
+      <PackagePath>MetroExplorer.Components.Navigator.winmd</PackagePath>
+      <Modified>2013-03-10T14:30:53.972</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\ComponentsTest\Assets\Logo.png">
+      <PackagePath>Assets\Logo.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2012-06-06T01:18:14.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\ComponentsTest\Assets\SmallLogo.png">
+      <PackagePath>Assets\SmallLogo.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2012-06-06T01:18:14.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\ComponentsTest\Assets\SplashScreen.png">
+      <PackagePath>Assets\SplashScreen.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2012-06-06T01:18:14.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\ComponentsTest\Assets\StoreLogo.png">
+      <PackagePath>Assets\StoreLogo.png</PackagePath>
+      <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+      <Modified>2012-06-06T01:18:14.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\ComponentsTest\bin\Debug\App.xaml">
+      <PackagePath>App.xaml</PackagePath>
+      <Modified>2013-03-06T20:22:25.766</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\ComponentsTest\bin\Debug\Common\StandardStyles.xaml">
+      <PackagePath>Common\StandardStyles.xaml</PackagePath>
+      <Modified>2012-07-26T19:25:16.000</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\ComponentsTest\bin\Debug\MainPage.xaml">
+      <PackagePath>MainPage.xaml</PackagePath>
+      <Modified>2013-03-10T10:48:02.888</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.Components.Navigator\bin\Debug\Themes\Generic.xaml">
+      <PackagePath>MetroExplorer.Components.Navigator\Themes\Generic.xaml</PackagePath>
+      <Modified>2013-03-10T12:07:42.657</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\ComponentsTest\bin\Debug\resources.pri">
+      <PackagePath>resources.pri</PackagePath>
+      <Modified>2013-03-10T10:45:27.620</Modified>
+    </AppxPackagedFile>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+</Project>

@@ -73,17 +73,14 @@
             Padding="116,137,40,46"
             ItemsSource="{Binding Source={StaticResource groupedItemsViewSource}}"
             ItemTemplate="{StaticResource Standard300x180ItemTemplate}"
-            CanDragItems="True" CanReorderItems="True"
+            CanReorderItems="True"
             IsSwipeEnabled="True" IsItemClickEnabled="True"
             IsRightTapEnabled="True"
-            IsHoldingEnabled="True"
-            IsActiveView="True"
+            IsHoldingEnabled="True" 
                                                               
-            IsDoubleTapEnabled="True"
             AllowDrop="True"
-            ManipulationMode="All"
-            UseLayoutRounding="True" 
             IsTapEnabled="True"
+                                                
                                         
             SelectionMode="Multiple">
             <GridView.ItemsPanel>
@@ -152,25 +149,21 @@
     		
 
     	<!-- Bouton Précédent et titre de la page -->
-    	<Grid Height="140" HorizontalAlignment="Stretch" VerticalAlignment="Top">
-    		<Grid.ColumnDefinitions>
-    			<ColumnDefinition Width="Auto"/>
-    			<ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-    		</Grid.ColumnDefinitions>
-    		<Button x:ConnectionId='3' x:Name="backButton"                IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
-    		<TextBlock x:Name="pageTitle" Text="{StaticResource AppName}" Grid.Column="1" IsHitTestVisible="false" Style="{StaticResource PageHeaderTextStyle}"/>
-            <Button x:ConnectionId='4'                                       Grid.Column="2"
-                        x:Uid="Uid_Page_Main_Button_AddNewShortCutFolder"
-                        Margin="5" HorizontalAlignment="Center">
+    	<StackPanel Height="75" Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="BlueViolet">
+    		<Image Height="40" Width="100" Margin="30,0,10,0" />
+    		<TextBlock x:Name="pageTitle" Text="{StaticResource AppName}" x:Uid="Uid_PageMain_PageTitle"
+                       IsHitTestVisible="false" Margin="5,15,5,5" VerticalAlignment="Center" FontSize="40" FontWeight="Light"/>
+            <Button x:ConnectionId='3'                                       
+                x:Uid="Uid_Page_Main_Button_AddNewShortCutFolder"
+                Margin="120, 7, 0, 1" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Button.Style>
-                    <Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
+                    <Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle2}">
                         <Setter Property="AutomationProperties.Name" Value=""/>
                         <Setter Property="Content" Value="&#xE109;"/>
                     </Style>
                 </Button.Style>
             </Button>
-        </Grid>
+        </StackPanel>
 
 
 

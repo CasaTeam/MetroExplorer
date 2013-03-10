@@ -22,11 +22,17 @@
     <AppxPackagedFile Include="C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.Components.CopyCutPanel\bin\Debug\MetroExplorer.Components.CopyCutPanel.pdb">
       <PackagePath>MetroExplorer.Components.CopyCutPanel.pdb</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.Components.Navigator\bin\Debug\MetroExplorer.Components.Navigator.pdb">
+      <PackagePath>MetroExplorer.Components.Navigator.pdb</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.core\bin\Debug\MetroExplorer.core.pdb">
       <PackagePath>MetroExplorer.core.pdb</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.Components.CopyCutPanel\bin\Debug\MetroExplorer.Components.CopyCutPanel.winmd">
       <PackagePath>MetroExplorer.Components.CopyCutPanel.winmd</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.Components.Navigator\bin\Debug\MetroExplorer.Components.Navigator.winmd">
+      <PackagePath>MetroExplorer.Components.Navigator.winmd</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.core\bin\Debug\MetroExplorer.core.dll">
       <PackagePath>MetroExplorer.core.dll</PackagePath>
@@ -82,6 +88,9 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.Components.CopyCutPanel\bin\Debug\CopyCutPanel.xaml">
       <PackagePath>MetroExplorer.Components.CopyCutPanel\CopyCutPanel.xaml</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.Components.Navigator\bin\Debug\Themes\Generic.xaml">
+      <PackagePath>MetroExplorer.Components.Navigator\Themes\Generic.xaml</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\packages\winrtxamltoolkit.1.3.5.3\lib\netcore45\WinRTXamlToolkit\Controls\AnimatingContainer.xaml">
       <PackagePath>WinRTXamlToolkit\Controls\AnimatingContainer.xaml</PackagePath>

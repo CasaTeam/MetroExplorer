@@ -2,13 +2,13 @@
 <resources>
   <index root="\" startIndexAt="obj\Debug\layout.resfiles">
     <default>
-      <qualifier name="language" value="en-US" />
+      <qualifier name="language" value="fr-FR" />
     </default>
     <indexer-config type="RESFILES" qualifierDelimiter="." />
   </index>
   <index root="\" startIndexAt="obj\Debug\resources.resfiles">
     <default>
-      <qualifier name="language" value="en-US" />
+      <qualifier name="language" value="fr-FR" />
     </default>
     <indexer-config type="RESW" convertDotsToSlashes="true" />
     <indexer-config type="RESJSON" />
@@ -16,7 +16,7 @@
   </index>
   <index root="\" startIndexAt="obj\Debug\pri.resfiles">
     <default>
-      <qualifier name="language" value="en-US" />
+      <qualifier name="language" value="fr-FR" />
     </default>
     <indexer-config type="PRI" />
     <indexer-config type="RESFILES" qualifierDelimiter="." />
