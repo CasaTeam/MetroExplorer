@@ -1,1 +1,0 @@
-C:\GitHub\Windows8MetroExplorer\Windows8MetroExplorer\Windows8MetroExplorer.csproj;neutral
