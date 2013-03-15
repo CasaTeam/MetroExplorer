@@ -1,2 +1,0 @@
-C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\ComponentsTest\ComponentsTest.csproj;neutral
-C:\Users\Rue Cadet\Documents\GitHub\MetroExplorer\MetroExplorer\MetroExplorer.Components.Navigator\MetroExplorer.Components.Navigator.csproj;neutral
