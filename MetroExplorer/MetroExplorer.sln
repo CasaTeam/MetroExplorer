@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroExplorer.Components.Co
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Components", "Components", "{A54D228B-4CF2-4CC0-AE45-C1D2392DBE6A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComponentsTest", "ComponentsTest\ComponentsTest.csproj", "{DF5EFE3B-7127-4DB4-AB6C-E7F75A0814C9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroExplorer.Components.Test", "MetroExplorer.Components.Test\MetroExplorer.Components.Test.csproj", "{DF5EFE3B-7127-4DB4-AB6C-E7F75A0814C9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroExplorer.Components.Navigator", "MetroExplorer.Components.Navigator\MetroExplorer.Components.Navigator.csproj", "{D7F662D5-755F-4A66-AE24-C07654AF3B04}"
 EndProject
@@ -128,5 +128,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{E075FA51-C48A-4143-BBB7-E60D13015797} = {A54D228B-4CF2-4CC0-AE45-C1D2392DBE6A}
 		{D7F662D5-755F-4A66-AE24-C07654AF3B04} = {A54D228B-4CF2-4CC0-AE45-C1D2392DBE6A}
+		{DF5EFE3B-7127-4DB4-AB6C-E7F75A0814C9} = {A54D228B-4CF2-4CC0-AE45-C1D2392DBE6A}
 	EndGlobalSection
 EndGlobal

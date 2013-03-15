@@ -7,8 +7,8 @@
     <ProjectGuid>{DF5EFE3B-7127-4DB4-AB6C-E7F75A0814C9}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ComponentsTest</RootNamespace>
-    <AssemblyName>ComponentsTest</AssemblyName>
+    <RootNamespace>MetroExplorer.Components.Test</RootNamespace>
+    <AssemblyName>MetroExplorer.Components.Test</AssemblyName>
     <DefaultLanguage>fr-FR</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>

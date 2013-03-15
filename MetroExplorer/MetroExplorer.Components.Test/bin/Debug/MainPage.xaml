@@ -1,20 +1,21 @@
 ﻿<Page
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:ComponentsTest"
+    xmlns:local="using:MetroExplorer.Components.Test"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Navigator="using:MetroExplorer.Components.Navigator"
-    x:Class="ComponentsTest.MainPage"
+    x:Class="MetroExplorer.Components.Test.MainPage"
     mc:Ignorable="d">
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
 
-    	<Navigator:Navigator x:Name="Navigator" VerticalAlignment="Top" Width="800" Margin="200,0" NPathChanged="Navigator_NPathChanged"/>
-    	<Button Content="Button" HorizontalAlignment="Left" Margin="225,320,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
+    	<Navigator:Navigator x:ConnectionId='1' x:Name="Navigator" VerticalAlignment="Top" Width="800" Margin="200,0"                                      />
+    	<Button x:ConnectionId='2' Content="Button" HorizontalAlignment="Left" Margin="225,320,0,0" VerticalAlignment="Top"                       />
     	<TextBox x:Name="TextBoxPath" Margin="0,382,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="38" Text="C:\Program Files\Microsoft SDK\MetroExplorer\Version1\Sawyer\bin\aaaaaa\bbbbbb\cccccc\ddddd\eeeee\fffffffff\Components.Navigator.dll" FontSize="17.333"/>
     	<TextBlock x:Name="TextBlockCurrentPath" Margin="150,440,0,0" TextWrapping="Wrap" Text="{Binding Path, ElementName=Navigator}" VerticalAlignment="Top" FontSize="17.333"/>
     	<TextBlock HorizontalAlignment="Left" Height="29" Margin="10,440,0,0" TextWrapping="Wrap" Text="Current Path" VerticalAlignment="Top" Width="101" FontSize="17.333"/>
 
     </Grid>
 </Page>
+
