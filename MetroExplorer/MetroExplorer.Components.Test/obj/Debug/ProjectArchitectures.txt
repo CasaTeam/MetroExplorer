@@ -1,2 +1,0 @@
-C:\Users\Sawyer\Documents\Dev\MetroExplorer\MetroExplorer\MetroExplorer.Components.Navigator\MetroExplorer.Components.Navigator.csproj;neutral
-C:\Users\Sawyer\Documents\Dev\MetroExplorer\MetroExplorer\MetroExplorer.Components.Test\MetroExplorer.Components.Test.csproj;neutral
