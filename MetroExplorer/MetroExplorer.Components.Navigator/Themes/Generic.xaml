@@ -8,30 +8,8 @@
 	<ItemsPanelTemplate x:Key="NavigatorItemsPanelTemplate">
 		<StackPanel Orientation="Horizontal"/>
 	</ItemsPanelTemplate>
-	<ControlTemplate x:Key="NavigatorButtonControlTemplate" TargetType="Button">
-		<Grid>
-			<VisualStateManager.VisualStateGroups>
-				<VisualStateGroup x:Name="CommonStates">
-					<VisualState x:Name="Pressed">
-						<Storyboard>
-							<ColorAnimation Duration="0" To="#FF831414" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" Storyboard.TargetName="border" d:IsOptimized="True"/>
-						</Storyboard>
-					</VisualState>
-					<VisualState x:Name="Disabled"/>
-					<VisualState x:Name="PointerOver"/>
-				</VisualStateGroup>
-				<VisualStateGroup x:Name="FocusStates">
-					<VisualState x:Name="Focused"/>
-					<VisualState x:Name="PointerFocused"/>
-				</VisualStateGroup>
-			</VisualStateManager.VisualStateGroups>
-			<Border x:Name="border" Background="#FFDC3131" BorderThickness="0" Height="60">
-				<TextBlock TextWrapping="Wrap" Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,2"/>
-			</Border>
-		</Grid>
-	</ControlTemplate>
 	<DataTemplate x:Key="NavigatorDataTemplate">
-		<Button x:Name="ButtonNode" Content="{Binding NodeName}" Template="{StaticResource NavigatorButtonControlTemplate}" Margin="2,0" BorderThickness="0" Command="{Binding NodeAction}" CommandParameter="{Binding NodeName}"/>
+		<local:NavigatorItem Margin="0,0,5,0" Background="Red" Content="{Binding NodeName}" Command="{Binding NodeAction}"/>
 	</DataTemplate>
 
     <Style TargetType="local:Navigator">
@@ -50,5 +28,52 @@
         <Setter Property="Height" Value="80"/>
         <Setter Property="ItemsPanel" Value="{StaticResource NavigatorItemsPanelTemplate}"/>
         <Setter Property="ItemTemplate" Value="{StaticResource NavigatorDataTemplate}"/>
+    </Style>
+
+    <Style TargetType="local:NavigatorItem">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:NavigatorItem">
+                    <Grid x:Name="grid" Height="80">
+                    	<Grid.Projection>
+                    		<PlaneProjection/>
+                    	</Grid.Projection>
+                    	<VisualStateManager.VisualStateGroups>
+                    		<VisualStateGroup x:Name="PointerState">
+                    			<VisualStateGroup.Transitions>
+                    				<VisualTransition GeneratedDuration="0:0:0.3" To="Pressed">
+                    					<VisualTransition.GeneratedEasingFunction>
+                    						<QuinticEase/>
+                    					</VisualTransition.GeneratedEasingFunction>
+                    				</VisualTransition>
+                    				<VisualTransition From="Pressed" GeneratedDuration="0:0:0.3">
+                    					<VisualTransition.GeneratedEasingFunction>
+                    						<QuinticEase/>
+                    					</VisualTransition.GeneratedEasingFunction>
+                    				</VisualTransition>
+                    			</VisualStateGroup.Transitions>
+                    			<VisualState x:Name="Pressed">
+                    				<Storyboard>
+                    					<DoubleAnimation Duration="0" To="0.5" Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.CenterOfRotationY)" Storyboard.TargetName="grid" d:IsOptimized="True"/>
+                    					<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.CenterOfRotationX)" Storyboard.TargetName="grid" d:IsOptimized="True"/>
+                    					<DoubleAnimation Duration="0" To="-18" Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.RotationY)" Storyboard.TargetName="grid" d:IsOptimized="True"/>
+                    				</Storyboard>
+                    			</VisualState>
+                    			<VisualState x:Name="Released"/>
+                    		</VisualStateGroup>
+                    	</VisualStateManager.VisualStateGroups>
+                    	<Border
+                    		Background="{TemplateBinding Background}"
+                    		BorderBrush="{TemplateBinding BorderBrush}"
+                    		BorderThickness="{TemplateBinding BorderThickness}" RenderTransformOrigin="0.5,0.5">
+                    		<Border.Projection>
+                    			<PlaneProjection CenterOfRotationY="-0.1"/>
+                    		</Border.Projection>
+                    		<TextBlock x:Name="TextBlockContent" TextWrapping="Wrap" Text="{TemplateBinding Content}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17.333" FontFamily="Corbel" Margin="10,0"/>
+                    	</Border>
+                	</Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 </ResourceDictionary>

@@ -122,7 +122,9 @@ namespace MetroExplorer.Components.Test.MetroExplorer_Components_Test_XamlTypeIn
 
         private object Activate_0_Navigator() { return new global::MetroExplorer.Components.Navigator.Navigator(); }
 
-        private object Activate_1_MainPage() { return new global::MetroExplorer.Components.Test.MainPage(); }
+        private object Activate_1_NavigatorItem() { return new global::MetroExplorer.Components.Navigator.NavigatorItem(); }
+
+        private object Activate_3_MainPage() { return new global::MetroExplorer.Components.Test.MainPage(); }
 
 
         private global::Windows.UI.Xaml.Markup.IXamlType CreateXamlType(string typeName)
@@ -138,6 +140,10 @@ namespace MetroExplorer.Components.Test.MetroExplorer_Components_Test_XamlTypeIn
 
             case "String":
                 xamlType = new global::MetroExplorer.Components.Test.MetroExplorer_Components_Test_XamlTypeInfo.XamlSystemBaseType(typeName, typeof(global::System.String));
+                break;
+
+            case "Windows.UI.Xaml.Controls.Control":
+                xamlType = new global::MetroExplorer.Components.Test.MetroExplorer_Components_Test_XamlTypeInfo.XamlSystemBaseType(typeName, typeof(global::Windows.UI.Xaml.Controls.Control));
                 break;
 
             case "Windows.UI.Xaml.Controls.Page":
@@ -157,9 +163,24 @@ namespace MetroExplorer.Components.Test.MetroExplorer_Components_Test_XamlTypeIn
                 xamlType = userType;
                 break;
 
+            case "MetroExplorer.Components.Navigator.NavigatorItem":
+                userType = new global::MetroExplorer.Components.Test.MetroExplorer_Components_Test_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::MetroExplorer.Components.Navigator.NavigatorItem), GetXamlTypeByName("Windows.UI.Xaml.Controls.Control"));
+                userType.Activator = Activate_1_NavigatorItem;
+                userType.AddMemberName("Command");
+                userType.AddMemberName("Content");
+                AddToMapOfTypeToStandardName(typeof(global::System.String),
+                                                   "String");
+                xamlType = userType;
+                break;
+
+            case "System.Windows.Input.ICommand":
+                userType = new global::MetroExplorer.Components.Test.MetroExplorer_Components_Test_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::System.Windows.Input.ICommand), null);
+                xamlType = userType;
+                break;
+
             case "MetroExplorer.Components.Test.MainPage":
                 userType = new global::MetroExplorer.Components.Test.MetroExplorer_Components_Test_XamlTypeInfo.XamlUserType(this, typeName, typeof(global::MetroExplorer.Components.Test.MainPage), GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_1_MainPage;
+                userType.Activator = Activate_3_MainPage;
                 xamlType = userType;
                 break;
 
@@ -221,6 +242,26 @@ namespace MetroExplorer.Components.Test.MetroExplorer_Components_Test_XamlTypeIn
             var that = (global::MetroExplorer.Components.Navigator.Navigator)instance;
             that.Path = (global::System.String)Value;
         }
+        private object get_1_NavigatorItem_Command(object instance)
+        {
+            var that = (global::MetroExplorer.Components.Navigator.NavigatorItem)instance;
+            return that.Command;
+        }
+        private void set_1_NavigatorItem_Command(object instance, object Value)
+        {
+            var that = (global::MetroExplorer.Components.Navigator.NavigatorItem)instance;
+            that.Command = (global::System.Windows.Input.ICommand)Value;
+        }
+        private object get_2_NavigatorItem_Content(object instance)
+        {
+            var that = (global::MetroExplorer.Components.Navigator.NavigatorItem)instance;
+            return that.Content;
+        }
+        private void set_2_NavigatorItem_Content(object instance, object Value)
+        {
+            var that = (global::MetroExplorer.Components.Navigator.NavigatorItem)instance;
+            that.Content = (global::System.String)Value;
+        }
 
         private global::Windows.UI.Xaml.Markup.IXamlMember CreateXamlMember(string longMemberName)
         {
@@ -235,6 +276,20 @@ namespace MetroExplorer.Components.Test.MetroExplorer_Components_Test_XamlTypeIn
                 xamlMember.SetIsDependencyProperty();
                 xamlMember.Getter = get_0_Navigator_Path;
                 xamlMember.Setter = set_0_Navigator_Path;
+                break;
+            case "MetroExplorer.Components.Navigator.NavigatorItem.Command":
+                userType = (global::MetroExplorer.Components.Test.MetroExplorer_Components_Test_XamlTypeInfo.XamlUserType)GetXamlTypeByName("MetroExplorer.Components.Navigator.NavigatorItem");
+                xamlMember = new global::MetroExplorer.Components.Test.MetroExplorer_Components_Test_XamlTypeInfo.XamlMember(this, "Command", "System.Windows.Input.ICommand");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_1_NavigatorItem_Command;
+                xamlMember.Setter = set_1_NavigatorItem_Command;
+                break;
+            case "MetroExplorer.Components.Navigator.NavigatorItem.Content":
+                userType = (global::MetroExplorer.Components.Test.MetroExplorer_Components_Test_XamlTypeInfo.XamlUserType)GetXamlTypeByName("MetroExplorer.Components.Navigator.NavigatorItem");
+                xamlMember = new global::MetroExplorer.Components.Test.MetroExplorer_Components_Test_XamlTypeInfo.XamlMember(this, "Content", "String");
+                xamlMember.SetIsDependencyProperty();
+                xamlMember.Getter = get_2_NavigatorItem_Content;
+                xamlMember.Setter = set_2_NavigatorItem_Content;
                 break;
             }
             return xamlMember;

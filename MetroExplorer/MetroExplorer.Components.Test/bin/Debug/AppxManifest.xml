@@ -31,17 +31,6 @@
   <Capabilities>
     <Capability Name="internetClient" />
   </Capabilities>
-  <Extensions>
-    <Extension Category="windows.activatableClass.inProcessServer">
-      <InProcessServer>
-        <Path>CLRHost.dll</Path>
-        <ActivatableClass ActivatableClassId="MetroExplorer.Components.Navigator.MetroExplorer_Components_Navigator_XamlTypeInfo.XamlMetaDataProvider" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="MetroExplorer.Components.Navigator.Objects.NavigatorNodeCommand" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="MetroExplorer.Components.Navigator.Objects.NavigatorNode" ThreadingModel="both" />
-        <ActivatableClass ActivatableClassId="MetroExplorer.Components.Navigator.Navigator" ThreadingModel="both" />
-      </InProcessServer>
-    </Extension>
-  </Extensions>
   <build:Metadata>
     <build:Item Name="TargetFrameworkMoniker" Value=".NETCore,Version=v4.5" />
     <build:Item Name="VisualStudio" Version="11.0" />

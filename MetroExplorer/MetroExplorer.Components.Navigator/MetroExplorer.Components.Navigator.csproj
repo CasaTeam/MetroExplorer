@@ -7,7 +7,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{D7F662D5-755F-4A66-AE24-C07654AF3B04}</ProjectGuid>
-    <OutputType>winmdobj</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MetroExplorer.Components.Navigator</RootNamespace>
     <AssemblyName>MetroExplorer.Components.Navigator</AssemblyName>
@@ -107,12 +107,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Navigator.cs" />
+    <Compile Include="NavigatorItem.cs" />
     <Compile Include="Objects\NavigatorNode.cs" />
     <Compile Include="Objects\NavigatorNodeCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

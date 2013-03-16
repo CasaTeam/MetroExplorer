@@ -2,15 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Shapes;
 
 namespace MetroExplorer.Components.Navigator
 {
@@ -22,7 +16,6 @@ namespace MetroExplorer.Components.Navigator
 
         #region Fields
 
-        private bool _isPointerEntered;
         private bool _isPointerPressed;
         private bool _update = false;
 
@@ -43,8 +36,8 @@ namespace MetroExplorer.Components.Navigator
 
         #region DependencyProperties
 
-        private static readonly DependencyProperty PathProperty
-            = DependencyProperty.Register("PathProperty", typeof(string), typeof(Navigator),
+        public static readonly DependencyProperty PathProperty
+            = DependencyProperty.Register("Path", typeof(string), typeof(Navigator),
             new PropertyMetadata(string.Empty, PathChanged));
 
         private static void PathChanged(
@@ -93,7 +86,6 @@ namespace MetroExplorer.Components.Navigator
         {
             this.DefaultStyleKey = typeof(Navigator);
 
-            _isPointerEntered = false;
             _isPointerPressed = false;
 
             _pointerPressedX = 0.0;
@@ -131,14 +123,13 @@ namespace MetroExplorer.Components.Navigator
             object sender,
             PointerRoutedEventArgs e)
         {
-            _isPointerEntered = true;
         }
 
         private void NavigatorItemStackPointerExited(
             object sender,
             PointerRoutedEventArgs e)
         {
-            _isPointerEntered = false;
+            _isPointerPressed = false;
         }
 
         private void NavigatorItemStackPointerPressed(
@@ -165,7 +156,7 @@ namespace MetroExplorer.Components.Navigator
                    navigatorScrollViewerWidth = _navigatorScrollViewer.ActualWidth,
                    minMarginLeft = navigatorScrollViewerWidth - _totalWidth;
 
-            if (_isPointerEntered && _isPointerPressed && _totalWidth > navigatorScrollViewerWidth)
+            if (_isPointerPressed && _totalWidth > navigatorScrollViewerWidth)
             {
                 if (marginLeft + interval < minMarginLeft)
                     marginLeft = minMarginLeft;
