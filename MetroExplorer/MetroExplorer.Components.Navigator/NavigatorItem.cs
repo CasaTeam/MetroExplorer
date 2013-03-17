@@ -65,6 +65,7 @@ namespace MetroExplorer.Components.Navigator
             PointerPressed += NavigatorItemPointerPressed;
             PointerReleased += NavigatorItemPointerReleased;
             PointerMoved += NavigatorItemPointerMoved;
+            PointerCaptureLost += NavigatorItemPointerCaptureLost;
         }
 
         #endregion
@@ -109,7 +110,13 @@ namespace MetroExplorer.Components.Navigator
             object sender,
             PointerRoutedEventArgs e)
         {
-            _pressed = false;
+            VisualStateManager.GoToState(this, "Released", true);
+        }
+
+        private void NavigatorItemPointerCaptureLost(
+            object sender,
+            PointerRoutedEventArgs e)
+        {
             VisualStateManager.GoToState(this, "Released", true);
         }
 

@@ -16,9 +16,9 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:Navigator">
-                	<ScrollViewer x:Name="NavigatorScrollViewer" HorizontalAlignment="Left" Margin="0" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" VerticalScrollBarVisibility="Hidden">
-                		<StackPanel x:Name="NavigatorItemStack" Orientation="Horizontal">
-                			<ItemsPresenter/>
+                	<ScrollViewer x:Name="NavigatorScrollViewer" HorizontalAlignment="Left" Margin="0" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden" VerticalContentAlignment="Center" ZoomMode="Disabled" IsVerticalRailEnabled="False" VerticalScrollMode="Disabled">
+                		<StackPanel x:Name="NavigatorItemStack" Orientation="Horizontal" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False">
+                			<ItemsPresenter IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False"/>
                 		</StackPanel>
                 	</ScrollViewer>
                 </ControlTemplate>
@@ -75,5 +75,9 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Setter Property="IsDoubleTapEnabled" Value="True"/>
+        <Setter Property="IsHoldingEnabled" Value="True"/>
+        <Setter Property="IsRightTapEnabled" Value="True"/>
+        <Setter Property="IsTapEnabled" Value="True"/>
     </Style>
 </ResourceDictionary>

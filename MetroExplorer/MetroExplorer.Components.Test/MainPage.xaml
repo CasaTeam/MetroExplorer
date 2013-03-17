@@ -10,12 +10,21 @@
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
 
-    	<Navigator:Navigator x:Name="Navigator" VerticalAlignment="Top" Width="800" Margin="200,0" NPathChanged="Navigator_NPathChanged"/>
+    	<Navigator:Navigator x:Name="Navigator" VerticalAlignment="Top" Width="Auto" Margin="300,0" NPathChanged="Navigator_NPathChanged"/>
     	<Button Content="Button" HorizontalAlignment="Left" Margin="225,320,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
     	<TextBox x:Name="TextBoxPath" Margin="0,382,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="38" Text="C:\Program Files\Microsoft SDK\MetroExplorer\Version1\Sawyer\bin\aaaaaa\bbbbbb\cccccc\ddddd\eeeee\fffffffff\Components.Navigator.dll" FontSize="17.333"/>
     	<TextBlock x:Name="TextBlockCurrentPath" Margin="150,440,0,0" TextWrapping="Wrap" Text="{Binding Path, ElementName=Navigator}" VerticalAlignment="Top" FontSize="17.333"/>
     	<TextBlock HorizontalAlignment="Left" Height="29" Margin="10,440,0,0" TextWrapping="Wrap" Text="Current Path" VerticalAlignment="Top" Width="101" FontSize="17.333"/>
-    	<Navigator:NavigatorItem HorizontalAlignment="Left" Margin="249,613,0,0" VerticalAlignment="Top" Background="Red"/>
+    	<Navigator:NavigatorItem HorizontalAlignment="Left" Margin="428,221,0,0" VerticalAlignment="Top" Background="Red"/>
+    	<ScrollViewer HorizontalAlignment="Left" Height="100" Margin="90,541,0,0" VerticalAlignment="Top" Width="685" HorizontalScrollBarVisibility="Hidden">
+    		<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+    			<Button Content="Button" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+    			<Button Content="Button" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+    			<Button Content="Button" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+    			<Button Content="Button" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+    			<Button Content="Button" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+    		</StackPanel>
+    	</ScrollViewer>
 
     </Grid>
 </Page>

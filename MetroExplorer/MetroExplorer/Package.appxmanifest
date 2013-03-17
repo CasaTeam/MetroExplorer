@@ -20,11 +20,10 @@
         <SplashScreen Image="Assets\SplashScreen.png" />
       </VisualElements>
       <Extensions>
-        <Extension Category="windows.fileTypeAssociation" StartPage=".pdf">
-          <FileTypeAssociation Name="type">
+        <Extension Category="windows.fileTypeAssociation">
+          <FileTypeAssociation Name="fd">
             <SupportedFileTypes>
-              <FileType>.mp4</FileType>
-              <FileType>.txt</FileType>
+              <FileType>.pdf</FileType>
             </SupportedFileTypes>
           </FileTypeAssociation>
         </Extension>
@@ -32,11 +31,11 @@
     </Application>
   </Applications>
   <Capabilities>
+    <Capability Name="documentsLibrary" />
     <Capability Name="sharedUserCertificates" />
     <Capability Name="internetClientServer" />
     <Capability Name="privateNetworkClientServer" />
     <Capability Name="enterpriseAuthentication" />
-    <Capability Name="documentsLibrary" />
     <Capability Name="videosLibrary" />
     <Capability Name="removableStorage" />
     <Capability Name="picturesLibrary" />
