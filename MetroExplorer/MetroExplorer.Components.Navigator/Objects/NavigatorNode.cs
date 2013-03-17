@@ -11,9 +11,11 @@ namespace MetroExplorer.Components.Navigator.Objects
     {
         public string NodeName { get; set; }
         public ICommand NodeAction { get; private set; }
+        public int NodeIndex { get; private set; }
 
-        public NavigatorNode(string name,ICommand action)
+        public NavigatorNode(int index, string name, ICommand action)
         {
+            NodeIndex = index;
             NodeName = name;
             NodeAction = action;
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MetroExplorer.Components.Navigator.Objects;
+using System;
 using System.Linq;
 using System.Windows.Input;
 using Windows.UI.Xaml;
@@ -41,6 +42,16 @@ namespace MetroExplorer.Components.Navigator
         {
             get { return (string)GetValue(ContentProperty); }
             set { SetValue(ContentProperty, value); }
+        }
+
+        public static readonly DependencyProperty IndexProperty =
+            DependencyProperty.Register("Index", typeof(int), typeof(NavigatorItem),
+            new PropertyMetadata(-1));
+
+        public int Index
+        {
+            get { return (int)GetValue(IndexProperty); }
+            set { SetValue(IndexProperty, value); }
         }
 
         #endregion
@@ -101,7 +112,7 @@ namespace MetroExplorer.Components.Navigator
             VisualStateManager.GoToState(this, "Released", true);
             if (_pressed && Command != null)
             {
-                Command.Execute(Content);
+                Command.Execute(new NavigatorNodeCommandArgument(Index, Content, true));
                 _pressed = false;
             }
         }

@@ -1,16 +1,17 @@
 ﻿<common:LayoutAwarePage
-    x:Name="pageRoot"
-    x:Class="MetroExplorer.PageExplorer"
-    DataContext="{Binding DefaultViewModel, RelativeSource={RelativeSource Self}}"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:MetroExplorer"
     xmlns:common="using:MetroExplorer.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Navigator="using:MetroExplorer.Components.Navigator"
+    x:Name="pageRoot"
+    x:Class="MetroExplorer.PageExplorer"
+    DataContext="{Binding DefaultViewModel, RelativeSource={RelativeSource Mode=Self}}"
     mc:Ignorable="d">
 
-    <Page.Resources>
+    <common:LayoutAwarePage.Resources>
 
         <!--
             Collection d'éléments groupés affichés par cette page, liée à un sous-ensemble
@@ -45,7 +46,7 @@
                 </Grid>
             </Grid>
         </DataTemplate>
-    </Page.Resources>
+    </common:LayoutAwarePage.Resources>
 
     <common:LayoutAwarePage.BottomAppBar>
         <AppBar x:Name="AppBar_BottomAppBar" Background="#BB000000" BorderBrush="#BB000000" Opened="AppBar_BottomAppBar_Opened_1">
@@ -94,6 +95,53 @@
         * La ligne 1 qui contient le reste de la page
     -->
     <Grid Background="White">
+
+
+
+
+        <VisualStateManager.VisualStateGroups>
+
+            <!-- Les états visuels reflètent l'état d'affichage de l'application -->
+            <VisualStateGroup x:Name="ApplicationViewStates">
+                <VisualState x:Name="FullScreenLandscape"/>
+                <VisualState x:Name="Filled"/>
+
+                <!-- La totalité de la page respecte la convention de marge étroite de 100 pixels du mode Portrait -->
+                <VisualState x:Name="FullScreenPortrait">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="backButton" Storyboard.TargetProperty="Style">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PortraitBackButtonStyle}"/>
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemGridView" Storyboard.TargetProperty="Padding">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="96,137,10,56"/>
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+
+                <!--
+                    Le bouton Précédent et le titre ont un style différent lorsque l'état d'affichage a la valeur Snapped, et la représentation de liste est remplacée
+                    par la grille affichée dans tous les autres affichages
+                -->
+                <VisualState x:Name="Snapped">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="backButton" Storyboard.TargetProperty="Style">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedBackButtonStyle}"/>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="pageTitle" Storyboard.TargetProperty="Style">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedPageHeaderTextStyle}"/>
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemListView" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemGridView" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <!--<Image x:Name="Image_Background" Source="Assets/Background.jpg" Stretch="UniformToFill"
                    HorizontalAlignment="Left"/>-->
         <GridView
@@ -180,72 +228,29 @@
                 </GroupStyle>
             </ListView.GroupStyle>
         </ListView>
-
-
-        <!-- Bouton Précédent et titre de la page -->
-        <StackPanel Height="75" Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="BlueViolet">
-            <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Margin="10,10,0,0" VerticalAlignment="Center" Style="{StaticResource BackButtonStyle}"/>
-            <TextBlock x:Name="pageTitle" Text="{StaticResource AppName}" x:Uid="Uid_PageMain_PageTitle"
-                       IsHitTestVisible="false" Margin="5,15,5,5" VerticalAlignment="Center" FontSize="40" FontWeight="Light"/>
-            <Button Click="Button_AddNewFolder_Click" 
-                x:Uid="Uid_Page_Explorer_Button_AddNewFolder"
-                Margin="120, 7, 0, 1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Button.Style>
-                    <Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle2}">
-                        <Setter Property="AutomationProperties.Name" Value=""/>
-                        <Setter Property="Content" Value="&#xE109;"/>
-                    </Style>
-                </Button.Style>
-            </Button>
+        <Grid Height="75" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="BlueViolet">
+        	<Grid.ColumnDefinitions>
+        		<ColumnDefinition Width="533*"/>
+        		<ColumnDefinition Width="833*"/>
+        	</Grid.ColumnDefinitions>
+        	<Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" VerticalAlignment="Center" Style="{StaticResource BackButtonStyle}" Margin="10,19,0,8"/>
+        	<TextBlock x:Name="pageTitle" Text="{StaticResource AppName}" x:Uid="Uid_PageMain_PageTitle"
+        		IsHitTestVisible="false" VerticalAlignment="Center" FontSize="40" FontWeight="Light" Margin="63,19,199,8"/>
+        	<Button Click="Button_AddNewFolder_Click" 
+        		x:Uid="Uid_Page_Explorer_Button_AddNewFolder"
+        		HorizontalAlignment="Center" VerticalAlignment="Center" Margin="459,9,29,2">
+        		<Button.Style>
+        			<Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle2}">
+        				<Setter Property="AutomationProperties.Name" Value=""/>
+        				<Setter Property="Content" Value="&#xE109;"/>
+        			</Style>
+        		</Button.Style>
+        	</Button>
             
-            <!--TODO  LINDA-->
-        </StackPanel>
+        	<Navigator:Navigator x:Name="Navigator" Grid.Column="1" Width="Auto" Height="Auto" NPathChanged="NavigatorPathChanged"/>
+            
+        </Grid>
 
 
-
-
-        <VisualStateManager.VisualStateGroups>
-
-            <!-- Les états visuels reflètent l'état d'affichage de l'application -->
-            <VisualStateGroup x:Name="ApplicationViewStates">
-                <VisualState x:Name="FullScreenLandscape"/>
-                <VisualState x:Name="Filled"/>
-
-                <!-- La totalité de la page respecte la convention de marge étroite de 100 pixels du mode Portrait -->
-                <VisualState x:Name="FullScreenPortrait">
-                    <Storyboard>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="backButton" Storyboard.TargetProperty="Style">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PortraitBackButtonStyle}"/>
-                        </ObjectAnimationUsingKeyFrames>
-
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemGridView" Storyboard.TargetProperty="Padding">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="96,137,10,56"/>
-                        </ObjectAnimationUsingKeyFrames>
-                    </Storyboard>
-                </VisualState>
-
-                <!--
-                    Le bouton Précédent et le titre ont un style différent lorsque l'état d'affichage a la valeur Snapped, et la représentation de liste est remplacée
-                    par la grille affichée dans tous les autres affichages
-                -->
-                <VisualState x:Name="Snapped">
-                    <Storyboard>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="backButton" Storyboard.TargetProperty="Style">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedBackButtonStyle}"/>
-                        </ObjectAnimationUsingKeyFrames>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="pageTitle" Storyboard.TargetProperty="Style">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedPageHeaderTextStyle}"/>
-                        </ObjectAnimationUsingKeyFrames>
-
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemListView" Storyboard.TargetProperty="Visibility">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
-                        </ObjectAnimationUsingKeyFrames>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemGridView" Storyboard.TargetProperty="Visibility">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
-                        </ObjectAnimationUsingKeyFrames>
-                    </Storyboard>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
     </Grid>
 </common:LayoutAwarePage>

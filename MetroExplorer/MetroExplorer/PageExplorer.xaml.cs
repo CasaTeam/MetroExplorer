@@ -1,4 +1,5 @@
-﻿using MetroExplorer.core;
+﻿using MetroExplorer.Components.Navigator.Objects;
+using MetroExplorer.core;
 using MetroExplorer.core.Objects;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ namespace MetroExplorer
     /// </summary>
     public sealed partial class PageExplorer : MetroExplorer.Common.LayoutAwarePage, INotifyPropertyChanged
     {
-        StorageFolder currentStorageFolder;
+        IList<StorageFolder> _navigatorStorageFolders;
         ObservableCollection<GroupInfoList<ExplorerItem>> explorerGroups;
         public ObservableCollection<GroupInfoList<ExplorerItem>> ExplorerGroups
         {
@@ -51,6 +52,7 @@ namespace MetroExplorer
             ExplorerGroups = new ObservableCollection<GroupInfoList<ExplorerItem>>();
             ExplorerGroups.Add(new GroupInfoList<ExplorerItem>() { Key = StringResources.ResourceLoader.GetString("MainExplorer_UserFolderGroupTitle") });
             ExplorerGroups.Add(new GroupInfoList<ExplorerItem>() { Key = StringResources.ResourceLoader.GetString("MainExplorer_UserFileGroupTitle") });
+            _navigatorStorageFolders = new List<StorageFolder>();
             this.Loaded += PageExplorer_Loaded;
         }
 
@@ -80,10 +82,11 @@ namespace MetroExplorer
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
-            currentStorageFolder = e.Parameter as StorageFolder;
-
+            _navigatorStorageFolders = (IList<StorageFolder>)e.Parameter;
+            StorageFolder currentStorageFolder = _navigatorStorageFolders.LastOrDefault();
             if (currentStorageFolder != null)
             {
+                Navigator.Path = currentStorageFolder.Path;
                 IReadOnlyList<IStorageItem> listFiles = await currentStorageFolder.GetItemsAsync();
                 foreach (var item in listFiles)
                 {
@@ -134,12 +137,13 @@ namespace MetroExplorer
         private void itemGridView_ItemClick_1(object sender, ItemClickEventArgs e)
         {
             ExplorerItem item = e.ClickedItem as ExplorerItem;
-            this.Frame.Navigate(typeof(PageExplorer), item.StorageFolder);
+            _navigatorStorageFolders.Add(item.StorageFolder);
+            this.Frame.Navigate(typeof(PageExplorer), _navigatorStorageFolders);
         }
 
         private async void Button_AddNewFolder_Click(object sender, RoutedEventArgs e)
         {
-            StorageFolder sf = await currentStorageFolder.CreateFolderAsync(StringResources.ResourceLoader.GetString("String_NewFolder"), CreationCollisionOption.GenerateUniqueName);
+            StorageFolder sf = await _navigatorStorageFolders.LastOrDefault().CreateFolderAsync(StringResources.ResourceLoader.GetString("String_NewFolder"), CreationCollisionOption.GenerateUniqueName);
             ExplorerItem item = new ExplorerItem()
             {
                 Name = sf.Name,
@@ -165,7 +169,7 @@ namespace MetroExplorer
                 if ((selectedItem as ExplorerItem).RenameBoxVisibility == "Visible")
                     (selectedItem as ExplorerItem).RenameBoxVisibility = "Collapsed";
             }
-            foreach(var selectedItem in itemGridView.SelectedItems)
+            foreach (var selectedItem in itemGridView.SelectedItems)
             {
                 if (itemGridView.SelectedItems.Count > 1 && (selectedItem as ExplorerItem).RenameBoxVisibility == "Visible")
                     (selectedItem as ExplorerItem).RenameBoxVisibility = "Collapsed";
@@ -256,6 +260,21 @@ namespace MetroExplorer
             {
                 Button_RemoveDiskFolder.Visibility = Windows.UI.Xaml.Visibility.Visible;
             }
+        }
+
+        private void NavigatorPathChanged(object sender, NavigatorNodeCommandArgument e)
+        {
+            IList<StorageFolder> parameters = new List<StorageFolder>();
+            parameters = _navigatorStorageFolders.Take(e.Index + 1).ToList();
+            //foreach (StorageFolder storageFolderItem in _navigatorStorageFolders)
+            //{
+            //    parameters.Add(storageFolderItem);
+            //    if (storageFolderItem.Path.Trim('\\').Equals(e.Path))
+            //        break;
+            //}
+
+            if (e.FromInner)
+                Frame.Navigate(typeof(PageExplorer), parameters);
         }
     }
 

@@ -43,7 +43,6 @@ namespace MetroExplorer.Components.Test
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            Navigator.Path = TextBoxPath.Text;
         }
 
         private void Navigator_NPathChanged(object sender, string e)

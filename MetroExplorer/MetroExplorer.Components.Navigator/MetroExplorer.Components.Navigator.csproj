@@ -110,6 +110,7 @@
     <Compile Include="NavigatorItem.cs" />
     <Compile Include="Objects\NavigatorNode.cs" />
     <Compile Include="Objects\NavigatorNodeCommand.cs" />
+    <Compile Include="Objects\NavigatorNodeCommandArgument.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

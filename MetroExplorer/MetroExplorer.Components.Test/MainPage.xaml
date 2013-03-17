@@ -9,8 +9,6 @@
     mc:Ignorable="d">
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
-
-    	<Navigator:Navigator x:Name="Navigator" VerticalAlignment="Top" Width="Auto" Margin="300,0" NPathChanged="Navigator_NPathChanged"/>
     	<Button Content="Button" HorizontalAlignment="Left" Margin="225,320,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
     	<TextBox x:Name="TextBoxPath" Margin="0,382,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="38" Text="C:\Program Files\Microsoft SDK\MetroExplorer\Version1\Sawyer\bin\aaaaaa\bbbbbb\cccccc\ddddd\eeeee\fffffffff\Components.Navigator.dll" FontSize="17.333"/>
     	<TextBlock x:Name="TextBlockCurrentPath" Margin="150,440,0,0" TextWrapping="Wrap" Text="{Binding Path, ElementName=Navigator}" VerticalAlignment="Top" FontSize="17.333"/>

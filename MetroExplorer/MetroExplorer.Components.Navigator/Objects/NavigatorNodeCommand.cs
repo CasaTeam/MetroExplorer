@@ -15,12 +15,12 @@ namespace MetroExplorer.Components.Navigator.Objects
         }
 
         public event EventHandler CanExecuteChanged;
-        public event EventHandler<string> Command;
+        public event EventHandler<NavigatorNodeCommandArgument> Command;
 
         public void Execute(object parameter)
         {
             if (Command != null)
-                Command(this, parameter.ToString());
+                Command(this, (NavigatorNodeCommandArgument)parameter);
         }
     }
 }

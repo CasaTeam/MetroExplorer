@@ -17,12 +17,14 @@ namespace MetroExplorer.Components.Navigator
         #region Fields
 
         private IEnumerable<NavigatorNode> _path;
+        private bool _fromInner;
+        private int _currentIndex;
 
         #endregion
 
         #region EventHandlers
 
-        public event EventHandler<string> NPathChanged;
+        public event EventHandler<NavigatorNodeCommandArgument> NPathChanged;
 
         #endregion
 
@@ -45,22 +47,41 @@ namespace MetroExplorer.Components.Navigator
         public void NavigatorPathChanged(
             DependencyPropertyChangedEventArgs e)
         {
-            string path = (string)e.NewValue;
-            _path = path.Split('\\')
-                .Where(value => !string.IsNullOrWhiteSpace(value))
-                .Select(value =>
+            NavigatorNodeCommandArgument argument = new NavigatorNodeCommandArgument(_currentIndex, (string)e.NewValue, _fromInner);
+
+            int index = 0;
+            List<NavigatorNode> nodes = new List<NavigatorNode>();
+            foreach (string value in argument.Path.Split('\\').Where(value => !string.IsNullOrWhiteSpace(value)))
+            {
+                NavigatorNodeCommand command = new NavigatorNodeCommand();
+                command.Command += (sender, args) =>
                 {
-                    NavigatorNodeCommand command = new NavigatorNodeCommand();
-                    command.Command += (sender, args) =>
-                    {
-                        string newPath = Path.Substring(0, Path.IndexOf(args) + args.Length);
-                        Path = newPath;
-                    };
-                    return new NavigatorNode(value, command);
-                });
+                    string newPath = Path.Substring(0, Path.IndexOf(args.Path) + args.Path.Length);
+                    _fromInner = args.FromInner;
+                    _currentIndex = args.Index;
+                    Path = newPath;
+                };
+                nodes.Add(new NavigatorNode(index, value, command));
+                index++;
+            }
+
+            _path = nodes;
+            //_path = argument.Path.Split('\\')
+            //    .Where(value => !string.IsNullOrWhiteSpace(value))
+            //    .Select(value =>
+            //    {
+            //        NavigatorNodeCommand command = new NavigatorNodeCommand();
+            //        command.Command += (sender, args) =>
+            //        {
+            //            string newPath = Path.Substring(0, Path.IndexOf(args.Path) + args.Path.Length);
+            //            _fromInner = args.FromInner;
+            //            Path = newPath;
+            //        };
+            //        return new NavigatorNode(argument.Index, value, command);
+            //    });
             ItemsSource = _path;
             if (NPathChanged != null)
-                NPathChanged(this, Path);
+                NPathChanged(this, argument);
         }
 
         public string Path
