@@ -133,6 +133,7 @@
     <Compile Include="PageExplorer.xaml.cs">
       <DependentUpon>PageExplorer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PageExplorerBo.cs" />
     <Compile Include="PageMain.xaml.cs">
       <DependentUpon>PageMain.xaml</DependentUpon>
     </Compile>

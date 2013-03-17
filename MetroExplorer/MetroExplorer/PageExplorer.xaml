@@ -27,9 +27,20 @@
 
         <local:RenameBoxVisibilityConverter x:Key="RenameBoxVisibilityConverter" />
 
+
+        <DataTemplate x:Name="ExplorerItemImageLoadingAnimationTemplate">
+            <Storyboard>
+                <FadeInThemeAnimation  />
+                <!--<FadeOutThemeAnimation  />-->
+            </Storyboard>
+        </DataTemplate>
+        
         <DataTemplate x:Key="Standard300x180ItemTemplate">
             <Grid HorizontalAlignment="Left" Width="300" Height="150" Margin="0" Background="OrangeRed">
-                <Image Source="{Binding Image}" Margin="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stretch="Uniform" />
+                <Image x:Name="ExplorerItemImage" Source="{Binding Image}" Margin="0"
+                       HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                       Stretch="Uniform" Loaded="ExplorerItemImage_Loaded" ManipulationCompleted="ExplorerItemImage_ManipulationCompleted" SizeChanged="ExplorerItemImage_SizeChanged" Unloaded="ExplorerItemImage_Unloaded" >
+                </Image>
                 <Grid VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="#AA000000">
                     <TextBlock Foreground="#DDFFFFFF" TextAlignment="Center" Text="{Binding Name}"  Visibility="{Binding RenameBoxVisibility, Converter={StaticResource RenameBoxVisibilityConverter}}"
                             FontSize="22" Margin="5" FontWeight="Light"
@@ -83,6 +94,17 @@
                             </Style>
                         </Button.Style>
                     </Button>
+                    <Rectangle Width="2" VerticalAlignment="Stretch"  HorizontalAlignment="Center" Margin="10,30,10,30" Fill="White" />
+                    <Button x:Name="Button_Play" Click="Button_Play_Click"
+                        x:Uid="Uid_Page_Main_Button_Play"
+                        Margin="5" HorizontalAlignment="Center">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
+                                <Setter Property="AutomationProperties.Name" Value=""/>
+                                <Setter Property="Content" Value="&#xE102;"/>
+                            </Style>
+                        </Button.Style>
+                    </Button>
                 </StackPanel>
             </Grid>
         </AppBar>
@@ -128,7 +150,7 @@
                                     AutomationProperties.Name="Group Title"
                                     Style="{StaticResource TextPrimaryButtonStyle}">
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding Key}" Margin="3,-7,10,10" Style="{StaticResource GroupHeaderTextStyle}" />
+                                        <TextBlock Text="{Binding Key}" Margin="3,-7,10,10" Style="{StaticResource GroupHeaderTextStyle}" Foreground="BlueViolet" />
                                         <Grid>
                                             <TextBlock Text="{StaticResource ChevronGlyph}" FontFamily="Segoe UI Symbol" Margin="0,-7,0,10" Style="{StaticResource GroupHeaderTextStyle}"
                                                        Visibility="Visible"/>

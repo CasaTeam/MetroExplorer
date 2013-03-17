@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
@@ -57,6 +58,7 @@ namespace MetroExplorer
         void PageExplorer_Loaded(object sender, RoutedEventArgs e)
         {
             //throw new NotImplementedException();
+            initializeChangingDispatcher();
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -111,87 +113,29 @@ namespace MetroExplorer
             {
                 item.StorageFolder = retrievedItem as StorageFolder;
                 item.Type = ExplorerItemType.Folder;
+                foreach (StorageFile st in await item.StorageFolder.GetFilesAsync())
+                { 
+                    if(st.Name.ToUpper().EndsWith(".JPG") || st.Name.ToUpper().EndsWith(".JPEG") || st.Name.ToUpper().EndsWith(".PNG") ||
+                         st.Name.ToUpper().EndsWith(".BMP"))
+                        await thumbnailPhoto(item, st);
+                }
             }
             else if (retrievedItem is StorageFile)
             {
                 item.StorageFile = retrievedItem as StorageFile;
                 item.Type = ExplorerItemType.File;
-
-                await thumbnailPhoto(item);
+                await thumbnailPhoto(item, item.StorageFile);
             }
 
             itemList.Add(item);
         }
 
-        private static async System.Threading.Tasks.Task thumbnailPhoto(ExplorerItem item)
+        private async System.Threading.Tasks.Task thumbnailPhoto(ExplorerItem item, StorageFile sf)
         {
-            StorageItemThumbnail fileThumbnail = await item.StorageFile.GetThumbnailAsync(ThumbnailMode.SingleItem, 300);
+            StorageItemThumbnail fileThumbnail = await sf.GetThumbnailAsync(ThumbnailMode.SingleItem, 300);
             BitmapImage bitmapImage = new BitmapImage();
             bitmapImage.SetSource(fileThumbnail);
             item.Image = bitmapImage;
-        }
-
-        private void itemGridView_ItemClick_1(object sender, ItemClickEventArgs e)
-        {
-            ExplorerItem item = e.ClickedItem as ExplorerItem;
-            this.Frame.Navigate(typeof(PageExplorer), item.StorageFolder);
-        }
-
-        private async void Button_AddNewFolder_Click(object sender, RoutedEventArgs e)
-        {
-            StorageFolder sf = await currentStorageFolder.CreateFolderAsync(StringResources.ResourceLoader.GetString("String_NewFolder"), CreationCollisionOption.GenerateUniqueName);
-            ExplorerItem item = new ExplorerItem()
-            {
-                Name = sf.Name,
-                RenamingName = sf.Name,
-                Path = sf.Path,
-                Type = ExplorerItemType.Folder,
-                RenameBoxVisibility = "Visible",
-                StorageFolder = sf
-            };
-            ExplorerGroups[0].Add(item);
-            itemGridView.SelectedItem = item;
-        }
-
-        private void itemGridView_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-
-        }
-
-        private void itemGridView_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
-        {
-            foreach (var selectedItem in e.RemovedItems)
-            {
-                if ((selectedItem as ExplorerItem).RenameBoxVisibility == "Visible")
-                    (selectedItem as ExplorerItem).RenameBoxVisibility = "Collapsed";
-            }
-            foreach(var selectedItem in itemGridView.SelectedItems)
-            {
-                if (itemGridView.SelectedItems.Count > 1 && (selectedItem as ExplorerItem).RenameBoxVisibility == "Visible")
-                    (selectedItem as ExplorerItem).RenameBoxVisibility = "Collapsed";
-            }
-            if (itemGridView.SelectedItems.Count == 1 && (itemGridView.SelectedItems[0] as ExplorerItem).RenameBoxVisibility == "Visible")
-                BottomAppBar.IsOpen = false;
-            else
-                BottomAppBar.IsOpen = true;
-        }
-
-        private void Button_CancelRename_Click(object sender, RoutedEventArgs e)
-        {
-            if (itemGridView.SelectedItem != null)
-            {
-                (itemGridView.SelectedItem as ExplorerItem).RenameBoxVisibility = "Collapsed";
-            }
-        }
-
-        private async void Button_RenameFolder_Click(object sender, RoutedEventArgs e)
-        {
-            if (itemGridView.SelectedItem != null)
-            {
-                (itemGridView.SelectedItem as ExplorerItem).Name = (itemGridView.SelectedItem as ExplorerItem).RenamingName;
-                (itemGridView.SelectedItem as ExplorerItem).RenameBoxVisibility = "Collapsed";
-                await (itemGridView.SelectedItem as ExplorerItem).StorageFolder.RenameAsync((itemGridView.SelectedItem as ExplorerItem).RenamingName, NameCollisionOption.GenerateUniqueName);
-            }
         }
 
         #region propertychanged
@@ -205,59 +149,8 @@ namespace MetroExplorer
 
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
-
-        private async void Button_RemoveDiskFolder_Click(object sender, RoutedEventArgs e)
-        {
-            if (itemGridView.SelectedItems == null || itemGridView.SelectedItems.Count == 0) return;
-            while (itemGridView.SelectedItems.Count > 0)
-            {
-                if (ExplorerGroups[0].Contains(itemGridView.SelectedItems[0] as ExplorerItem))
-                {
-                    await (itemGridView.SelectedItems[0] as ExplorerItem).StorageFolder.DeleteAsync();
-                    ExplorerGroups[0].Remove(itemGridView.SelectedItems[0] as ExplorerItem);
-                }
-                else if (ExplorerGroups[1].Contains(itemGridView.SelectedItems[0] as ExplorerItem))
-                {
-                    await (itemGridView.SelectedItems[0] as ExplorerItem).StorageFile.DeleteAsync();
-                    ExplorerGroups[1].Remove(itemGridView.SelectedItems[0] as ExplorerItem);
-                }
-            }
-            BottomAppBar.IsOpen = false;
-        }
-
-        private void Button_Detail_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_RenameDiskFolder_Click(object sender, RoutedEventArgs e)
-        {
-            if (itemGridView.SelectedItems.Count == 1)
-            {
-                (itemGridView.SelectedItem as ExplorerItem).RenameBoxVisibility = "Visible";
-            }
-        }
-
-        private void AppBar_BottomAppBar_Opened_1(object sender, object e)
-        {
-            if (itemGridView.SelectedItems.Count == 1)
-            {
-                Button_RenameDiskFolder.Visibility = Windows.UI.Xaml.Visibility.Visible;
-            }
-            else
-            {
-                Button_RenameDiskFolder.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-            }
-            if (itemGridView.SelectedItems.Count == 0)
-            {
-                Button_RemoveDiskFolder.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-            }
-            else
-            {
-                Button_RemoveDiskFolder.Visibility = Windows.UI.Xaml.Visibility.Visible;
-            }
-        }
     }
+
 
     public class RenameBoxVisibilityConverter : IValueConverter
     {
