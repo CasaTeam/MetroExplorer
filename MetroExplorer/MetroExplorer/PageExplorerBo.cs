@@ -192,7 +192,10 @@ namespace MetroExplorer
             {
                 (itemGridView.SelectedItem as ExplorerItem).Name = (itemGridView.SelectedItem as ExplorerItem).RenamingName;
                 (itemGridView.SelectedItem as ExplorerItem).RenameBoxVisibility = "Collapsed";
-                await (itemGridView.SelectedItem as ExplorerItem).StorageFolder.RenameAsync((itemGridView.SelectedItem as ExplorerItem).RenamingName, NameCollisionOption.GenerateUniqueName);
+                if ((itemGridView.SelectedItem as ExplorerItem).Type == ExplorerItemType.Folder)
+                    await (itemGridView.SelectedItem as ExplorerItem).StorageFolder.RenameAsync((itemGridView.SelectedItem as ExplorerItem).RenamingName, NameCollisionOption.GenerateUniqueName);
+                else if ((itemGridView.SelectedItem as ExplorerItem).Type == ExplorerItemType.File)
+                    await (itemGridView.SelectedItem as ExplorerItem).StorageFile.RenameAsync((itemGridView.SelectedItem as ExplorerItem).RenamingName, NameCollisionOption.GenerateUniqueName);
             }
         }
 
