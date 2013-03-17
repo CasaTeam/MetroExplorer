@@ -132,13 +132,31 @@
   <data name="MainPage_UserFolderGroupTitle" xml:space="preserve">
     <value>快捷文件夹</value>
   </data>
+  <data name="String_NewFolder" xml:space="preserve">
+    <value>新建文件夹</value>
+  </data>
   <data name="Uid_PageMain_PageTitle.Text" xml:space="preserve">
     <value>资源管理器</value>
+  </data>
+  <data name="Uid_Page_Explorer_Button_AddNewFolder.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>添加文件夹</value>
+  </data>
+  <data name="Uid_Page_Explorer_Button_CancelRename.Content" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Uid_Page_Explorer_Button_RenameFolder.Content" xml:space="preserve">
+    <value>确定</value>
   </data>
   <data name="Uid_Page_Main_Button_AddNewShortCutFolder.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
     <value>添加</value>
   </data>
+  <data name="Uid_Page_Main_Button_Detail.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>切换显示模式</value>
+  </data>
   <data name="Uid_Page_Main_Button_RemoveFolder.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
     <value>删除</value>
+  </data>
+  <data name="Uid_Page_Main_Button_RenameDiskFolder.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>重命名</value>
   </data>
 </root>

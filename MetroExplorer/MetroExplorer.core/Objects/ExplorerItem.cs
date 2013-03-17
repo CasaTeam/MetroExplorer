@@ -108,6 +108,34 @@ namespace MetroExplorer.core.Objects
             }
         }
 
+        #region 用来操作添加删除，重命名文件文件夹的属性
+        [XmlIgnore]
+        private string renameBoxVisibility = "Collapsed";
+        [XmlIgnore]
+        public string RenameBoxVisibility
+        {
+            get { return renameBoxVisibility; }
+            set
+            {
+                renameBoxVisibility = value;
+                NotifyPropertyChanged("RenameBoxVisibility");
+            }
+        }
+
+        [XmlIgnore]
+        private string renamingName;
+        [XmlIgnore]
+        public string RenamingName
+        {
+            get { return renamingName; }
+            set
+            {
+                renamingName = value;
+                NotifyPropertyChanged("RenamingName");
+            }
+        }
+        #endregion
+
         public void NotifyPropertyChanged(String changedPropertyName)
         {
             if (PropertyChanged != null)
