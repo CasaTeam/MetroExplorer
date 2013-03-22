@@ -18,6 +18,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
@@ -59,6 +60,7 @@ namespace MetroExplorer
         void PageExplorer_Loaded(object sender, RoutedEventArgs e)
         {
             //throw new NotImplementedException();
+            initializeChangingDispatcher();
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -100,10 +102,9 @@ namespace MetroExplorer
                     }
                 }
             }
-
         }
 
-        private async void addNewItem(GroupInfoList<ExplorerItem> itemList, IStorageItem retrievedItem)
+        private void addNewItem(GroupInfoList<ExplorerItem> itemList, IStorageItem retrievedItem)
         {
             ExplorerItem item = new ExplorerItem()
             {
@@ -114,26 +115,32 @@ namespace MetroExplorer
             {
                 item.StorageFolder = retrievedItem as StorageFolder;
                 item.Type = ExplorerItemType.Folder;
+                //foreach (StorageFile st in await item.StorageFolder.GetFilesAsync())
+                //{ 
+                //    if(st.Name.ToUpper().EndsWith(".JPG") || st.Name.ToUpper().EndsWith(".JPEG") || st.Name.ToUpper().EndsWith(".PNG") ||
+                //         st.Name.ToUpper().EndsWith(".BMP"))
+                //        await thumbnailPhoto(item, st);
+                //}
             }
             else if (retrievedItem is StorageFile)
             {
                 item.StorageFile = retrievedItem as StorageFile;
                 item.Type = ExplorerItemType.File;
-
-                await thumbnailPhoto(item);
+                //await thumbnailPhoto(item, item.StorageFile);
             }
 
             itemList.Add(item);
         }
 
-        private static async System.Threading.Tasks.Task thumbnailPhoto(ExplorerItem item)
+        private async System.Threading.Tasks.Task thumbnailPhoto(ExplorerItem item, StorageFile sf)
         {
-            StorageItemThumbnail fileThumbnail = await item.StorageFile.GetThumbnailAsync(ThumbnailMode.SingleItem, 300);
+            StorageItemThumbnail fileThumbnail = await sf.GetThumbnailAsync(ThumbnailMode.SingleItem, 300);
             BitmapImage bitmapImage = new BitmapImage();
             bitmapImage.SetSource(fileThumbnail);
             item.Image = bitmapImage;
         }
 
+<<<<<<< HEAD
         private void itemGridView_ItemClick_1(object sender, ItemClickEventArgs e)
         {
             ExplorerItem item = e.ClickedItem as ExplorerItem;
@@ -198,6 +205,8 @@ namespace MetroExplorer
             }
         }
 
+=======
+>>>>>>> origin/Bo
         #region propertychanged
         private void NotifyPropertyChanged(String changedPropertyName)
         {
@@ -209,6 +218,7 @@ namespace MetroExplorer
 
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
+<<<<<<< HEAD
 
         private async void Button_RemoveDiskFolder_Click(object sender, RoutedEventArgs e)
         {
@@ -276,7 +286,10 @@ namespace MetroExplorer
             if (e.FromInner)
                 Frame.Navigate(typeof(PageExplorer), parameters);
         }
+=======
+>>>>>>> origin/Bo
     }
+
 
     public class RenameBoxVisibilityConverter : IValueConverter
     {

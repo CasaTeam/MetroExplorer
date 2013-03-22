@@ -41,7 +41,7 @@ namespace MetroExplorer
             set
             {
                 explorerGroups = value;
-                NotifyPropertyChanged("ExplorerGroups");
+                NotifyPropertyChanged("ExplorerGroups");   
             }
         }
 
@@ -152,16 +152,16 @@ namespace MetroExplorer
                     Type = ExplorerItemType.Folder
                 });
             }
-            if (KnownFolders.MediaServerDevices != null)
-            {
-                ExplorerGroups[0].Add(new ExplorerItem()
-                {
-                    Name = KnownFolders.MediaServerDevices.Name,
-                    Path = KnownFolders.MediaServerDevices.Path,
-                    StorageFolder = KnownFolders.MediaServerDevices,
-                    Type = ExplorerItemType.Folder
-                });
-            }
+            //if (KnownFolders.MediaServerDevices != null)
+            //{
+            //    ExplorerGroups[0].Add(new ExplorerItem()
+            //    {
+            //        Name = KnownFolders.MediaServerDevices.Name,
+            //        Path = KnownFolders.MediaServerDevices.Path,
+            //        StorageFolder = KnownFolders.MediaServerDevices,
+            //        Type = ExplorerItemType.Folder
+            //    });
+            //}
         }
 
         double lastOffset = 0;
@@ -222,7 +222,7 @@ namespace MetroExplorer
             //var menu = new PopupMenu();
             //menu.Commands.Add(new UICommand(StringResources.ResourceLoader.GetString("MainPage_PopContextMenu_AddNewDiskOrFolder"), async (command) => 
             //{
-            await addNewFolder();
+                await addNewFolder();
             //}));
             //await menu.ShowForSelectionAsync(GetElementRect((FrameworkElement)sender));
         }
@@ -266,15 +266,14 @@ namespace MetroExplorer
 
         private void itemGridView_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
-            if (itemGridView.SelectedItems.Count > 0)
+            if(itemGridView.SelectedItems.Count > 0)
                 BottomAppBar.IsOpen = true;
         }
 
         private void itemGridView_ItemClick_1(object sender, ItemClickEventArgs e)
         {
             ExplorerItem item = e.ClickedItem as ExplorerItem;
-            IList<StorageFolder> _navigatorStorageFolders = new List<StorageFolder> { item.StorageFolder };
-            this.Frame.Navigate(typeof(PageExplorer), _navigatorStorageFolders);
+            this.Frame.Navigate(typeof(PageExplorer), item.StorageFolder);
         }
     }
 }
