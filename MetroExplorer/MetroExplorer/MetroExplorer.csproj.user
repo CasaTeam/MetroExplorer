@@ -7,6 +7,6 @@
     <UseSimulator>False</UseSimulator>
     <RemoteDebugMachine>comiscience</RemoteDebugMachine>
     <UseAuthentication>True</UseAuthentication>
-    <RemoteDebugEnabled>true</RemoteDebugEnabled>
+    <RemoteDebugEnabled>false</RemoteDebugEnabled>
   </PropertyGroup>
 </Project>

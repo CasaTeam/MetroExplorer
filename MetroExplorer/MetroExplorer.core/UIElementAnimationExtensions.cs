@@ -134,6 +134,7 @@ namespace MetroExplorer.core
                 duration = TimeSpan.FromSeconds(0.4);
 
             fadeInAnimation.Duration = duration.Value;
+            fadeInAnimation.From = 0;
             fadeInAnimation.To = targetOpacity;
             fadeInAnimation.EasingFunction = easingFunction;
 
@@ -143,7 +144,7 @@ namespace MetroExplorer.core
             SetAttachedFadeStoryboard(element, fadeInStoryboard);
             fadeInStoryboard.Begin();
             element.Opacity = targetOpacity;
-            fadeInStoryboard.Stop();
+            //fadeInStoryboard.Stop();
         }
         #endregion
 

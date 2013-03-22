@@ -39,7 +39,8 @@
             <Grid HorizontalAlignment="Left" Width="300" Height="150" Margin="0" Background="OrangeRed">
                 <Image x:Name="ExplorerItemImage" Source="{Binding Image}" Margin="0"
                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-                       Stretch="Uniform" Loaded="ExplorerItemImage_Loaded" ManipulationCompleted="ExplorerItemImage_ManipulationCompleted" SizeChanged="ExplorerItemImage_SizeChanged" Unloaded="ExplorerItemImage_Unloaded" >
+                       Stretch="Uniform" Loaded="ExplorerItemImage_Loaded" ManipulationCompleted="ExplorerItemImage_ManipulationCompleted" 
+                       SizeChanged="ExplorerItemImage_SizeChanged" Unloaded="ExplorerItemImage_Unloaded" >
                 </Image>
                 <Grid VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="#AA000000">
                     <TextBlock Foreground="#DDFFFFFF" TextAlignment="Center" Text="{Binding Name}"  Visibility="{Binding RenameBoxVisibility, Converter={StaticResource RenameBoxVisibilityConverter}}"

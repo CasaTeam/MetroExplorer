@@ -24,7 +24,9 @@ using Windows.UI.Xaml.Navigation;
 
 namespace MetroExplorer
 {
-
+    /// <summary>
+    /// 
+    /// </summary>
     public sealed partial class PageExplorer : MetroExplorer.Common.LayoutAwarePage, INotifyPropertyChanged
     {
         DispatcherTimer imageChangingDispatcher = new DispatcherTimer();
@@ -33,15 +35,28 @@ namespace MetroExplorer
         private void initializeChangingDispatcher()
         {
             imageChangingDispatcher.Tick += imageChangingDispatcher_Tick;
-            imageChangingDispatcher.Interval = new TimeSpan(0, 0, 0, 2);
+            imageChangingDispatcher.Interval = new TimeSpan(0, 0, 0, 0,500);
             imageChangingDispatcher.Start();
         }
 
+        int loadingImageCount = 0;
         async void imageChangingDispatcher_Tick(object sender, object e)
         {
-            for (int i = 0; i < ExplorerGroups[0].Count; i++)
+            if (loadingImageCount < ExplorerGroups[1].Count)
             {
-                if (ExplorerGroups[0][i].Image != null)
+                for (int i = 1;i % 10 != 0 && loadingImageCount < ExplorerGroups[1].Count;i++)
+                {
+                    await thumbnailPhoto(ExplorerGroups[1][loadingImageCount], ExplorerGroups[1][loadingImageCount].StorageFile);
+                    loadingImageCount++;
+                }
+            }
+            else
+            {
+                imageChangingDispatcher.Interval = new TimeSpan(0, 0, 0, 4);
+            }
+            if (imageChangingDispatcher.Interval.Seconds == 4)
+            {
+                for (int i = 0; i < ExplorerGroups[0].Count; i++)
                 {
                     int j = 0;
                     foreach (StorageFile st in await ExplorerGroups[0][i].StorageFolder.GetFilesAsync())
@@ -53,11 +68,11 @@ namespace MetroExplorer
                         }
                         folderInternalImageCount++;
                         if ((st.Name.ToUpper().EndsWith(".JPG") || st.Name.ToUpper().EndsWith(".JPEG") || st.Name.ToUpper().EndsWith(".PNG") ||
-                             st.Name.ToUpper().EndsWith(".BMP")))
+                                st.Name.ToUpper().EndsWith(".BMP")))
                         {
                             ExplorerGroups[0][i].Image = null;
                             await thumbnailPhoto(ExplorerGroups[0][i], st);
-                            folderInternalImageCount = (folderInternalImageCount < 4) ? folderInternalImageCount++ : 0;          
+                            folderInternalImageCount = (folderInternalImageCount < 4) ? folderInternalImageCount++ : 0;
                             break;
                         }
                     }
@@ -65,10 +80,36 @@ namespace MetroExplorer
             }
         }
 
+        private void addNewItem(GroupInfoList<ExplorerItem> itemList, IStorageItem retrievedItem)
+        {
+            ExplorerItem item = new ExplorerItem()
+            {
+                Name = retrievedItem.Name,
+                Path = retrievedItem.Path
+            };
+            if (retrievedItem is StorageFolder)
+            {
+                item.StorageFolder = retrievedItem as StorageFolder;
+                item.Type = ExplorerItemType.Folder;
+            }
+            else if (retrievedItem is StorageFile)
+            {
+                item.StorageFile = retrievedItem as StorageFile;
+                item.Type = ExplorerItemType.File;
+            }
+            itemList.Add(item);
+        }
+
+        private async System.Threading.Tasks.Task thumbnailPhoto(ExplorerItem item, StorageFile sf)
+        {
+            StorageItemThumbnail fileThumbnail = await sf.GetThumbnailAsync(ThumbnailMode.SingleItem, 300);
+            BitmapImage bitmapImage = new BitmapImage();
+            bitmapImage.SetSource(fileThumbnail);
+            item.Image = bitmapImage;
+        }
+
         private void ExplorerItemImage_Loaded(object sender, RoutedEventArgs e)
         {
-            (sender as Image).FadeOut();
-            (sender as Image).FadeIn();
         }
 
         private async void Button_RemoveDiskFolder_Click(object sender, RoutedEventArgs e)
@@ -126,8 +167,11 @@ namespace MetroExplorer
         private async void itemGridView_ItemClick_1(object sender, ItemClickEventArgs e)
         {
             ExplorerItem item = e.ClickedItem as ExplorerItem;
-            if(item.Type == ExplorerItemType.Folder)
+            if (item.Type == ExplorerItemType.Folder)
+            {
+                imageChangingDispatcher.Stop(); 
                 this.Frame.Navigate(typeof(PageExplorer), item.StorageFolder);
+            }
             else if (item.Type == ExplorerItemType.File)
             {
                 var file = await Windows.Storage.StorageFile.GetFileFromPathAsync(item.Path);
@@ -208,8 +252,8 @@ namespace MetroExplorer
 
         private void ExplorerItemImage_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            (sender as Image).FadeOut();
-            (sender as Image).FadeIn(new TimeSpan(0,0,1));
+            //(sender as Image).FadeOut();
+            (sender as Image).FadeInCustom(new TimeSpan(0,0,0,1));
         }
 
         private void ExplorerItemImage_Unloaded(object sender, RoutedEventArgs e)

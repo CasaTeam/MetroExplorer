@@ -101,42 +101,6 @@ namespace MetroExplorer
             }
         }
 
-        private void addNewItem(GroupInfoList<ExplorerItem> itemList, IStorageItem retrievedItem)
-        {
-            ExplorerItem item = new ExplorerItem()
-            {
-                Name = retrievedItem.Name,
-                Path = retrievedItem.Path
-            };
-            if (retrievedItem is StorageFolder)
-            {
-                item.StorageFolder = retrievedItem as StorageFolder;
-                item.Type = ExplorerItemType.Folder;
-                //foreach (StorageFile st in await item.StorageFolder.GetFilesAsync())
-                //{ 
-                //    if(st.Name.ToUpper().EndsWith(".JPG") || st.Name.ToUpper().EndsWith(".JPEG") || st.Name.ToUpper().EndsWith(".PNG") ||
-                //         st.Name.ToUpper().EndsWith(".BMP"))
-                //        await thumbnailPhoto(item, st);
-                //}
-            }
-            else if (retrievedItem is StorageFile)
-            {
-                item.StorageFile = retrievedItem as StorageFile;
-                item.Type = ExplorerItemType.File;
-                //await thumbnailPhoto(item, item.StorageFile);
-            }    
-            // sqdf
-            itemList.Add(item);
-        }
-
-        private async System.Threading.Tasks.Task thumbnailPhoto(ExplorerItem item, StorageFile sf)
-        {
-            StorageItemThumbnail fileThumbnail = await sf.GetThumbnailAsync(ThumbnailMode.SingleItem, 300);
-            BitmapImage bitmapImage = new BitmapImage();
-            bitmapImage.SetSource(fileThumbnail);
-            item.Image = bitmapImage;
-        }
-
         #region propertychanged
         private void NotifyPropertyChanged(String changedPropertyName)
         {
