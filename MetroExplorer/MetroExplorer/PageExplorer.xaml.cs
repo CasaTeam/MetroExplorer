@@ -99,10 +99,9 @@ namespace MetroExplorer
                     }
                 }
             }
-
         }
 
-        private async void addNewItem(GroupInfoList<ExplorerItem> itemList, IStorageItem retrievedItem)
+        private void addNewItem(GroupInfoList<ExplorerItem> itemList, IStorageItem retrievedItem)
         {
             ExplorerItem item = new ExplorerItem()
             {
@@ -113,18 +112,18 @@ namespace MetroExplorer
             {
                 item.StorageFolder = retrievedItem as StorageFolder;
                 item.Type = ExplorerItemType.Folder;
-                foreach (StorageFile st in await item.StorageFolder.GetFilesAsync())
-                { 
-                    if(st.Name.ToUpper().EndsWith(".JPG") || st.Name.ToUpper().EndsWith(".JPEG") || st.Name.ToUpper().EndsWith(".PNG") ||
-                         st.Name.ToUpper().EndsWith(".BMP"))
-                        await thumbnailPhoto(item, st);
-                }
+                //foreach (StorageFile st in await item.StorageFolder.GetFilesAsync())
+                //{ 
+                //    if(st.Name.ToUpper().EndsWith(".JPG") || st.Name.ToUpper().EndsWith(".JPEG") || st.Name.ToUpper().EndsWith(".PNG") ||
+                //         st.Name.ToUpper().EndsWith(".BMP"))
+                //        await thumbnailPhoto(item, st);
+                //}
             }
             else if (retrievedItem is StorageFile)
             {
                 item.StorageFile = retrievedItem as StorageFile;
                 item.Type = ExplorerItemType.File;
-                await thumbnailPhoto(item, item.StorageFile);
+                //await thumbnailPhoto(item, item.StorageFile);
             }
 
             itemList.Add(item);
