@@ -67,11 +67,8 @@ namespace MetroExplorer
 
         private void ExplorerItemImage_Loaded(object sender, RoutedEventArgs e)
         {
-            //var sb = (Storyboard)ExplorerItemImageLoadingAnimationTemplate.LoadContent();
-            //Storyboard.SetTarget(sb, sender as Image);
-            //sb.Begin();
+            (sender as Image).FadeOut();
             (sender as Image).FadeIn();
-            //(sender as Image).FadeIn(new TimeSpan(0, 0, 1));
         }
 
         private async void Button_RemoveDiskFolder_Click(object sender, RoutedEventArgs e)
@@ -174,7 +171,7 @@ namespace MetroExplorer
             }
             if (itemGridView.SelectedItems.Count == 1 && (itemGridView.SelectedItems[0] as ExplorerItem).RenameBoxVisibility == "Visible")
                 BottomAppBar.IsOpen = false;
-            else
+            else if (itemGridView.SelectedItems.Count > 0)
                 BottomAppBar.IsOpen = true;
         }
 
@@ -211,7 +208,8 @@ namespace MetroExplorer
 
         private void ExplorerItemImage_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            (sender as Image).FadeIn(new TimeSpan(0,0,0,0,500));
+            (sender as Image).FadeOut();
+            (sender as Image).FadeIn(new TimeSpan(0,0,1));
         }
 
         private void ExplorerItemImage_Unloaded(object sender, RoutedEventArgs e)
