@@ -1,4 +1,5 @@
-﻿using MetroExplorer.core;
+﻿using MetroExplorer.Components.Navigator.Objects;
+using MetroExplorer.core;
 using MetroExplorer.core.Objects;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,7 @@ namespace MetroExplorer
     public sealed partial class PageExplorer : MetroExplorer.Common.LayoutAwarePage, INotifyPropertyChanged
     {
         StorageFolder currentStorageFolder;
+        IList<StorageFolder> _navigatorStorageFolders;
         ObservableCollection<GroupInfoList<ExplorerItem>> explorerGroups;
         public ObservableCollection<GroupInfoList<ExplorerItem>> ExplorerGroups
         {
@@ -52,6 +54,7 @@ namespace MetroExplorer
             ExplorerGroups = new ObservableCollection<GroupInfoList<ExplorerItem>>();
             ExplorerGroups.Add(new GroupInfoList<ExplorerItem>() { Key = StringResources.ResourceLoader.GetString("MainExplorer_UserFolderGroupTitle") });
             ExplorerGroups.Add(new GroupInfoList<ExplorerItem>() { Key = StringResources.ResourceLoader.GetString("MainExplorer_UserFileGroupTitle") });
+            _navigatorStorageFolders = new List<StorageFolder>();
             this.Loaded += PageExplorer_Loaded;
         }
 
@@ -82,10 +85,14 @@ namespace MetroExplorer
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
-            currentStorageFolder = e.Parameter as StorageFolder;
+            //currentStorageFolder = e.Parameter as StorageFolder;
+
+            _navigatorStorageFolders = (IList<StorageFolder>)e.Parameter;
+            currentStorageFolder = _navigatorStorageFolders.LastOrDefault();
 
             if (currentStorageFolder != null)
             {
+                Navigator.Path = currentStorageFolder.Path;
                 IReadOnlyList<IStorageItem> listFiles = await currentStorageFolder.GetItemsAsync();
                 foreach (var item in listFiles)
                 {
@@ -99,6 +106,15 @@ namespace MetroExplorer
                     }
                 }
             }
+        }
+
+        private void NavigatorPathChanged(object sender, NavigatorNodeCommandArgument e)
+        {
+            IList<StorageFolder> parameters = new List<StorageFolder>();
+            parameters = _navigatorStorageFolders.Take(e.Index + 1).ToList();
+
+            if (e.FromInner)
+                Frame.Navigate(typeof(PageExplorer), parameters);
         }
 
         #region propertychanged

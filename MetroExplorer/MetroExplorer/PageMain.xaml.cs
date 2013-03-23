@@ -273,7 +273,8 @@ namespace MetroExplorer
         private void itemGridView_ItemClick_1(object sender, ItemClickEventArgs e)
         {
             ExplorerItem item = e.ClickedItem as ExplorerItem;
-            this.Frame.Navigate(typeof(PageExplorer), item.StorageFolder);
+            IList<StorageFolder> _navigatorStorageFolders = new List<StorageFolder> { item.StorageFolder };
+            this.Frame.Navigate(typeof(PageExplorer), _navigatorStorageFolders);
         }
     }
 }

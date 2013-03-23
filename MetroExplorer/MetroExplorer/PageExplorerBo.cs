@@ -170,7 +170,9 @@ namespace MetroExplorer
             if (item.Type == ExplorerItemType.Folder)
             {
                 imageChangingDispatcher.Stop(); 
-                this.Frame.Navigate(typeof(PageExplorer), item.StorageFolder);
+                //this.Frame.Navigate(typeof(PageExplorer), item.StorageFolder);
+                _navigatorStorageFolders.Add(item.StorageFolder);
+                Frame.Navigate(typeof(PageExplorer), _navigatorStorageFolders);
             }
             else if (item.Type == ExplorerItemType.File)
             {
@@ -182,7 +184,8 @@ namespace MetroExplorer
 
         private async void Button_AddNewFolder_Click(object sender, RoutedEventArgs e)
         {
-            StorageFolder sf = await currentStorageFolder.CreateFolderAsync(StringResources.ResourceLoader.GetString("String_NewFolder"), CreationCollisionOption.GenerateUniqueName);
+            //StorageFolder sf = await currentStorageFolder.CreateFolderAsync(StringResources.ResourceLoader.GetString("String_NewFolder"), CreationCollisionOption.GenerateUniqueName);
+            StorageFolder sf = await _navigatorStorageFolders.LastOrDefault().CreateFolderAsync(StringResources.ResourceLoader.GetString("String_NewFolder"), CreationCollisionOption.GenerateUniqueName);
             ExplorerItem item = new ExplorerItem()
             {
                 Name = sf.Name,
