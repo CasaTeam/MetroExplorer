@@ -30,7 +30,6 @@ namespace MetroExplorer
     public sealed partial class PageExplorer : MetroExplorer.Common.LayoutAwarePage, INotifyPropertyChanged
     {
         DispatcherTimer imageChangingDispatcher = new DispatcherTimer();
-        int folderInternalImageCount = 0;
 
         private void initializeChangingDispatcher()
         {
@@ -44,7 +43,7 @@ namespace MetroExplorer
         {
             if (loadingImageCount < ExplorerGroups[1].Count)
             {
-                for (int i = 1;i % 10 != 0 && loadingImageCount < ExplorerGroups[1].Count;i++)
+                for (int i = 1;i % 20 != 0 && loadingImageCount < ExplorerGroups[1].Count;i++)
                 {
                     await thumbnailPhoto(ExplorerGroups[1][loadingImageCount], ExplorerGroups[1][loadingImageCount].StorageFile);
                     loadingImageCount++;
@@ -52,29 +51,18 @@ namespace MetroExplorer
             }
             else
             {
-                imageChangingDispatcher.Interval = new TimeSpan(0, 0, 0, 4);
+                imageChangingDispatcher.Interval = new TimeSpan(0, 0, 0, 2);
             }
-            if (imageChangingDispatcher.Interval.Seconds == 4)
+            if (imageChangingDispatcher.Interval.Seconds == 2)
             {
                 for (int i = 0; i < ExplorerGroups[0].Count; i++)
                 {
                     int j = 0;
-                    foreach (StorageFile st in await ExplorerGroups[0][i].StorageFolder.GetFilesAsync())
+                    var sdf = (await ExplorerGroups[0][i].StorageFolder.GetFilesAsync()).Where(p => p.Name.ToUpper().EndsWith(".JPG") || p.Name.ToUpper().EndsWith(".JPEG")
+                                 || p.Name.ToUpper().EndsWith(".PNG") || p.Name.ToUpper().EndsWith(".BMP")).ToList();
+                    if (sdf != null && sdf.Count() > 0)
                     {
-                        if (j < folderInternalImageCount)
-                        {
-                            j++;
-                            continue;
-                        }
-                        folderInternalImageCount++;
-                        if ((st.Name.ToUpper().EndsWith(".JPG") || st.Name.ToUpper().EndsWith(".JPEG") || st.Name.ToUpper().EndsWith(".PNG") ||
-                                st.Name.ToUpper().EndsWith(".BMP")))
-                        {
-                            ExplorerGroups[0][i].Image = null;
-                            await thumbnailPhoto(ExplorerGroups[0][i], st);
-                            folderInternalImageCount = (folderInternalImageCount < 4) ? folderInternalImageCount++ : 0;
-                            break;
-                        }
+                        await thumbnailPhoto(ExplorerGroups[0][i], sdf[(new Random()).Next(sdf.Count)]);
                     }
                 }
             }
