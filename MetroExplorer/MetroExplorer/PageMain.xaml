@@ -48,7 +48,7 @@
         <x:String x:Key="AppName">Mon application</x:String>
         
         <DataTemplate x:Key="Standard300x180ItemTemplate">
-            <Grid HorizontalAlignment="Left" Width="300" Height="150" Margin="0" Background="OrangeRed">
+            <Grid HorizontalAlignment="Left" Width="267" Height="150" Margin="0" Background="OrangeRed">
                 <TextBlock Foreground="#DDFFFFFF" TextAlignment="Center" Text="{Binding Name}"
                             FontSize="22" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="5" FontWeight="Light"
 						    TextWrapping="Wrap" />
