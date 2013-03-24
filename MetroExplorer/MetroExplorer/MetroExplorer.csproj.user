@@ -4,7 +4,7 @@
     <ProjectView>ProjectFiles</ProjectView>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <UseSimulator>True</UseSimulator>
+    <UseSimulator>False</UseSimulator>
     <RemoteDebugMachine>comiscience</RemoteDebugMachine>
     <UseAuthentication>True</UseAuthentication>
     <RemoteDebugEnabled>false</RemoteDebugEnabled>

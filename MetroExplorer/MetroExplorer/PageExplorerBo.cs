@@ -30,53 +30,48 @@ namespace MetroExplorer
     public sealed partial class PageExplorer : MetroExplorer.Common.LayoutAwarePage, INotifyPropertyChanged
     {
         DispatcherTimer imageChangingDispatcher = new DispatcherTimer();
-        int folderInternalImageCount = 0;
 
         private void initializeChangingDispatcher()
         {
             imageChangingDispatcher.Tick += imageChangingDispatcher_Tick;
-            imageChangingDispatcher.Interval = new TimeSpan(0, 0, 0, 0,500);
+            imageChangingDispatcher.Interval = new TimeSpan(0, 0, 0, 0, 500);
             imageChangingDispatcher.Start();
         }
 
         int loadingImageCount = 0;
+        int loadingFolderImageCount = 0;
+        bool imageDispatcherLock = false;
         async void imageChangingDispatcher_Tick(object sender, object e)
         {
-            if (loadingImageCount < ExplorerGroups[1].Count)
+            if (imageDispatcherLock == false)
             {
-                for (int i = 1;i % 10 != 0 && loadingImageCount < ExplorerGroups[1].Count;i++)
+                imageDispatcherLock = true;
+                if (loadingImageCount < ExplorerGroups[1].Count)
                 {
-                    await thumbnailPhoto(ExplorerGroups[1][loadingImageCount], ExplorerGroups[1][loadingImageCount].StorageFile);
-                    loadingImageCount++;
-                }
-            }
-            else
-            {
-                imageChangingDispatcher.Interval = new TimeSpan(0, 0, 0, 4);
-            }
-            if (imageChangingDispatcher.Interval.Seconds == 4)
-            {
-                for (int i = 0; i < ExplorerGroups[0].Count; i++)
-                {
-                    int j = 0;
-                    foreach (StorageFile st in await ExplorerGroups[0][i].StorageFolder.GetFilesAsync())
+                    for (int i = 1; i % 20 != 0 && loadingImageCount < ExplorerGroups[1].Count; i++)
                     {
-                        if (j < folderInternalImageCount)
+                        await thumbnailPhoto(ExplorerGroups[1][loadingImageCount], ExplorerGroups[1][loadingImageCount].StorageFile);
+                        loadingImageCount++;
+                    }
+                }
+                else
+                {
+                    imageChangingDispatcher.Interval = new TimeSpan(0, 0, 0, 2);
+                }
+                if (loadingFolderImageCount % 7 == 0)
+                {
+                    for (int i = 0; i < ExplorerGroups[0].Count; i++)
+                    {
+                        var sdf = (await ExplorerGroups[0][i].StorageFolder.GetFilesAsync()).Where(p => p.Name.ToUpper().EndsWith(".JPG") || p.Name.ToUpper().EndsWith(".JPEG")
+                                        || p.Name.ToUpper().EndsWith(".PNG") || p.Name.ToUpper().EndsWith(".BMP")).ToList();
+                        if (sdf != null && sdf.Count() > 0)
                         {
-                            j++;
-                            continue;
-                        }
-                        folderInternalImageCount++;
-                        if ((st.Name.ToUpper().EndsWith(".JPG") || st.Name.ToUpper().EndsWith(".JPEG") || st.Name.ToUpper().EndsWith(".PNG") ||
-                                st.Name.ToUpper().EndsWith(".BMP")))
-                        {
-                            ExplorerGroups[0][i].Image = null;
-                            await thumbnailPhoto(ExplorerGroups[0][i], st);
-                            folderInternalImageCount = (folderInternalImageCount < 4) ? folderInternalImageCount++ : 0;
-                            break;
+                            await thumbnailPhoto(ExplorerGroups[0][i], sdf[(new Random()).Next(sdf.Count)]);
                         }
                     }
                 }
+                loadingFolderImageCount = ++loadingFolderImageCount % 7;
+                imageDispatcherLock = false;
             }
         }
 
@@ -169,7 +164,7 @@ namespace MetroExplorer
             ExplorerItem item = e.ClickedItem as ExplorerItem;
             if (item.Type == ExplorerItemType.Folder)
             {
-                imageChangingDispatcher.Stop(); 
+                imageChangingDispatcher.Stop();
                 //this.Frame.Navigate(typeof(PageExplorer), item.StorageFolder);
                 _navigatorStorageFolders.Add(item.StorageFolder);
                 Frame.Navigate(typeof(PageExplorer), _navigatorStorageFolders);
@@ -184,8 +179,7 @@ namespace MetroExplorer
 
         private async void Button_AddNewFolder_Click(object sender, RoutedEventArgs e)
         {
-            //StorageFolder sf = await currentStorageFolder.CreateFolderAsync(StringResources.ResourceLoader.GetString("String_NewFolder"), CreationCollisionOption.GenerateUniqueName);
-            StorageFolder sf = await _navigatorStorageFolders.LastOrDefault().CreateFolderAsync(StringResources.ResourceLoader.GetString("String_NewFolder"), CreationCollisionOption.GenerateUniqueName);
+            StorageFolder sf = await currentStorageFolder.CreateFolderAsync(StringResources.ResourceLoader.GetString("String_NewFolder"), CreationCollisionOption.GenerateUniqueName);
             ExplorerItem item = new ExplorerItem()
             {
                 Name = sf.Name,
@@ -256,7 +250,7 @@ namespace MetroExplorer
         private void ExplorerItemImage_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             //(sender as Image).FadeOut();
-            (sender as Image).FadeInCustom(new TimeSpan(0,0,0,1));
+            (sender as Image).FadeInCustom(new TimeSpan(0, 0, 0, 1, 500));
         }
 
         private void ExplorerItemImage_Unloaded(object sender, RoutedEventArgs e)

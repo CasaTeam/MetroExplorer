@@ -114,7 +114,16 @@ namespace MetroExplorer
             parameters = _navigatorStorageFolders.Take(e.Index + 1).ToList();
 
             if (e.FromInner)
+            {
+                imageChangingDispatcher.Stop();
                 Frame.Navigate(typeof(PageExplorer), parameters);
+            }
+        }
+
+        private void ButtonMainPage_Click_1(object sender, RoutedEventArgs e)
+        {
+            imageChangingDispatcher.Stop();
+            Frame.Navigate(typeof(PageMain));
         }
 
         #region propertychanged

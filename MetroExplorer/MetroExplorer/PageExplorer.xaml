@@ -37,10 +37,10 @@
         </DataTemplate>
 
         <DataTemplate x:Key="Standard300x180ItemTemplate">
-            <Grid HorizontalAlignment="Left" Width="300" Height="150" Margin="0" Background="OrangeRed">
+            <Grid HorizontalAlignment="Left" Width="267" Height="150" Margin="0" Background="OrangeRed">
                 <Image x:Name="ExplorerItemImage" Source="{Binding Image}" Margin="0"
                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-                       Stretch="Uniform" Loaded="ExplorerItemImage_Loaded" ManipulationCompleted="ExplorerItemImage_ManipulationCompleted" 
+                       Stretch="UniformToFill"  Loaded="ExplorerItemImage_Loaded" ManipulationCompleted="ExplorerItemImage_ManipulationCompleted" 
                        SizeChanged="ExplorerItemImage_SizeChanged" Unloaded="ExplorerItemImage_Unloaded" >
                 </Image>
                 <Grid VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="#AA000000">
@@ -262,23 +262,26 @@
             </Button>-->
         <Grid Height="75" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="BlueViolet">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="533*"/>
-                <ColumnDefinition Width="833*"/>
+                <ColumnDefinition Width="800"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" VerticalAlignment="Center" Style="{StaticResource BackButtonStyle}" Margin="10,19,0,8"/>
-            <TextBlock x:Name="pageTitle" Text="{StaticResource AppName}" x:Uid="Uid_PageMain_PageTitle"
-            IsHitTestVisible="false" VerticalAlignment="Center" FontSize="40" FontWeight="Light" Margin="63,19,199,8"/>
-            <Button Click="Button_AddNewFolder_Click" 
+            <Grid Grid.Column="0">
+                <!--<Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" VerticalAlignment="Center" Style="{StaticResource BackButtonStyle}" Margin="10,19,0,8"/>-->
+                <TextBlock x:Name="pageTitle" Text="{StaticResource AppName}" x:Uid="Uid_PageMain_PageTitle" HorizontalAlignment="Left"
+                           IsHitTestVisible="false" VerticalAlignment="Center" FontSize="40" FontWeight="Light" Margin="63,19,0,8"/>
+                <Button Click="Button_AddNewFolder_Click" 
             x:Uid="Uid_Page_Explorer_Button_AddNewFolder"
-            HorizontalAlignment="Center" VerticalAlignment="Center" Margin="459,9,29,2">
-                <Button.Style>
-                    <Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle2}">
-                        <Setter Property="AutomationProperties.Name" Value=""/>
-                        <Setter Property="Content" Value="&#xE109;"/>
-                    </Style>
-                </Button.Style>
-            </Button>
-            <Navigator:Navigator x:Name="Navigator" Grid.Column="1" Width="Auto" Height="Auto" NPathChanged="NavigatorPathChanged"/>
+            HorizontalAlignment="Left" VerticalAlignment="Center" Margin="459,9,29,2">
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle2}">
+                            <Setter Property="AutomationProperties.Name" Value=""/>
+                            <Setter Property="Content" Value="&#xE109;"/>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="5,-3" Content="返回主菜单" Background="Black" BorderBrush="Black" Click="ButtonMainPage_Click_1" />
+            </Grid>
+            <Navigator:Navigator x:Name="Navigator" Background="#33000000"  Grid.Column="1" Width="Auto" Height="Auto" NPathChanged="NavigatorPathChanged"/>
         </Grid>
         <!--TODO  LINDA-->
         <!--</StackPanel>-->
