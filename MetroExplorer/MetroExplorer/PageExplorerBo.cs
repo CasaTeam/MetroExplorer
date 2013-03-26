@@ -171,9 +171,16 @@ namespace MetroExplorer
             }
             else if (item.Type == ExplorerItemType.File)
             {
-                var file = await Windows.Storage.StorageFile.GetFileFromPathAsync(item.Path);
-                var targetStream = await file.OpenAsync(FileAccessMode.Read);
-                await Launcher.LaunchFileAsync(file, new LauncherOptions { DisplayApplicationPicker = true });
+                if (item.StorageFile != null && isImageFile(item.StorageFile))
+                {
+                    this.Frame.Navigate(typeof(PhotoGallery), new Object[] { _navigatorStorageFolders, item.StorageFile });
+                }
+                else
+                {
+                    var file = await Windows.Storage.StorageFile.GetFileFromPathAsync(item.Path);
+                    var targetStream = await file.OpenAsync(FileAccessMode.Read);
+                    await Launcher.LaunchFileAsync(file, new LauncherOptions { DisplayApplicationPicker = true });
+                }
             }
         }
 
@@ -256,6 +263,16 @@ namespace MetroExplorer
         private void ExplorerItemImage_Unloaded(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private Boolean isImageFile(StorageFile file)
+        {
+            if (file.FileType.Equals(".jpg") ||
+                file.FileType.Equals(".jpeg") ||
+                file.FileType.Equals(".png") ||
+                file.FileType.Equals(".bmp"))
+                return true;
+            return false;
         }
     }
 }
