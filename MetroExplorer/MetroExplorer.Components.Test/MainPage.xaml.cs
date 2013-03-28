@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MetroExplorer.Components.Navigator.Objects;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -29,7 +30,7 @@ namespace MetroExplorer.Components.Test
         protected override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-
+            Navigator.NPathChanged += Navigator_NPathChanged;
         }
 
         /// <summary>
@@ -43,11 +44,12 @@ namespace MetroExplorer.Components.Test
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            Navigator.Path = TextBoxPath.Text;
         }
 
-        private void Navigator_NPathChanged(object sender, string e)
+        private void Navigator_NPathChanged(object sender, NavigatorNodeCommandArgument e)
         {
-            TextBlockCurrentPath.Text = e;
+            TextBlockCurrentPath.Text = e.Path;
         }
     }
 }

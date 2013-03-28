@@ -102,6 +102,7 @@
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entensions.cs" />
     <Compile Include="GroupInfoList.cs" />
     <Compile Include="Objects\Enums.cs" />
     <Compile Include="Objects\ExplorerItem.cs" />

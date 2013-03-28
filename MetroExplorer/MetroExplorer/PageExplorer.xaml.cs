@@ -92,6 +92,20 @@ namespace MetroExplorer
 
             if (currentStorageFolder != null)
             {
+                List<List<string>> itemListArray = new List<List<string>>();
+                foreach (StorageFolder storageFolder in _navigatorStorageFolders)
+                {
+                    var items = await storageFolder.GetItemsAsync();
+                    List<string> folderNames = new List<string>();
+                    foreach (var item in items)
+                    {
+                        if (item is StorageFolder)
+                            folderNames.Add(item.Name);
+                    }
+
+                    itemListArray.Add(folderNames);
+                }
+                Navigator.ItemListArray = itemListArray.ToArray();
                 Navigator.Path = currentStorageFolder.Path;
                 IReadOnlyList<IStorageItem> listFiles = await currentStorageFolder.GetItemsAsync();
                 foreach (var item in listFiles)
@@ -108,13 +122,34 @@ namespace MetroExplorer
             }
         }
 
-        private void NavigatorPathChanged(object sender, NavigatorNodeCommandArgument e)
+        private async void NavigatorPathChanged(object sender, NavigatorNodeCommandArgument e)
         {
             IList<StorageFolder> parameters = new List<StorageFolder>();
             parameters = _navigatorStorageFolders.Take(e.Index + 1).ToList();
 
-            if (e.FromInner)
+            if (e.CommandType == NavigatorNodeCommandType.Reduce)
             {
+                imageChangingDispatcher.Stop();
+                Frame.Navigate(typeof(PageExplorer), parameters);
+            }
+            else if (e.CommandType == NavigatorNodeCommandType.Change)
+            {
+                StorageFolder lastStorageFolder = parameters.LastOrDefault();
+                if (lastStorageFolder != null)
+                {
+                    var results = await lastStorageFolder.GetItemsAsync();
+                    string changedNode = e.Path.Split('\\').LastOrDefault();
+                    StorageFolder storageFolder = null;
+                    foreach (var item in results)
+                    {
+                        if (item is StorageFolder && item.Name == changedNode)
+                        {
+                            storageFolder = (StorageFolder)item;
+                            parameters.Add(storageFolder);
+                            break;
+                        }
+                    }
+                }
                 imageChangingDispatcher.Stop();
                 Frame.Navigate(typeof(PageExplorer), parameters);
             }

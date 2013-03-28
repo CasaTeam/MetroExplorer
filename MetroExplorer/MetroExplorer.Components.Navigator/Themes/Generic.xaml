@@ -9,18 +9,58 @@
 		<StackPanel Orientation="Horizontal"/>
 	</ItemsPanelTemplate>
 	<DataTemplate x:Key="NavigatorDataTemplate">
-		<local:NavigatorItem Margin="0,0,5,0" Background="Red" Content="{Binding NodeName}" Command="{Binding NodeAction}" Index="{Binding NodeIndex}"/>
+		<Grid Height="80" d:DesignWidth="108.167" Margin="0,0,5,0">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition MinWidth="76"/>
+				<ColumnDefinition Width="32"/>
+			</Grid.ColumnDefinitions>
+			<local:NavigatorButton HorizontalAlignment="Right" Margin="0,0,5,0" Width="32" Grid.ColumnSpan="2" Command="{Binding NodeAction}" Index="{Binding NodeIndex}"/>
+			<local:NavigatorItem Background="Red" Content="{Binding NodeName}" Command="{Binding NodeAction}" Index="{Binding NodeIndex}"/>
+		</Grid>
 	</DataTemplate>
 
     <Style TargetType="local:Navigator">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:Navigator">
-                	<ScrollViewer x:Name="NavigatorScrollViewer" HorizontalAlignment="Left" Margin="0" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden" VerticalContentAlignment="Center" ZoomMode="Disabled" IsVerticalRailEnabled="False" VerticalScrollMode="Disabled">
-                		<StackPanel x:Name="NavigatorItemStack" Orientation="Horizontal" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False">
-                			<ItemsPresenter IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False"/>
-                		</StackPanel>
-                	</ScrollViewer>
+                	<Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" VerticalAlignment="Top" Clip="{Binding Clip, RelativeSource={RelativeSource Mode=TemplatedParent}}">
+                		<VisualStateManager.VisualStateGroups>
+                			<VisualStateGroup x:Name="ListButtonStates">
+                				<VisualStateGroup.Transitions>
+                					<VisualTransition GeneratedDuration="0:0:0.5" To="Pressed">
+                						<VisualTransition.GeneratedEasingFunction>
+                							<QuinticEase/>
+                						</VisualTransition.GeneratedEasingFunction>
+                					</VisualTransition>
+                					<VisualTransition From="Pressed" GeneratedDuration="0:0:0.5">
+                						<VisualTransition.GeneratedEasingFunction>
+                							<QuinticEase EasingMode="EaseIn"/>
+                						</VisualTransition.GeneratedEasingFunction>
+                					</VisualTransition>
+                				</VisualStateGroup.Transitions>
+                				<VisualState x:Name="Pressed">
+                					<Storyboard>
+                						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="GridItemList" d:IsOptimized="True"/>
+                						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="GridItemList" d:IsOptimized="True"/>
+                					</Storyboard>
+                				</VisualState>
+                			</VisualStateGroup>
+                		</VisualStateManager.VisualStateGroups>
+                		<ScrollViewer x:Name="NavigatorScrollViewer" HorizontalAlignment="Left" Margin="0" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden" VerticalContentAlignment="Center" ZoomMode="Disabled" IsVerticalRailEnabled="False" VerticalScrollMode="Disabled" VerticalAlignment="Top">
+                			<StackPanel x:Name="NavigatorItemStack" Orientation="Horizontal" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False">
+                				<ItemsPresenter IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False"/>
+                			</StackPanel>
+                		</ScrollViewer>
+                		<Grid x:Name="GridItemList" HorizontalAlignment="Left" Height="342" Width="318" Margin="0,80,0,-342" VerticalAlignment="Top" RenderTransformOrigin="1,0">
+                			<Grid.RenderTransform>
+                				<CompositeTransform ScaleX="0" ScaleY="0"/>
+                			</Grid.RenderTransform>
+                			<Grid.Background>
+                				<SolidColorBrush Color="#FFB00000" Opacity="0.65"/>
+                			</Grid.Background>
+                			<ListBox x:Name="ListBoxDropDown" Background="#CCFFFFFF"/>
+                		</Grid>
+                	</Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -34,7 +74,12 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:NavigatorItem">
-                    <Grid x:Name="grid" Height="80">
+                    <Grid x:Name="grid" Height="80" d:DesignWidth="75.5">
+                    	<Grid.ColumnDefinitions>
+                    		<ColumnDefinition Width="4"/>
+                    		<ColumnDefinition Width="Auto" MinWidth="64"/>
+                    		<ColumnDefinition Width="8"/>
+                    	</Grid.ColumnDefinitions>
                     	<Grid.Projection>
                     		<PlaneProjection/>
                     	</Grid.Projection>
@@ -54,23 +99,29 @@
                     			</VisualStateGroup.Transitions>
                     			<VisualState x:Name="Pressed">
                     				<Storyboard>
-                    					<DoubleAnimation Duration="0" To="0.5" Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.CenterOfRotationY)" Storyboard.TargetName="grid" d:IsOptimized="True"/>
-                    					<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.CenterOfRotationX)" Storyboard.TargetName="grid" d:IsOptimized="True"/>
-                    					<DoubleAnimation Duration="0" To="-18" Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.RotationY)" Storyboard.TargetName="grid" d:IsOptimized="True"/>
+                    					<DoubleAnimation Duration="0" Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.CenterOfRotationY)" Storyboard.TargetName="grid" d:IsOptimized="True" To="0.5"/>
+                    					<DoubleAnimation Duration="0" Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.CenterOfRotationX)" Storyboard.TargetName="grid" d:IsOptimized="True" To="0"/>
+                    					<DoubleAnimation Duration="0" Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.RotationY)" Storyboard.TargetName="grid" d:IsOptimized="True" To="-18"/>
                     				</Storyboard>
                     			</VisualState>
                     			<VisualState x:Name="Released"/>
                     		</VisualStateGroup>
                     	</VisualStateManager.VisualStateGroups>
-                    	<Border
-                    		Background="{TemplateBinding Background}"
-                    		BorderBrush="{TemplateBinding BorderBrush}"
-                    		BorderThickness="{TemplateBinding BorderThickness}" RenderTransformOrigin="0.5,0.5">
-                    		<Border.Projection>
-                    			<PlaneProjection CenterOfRotationY="-0.1"/>
-                    		</Border.Projection>
-                    		<TextBlock x:Name="TextBlockContent" TextWrapping="Wrap" Text="{TemplateBinding Content}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17.333" FontFamily="Corbel" Margin="10,0"/>
-                    	</Border>
+                    	<Grid Grid.Column="2">
+                    		<Path Stretch="Fill" Fill="{TemplateBinding Background}" Data="F1 M 652.504,278.68L 667.48,358.68L 652.48,358.68" UseLayoutRounding="False" HorizontalAlignment="Left" Width="8"/>
+                    	</Grid>
+                    	<Grid Grid.Column="1">
+                    		<Border
+                    			Background="{TemplateBinding Background}"
+                    			BorderBrush="{TemplateBinding BorderBrush}"
+                    			BorderThickness="{TemplateBinding BorderThickness}" RenderTransformOrigin="0.5,0.5">
+                    			<Border.Projection>
+                    				<PlaneProjection CenterOfRotationY="-0.1"/>
+                    			</Border.Projection>
+                    			<TextBlock x:Name="TextBlockContent" TextWrapping="Wrap" Text="{TemplateBinding Content}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17.333" FontFamily="Corbel" Margin="10,0"/>
+                    		</Border>
+                    	</Grid>
+                    	<Path Stretch="Fill" Fill="#FFFF0000" Data="F1 M 281.138,-64.0001C 280.034,-64.0001 279.138,-64.8954 279.138,-66L 279.138,-126C 279.138,-127.104 280.034,-128 281.138,-128" UseLayoutRounding="False"/>
                 	</Grid>
                 </ControlTemplate>
             </Setter.Value>
@@ -79,5 +130,42 @@
         <Setter Property="IsHoldingEnabled" Value="True"/>
         <Setter Property="IsRightTapEnabled" Value="True"/>
         <Setter Property="IsTapEnabled" Value="True"/>
+    </Style>
+
+    <Style TargetType="local:NavigatorButton">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:NavigatorButton">
+                    <Border x:Name="border"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                    	<Border.Projection>
+                    		<PlaneProjection/>
+                    	</Border.Projection>
+                    	<VisualStateManager.VisualStateGroups>
+                    		<VisualStateGroup x:Name="PointerState">
+                    			<VisualStateGroup.Transitions>
+                    				<VisualTransition GeneratedDuration="0:0:0.3" To="Pressed">
+                    					<VisualTransition.GeneratedEasingFunction>
+                    						<QuinticEase/>
+                    					</VisualTransition.GeneratedEasingFunction>
+                    				</VisualTransition>
+                    				<VisualTransition From="Pressed" GeneratedDuration="0:0:0.3"/>
+                    			</VisualStateGroup.Transitions>
+                    			<VisualState x:Name="Pressed">
+                    				<Storyboard>
+                    					<DoubleAnimation Duration="0" To="18" Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.RotationX)" Storyboard.TargetName="border" d:IsOptimized="True"/>
+                    					<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.CenterOfRotationY)" Storyboard.TargetName="border" d:IsOptimized="True"/>
+                    				</Storyboard>
+                    			</VisualState>
+                    			<VisualState x:Name="Released"/>
+                    		</VisualStateGroup>
+                    	</VisualStateManager.VisualStateGroups>
+                    	<Path Stretch="Fill" Fill="#FF830202" Data="F1 M 653.973,278.721L 711.009,278.721C 712.646,278.721 713.973,280.038 713.973,281.663L 713.973,355.78C 713.973,357.405 712.646,358.721 711.009,358.721L 669.092,358.721" Margin="0" UseLayoutRounding="False" HorizontalAlignment="Right" Width="32" Height="80"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 </ResourceDictionary>

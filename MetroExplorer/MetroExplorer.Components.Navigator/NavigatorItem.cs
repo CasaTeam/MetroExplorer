@@ -87,6 +87,7 @@ namespace MetroExplorer.Components.Navigator
             object sender,
             PointerRoutedEventArgs e)
         {
+            VisualStateManager.GoToState(this, "Entered", true);
         }
 
         private void NavigatorItemPointerExited(
@@ -112,7 +113,8 @@ namespace MetroExplorer.Components.Navigator
             VisualStateManager.GoToState(this, "Released", true);
             if (_pressed && Command != null)
             {
-                Command.Execute(new NavigatorNodeCommandArgument(Index, Content, true));
+                Command.Execute(
+                    new NavigatorNodeCommandArgument(Index, Content, NavigatorNodeCommandType.Reduce));
                 _pressed = false;
             }
         }
