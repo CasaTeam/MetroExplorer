@@ -24,6 +24,9 @@
           <FileTypeAssociation Name="fd">
             <SupportedFileTypes>
               <FileType>.pdf</FileType>
+              <FileType>.PNG</FileType>
+              <FileType>.JPG</FileType>
+              <FileType>.BMP</FileType>
             </SupportedFileTypes>
           </FileTypeAssociation>
         </Extension>

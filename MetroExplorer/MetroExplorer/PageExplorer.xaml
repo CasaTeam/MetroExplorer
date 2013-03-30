@@ -27,8 +27,9 @@
         <x:String x:Key="AppName">Mon application</x:String>
 
         <local:RenameBoxVisibilityConverter x:Key="RenameBoxVisibilityConverter" />
-
-
+        <local:FolderFace1Converter x:Key="FolderFace1Converter" />
+        <local:FolderFace2Converter x:Key="FolderFace2Converter" />
+        
         <DataTemplate x:Name="ExplorerItemImageLoadingAnimationTemplate">
             <Storyboard>
                 <FadeInThemeAnimation  />
@@ -40,15 +41,15 @@
             <Grid HorizontalAlignment="Left" Width="267" Height="150" Margin="0" Background="OrangeRed">
                 <Image x:Name="ExplorerItemImage" Source="{Binding Image}" Margin="0"
                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-                       Stretch="UniformToFill"  Loaded="ExplorerItemImage_Loaded" ManipulationCompleted="ExplorerItemImage_ManipulationCompleted" 
-                       SizeChanged="ExplorerItemImage_SizeChanged" Unloaded="ExplorerItemImage_Unloaded" >
+                       Stretch="UniformToFill"  Loaded="ExplorerItemImage_Loaded" 
+                       SizeChanged="ExplorerItemImage_SizeChanged" >
                 </Image>
                 <Grid VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="#AA000000">
                     <TextBlock Foreground="#DDFFFFFF" TextAlignment="Center" Text="{Binding Name}"  Visibility="{Binding RenameBoxVisibility, Converter={StaticResource RenameBoxVisibilityConverter}}"
-                            FontSize="22" Margin="5" FontWeight="Light"
+                            FontSize="22" Margin="5" FontWeight="Light" MaxHeight="60"
 						    TextWrapping="Wrap" />
                     <StackPanel Visibility="{Binding RenameBoxVisibility}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="5">
-                        <TextBlock Margin="7,3" HorizontalAlignment="Stretch" FontSize="24" Text="{Binding Name}" MaxHeight="100"/>
+                        <TextBlock Margin="7,3" HorizontalAlignment="Stretch" FontSize="24" Text="{Binding Name}" MaxHeight="60"/>
                         <TextBox Margin="7,3" HorizontalAlignment="Stretch" FontSize="24" Text="{Binding RenamingName, Mode=TwoWay}"/>
                         <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Left">
                             <Button x:Uid="Uid_Page_Explorer_Button_RenameFolder" FontSize="20" Click="Button_RenameFolder_Click" />
@@ -56,6 +57,40 @@
                         </StackPanel>
                     </StackPanel>
                 </Grid>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="Standard300x80ItemTemplate">
+            <Grid HorizontalAlignment="Left" Width="290" Height="55" Margin="0,3" Background="OrangeRed">
+                <Grid  Visibility="{Binding Type, Converter={StaticResource FolderFace1Converter}}">
+                    <Grid Height="55" Width="55" Background="Red" HorizontalAlignment="Left" >
+                        <Image x:Name="ExplorerItemImage" Source="{Binding Image}" Height="55" Width="55"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                       Stretch="UniformToFill" Loaded="ExplorerItemImage_Loaded"
+                       SizeChanged="ExplorerItemImage_SizeChanged">
+                        </Image>
+                    </Grid>
+                    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Left" Margin="60,0,0,0" Width="210">
+                        <TextBlock Foreground="#DDFFFFFF" Text="{Binding Name}" VerticalAlignment="Top" Margin="5,5,0,0" HorizontalAlignment="Left" 
+                               FontSize="16" FontWeight="Light" Width="200" />
+                        <TextBlock Foreground="#DDFFFFFF" Text="{Binding Size}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5,0,0,5"
+                               FontSize="14" FontWeight="Light" />
+                        <TextBlock Foreground="#DDFFFFFF" Text="{Binding ModifiedDateTime}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="5,0,0,5"
+                               FontSize="14" FontWeight="Light" />
+                    </Grid>
+                </Grid>
+                <Grid Visibility="{Binding Type, Converter={StaticResource FolderFace2Converter}}">
+                    <Grid Height="55" Width="55" Background="Red" HorizontalAlignment="Left" >
+                        <Image x:Name="ExplorerFolderImage" Height="55" Width="55" 
+                       VerticalAlignment="Center"
+                       Stretch="UniformToFill" Source="Assets/folder.png"  />
+                    </Grid>
+                    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Left" Margin="60,0,0,0" >
+                        <TextBlock Foreground="#DDFFFFFF" Text="{Binding Name}" VerticalAlignment="Center" Margin="5,0,0,5" HorizontalAlignment="Left"
+                               FontSize="18" FontWeight="Light" Width="200" />
+                    </Grid>
+                </Grid>
+
             </Grid>
         </DataTemplate>
     </Page.Resources>
@@ -86,9 +121,30 @@
                     </Button>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Height="110" HorizontalAlignment="Right">
+                    <Button Click="Button_CutPaste_Click"
+                        x:Uid="Uid_Page_Main_Button_CutPaste"
+                        Margin="5" HorizontalAlignment="Center">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
+                                <Setter Property="AutomationProperties.Name" Value=""/>
+                                <Setter Property="Content" Value="&#xE10D;"/>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button Click="Button_CopyPaste_Click"
+                        x:Uid="Uid_Page_Main_Button_CopyPaste"
+                        Margin="5" HorizontalAlignment="Center">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
+                                <Setter Property="AutomationProperties.Name" Value=""/>
+                                <Setter Property="Content" Value="&#xE158;"/>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Rectangle Width="2" VerticalAlignment="Stretch"  HorizontalAlignment="Center" Margin="15,30,15,30" Fill="White" />
                     <Button x:Name="Button_Detail" Click="Button_Detail_Click"
                         x:Uid="Uid_Page_Main_Button_Detail"
-                        Margin="5" HorizontalAlignment="Center">
+                        Margin="5,5,10,5" HorizontalAlignment="Center">
                         <Button.Style>
                             <Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
                                 <Setter Property="AutomationProperties.Name" Value=""/>
@@ -96,21 +152,13 @@
                             </Style>
                         </Button.Style>
                     </Button>
-                    <Rectangle Width="2" VerticalAlignment="Stretch"  HorizontalAlignment="Center" Margin="10,30,10,30" Fill="White" />
-                    <Button x:Name="Button_Play" Click="Button_Play_Click"
-                        x:Uid="Uid_Page_Main_Button_Play"
-                        Margin="5" HorizontalAlignment="Center">
-                        <Button.Style>
-                            <Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
-                                <Setter Property="AutomationProperties.Name" Value=""/>
-                                <Setter Property="Content" Value="&#xE102;"/>
-                            </Style>
-                        </Button.Style>
-                    </Button>
+
+
                 </StackPanel>
             </Grid>
         </AppBar>
     </common:LayoutAwarePage.BottomAppBar>
+
 
     <!--
         La grille sert de panneau racine à la page, permettant de définir deux lignes :
@@ -171,11 +219,11 @@
             IsSwipeEnabled="True" IsItemClickEnabled="True"
             IsRightTapEnabled="True"
             IsHoldingEnabled="True" 
-            SelectionChanged="itemGridView_SelectionChanged_1"
+            SelectionChanged="ItemGridView_SelectionChanged_1"
             AllowDrop="True"
             IsTapEnabled="True"
-            Tapped="itemGridView_Tapped"
-            ItemClick="itemGridView_ItemClick_1"
+            Tapped="ItemGridView_Tapped"
+            ItemClick="ItemGridView_ItemClick_1"
             SelectionMode="Multiple">
             <GridView.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -260,6 +308,7 @@
                     </Style>
                 </Button.Style>
             </Button>-->
+        <ProgressBar IsIndeterminate="True" Height="8" Margin="0,75,0,0" VerticalAlignment="Top" x:Name="LoadingProgressBar"/>
         <Grid Height="75" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="BlueViolet">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="800"/>

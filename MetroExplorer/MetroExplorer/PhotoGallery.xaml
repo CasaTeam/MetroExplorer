@@ -27,7 +27,7 @@
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
 
-
+        <ProgressBar IsIndeterminate="True" Height="8" Margin="0,0,0,0" VerticalAlignment="Top" x:Name="LoadingProgressBar"/>
         <!-- ItemContainerStyle="{StaticResource FlipViewContainerItemTemplate}"
  Style="{StaticResource FlipViewStyle}" 
                 <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" VerticalAlignment="Center" Style="{StaticResource BackButtonStyle}" Margin="10,19,0,8" ManipulationMode="RotateInertia"/>

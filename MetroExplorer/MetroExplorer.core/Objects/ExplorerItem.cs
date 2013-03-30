@@ -69,6 +69,28 @@ namespace MetroExplorer.core.Objects
             }
         }
 
+        private ulong size = 0;
+        public ulong Size
+        {
+            get { return size; }
+            set
+            {
+                size = value;
+                NotifyPropertyChanged("Size");
+            }
+        }
+
+        private DateTime modifiedDateTime;
+        public DateTime ModifiedDateTime
+        {
+            get { return modifiedDateTime; }
+            set
+            {
+                modifiedDateTime = value;
+                NotifyPropertyChanged("ModifiedDateTime");
+            }
+        }
+
         [XmlIgnore]
         private StorageFolder storageFolder;
         [XmlIgnore]

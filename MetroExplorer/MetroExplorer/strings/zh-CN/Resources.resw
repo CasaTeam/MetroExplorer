@@ -150,11 +150,14 @@
   <data name="Uid_Page_Main_Button_AddNewShortCutFolder.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
     <value>添加</value>
   </data>
+  <data name="Uid_Page_Main_Button_CopyPaste.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>复制到</value>
+  </data>
+  <data name="Uid_Page_Main_Button_CutPaste.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>剪切到</value>
+  </data>
   <data name="Uid_Page_Main_Button_Detail.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
     <value>切换显示模式</value>
-  </data>
-  <data name="Uid_Page_Main_Button_Play.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>预览</value>
   </data>
   <data name="Uid_Page_Main_Button_RemoveFolder.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
     <value>删除</value>

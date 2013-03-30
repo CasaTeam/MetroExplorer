@@ -31,42 +31,56 @@ namespace MetroExplorer
     /// </summary>
     public sealed partial class PageExplorer : MetroExplorer.Common.LayoutAwarePage, INotifyPropertyChanged
     {
-        StorageFolder currentStorageFolder;
+        StorageFolder _currentStorageFolder;
         IList<StorageFolder> _navigatorStorageFolders;
-        ObservableCollection<GroupInfoList<ExplorerItem>> explorerGroups;
+        ObservableCollection<GroupInfoList<ExplorerItem>> _explorerGroups;
         public ObservableCollection<GroupInfoList<ExplorerItem>> ExplorerGroups
         {
             get
             {
-                return explorerGroups;
+                return _explorerGroups;
             }
             set
             {
-                explorerGroups = value;
+                _explorerGroups = value;
                 NotifyPropertyChanged("ExplorerGroups");
             }
         }
+
+        /// <summary>
+        /// 是大方块显示，还是列表显示。如果是true，那就指大方块显示
+        /// </summary>
+        public static bool BigSquareMode = true;
 
         public PageExplorer()
         {
             this.InitializeComponent();
             DataContext = this;
-            ExplorerGroups = new ObservableCollection<GroupInfoList<ExplorerItem>>();
-            ExplorerGroups.Add(new GroupInfoList<ExplorerItem>() { Key = StringResources.ResourceLoader.GetString("MainExplorer_UserFolderGroupTitle") });
-            ExplorerGroups.Add(new GroupInfoList<ExplorerItem>() { Key = StringResources.ResourceLoader.GetString("MainExplorer_UserFileGroupTitle") });
-            _navigatorStorageFolders = new List<StorageFolder>();
+
             this.Loaded += PageExplorer_Loaded;
         }
 
         void PageExplorer_Loaded(object sender, RoutedEventArgs e)
         {
             //throw new NotImplementedException();
-            initializeChangingDispatcher();
+            InitializeChangingDispatcher();
+
+            if (PageExplorer.BigSquareMode == true)
+                itemGridView.ItemTemplate = this.Resources["Standard300x180ItemTemplate"] as DataTemplate;
+            else
+                itemGridView.ItemTemplate = this.Resources["Standard300x80ItemTemplate"] as DataTemplate;
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-
+            _imageChangingDispatcher.Stop();
+            _imageChangingDispatcher.Tick -= ImageChangingDispatcher_Tick;
+            _imageChangingDispatcher = null;
+            _navigatorStorageFolders = null;
+            _currentStorageFolder = null;
+            ExplorerGroups = new ObservableCollection<GroupInfoList<ExplorerItem>>();
+            ExplorerGroups = null;
+            GC.Collect();
         }
 
         /// <summary>
@@ -85,24 +99,27 @@ namespace MetroExplorer
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
-            //currentStorageFolder = e.Parameter as StorageFolder;
+            ExplorerGroups = new ObservableCollection<GroupInfoList<ExplorerItem>>();
+            ExplorerGroups.Add(new GroupInfoList<ExplorerItem>() { Key = StringResources.ResourceLoader.GetString("MainExplorer_UserFolderGroupTitle") });
+            ExplorerGroups.Add(new GroupInfoList<ExplorerItem>() { Key = StringResources.ResourceLoader.GetString("MainExplorer_UserFileGroupTitle") });
+            _navigatorStorageFolders = new List<StorageFolder>();
 
             _navigatorStorageFolders = (IList<StorageFolder>)e.Parameter;
-            currentStorageFolder = _navigatorStorageFolders.LastOrDefault();
+            _currentStorageFolder = _navigatorStorageFolders.LastOrDefault();
 
-            if (currentStorageFolder != null)
+            if (_currentStorageFolder != null)
             {
-                Navigator.Path = currentStorageFolder.Path;
-                IReadOnlyList<IStorageItem> listFiles = await currentStorageFolder.GetItemsAsync();
+                Navigator.Path = _currentStorageFolder.Path;
+                IReadOnlyList<IStorageItem> listFiles = await _currentStorageFolder.GetItemsAsync();
                 foreach (var item in listFiles)
                 {
                     if (item is StorageFolder)
                     {
-                        addNewItem(ExplorerGroups[0], item as StorageFolder);
+                        AddNewItem(ExplorerGroups[0], item as StorageFolder);
                     }
                     else if (item is StorageFile)
                     {
-                        addNewItem(ExplorerGroups[1], item as StorageFile);
+                        AddNewItem(ExplorerGroups[1], item as StorageFile);
                     }
                 }
             }
@@ -115,14 +132,14 @@ namespace MetroExplorer
 
             if (e.FromInner)
             {
-                imageChangingDispatcher.Stop();
+                _imageChangingDispatcher.Stop();
                 Frame.Navigate(typeof(PageExplorer), parameters);
             }
         }
 
         private void ButtonMainPage_Click_1(object sender, RoutedEventArgs e)
         {
-            imageChangingDispatcher.Stop();
+            _imageChangingDispatcher.Stop();
             Frame.Navigate(typeof(PageMain));
         }
 
@@ -155,4 +172,44 @@ namespace MetroExplorer
             throw new NotImplementedException();
         }
     }
+
+    #region FolderFaceConverter, because in metro sdk, there is no imultivalueconverter, so i have to use two converter to acheive my object
+    /// <summary>
+    /// For item who are not folder
+    /// </summary>
+    public class FolderFace1Converter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            if (value as Nullable<ExplorerItemType> == ExplorerItemType.Folder)
+                return "Collapsed";
+            else
+                return "Visible";
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    /// <summary>
+    /// For item who are folder
+    /// </summary>
+    public class FolderFace2Converter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            if (value as Nullable<ExplorerItemType> == ExplorerItemType.Folder)
+                return "Visible";
+            else
+                return "Collapsed";
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    #endregion
 }
