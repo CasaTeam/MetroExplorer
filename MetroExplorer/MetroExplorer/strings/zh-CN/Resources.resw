@@ -150,11 +150,8 @@
   <data name="Uid_Page_Main_Button_AddNewShortCutFolder.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
     <value>添加</value>
   </data>
-  <data name="Uid_Page_Main_Button_CopyPaste.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>复制到</value>
-  </data>
   <data name="Uid_Page_Main_Button_CutPaste.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>剪切到</value>
+    <value>获取文件</value>
   </data>
   <data name="Uid_Page_Main_Button_Detail.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
     <value>切换显示模式</value>
@@ -164,5 +161,17 @@
   </data>
   <data name="Uid_Page_Main_Button_RenameDiskFolder.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
     <value>重命名</value>
+  </data>
+  <data name="Uid_Popup_CopyCutPaste_ListItem_CopyFile.Content" xml:space="preserve">
+    <value>复制到此</value>
+  </data>
+  <data name="Uid_Popup_CopyCutPaste_ListItem_CopyFolder.Content" xml:space="preserve">
+    <value>复制文件夹</value>
+  </data>
+  <data name="Uid_Popup_CopyCutPaste_ListItem_CutFile.Content" xml:space="preserve">
+    <value>剪切到此</value>
+  </data>
+  <data name="Uid_Popup_CopyCutPaste_ListItem_CutFolder.Content" xml:space="preserve">
+    <value>抓取文件夹</value>
   </data>
 </root>

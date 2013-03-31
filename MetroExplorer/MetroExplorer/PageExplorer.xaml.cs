@@ -103,10 +103,14 @@ namespace MetroExplorer
             ExplorerGroups.Add(new GroupInfoList<ExplorerItem>() { Key = StringResources.ResourceLoader.GetString("MainExplorer_UserFolderGroupTitle") });
             ExplorerGroups.Add(new GroupInfoList<ExplorerItem>() { Key = StringResources.ResourceLoader.GetString("MainExplorer_UserFileGroupTitle") });
             _navigatorStorageFolders = new List<StorageFolder>();
-
             _navigatorStorageFolders = (IList<StorageFolder>)e.Parameter;
             _currentStorageFolder = _navigatorStorageFolders.LastOrDefault();
 
+            await RefreshLocalFiles();
+        }
+
+        private async System.Threading.Tasks.Task RefreshLocalFiles()
+        {
             if (_currentStorageFolder != null)
             {
                 Navigator.Path = _currentStorageFolder.Path;

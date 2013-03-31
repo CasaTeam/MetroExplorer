@@ -102,7 +102,8 @@ namespace MetroExplorer
                 item.Size = (await item.StorageFile.GetBasicPropertiesAsync()).Size;
                 item.ModifiedDateTime = (await item.StorageFile.GetBasicPropertiesAsync()).DateModified.DateTime;
             }
-            itemList.Add(item);
+            if(!itemList.Any(p=>p.Name == item.Name))
+                itemList.Add(item);
         }
 
         private async System.Threading.Tasks.Task ThumbnailPhoto(ExplorerItem item, StorageFile sf)
@@ -271,24 +272,65 @@ namespace MetroExplorer
     /// </summary>
     public sealed partial class PageExplorer : MetroExplorer.Common.LayoutAwarePage, INotifyPropertyChanged
     {
-        private async void Button_CutPaste_Click(object sender, RoutedEventArgs e)
+        #region cutcopypaste
+        private void Button_CutPaste_Click(object sender, RoutedEventArgs e)
         {
-            StorageFolder storageFolder = await GetAPickedFolder();
+            Popup_CopyCutPaste.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            Popup_CopyCutPaste.Margin = new Thickness(0, 0, 290, 190);
+            Popup_CopyCutPaste.IsLightDismissEnabled = true;
+            Popup_CopyCutPaste.IsOpen = true;
+            
         }
 
-        private async void Button_CopyPaste_Click(object sender, RoutedEventArgs e)
+        private async void ListBox_CopyCutPaste_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
-            StorageFolder storageFolder = await GetAPickedFolder();
+            if(sender == null) return;
+            Popup_CopyCutPaste.IsOpen = false;
+            Popup_CopyCutPaste.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+
+            if (ListBox_CopyCutPaste.Items.IndexOf((sender as ListBox).SelectedItem) == 0)
+                await CopyFile();
+            else if (ListBox_CopyCutPaste.Items.IndexOf((sender as ListBox).SelectedItem) == 1)
+                await CutFile();
+            ListBox_CopyCutPaste.SelectedItem = null;
+            RefreshAfterAddNewItem();
         }
 
-        private async Task<StorageFolder> GetAPickedFolder()
+        private async void RefreshAfterAddNewItem()
         {
-            FolderPicker folderPicker = new FolderPicker();
-            folderPicker.ViewMode = PickerViewMode.Thumbnail;
-            folderPicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
-            folderPicker.FileTypeFilter.Add("*");
-            return await folderPicker.PickSingleFolderAsync();
+            LoadingProgressBar.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            await RefreshLocalFiles();
+            LoadingProgressBar.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }
+
+        private async Task CopyFile()
+        {
+            FileOpenPicker filePicker = new FileOpenPicker();
+            filePicker.ViewMode = PickerViewMode.List;
+            filePicker.FileTypeFilter.Add("*");
+            filePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+            var sf = await filePicker.PickMultipleFilesAsync();
+            for (int i = 0; i < sf.Count; i++)
+            {
+                await sf[i].CopyAsync(_currentStorageFolder, sf[i].Name, NameCollisionOption.GenerateUniqueName);
+            }
+        }
+
+        private async Task CutFile()
+        {
+            FileOpenPicker filePicker = new FileOpenPicker();
+            filePicker.ViewMode = PickerViewMode.List;
+            filePicker.FileTypeFilter.Add("*");
+            filePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+            var sf = await filePicker.PickMultipleFilesAsync();
+            for (int i = 0; i < sf.Count; i++)
+            {
+                await sf[i].CopyAsync(_currentStorageFolder, sf[i].Name, NameCollisionOption.GenerateUniqueName);
+                await sf[i].DeleteAsync(StorageDeleteOption.Default);
+            }
+            GC.Collect();
+        }
+        #endregion
 
         private void Button_Detail_Click(object sender, RoutedEventArgs e)
         {
