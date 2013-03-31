@@ -38,15 +38,15 @@
         </DataTemplate>
 
         <DataTemplate x:Key="Standard300x180ItemTemplate">
-            <Grid HorizontalAlignment="Left" Width="267" Height="150" Margin="0" Background="OrangeRed">
+            <Grid HorizontalAlignment="Left" Width="280" Height="130" Margin="0" Background="#FF1C6E62">
                 <Image x:Name="ExplorerItemImage" Source="{Binding Image}" Margin="0"
                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                        Stretch="UniformToFill"  Loaded="ExplorerItemImage_Loaded" 
                        SizeChanged="ExplorerItemImage_SizeChanged" >
                 </Image>
-                <Grid VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="#AA000000">
-                    <TextBlock Foreground="#DDFFFFFF" TextAlignment="Center" Text="{Binding Name}"  Visibility="{Binding RenameBoxVisibility, Converter={StaticResource RenameBoxVisibilityConverter}}"
-                            FontSize="22" Margin="5" FontWeight="Light" MaxHeight="60"
+                <Grid VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="#FF1C6E62">
+                    <TextBlock Foreground="#FFFFFFFF" TextAlignment="Center" Text="{Binding Name}"  Visibility="{Binding RenameBoxVisibility, Converter={StaticResource RenameBoxVisibilityConverter}}"
+                            FontSize="22" Margin="5" FontWeight="Light" MaxHeight="30"
 						    TextWrapping="Wrap" />
                     <StackPanel Visibility="{Binding RenameBoxVisibility}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="5">
                         <TextBlock Margin="7,3" HorizontalAlignment="Stretch" FontSize="24" Text="{Binding Name}" MaxHeight="60"/>
@@ -61,9 +61,9 @@
         </DataTemplate>
 
         <DataTemplate x:Key="Standard300x80ItemTemplate">
-            <Grid HorizontalAlignment="Left" Width="290" Height="55" Margin="0,3" Background="OrangeRed">
+            <Grid HorizontalAlignment="Left" Width="290" Height="55" Margin="0,3" Background="#FF1C6E62">
                 <Grid  Visibility="{Binding Type, Converter={StaticResource FolderFace1Converter}}">
-                    <Grid Height="55" Width="55" Background="Red" HorizontalAlignment="Left" >
+                    <Grid Height="55" Width="55" Background="#FF0e5480" HorizontalAlignment="Left" >
                         <Image x:Name="ExplorerItemImage" Source="{Binding Image}" Height="55" Width="55"
                        HorizontalAlignment="Center" VerticalAlignment="Center"
                        Stretch="UniformToFill" Loaded="ExplorerItemImage_Loaded"
@@ -71,22 +71,22 @@
                         </Image>
                     </Grid>
                     <Grid VerticalAlignment="Stretch" HorizontalAlignment="Left" Margin="60,0,0,0" Width="210">
-                        <TextBlock Foreground="#DDFFFFFF" Text="{Binding Name}" VerticalAlignment="Top" Margin="5,5,0,0" HorizontalAlignment="Left" 
+                        <TextBlock Foreground="#FFFFFFFF" Text="{Binding Name}" VerticalAlignment="Top" Margin="5,5,0,0" HorizontalAlignment="Left" 
                                FontSize="16" FontWeight="Light" Width="200" />
-                        <TextBlock Foreground="#DDFFFFFF" Text="{Binding Size}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5,0,0,5"
+                        <TextBlock Foreground="#FFFFFFFF" Text="{Binding Size}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5,0,0,5"
                                FontSize="14" FontWeight="Light" />
-                        <TextBlock Foreground="#DDFFFFFF" Text="{Binding ModifiedDateTime}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="5,0,0,5"
+                        <TextBlock Foreground="#FFFFFFFF" Text="{Binding ModifiedDateTime}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="5,0,0,5"
                                FontSize="14" FontWeight="Light" />
                     </Grid>
                 </Grid>
                 <Grid Visibility="{Binding Type, Converter={StaticResource FolderFace2Converter}}">
-                    <Grid Height="55" Width="55" Background="Red" HorizontalAlignment="Left" >
+                    <Grid Height="55" Width="55" Background="#FF0e5480" HorizontalAlignment="Left" >
                         <Image x:Name="ExplorerFolderImage" Height="55" Width="55" 
                        VerticalAlignment="Center"
                        Stretch="UniformToFill" Source="Assets/folder.png"  />
                     </Grid>
                     <Grid VerticalAlignment="Stretch" HorizontalAlignment="Left" Margin="60,0,0,0" >
-                        <TextBlock Foreground="#DDFFFFFF" Text="{Binding Name}" VerticalAlignment="Center" Margin="5,0,0,5" HorizontalAlignment="Left"
+                        <TextBlock Foreground="#FFFFFFFF" Text="{Binding Name}" VerticalAlignment="Center" Margin="5,0,0,5" HorizontalAlignment="Left"
                                FontSize="18" FontWeight="Light" Width="200" />
                     </Grid>
                 </Grid>
@@ -96,9 +96,10 @@
     </Page.Resources>
 
     <common:LayoutAwarePage.BottomAppBar>
-        <AppBar x:Name="AppBar_BottomAppBar" Background="#BB000000" BorderBrush="#BB000000" Opened="AppBar_BottomAppBar_Opened_1">
+        <AppBar x:Name="AppBar_BottomAppBar" Opened="AppBar_BottomAppBar_Opened_1"
+                Background="{Binding Path=BottomBarBackground}" BorderBrush="{Binding Path=BottomBarBackground}">
             <Grid>
-                <StackPanel Orientation="Horizontal" Height="110" HorizontalAlignment="Left">
+                <StackPanel Orientation="Horizontal" Height="95" HorizontalAlignment="Left">
                     <Button x:Name="Button_RemoveDiskFolder" Click="Button_RemoveDiskFolder_Click"
                         x:Uid="Uid_Page_Main_Button_RemoveFolder"
                         Margin="5" HorizontalAlignment="Center">
@@ -121,6 +122,16 @@
                     </Button>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Height="110" HorizontalAlignment="Right">
+                    <Button Click="Button_AddNewFolder_Click" 
+                            x:Uid="Uid_Page_Explorer_Button_AddNewFolder"
+                            HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="5">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
+                                <Setter Property="AutomationProperties.Name" Value=""/>
+                                <Setter Property="Content" Value="&#xE109;"/>
+                            </Style>
+                        </Button.Style>
+                    </Button>
                     <Button Click="Button_CutPaste_Click"
                         x:Uid="Uid_Page_Main_Button_CutPaste"
                         Margin="5" HorizontalAlignment="Center">
@@ -152,8 +163,6 @@
                             </Style>
                         </Button.Style>
                     </Button>
-
-
                 </StackPanel>
             </Grid>
         </AppBar>
@@ -165,173 +174,213 @@
         * La ligne 0 qui contient le bouton Précédent et le titre de la page
         * La ligne 1 qui contient le reste de la page
     -->
-    <Grid Background="White">
-        <!--<Image x:Name="Image_Background" Source="Assets/Background.jpg" Stretch="UniformToFill"
+    <Grid Background="{Binding Path=BackgroundColor}">
+        <Grid Background="{Binding Path=BackgroundColor}">
+            <Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,112,352">
+                    <Image Source="Assets/folder.png" Height="48" Width="48"
+                   HorizontalAlignment="Left"/>
+                    <Image Source="Assets/heart.png" Height="48" Width="48"
+                   HorizontalAlignment="Left"/>
+                    <Image Source="Assets/i.png" Height="48" Width="48"
+                   HorizontalAlignment="Left"/>
+                    <Image Source="Assets/mail.png" Height="48" Width="48"
+                   HorizontalAlignment="Left"/>
+                    <Image Source="Assets/minus.png" Height="48" Width="48"
+                   HorizontalAlignment="Left"/>
+                    <Image Source="Assets/next.png" Height="48" Width="48"
+                   HorizontalAlignment="Left"/>
+                    <Image Source="Assets/overflowdots.png" Height="48" Width="48"
+                   HorizontalAlignment="Left"/>
+                    <Image Source="Assets/parent.png" Height="48" Width="48"
+                   HorizontalAlignment="Left"/>
+                    <Image Source="Assets/pause.png" Height="48" Width="48"
+                   HorizontalAlignment="Left"/>
+                    <Image Source="Assets/phone.png" Height="48" Width="48"
+                   HorizontalAlignment="Left"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,400,300">
+                    <Image Source="Assets/delete.png" Height="48" Width="48"
+                   HorizontalAlignment="Left"/>
+                    <Image Source="Assets/add.png" Height="48" Width="48"
+                   HorizontalAlignment="Left"/>
+                    <Image Source="Assets/back.png" Height="48" Width="48"
+                   HorizontalAlignment="Left"/>
+                    <Image Source="Assets/camera.png" Height="48" Width="48"
+                   HorizontalAlignment="Left"/>
+                    <Image Source="Assets/cancel.png" Height="48" Width="48"
+                   HorizontalAlignment="Left"/>
+                    <Image Source="Assets/check.png" Height="48" Width="48"
+                   HorizontalAlignment="Left"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,352,252">
+                    <Image Source="Assets/download.png" Height="48" Width="48"
+                   HorizontalAlignment="Left"/>
+                    <Image Source="Assets/edit.png" Height="48" Width="48"
+                   HorizontalAlignment="Left"/>
+                    <Image Source="Assets/favs.addto.png" Height="48" Width="48"
+                   HorizontalAlignment="Left"/>
+                    <Image Source="Assets/favs.png" Height="48" Width="48"
+                   HorizontalAlignment="Left"/>
+                    <Image Source="Assets/ff.png" Height="48" Width="48"
+                   HorizontalAlignment="Left"/>
+                    <Image Source="Assets/flag.png" Height="48" Width="48"
+                   HorizontalAlignment="Left"/>
+                </StackPanel>
+                <!--<Image x:Name="Image_Background" Source="Assets/Background.jpg" Stretch="UniformToFill"
                    HorizontalAlignment="Left"/>-->
+            </Grid>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="140"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                
+                <GridView
+                    x:Name="itemGridView"
+                    AutomationProperties.AutomationId="ItemGridView"
+                    AutomationProperties.Name="Grouped Items"
+                    Grid.RowSpan="2"
+                    Padding="116,150,40,120"
+                    ItemsSource="{Binding Source={StaticResource groupedItemsViewSource}}"
+                    ItemTemplate="{StaticResource Standard300x180ItemTemplate}"
+                    CanReorderItems="True"
+                    IsSwipeEnabled="True" IsItemClickEnabled="True"
+                    IsRightTapEnabled="True"
+                    IsHoldingEnabled="True" 
+                    SelectionChanged="ItemGridView_SelectionChanged_1"
+                    AllowDrop="True"
+                    IsTapEnabled="True"
+                    Tapped="ItemGridView_Tapped"
+                    ItemClick="ItemGridView_ItemClick_1"
+                    SelectionMode="Multiple">
+                    <GridView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </GridView.ItemsPanel>
+                    <GridView.GroupStyle>
+                        <GroupStyle>
+                            <GroupStyle.HeaderTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="1,0,0,6">
+                                        <Button AutomationProperties.Name="Group Title"
+                                                Style="{StaticResource TextPrimaryButtonStyle}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding Key}" Margin="3,-7,10,10" Style="{StaticResource GroupHeaderTextStyle}" Foreground="#FFFFFFFF" />
+                                                <Grid>
+                                                    <TextBlock Text="{StaticResource ChevronGlyph}" FontFamily="Segoe UI Symbol" Margin="0,-7,0,10" Style="{StaticResource GroupHeaderTextStyle}"
+                                                       Visibility="Visible"/>
+                                                </Grid>
+                                            </StackPanel>
+                                        </Button>
+                                    </Grid>
+                                </DataTemplate>
+                            </GroupStyle.HeaderTemplate>
+                            <GroupStyle.Panel>
+                                <ItemsPanelTemplate>
+                                    <VariableSizedWrapGrid Orientation="Vertical" Margin="0,0,80,0"/>
+                                </ItemsPanelTemplate>
+                            </GroupStyle.Panel>
+                        </GroupStyle>
+                    </GridView.GroupStyle>
+                </GridView>
 
-        <VisualStateManager.VisualStateGroups>
-            <!-- Les états visuels reflètent l'état d'affichage de l'application -->
-            <VisualStateGroup x:Name="ApplicationViewStates">
-                <VisualState x:Name="FullScreenLandscape"/>
-                <VisualState x:Name="Filled"/>
-                <!-- La totalité de la page respecte la convention de marge étroite de 100 pixels du mode Portrait -->
-                <VisualState x:Name="FullScreenPortrait">
-                    <Storyboard>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="backButton" Storyboard.TargetProperty="Style">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PortraitBackButtonStyle}"/>
-                        </ObjectAnimationUsingKeyFrames>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemGridView" Storyboard.TargetProperty="Padding">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="96,137,10,56"/>
-                        </ObjectAnimationUsingKeyFrames>
-                    </Storyboard>
-                </VisualState>
-                <!--
+                <!-- Liste de défilement vertical utilisée uniquement lorsque l'état d'affichage a la valeur Snapped -->
+                <ListView
+                    x:Name="itemListView"
+                    AutomationProperties.AutomationId="ItemListView"
+                    AutomationProperties.Name="Grouped Items"
+                    Grid.Row="1"
+                    Visibility="Collapsed"
+                    Margin="0,-10,0,0"
+                    Padding="10,0,0,60"
+                    ItemsSource="{Binding Source={StaticResource groupedItemsViewSource}}"
+                    ItemTemplate="{StaticResource Standard80ItemTemplate}"
+                    SelectionMode="None"
+                    IsSwipeEnabled="false">
+
+                    <ListView.GroupStyle>
+                        <GroupStyle>
+                            <GroupStyle.HeaderTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="7,7,0,0">
+                                        <Button
+                                    AutomationProperties.Name="Group Title"
+                                    Style="{StaticResource TextPrimaryButtonStyle}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding Title}" Margin="3,-7,10,10" Style="{StaticResource GroupHeaderTextStyle}" />
+                                                <TextBlock Text="{StaticResource ChevronGlyph}" FontFamily="Segoe UI Symbol" Margin="0,-7,0,10" Style="{StaticResource GroupHeaderTextStyle}"/>
+                                            </StackPanel>
+                                        </Button>
+                                    </Grid>
+                                </DataTemplate>
+                            </GroupStyle.HeaderTemplate>
+                        </GroupStyle>
+                    </ListView.GroupStyle>
+                </ListView>
+
+                <Grid Grid.Row="0">
+                    <ProgressBar IsIndeterminate="True" Height="8" Margin="0,2,0,0" VerticalAlignment="Top" x:Name="LoadingProgressBar"/>
+                    <Grid Height="140">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="480"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="backButton" Grid.Column="0" Opacity="0.8" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
+                        <TextBlock x:Name="pageTitle" Text="{StaticResource AppName}" x:Uid="Uid_PageMain_PageTitle" Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}"/>
+                        <StackPanel Grid.Column="2" Height="50" Margin="0,0,0,27" Orientation="Horizontal" VerticalAlignment="Bottom">
+                            <Button HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="5,0" Content="Home" Background="Transparent" BorderThickness="0"
+                                    FontSize="25" Click="ButtonMainPage_Click_1" FontWeight="Light" />
+                            <Rectangle HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="1" Margin="0,5,0,10" Fill="White"  />
+                            <Navigator:Navigator x:Name="Navigator" Background="#FF459973"  Grid.Column="1" Width="Auto" Height="Auto" NPathChanged="NavigatorPathChanged"/>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+
+                <VisualStateManager.VisualStateGroups>
+                    <!-- Les états visuels reflètent l'état d'affichage de l'application -->
+                    <VisualStateGroup x:Name="ApplicationViewStates">
+                        <VisualState x:Name="FullScreenLandscape"/>
+                        <VisualState x:Name="Filled"/>
+                        <!-- La totalité de la page respecte la convention de marge étroite de 100 pixels du mode Portrait -->
+                        <VisualState x:Name="FullScreenPortrait">
+                            <Storyboard>
+                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="backButton" Storyboard.TargetProperty="Style">
+                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PortraitBackButtonStyle}"/>
+                                </ObjectAnimationUsingKeyFrames>
+                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemGridView" Storyboard.TargetProperty="Padding">
+                                    <DiscreteObjectKeyFrame KeyTime="0" Value="96,137,10,56"/>
+                                </ObjectAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </VisualState>
+                        <!--
                     Le bouton Précédent et le titre ont un style différent lorsque l'état d'affichage a la valeur Snapped, et la représentation de liste est remplacée
                     par la grille affichée dans tous les autres affichages
                 -->
-                <VisualState x:Name="Snapped">
-                    <Storyboard>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="backButton" Storyboard.TargetProperty="Style">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedBackButtonStyle}"/>
-                        </ObjectAnimationUsingKeyFrames>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="pageTitle" Storyboard.TargetProperty="Style">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedPageHeaderTextStyle}"/>
-                        </ObjectAnimationUsingKeyFrames>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemListView" Storyboard.TargetProperty="Visibility">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
-                        </ObjectAnimationUsingKeyFrames>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemGridView" Storyboard.TargetProperty="Visibility">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
-                        </ObjectAnimationUsingKeyFrames>
-                    </Storyboard>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
-        <GridView
-            x:Name="itemGridView"
-            AutomationProperties.AutomationId="ItemGridView"
-            AutomationProperties.Name="Grouped Items"
-            Grid.RowSpan="2"
-            Padding="116,137,40,46"
-            ItemsSource="{Binding Source={StaticResource groupedItemsViewSource}}"
-            ItemTemplate="{StaticResource Standard300x180ItemTemplate}"
-            CanReorderItems="True"
-            IsSwipeEnabled="True" IsItemClickEnabled="True"
-            IsRightTapEnabled="True"
-            IsHoldingEnabled="True" 
-            SelectionChanged="ItemGridView_SelectionChanged_1"
-            AllowDrop="True"
-            IsTapEnabled="True"
-            Tapped="ItemGridView_Tapped"
-            ItemClick="ItemGridView_ItemClick_1"
-            SelectionMode="Multiple">
-            <GridView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <VirtualizingStackPanel Orientation="Horizontal"/>
-                </ItemsPanelTemplate>
-            </GridView.ItemsPanel>
-            <GridView.GroupStyle>
-                <GroupStyle>
-                    <GroupStyle.HeaderTemplate>
-                        <DataTemplate>
-                            <Grid Margin="1,0,0,6">
-                                <Button
-                                    AutomationProperties.Name="Group Title"
-                                    Style="{StaticResource TextPrimaryButtonStyle}">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding Key}" Margin="3,-7,10,10" Style="{StaticResource GroupHeaderTextStyle}" Foreground="BlueViolet" />
-                                        <Grid>
-                                            <TextBlock Text="{StaticResource ChevronGlyph}" FontFamily="Segoe UI Symbol" Margin="0,-7,0,10" Style="{StaticResource GroupHeaderTextStyle}"
-                                                       Visibility="Visible"/>
-                                        </Grid>
-                                    </StackPanel>
-                                </Button>
-                            </Grid>
-                        </DataTemplate>
-                    </GroupStyle.HeaderTemplate>
-                    <GroupStyle.Panel>
-                        <ItemsPanelTemplate>
-                            <VariableSizedWrapGrid Orientation="Vertical" Margin="0,0,80,0"/>
-                        </ItemsPanelTemplate>
-                    </GroupStyle.Panel>
-                </GroupStyle>
-            </GridView.GroupStyle>
-        </GridView>
+                        <VisualState x:Name="Snapped">
+                            <Storyboard>
+                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="backButton" Storyboard.TargetProperty="Style">
+                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedBackButtonStyle}"/>
+                                </ObjectAnimationUsingKeyFrames>
+                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="pageTitle" Storyboard.TargetProperty="Style">
+                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedPageHeaderTextStyle}"/>
+                                </ObjectAnimationUsingKeyFrames>
+                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemListView" Storyboard.TargetProperty="Visibility">
+                                    <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                                </ObjectAnimationUsingKeyFrames>
+                                <ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemGridView" Storyboard.TargetProperty="Visibility">
+                                    <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                                </ObjectAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
 
-        <!-- Liste de défilement vertical utilisée uniquement lorsque l'état d'affichage a la valeur Snapped -->
-        <ListView
-            x:Name="itemListView"
-            AutomationProperties.AutomationId="ItemListView"
-            AutomationProperties.Name="Grouped Items"
-            Grid.Row="1"
-            Visibility="Collapsed"
-            Margin="0,-10,0,0"
-            Padding="10,0,0,60"
-            ItemsSource="{Binding Source={StaticResource groupedItemsViewSource}}"
-            ItemTemplate="{StaticResource Standard80ItemTemplate}"
-            SelectionMode="None"
-            IsSwipeEnabled="false">
-
-            <ListView.GroupStyle>
-                <GroupStyle>
-                    <GroupStyle.HeaderTemplate>
-                        <DataTemplate>
-                            <Grid Margin="7,7,0,0">
-                                <Button
-                                    AutomationProperties.Name="Group Title"
-                                    Style="{StaticResource TextPrimaryButtonStyle}">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding Title}" Margin="3,-7,10,10" Style="{StaticResource GroupHeaderTextStyle}" />
-                                        <TextBlock Text="{StaticResource ChevronGlyph}" FontFamily="Segoe UI Symbol" Margin="0,-7,0,10" Style="{StaticResource GroupHeaderTextStyle}"/>
-                                    </StackPanel>
-                                </Button>
-                            </Grid>
-                        </DataTemplate>
-                    </GroupStyle.HeaderTemplate>
-                </GroupStyle>
-            </ListView.GroupStyle>
-        </ListView>
-
-
-        <!-- Bouton Précédent et titre de la page -->
-        <!--<StackPanel Height="75" Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="BlueViolet">-->
-        <!--<Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Margin="10,10,0,0" VerticalAlignment="Center" Style="{StaticResource BackButtonStyle}"/>
-            <TextBlock x:Name="pageTitle" Text="{StaticResource AppName}" x:Uid="Uid_PageMain_PageTitle"
-                       IsHitTestVisible="false" Margin="5,15,5,5" VerticalAlignment="Center" FontSize="40" FontWeight="Light"/>
-            <Button Click="Button_AddNewFolder_Click" 
-                x:Uid="Uid_Page_Explorer_Button_AddNewFolder"
-                Margin="120, 7, 0, 1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Button.Style>
-                    <Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle2}">
-                        <Setter Property="AutomationProperties.Name" Value=""/>
-                        <Setter Property="Content" Value="&#xE109;"/>
-                    </Style>
-                </Button.Style>
-            </Button>-->
-        <ProgressBar IsIndeterminate="True" Height="8" Margin="0,75,0,0" VerticalAlignment="Top" x:Name="LoadingProgressBar"/>
-        <Grid Height="75" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="BlueViolet">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="800"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0">
-                <!--<Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" VerticalAlignment="Center" Style="{StaticResource BackButtonStyle}" Margin="10,19,0,8"/>-->
-                <TextBlock x:Name="pageTitle" Text="{StaticResource AppName}" x:Uid="Uid_PageMain_PageTitle" HorizontalAlignment="Left"
-                           IsHitTestVisible="false" VerticalAlignment="Center" FontSize="40" FontWeight="Light" Margin="63,19,0,8"/>
-                <Button Click="Button_AddNewFolder_Click" 
-            x:Uid="Uid_Page_Explorer_Button_AddNewFolder"
-            HorizontalAlignment="Left" VerticalAlignment="Center" Margin="459,9,29,2">
-                    <Button.Style>
-                        <Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle2}">
-                            <Setter Property="AutomationProperties.Name" Value=""/>
-                            <Setter Property="Content" Value="&#xE109;"/>
-                        </Style>
-                    </Button.Style>
-                </Button>
-                <Button HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="5,-3" Content="返回主菜单" Background="Black" BorderBrush="Black" Click="ButtonMainPage_Click_1" />
             </Grid>
-            <Navigator:Navigator x:Name="Navigator" Background="#33000000"  Grid.Column="1" Width="Auto" Height="Auto" NPathChanged="NavigatorPathChanged"/>
         </Grid>
+          
         <!--TODO  LINDA-->
         <!--</StackPanel>-->
 

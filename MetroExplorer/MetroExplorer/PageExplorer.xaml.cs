@@ -157,6 +157,41 @@ namespace MetroExplorer
     }
 
 
+    /// <summary>
+    /// Properties for change theme color
+    /// </summary>
+    public sealed partial class PageExplorer : MetroExplorer.Common.LayoutAwarePage, INotifyPropertyChanged
+    {
+        private string _backgroundColor = "#FF1E2647";
+        public string BackgroundColor
+        {
+            get
+            {
+                return _backgroundColor;
+            }
+            set
+            {
+                _backgroundColor = value;
+                NotifyPropertyChanged("BackgroundColor");
+            }
+        }
+
+        private string _bottomBarBackground = "#FF0E5480";
+        public string BottomBarBackground
+        {
+            get
+            {
+                return _bottomBarBackground;
+            }
+            set
+            {
+                _bottomBarBackground = value;
+                NotifyPropertyChanged("BottomBarBackground");
+            }
+        }
+    }
+
+
     public class RenameBoxVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
