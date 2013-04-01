@@ -50,7 +50,7 @@
         <x:String x:Key="AppName">Mon application</x:String>
         
         <DataTemplate x:Key="Standard300x180ItemTemplate">
-            <Grid HorizontalAlignment="Left" Width="280" Height="130" Margin="0" Background="#FF1C6E62">
+            <Grid HorizontalAlignment="Left" Width="280" Height="140" Margin="0" Background="#FF1C6E62">
                 <TextBlock Foreground="#FFFFFFFF" TextAlignment="Center" Text="{Binding Name}"
                             FontSize="22" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="5" FontWeight="Light"
 						    TextWrapping="Wrap" />
