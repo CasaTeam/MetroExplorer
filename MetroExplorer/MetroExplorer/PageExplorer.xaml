@@ -167,56 +167,6 @@
     <Grid Background="{Binding Path=BackgroundColor}">
         <Grid Background="{Binding Path=BackgroundColor}">
             <Grid>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,112,352">
-                    <Image Source="Assets/folder.png" Height="48" Width="48"
-                   HorizontalAlignment="Left"/>
-                    <Image Source="Assets/heart.png" Height="48" Width="48"
-                   HorizontalAlignment="Left"/>
-                    <Image Source="Assets/i.png" Height="48" Width="48"
-                   HorizontalAlignment="Left"/>
-                    <Image Source="Assets/mail.png" Height="48" Width="48"
-                   HorizontalAlignment="Left"/>
-                    <Image Source="Assets/minus.png" Height="48" Width="48"
-                   HorizontalAlignment="Left"/>
-                    <Image Source="Assets/next.png" Height="48" Width="48"
-                   HorizontalAlignment="Left"/>
-                    <Image Source="Assets/overflowdots.png" Height="48" Width="48"
-                   HorizontalAlignment="Left"/>
-                    <Image Source="Assets/parent.png" Height="48" Width="48"
-                   HorizontalAlignment="Left"/>
-                    <Image Source="Assets/pause.png" Height="48" Width="48"
-                   HorizontalAlignment="Left"/>
-                    <Image Source="Assets/phone.png" Height="48" Width="48"
-                   HorizontalAlignment="Left"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,400,300">
-                    <Image Source="Assets/delete.png" Height="48" Width="48"
-                   HorizontalAlignment="Left"/>
-                    <Image Source="Assets/add.png" Height="48" Width="48"
-                   HorizontalAlignment="Left"/>
-                    <Image Source="Assets/back.png" Height="48" Width="48"
-                   HorizontalAlignment="Left"/>
-                    <Image Source="Assets/camera.png" Height="48" Width="48"
-                   HorizontalAlignment="Left"/>
-                    <Image Source="Assets/cancel.png" Height="48" Width="48"
-                   HorizontalAlignment="Left"/>
-                    <Image Source="Assets/check.png" Height="48" Width="48"
-                   HorizontalAlignment="Left"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,352,252">
-                    <Image Source="Assets/download.png" Height="48" Width="48"
-                   HorizontalAlignment="Left"/>
-                    <Image Source="Assets/edit.png" Height="48" Width="48"
-                   HorizontalAlignment="Left"/>
-                    <Image Source="Assets/favs.addto.png" Height="48" Width="48"
-                   HorizontalAlignment="Left"/>
-                    <Image Source="Assets/favs.png" Height="48" Width="48"
-                   HorizontalAlignment="Left"/>
-                    <Image Source="Assets/ff.png" Height="48" Width="48"
-                   HorizontalAlignment="Left"/>
-                    <Image Source="Assets/flag.png" Height="48" Width="48"
-                   HorizontalAlignment="Left"/>
-                </StackPanel>
                 <!--<Image x:Name="Image_Background" Source="Assets/Background.jpg" Stretch="UniformToFill"
                    HorizontalAlignment="Left"/>-->
             </Grid>
