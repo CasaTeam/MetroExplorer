@@ -24,6 +24,9 @@
           <FileTypeAssociation Name="fd">
             <SupportedFileTypes>
               <FileType>.pdf</FileType>
+              <FileType>.PNG</FileType>
+              <FileType>.JPG</FileType>
+              <FileType>.BMP</FileType>
             </SupportedFileTypes>
           </FileTypeAssociation>
         </Extension>
@@ -32,15 +35,11 @@
   </Applications>
   <Capabilities>
     <Capability Name="documentsLibrary" />
-    <Capability Name="sharedUserCertificates" />
-    <Capability Name="internetClientServer" />
     <Capability Name="privateNetworkClientServer" />
-    <Capability Name="enterpriseAuthentication" />
     <Capability Name="videosLibrary" />
     <Capability Name="removableStorage" />
     <Capability Name="picturesLibrary" />
     <Capability Name="musicLibrary" />
-    <Capability Name="internetClient" />
     <DeviceCapability Name="webcam" />
     <DeviceCapability Name="location" />
     <DeviceCapability Name="proximity" />

@@ -12,12 +12,12 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-// Pour en savoir plus sur le modèle d'élément Page Éléments groupés, consultez la page http://go.microsoft.com/fwlink/?LinkId=234231
+// The Grouped Items Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234231
 
 namespace MetroExplorer
 {
     /// <summary>
-    /// Page affichant une collection groupée d'éléments.
+    /// A page that displays a grouped collection of items.
     /// </summary>
     public sealed partial class GroupedItemsPage1 : MetroExplorer.Common.LayoutAwarePage
     {
@@ -27,17 +27,17 @@ namespace MetroExplorer
         }
 
         /// <summary>
-        /// Remplit la page à l'aide du contenu passé lors de la navigation. Tout état enregistré est également
-        /// fourni lorsqu'une page est recréée à partir d'une session antérieure.
+        /// Populates the page with content passed during navigation.  Any saved state is also
+        /// provided when recreating a page from a prior session.
         /// </summary>
-        /// <param name="navigationParameter">Valeur de paramètre passée à
-        /// <see cref="Frame.Navigate(Type, Object)"/> lors de la requête initiale de cette page.
+        /// <param name="navigationParameter">The parameter value passed to
+        /// <see cref="Frame.Navigate(Type, Object)"/> when this page was initially requested.
         /// </param>
-        /// <param name="pageState">Dictionnaire d'état conservé par cette page durant une session
-        /// antérieure. Null lors de la première visite de la page.</param>
+        /// <param name="pageState">A dictionary of state preserved by this page during an earlier
+        /// session.  This will be null the first time a page is visited.</param>
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
-            // TODO: assignez une collection de groupes pouvant être liés à this.DefaultViewModel["Groups"]
+            // TODO: Assign a collection of bindable groups to this.DefaultViewModel["Groups"]
         }
     }
 }

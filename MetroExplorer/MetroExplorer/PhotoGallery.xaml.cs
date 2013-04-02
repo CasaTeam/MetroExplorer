@@ -22,6 +22,7 @@ using Windows.Storage.AccessCache;
 using MetroExplorer.core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Media.Imaging;
+using Windows.Storage.FileProperties;
 
 // Pour en savoir plus sur le modèle d'élément Page Éléments groupés, consultez la page http://go.microsoft.com/fwlink/?LinkId=234231
 
@@ -49,7 +50,11 @@ namespace MetroExplorer
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-
+            currentStorageFolder = null;
+            items = null;
+            _navigatorStorageFolders = null;
+            seletedFile = null;
+            GC.Collect();
         }
 
         private void flipView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -63,21 +68,12 @@ namespace MetroExplorer
                     flipview.FadeOutCustom(new TimeSpan(0, 0, 0, 0, 0));
                 }
                 else {
-                    flipview.FadeInCustom(new TimeSpan(0, 0, 0, 2, 0));
+                    flipview.FadeOut(new TimeSpan(0, 0, 0, 0, 0));
+                    flipview.FadeInCustom(new TimeSpan(0, 0, 0, 1, 0));
                     isFadeInFirst = false;
                 }
             }
 
-        }
-
-        private Boolean isImageFile(StorageFile file)
-        {
-            if (file.FileType.Equals(".jpg") ||
-                file.FileType.Equals(".jpeg") ||
-                file.FileType.Equals(".png") ||
-                file.FileType.Equals(".bmp"))
-                return true;
-            return false;
         }
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
@@ -96,22 +92,28 @@ namespace MetroExplorer
                     {
                         StorageFile file = (StorageFile) item;
 
-                        if (file != null && isImageFile(file))
+                        if (file != null && file.IsImageFile())
                         {
+                            StorageItemThumbnail fileThumbnail = await file.GetThumbnailAsync(ThumbnailMode.SingleItem, (uint)this.ActualHeight, ThumbnailOptions.UseCurrentScale);
+                            BitmapImage bitmapImage = new BitmapImage();
+                            bitmapImage.SetSource(fileThumbnail);
+                            ExplorerItem photoItem = new ExplorerItem();
+                            photoItem.Name = file.Name;
+                            photoItem.Image = bitmapImage;
+                            items.Add(photoItem);
                             // Ensure the stream is disposed once the image is loaded
-                            using (IRandomAccessStream fileStream = await file.OpenAsync(Windows.Storage.FileAccessMode.Read))
-                            {
-                                // Set the image source to the selected bitmap
-                                BitmapImage bitmapImage = new BitmapImage();
+                            //using (IRandomAccessStream fileStream = await file.OpenAsync(Windows.Storage.FileAccessMode.Read))
+                            //{
+                            //    // Set the image source to the selected bitmap
+                            //    BitmapImage bitmapImage = new BitmapImage();
 
-                                await bitmapImage.SetSourceAsync(fileStream);
+                            //    await bitmapImage.SetSourceAsync(fileStream);
 
-                                ExplorerItem photoItem = new ExplorerItem();
-                                photoItem.Name = file.Name;
-                                photoItem.Image = bitmapImage;
-                                items.Add(photoItem);
-                            }
-                            
+                            //    ExplorerItem photoItem = new ExplorerItem();
+                            //    photoItem.Name = file.Name;
+                            //    photoItem.Image = bitmapImage;
+                            //    items.Add(photoItem);
+                            //}  
                         }                    
                     }
                 }
@@ -126,7 +128,7 @@ namespace MetroExplorer
                 ImageFlipVIew.ItemsSource = items;
                 ImageFlipVIew.SelectedIndex = mSeletedIndex;
             }
-         
+            LoadingProgressBar.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }
 
     }

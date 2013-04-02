@@ -108,6 +108,7 @@
     <Compile Include="Objects\ExplorerItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Singleton.cs" />
+    <Compile Include="StorageFileExtensioni.cs" />
     <Compile Include="StringResources.cs" />
     <Compile Include="UIElementAnimationExtensions.cs" />
     <Compile Include="VariableGridView.cs" />
