@@ -105,7 +105,7 @@ namespace MetroExplorer.Components.Navigator
                 new NavigatorNodeCommandArgument(
                     Index, string.Empty,
                     NavigatorNodeCommandType.ShowList,
-                    e.GetCurrentPoint(parent).Position.X));
+                    e.GetCurrentPoint(parent).Position.X + ActualWidth - e.GetCurrentPoint(this).Position.X));
         }
 
         private void NavigatorButtonPointerCaptureLost(

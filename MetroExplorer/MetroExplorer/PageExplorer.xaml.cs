@@ -113,6 +113,20 @@ namespace MetroExplorer
         {
             if (_currentStorageFolder != null)
             {
+                List<List<string>> itemListArray = new List<List<string>>();
+                foreach (StorageFolder storageFolder in _navigatorStorageFolders)
+                {
+                    var items = await storageFolder.GetItemsAsync();
+                    List<string> folderNames = new List<string>();
+                    foreach (var item in items)
+                    {
+                        if (item is StorageFolder)
+                            folderNames.Add(item.Name);
+                    }
+
+                    itemListArray.Add(folderNames);
+                } Navigator.ItemListArray = itemListArray.ToArray();
+
                 Navigator.Path = _currentStorageFolder.Path;
                 IReadOnlyList<IStorageItem> listFiles = await _currentStorageFolder.GetItemsAsync();
                 foreach (var item in listFiles)
@@ -136,7 +150,7 @@ namespace MetroExplorer
 
             if (e.CommandType == NavigatorNodeCommandType.Reduce)
             {
-                imageChangingDispatcher.Stop();
+                _imageChangingDispatcher.Stop();
                 Frame.Navigate(typeof(PageExplorer), parameters);
             }
             else if (e.CommandType == NavigatorNodeCommandType.Change)
@@ -157,7 +171,7 @@ namespace MetroExplorer
                         }
                     }
                 }
-                imageChangingDispatcher.Stop();
+                _imageChangingDispatcher.Stop();
                 Frame.Navigate(typeof(PageExplorer), parameters);
             }
         }

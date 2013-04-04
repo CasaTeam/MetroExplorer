@@ -81,14 +81,14 @@ namespace MetroExplorer.Components.Navigator
                             if (_gridItemList != null)
                             {
                                 ((ListBox)_gridItemList.Children[0]).ItemsSource = ItemListArray[_currentIndex];
-                                _gridItemList.Margin = new Thickness(positionX - _gridItemList.Width, 80.0, 0, -342.0);
+                                _gridItemList.Margin = new Thickness(positionX - _gridItemList.Width, ActualHeight, 0, -342.0);
                                 VisualStateManager.GoToState(this, "Pressed", true);
                             }
                             break;
                     }
 
                 };
-                nodes.Add(new NavigatorNode(index, value, command, ItemListArray[index]));
+                nodes.Add(new NavigatorNode(index, value, command, Background, ItemListArray[index]));
                 index++;
             }
 
@@ -132,6 +132,7 @@ namespace MetroExplorer.Components.Navigator
             if (_listBoxDropDown != null)
             {
                 _listBoxDropDown.SelectionChanged += ListBoxDropDownSelectionChanged;
+                _listBoxDropDown.Opacity = 0.8;
             }
         }
 

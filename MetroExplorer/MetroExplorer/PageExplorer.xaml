@@ -172,8 +172,8 @@
             </Grid>
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="140"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="126"/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
                 
                 <GridView
@@ -233,7 +233,6 @@
                     AutomationProperties.Name="Grouped Items"
                     Grid.Row="1"
                     Visibility="Collapsed"
-                    Margin="0,-10,0,0"
                     Padding="10,0,0,60"
                     ItemsSource="{Binding Source={StaticResource groupedItemsViewSource}}"
                     ItemTemplate="{StaticResource Standard80ItemTemplate}"
@@ -272,13 +271,17 @@
                         <TextBlock x:Name="pageTitle" Text="{StaticResource AppName}" x:Uid="Uid_PageMain_PageTitle" Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}"/>
                     </Grid>
                 </Grid>
-
-                <StackPanel  Grid.Row="0" Height="50" Margin="100,0,0,-40" Orientation="Horizontal" VerticalAlignment="Bottom">
-                    <Button HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="5,0" Content="Home" Background="Transparent" BorderThickness="0"
-                                    FontSize="25" Click="ButtonMainPage_Click_1" FontWeight="Light" />
-                    <Rectangle HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="1" Margin="0,10,0,10" Fill="White"  />
-                    <Navigator:Navigator x:Name="Navigator" Background="#FF459973"  Grid.Column="1" Width="Auto" Height="Auto" NPathChanged="NavigatorPathChanged"/>
-                </StackPanel>
+                <Grid  Grid.Row="1" Height="50" Margin="100,0,0,591" VerticalAlignment="Top">
+                	<Grid.ColumnDefinitions>
+                		<ColumnDefinition Width="95*"/>
+                		<ColumnDefinition Width="13*"/>
+                		<ColumnDefinition Width="1158*"/>
+                	</Grid.ColumnDefinitions>
+                	<Button HorizontalAlignment="Left" VerticalAlignment="Stretch" Content="Home" Background="Transparent" BorderThickness="0"
+                		FontSize="25" Click="ButtonMainPage_Click_1" FontWeight="Light" Width="95" />
+                	<Rectangle HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="1" Fill="White"  Margin="5,10,0,10" Grid.Column="1"  />
+                	<Navigator:Navigator x:Name="Navigator" Background="#FF459973" Width="Auto" Height="Auto" NPathChanged="NavigatorPathChanged" Margin="0" Grid.Column="2"/>
+                </Grid>
 
                 <VisualStateManager.VisualStateGroups>
                     <!-- Les états visuels reflètent l'état d'affichage de l'application -->

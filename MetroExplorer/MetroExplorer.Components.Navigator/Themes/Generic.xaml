@@ -9,13 +9,13 @@
 		<StackPanel Orientation="Horizontal"/>
 	</ItemsPanelTemplate>
 	<DataTemplate x:Key="NavigatorDataTemplate">
-		<Grid Height="80" d:DesignWidth="108.167" Margin="0,0,5,0">
+		<Grid Height="50" d:DesignWidth="108.167" Margin="0,0,5,0">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition MinWidth="76"/>
 				<ColumnDefinition Width="32"/>
 			</Grid.ColumnDefinitions>
-			<local:NavigatorButton HorizontalAlignment="Right" Margin="0,0,5,0" Width="32" Grid.ColumnSpan="2" Command="{Binding NodeAction}" Index="{Binding NodeIndex}"/>
-			<local:NavigatorItem Background="Red" Content="{Binding NodeName}" Command="{Binding NodeAction}" Index="{Binding NodeIndex}"/>
+			<local:NavigatorButton HorizontalAlignment="Right" Margin="0,0,5,0" Width="32" Grid.ColumnSpan="2" Command="{Binding NodeAction}" Index="{Binding NodeIndex}" Background="{Binding Background}"/>
+			<local:NavigatorItem Background="{Binding Background}" Content="{Binding NodeName}" Command="{Binding NodeAction}" Index="{Binding NodeIndex}"/>
 		</Grid>
 	</DataTemplate>
 
@@ -40,8 +40,8 @@
                 				</VisualStateGroup.Transitions>
                 				<VisualState x:Name="Pressed">
                 					<Storyboard>
-                						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="GridItemList" d:IsOptimized="True"/>
-                						<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="GridItemList" d:IsOptimized="True"/>
+                						<DoubleAnimation Duration="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="GridItemList" d:IsOptimized="True" To="1"/>
+                						<DoubleAnimation Duration="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="GridItemList" d:IsOptimized="True" To="1"/>
                 					</Storyboard>
                 				</VisualState>
                 			</VisualStateGroup>
@@ -51,21 +51,18 @@
                 				<ItemsPresenter IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False"/>
                 			</StackPanel>
                 		</ScrollViewer>
-                		<Grid x:Name="GridItemList" HorizontalAlignment="Left" Height="342" Width="318" Margin="0,80,0,-342" VerticalAlignment="Top" RenderTransformOrigin="1,0">
+                		<Grid x:Name="GridItemList" HorizontalAlignment="Left" Height="342" Width="270" VerticalAlignment="Top" RenderTransformOrigin="1,0">
                 			<Grid.RenderTransform>
                 				<CompositeTransform ScaleX="0" ScaleY="0"/>
                 			</Grid.RenderTransform>
-                			<Grid.Background>
-                				<SolidColorBrush Color="#FFB00000" Opacity="0.65"/>
-                			</Grid.Background>
-                			<ListBox x:Name="ListBoxDropDown" Background="#CCFFFFFF"/>
+                			<ListBox x:Name="ListBoxDropDown" Background="{TemplateBinding Background}"/>
                 		</Grid>
                 	</Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
         <Setter Property="Width" Value="500"/>
-        <Setter Property="Height" Value="80"/>
+        <Setter Property="Height" Value="50"/>
         <Setter Property="ItemsPanel" Value="{StaticResource NavigatorItemsPanelTemplate}"/>
         <Setter Property="ItemTemplate" Value="{StaticResource NavigatorDataTemplate}"/>
     </Style>
@@ -74,7 +71,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:NavigatorItem">
-                    <Grid x:Name="grid" Height="80" d:DesignWidth="75.5">
+                    <Grid x:Name="grid" Height="50" d:DesignWidth="75.5">
                     	<Grid.ColumnDefinitions>
                     		<ColumnDefinition Width="4"/>
                     		<ColumnDefinition Width="Auto" MinWidth="64"/>
@@ -108,7 +105,7 @@
                     		</VisualStateGroup>
                     	</VisualStateManager.VisualStateGroups>
                     	<Grid Grid.Column="2">
-                    		<Path Stretch="Fill" Fill="{TemplateBinding Background}" Data="F1 M 652.504,278.68L 667.48,358.68L 652.48,358.68" UseLayoutRounding="False" HorizontalAlignment="Left" Width="8"/>
+                    		<Path Stretch="Fill" Fill="{TemplateBinding Background}" Data="F1 M 652.504,278.68L 667.48,358.68L 652.48,358.68" UseLayoutRounding="False" HorizontalAlignment="Left" Width="8" Height="50"/>
                     	</Grid>
                     	<Grid Grid.Column="1">
                     		<Border
@@ -121,7 +118,7 @@
                     			<TextBlock x:Name="TextBlockContent" TextWrapping="Wrap" Text="{TemplateBinding Content}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17.333" FontFamily="Corbel" Margin="10,0"/>
                     		</Border>
                     	</Grid>
-                    	<Path Stretch="Fill" Fill="#FFFF0000" Data="F1 M 281.138,-64.0001C 280.034,-64.0001 279.138,-64.8954 279.138,-66L 279.138,-126C 279.138,-127.104 280.034,-128 281.138,-128" UseLayoutRounding="False"/>
+                    	<Path Stretch="Fill" Fill="{TemplateBinding Background}" Data="F1 M 281.138,-64.0001C 280.034,-64.0001 279.138,-64.8954 279.138,-66L 279.138,-126C 279.138,-127.104 280.034,-128 281.138,-128" UseLayoutRounding="False" Height="50"/>
                 	</Grid>
                 </ControlTemplate>
             </Setter.Value>
@@ -137,7 +134,6 @@
             <Setter.Value>
                 <ControlTemplate TargetType="local:NavigatorButton">
                     <Border x:Name="border"
-                        Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
                     	<Border.Projection>
@@ -162,7 +158,7 @@
                     			<VisualState x:Name="Released"/>
                     		</VisualStateGroup>
                     	</VisualStateManager.VisualStateGroups>
-                    	<Path Stretch="Fill" Fill="#FF830202" Data="F1 M 653.973,278.721L 711.009,278.721C 712.646,278.721 713.973,280.038 713.973,281.663L 713.973,355.78C 713.973,357.405 712.646,358.721 711.009,358.721L 669.092,358.721" Margin="0" UseLayoutRounding="False" HorizontalAlignment="Right" Width="32" Height="80"/>
+                    	<Path Stretch="Fill" Data="F1 M 653.973,278.721L 711.009,278.721C 712.646,278.721 713.973,280.038 713.973,281.663L 713.973,355.78C 713.973,357.405 712.646,358.721 711.009,358.721L 669.092,358.721" Margin="0" UseLayoutRounding="False" HorizontalAlignment="Right" Width="32" Height="50" Fill="{TemplateBinding Background}"/>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
