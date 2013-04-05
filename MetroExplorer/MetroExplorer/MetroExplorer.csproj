@@ -155,43 +155,12 @@
     <None Include="Windows8MetroExplorer_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\add.png" />
-    <Content Include="Assets\back.png" />
     <Content Include="Assets\Background.jpg" />
-    <Content Include="Assets\camera.png" />
-    <Content Include="Assets\cancel.png" />
-    <Content Include="Assets\check.png" />
-    <Content Include="Assets\delete.png" />
-    <Content Include="Assets\download.png" />
-    <Content Include="Assets\edit.png" />
-    <Content Include="Assets\favs.addto.png" />
-    <Content Include="Assets\favs.png" />
-    <Content Include="Assets\ff.png" />
-    <Content Include="Assets\flag.png" />
     <Content Include="Assets\folder.png" />
-    <Content Include="Assets\heart.png" />
-    <Content Include="Assets\i.png" />
     <Content Include="Assets\Logo.png" />
-    <Content Include="Assets\mail.png" />
-    <Content Include="Assets\minus.png" />
-    <Content Include="Assets\next.png" />
-    <Content Include="Assets\overflowdots.png" />
-    <Content Include="Assets\parent.png" />
-    <Content Include="Assets\pause.png" />
-    <Content Include="Assets\phone.png" />
-    <Content Include="Assets\play.png" />
-    <Content Include="Assets\questionmark.png" />
-    <Content Include="Assets\refresh.png" />
-    <Content Include="Assets\rew.png" />
-    <Content Include="Assets\save.png" />
-    <Content Include="Assets\search.png" />
-    <Content Include="Assets\settings.png" />
-    <Content Include="Assets\share.png" />
     <Content Include="Assets\SmallLogo.png" />
     <Content Include="Assets\SplashScreen.png" />
     <Content Include="Assets\StoreLogo.png" />
-    <Content Include="Assets\upload.png" />
-    <Content Include="Assets\video.png" />
     <Content Include="Common\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -229,17 +198,12 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="UmengWinStoreLibrary">
+      <HintPath>..\packages\umeng1.0\UmengWinStoreLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="WinRTXamlToolkit">
       <HintPath>..\packages\winrtxamltoolkit.1.3.5.3\lib\netcore45\WinRTXamlToolkit.dll</HintPath>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <SDKReference Include="DevExpress.Controls, Version=12.2">
-      <Name>DevExpress.Controls</Name>
-    </SDKReference>
-    <SDKReference Include="DevExpress.Core, version=12.2">
-      <Name>DevExpress.Core</Name>
-    </SDKReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
