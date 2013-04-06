@@ -23,6 +23,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using MetroExplorer.core.Utils;
 
 namespace MetroExplorer
 {
@@ -185,7 +186,9 @@ namespace MetroExplorer
                 {
                     var file = await Windows.Storage.StorageFile.GetFileFromPathAsync(item.Path);
                     var targetStream = await file.OpenAsync(FileAccessMode.Read);
+                    EventLogger.onActionEvent(EventLogger.FILE_OPENED);
                     await Launcher.LaunchFileAsync(file, new LauncherOptions { DisplayApplicationPicker = true });
+
                 }
             }
         }
