@@ -265,6 +265,20 @@ namespace MetroExplorer
             }
         }
 
+        private string _itemBigBackground = Theme.ThemeLibarary.ItemBigBackground;
+        public string ItemBigBackground
+        {
+            get
+            {
+                return _itemBigBackground;
+            }
+            set
+            {
+                _itemBigBackground = value;
+                NotifyPropertyChanged("ItemBigBackground");
+            }
+        }
+
         private void ChangeTheme(Theme.Themes themeYouWant)
         {
             Theme.ThemeLibarary.ChangeTheme(themeYouWant);
@@ -275,6 +289,7 @@ namespace MetroExplorer
             ItemSmallBackground = Theme.ThemeLibarary.ItemSmallBackground;
             ItemSelectedBorderColor = Theme.ThemeLibarary.ItemSelectedBorderColor;
             ItemTextForeground = Theme.ThemeLibarary.ItemTextForeground;
+            ItemBigBackground = Theme.ThemeLibarary.ItemBigBackground;
         }
     }
 

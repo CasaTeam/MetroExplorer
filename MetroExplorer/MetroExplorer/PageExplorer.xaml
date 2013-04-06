@@ -30,6 +30,7 @@
         <SolidColorBrush x:Key="ItemSmallBackground" Color="{Binding Path=ItemSmallBackground}"/>
         <SolidColorBrush x:Key="ItemSelectedBorderColor" Color="{Binding Path=ItemSelectedBorderColor}"/>
         <SolidColorBrush x:Key="ItemTextForeground" Color="{Binding Path=ItemTextForeground}"/>
+        <SolidColorBrush x:Key="ItemBigBackground" Color="{Binding Path=ItemBigBackground}"/>
 
         <local:RenameBoxVisibilityConverter x:Key="RenameBoxVisibilityConverter" />
         <local:FolderFace1Converter x:Key="FolderFace1Converter" />
@@ -43,13 +44,13 @@
         </DataTemplate>
 
         <DataTemplate x:Key="Standard300x180ItemTemplate">
-            <Grid HorizontalAlignment="Left" Width="280" Height="140" Margin="0" Background="{StaticResource ItemBackground}">
+            <Grid HorizontalAlignment="Left" Width="280" Height="140" Margin="0" Background="{StaticResource ItemBigBackground}">
                 <Image x:Name="ExplorerItemImage" Source="{Binding Image}" Margin="0"
                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                        Stretch="UniformToFill"  Loaded="ExplorerItemImage_Loaded" 
                        SizeChanged="ExplorerItemImage_SizeChanged" >
                 </Image>
-                <Grid VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="{StaticResource ItemSmallBackground}">
+                <Grid VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="{StaticResource ItemBigBackground}">
                     <TextBlock Foreground="{StaticResource ItemTextForeground}" TextAlignment="Center" Text="{Binding Name}"  Visibility="{Binding RenameBoxVisibility, Converter={StaticResource RenameBoxVisibilityConverter}}"
                             FontSize="22" Margin="5" FontWeight="Light" MaxHeight="30"
 						    TextWrapping="Wrap" />
