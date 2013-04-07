@@ -106,6 +106,7 @@ namespace MetroExplorer
             _navigatorStorageFolders = (IList<StorageFolder>)e.Parameter;
             _currentStorageFolder = _navigatorStorageFolders.LastOrDefault();
 
+            ChangeTheme(Theme.ThemeLibarary.CurrentTheme);
             await RefreshLocalFiles();
         }
 
@@ -201,7 +202,7 @@ namespace MetroExplorer
     /// </summary>
     public sealed partial class PageExplorer : MetroExplorer.Common.LayoutAwarePage, INotifyPropertyChanged
     {
-        private string _backgroundColor = "#FF1E2647";
+        private string _backgroundColor = Theme.ThemeLibarary.BackgroundColor;
         public string BackgroundColor
         {
             get
@@ -215,7 +216,7 @@ namespace MetroExplorer
             }
         }
 
-        private string _bottomBarBackground = "#FF0E5480";
+        private string _bottomBarBackground = Theme.ThemeLibarary.BottomBarBackground;
         public string BottomBarBackground
         {
             get
@@ -227,6 +228,88 @@ namespace MetroExplorer
                 _bottomBarBackground = value;
                 NotifyPropertyChanged("BottomBarBackground");
             }
+        }
+
+        private string _titleForeground = Theme.ThemeLibarary.TitleForeground;
+        public string TitleForeground
+        {
+            get
+            {
+                return _titleForeground;
+            }
+            set
+            {
+                _titleForeground = value;
+                NotifyPropertyChanged("TitleForeground");
+            }
+        }
+
+        private string _itemBackground = Theme.ThemeLibarary.ItemBackground;
+        public string ItemBackground
+        {
+            get
+            {
+                return _itemBackground;
+            }
+            set
+            {
+                _itemBackground = value;
+                NotifyPropertyChanged("ItemBackground");
+            }
+        }
+
+        private string _itemSmallBackground = Theme.ThemeLibarary.ItemSmallBackground;
+        public string ItemSmallBackground
+        {
+            get
+            {
+                return _itemSmallBackground;
+            }
+            set
+            {
+                _itemSmallBackground = value;
+                NotifyPropertyChanged("ItemSmallBackground");
+            }
+        }
+
+        private string _itemSelectedBorderColor = Theme.ThemeLibarary.ItemSelectedBorderColor;
+        public string ItemSelectedBorderColor
+        {
+            get
+            {
+                return _itemSelectedBorderColor;
+            }
+            set
+            {
+                _itemSelectedBorderColor = value;
+                NotifyPropertyChanged("ItemSelectedBorderColor");
+            }
+        }
+
+        private string _itemTextForeground = Theme.ThemeLibarary.ItemSelectedBorderColor;
+        public string ItemTextForeground
+        {
+            get
+            {
+                return _itemTextForeground;
+            }
+            set
+            {
+                _itemTextForeground = value;
+                NotifyPropertyChanged("ItemTextForeground");
+            }
+        }
+
+        private void ChangeTheme(Theme.Themes themeYouWant)
+        {
+            Theme.ThemeLibarary.ChangeTheme(themeYouWant);
+            BackgroundColor = Theme.ThemeLibarary.BackgroundColor;
+            BottomBarBackground = Theme.ThemeLibarary.BottomBarBackground;
+            TitleForeground = Theme.ThemeLibarary.TitleForeground;
+            ItemBackground = Theme.ThemeLibarary.ItemBackground;
+            ItemSmallBackground = Theme.ThemeLibarary.ItemSmallBackground;
+            ItemSelectedBorderColor = Theme.ThemeLibarary.ItemSelectedBorderColor;
+            ItemTextForeground = Theme.ThemeLibarary.ItemTextForeground;
         }
     }
 
