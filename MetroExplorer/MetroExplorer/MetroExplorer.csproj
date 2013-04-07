@@ -124,6 +124,9 @@
     <Compile Include="Common\LayoutAwarePage.cs" />
     <Compile Include="Common\RichTextColumns.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
+    <Compile Include="LayoutsBar\Preference.xaml.cs">
+      <DependentUpon>Preference.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PageExplorer.xaml.cs">
       <DependentUpon>PageExplorer.xaml</DependentUpon>
     </Compile>
@@ -172,6 +175,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="LayoutsBar\Preference.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PageExplorer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -198,9 +205,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="UmengWinStoreLibrary">
-      <HintPath>..\packages\umeng1.0\UmengWinStoreLibrary.dll</HintPath>
-    </Reference>
     <Reference Include="WinRTXamlToolkit">
       <HintPath>..\packages\winrtxamltoolkit.1.3.5.3\lib\netcore45\WinRTXamlToolkit.dll</HintPath>
     </Reference>

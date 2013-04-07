@@ -132,6 +132,9 @@
   <data name="MainPage_UserFolderGroupTitle" xml:space="preserve">
     <value>System Folders</value>
   </data>
+  <data name="SettingCommand_Preference" xml:space="preserve">
+    <value>Préférence</value>
+  </data>
   <data name="String_NewFolder" xml:space="preserve">
     <value>新建文件夹</value>
   </data>
@@ -173,5 +176,11 @@
   </data>
   <data name="Uid_Popup_CopyCutPaste_ListItem_CutFolder.Content" xml:space="preserve">
     <value>抓取文件夹</value>
+  </data>
+  <data name="Uid_PreferenceLayout_TextBlock_ThemeeColor.Text" xml:space="preserve">
+    <value>Thème en couleur</value>
+  </data>
+  <data name="Uid_PreferenceLayout_TextBlock_Title.Text" xml:space="preserve">
+    <value>Préférence</value>
   </data>
 </root>

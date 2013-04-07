@@ -14,7 +14,7 @@
 				<ColumnDefinition MinWidth="76"/>
 				<ColumnDefinition Width="32"/>
 			</Grid.ColumnDefinitions>
-			<local:NavigatorButton HorizontalAlignment="Right" Margin="0,0,5,0" Width="32" Grid.ColumnSpan="2" Command="{Binding NodeAction}" Index="{Binding NodeIndex}" Background="{Binding Background}"/>
+            <local:NavigatorButton HorizontalAlignment="Right" Margin="0,0,5,0" Width="32" Grid.ColumnSpan="2" Command="{Binding NodeAction}" Index="{Binding NodeIndex}" Background="{Binding Background}"/>
 			<local:NavigatorItem Background="{Binding Background}" Content="{Binding NodeName}" Command="{Binding NodeAction}" Index="{Binding NodeIndex}"/>
 		</Grid>
 	</DataTemplate>

@@ -13,6 +13,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Navigation;
+using MetroExplorer.core.Utils;
 
 namespace MetroExplorer
 {
@@ -88,17 +89,10 @@ namespace MetroExplorer
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
-            ExplorerGroups = new ObservableCollection<GroupInfoList<ExplorerItem>>
-                {
-                    new GroupInfoList<ExplorerItem>
-                        {
-                            Key = StringResources.ResourceLoader.GetString("MainExplorer_UserFolderGroupTitle")
-                        },
-                    new GroupInfoList<ExplorerItem>
-                        {
-                            Key = StringResources.ResourceLoader.GetString("MainExplorer_UserFileGroupTitle")
-                        }
-                };
+            EventLogger.onActionEvent(EventLogger.FOLDER_OPENED);
+            ExplorerGroups = new ObservableCollection<GroupInfoList<ExplorerItem>>();
+            ExplorerGroups.Add(new GroupInfoList<ExplorerItem>() { Key = StringResources.ResourceLoader.GetString("MainExplorer_UserFolderGroupTitle") });
+            ExplorerGroups.Add(new GroupInfoList<ExplorerItem>() { Key = StringResources.ResourceLoader.GetString("MainExplorer_UserFileGroupTitle") });
             _navigatorStorageFolders = new List<StorageFolder>();
             _navigatorStorageFolders = (IList<StorageFolder>)e.Parameter;
             _currentStorageFolder = _navigatorStorageFolders.LastOrDefault();
@@ -118,7 +112,8 @@ namespace MetroExplorer
                     List<string> folderNames = items.OfType<StorageFolder>().Select(item => item.Name).ToList();
 
                     itemListArray.Add(folderNames);
-                } Navigator.ItemListArray = itemListArray.ToArray();
+                } 
+                Navigator.ItemListArray = itemListArray.ToArray();
 
                 Navigator.Path = _currentStorageFolder.Path;
                 IReadOnlyList<IStorageItem> listFiles = await _currentStorageFolder.GetItemsAsync();
@@ -290,6 +285,20 @@ namespace MetroExplorer
             }
         }
 
+        private string _itemBigBackground = Theme.ThemeLibarary.ItemBigBackground;
+        public string ItemBigBackground
+        {
+            get
+            {
+                return _itemBigBackground;
+            }
+            set
+            {
+                _itemBigBackground = value;
+                NotifyPropertyChanged("ItemBigBackground");
+            }
+        }
+
         private void ChangeTheme(Theme.Themes themeYouWant)
         {
             Theme.ThemeLibarary.ChangeTheme(themeYouWant);
@@ -300,6 +309,7 @@ namespace MetroExplorer
             ItemSmallBackground = Theme.ThemeLibarary.ItemSmallBackground;
             ItemSelectedBorderColor = Theme.ThemeLibarary.ItemSelectedBorderColor;
             ItemTextForeground = Theme.ThemeLibarary.ItemTextForeground;
+            ItemBigBackground = Theme.ThemeLibarary.ItemBigBackground;
         }
     }
 
