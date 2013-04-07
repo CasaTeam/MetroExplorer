@@ -198,9 +198,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="UmengWinStoreLibrary">
-      <HintPath>..\packages\umeng1.0\UmengWinStoreLibrary.dll</HintPath>
-    </Reference>
     <Reference Include="WinRTXamlToolkit">
       <HintPath>..\packages\winrtxamltoolkit.1.3.5.3\lib\netcore45\WinRTXamlToolkit.dll</HintPath>
     </Reference>

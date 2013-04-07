@@ -21,6 +21,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using MetroExplorer.core.Utils;
 
 // Pour en savoir plus sur le modèle d'élément Page Éléments groupés, consultez la page http://go.microsoft.com/fwlink/?LinkId=234231
 
@@ -99,6 +100,8 @@ namespace MetroExplorer
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
+
+            EventLogger.onActionEvent(EventLogger.FOLDER_OPENED);
             ExplorerGroups = new ObservableCollection<GroupInfoList<ExplorerItem>>();
             ExplorerGroups.Add(new GroupInfoList<ExplorerItem>() { Key = StringResources.ResourceLoader.GetString("MainExplorer_UserFolderGroupTitle") });
             ExplorerGroups.Add(new GroupInfoList<ExplorerItem>() { Key = StringResources.ResourceLoader.GetString("MainExplorer_UserFileGroupTitle") });
@@ -265,6 +268,20 @@ namespace MetroExplorer
             }
         }
 
+        private string _itemBigBackground = Theme.ThemeLibarary.ItemBigBackground;
+        public string ItemBigBackground
+        {
+            get
+            {
+                return _itemBigBackground;
+            }
+            set
+            {
+                _itemBigBackground = value;
+                NotifyPropertyChanged("ItemBigBackground");
+            }
+        }
+
         private void ChangeTheme(Theme.Themes themeYouWant)
         {
             Theme.ThemeLibarary.ChangeTheme(themeYouWant);
@@ -275,6 +292,7 @@ namespace MetroExplorer
             ItemSmallBackground = Theme.ThemeLibarary.ItemSmallBackground;
             ItemSelectedBorderColor = Theme.ThemeLibarary.ItemSelectedBorderColor;
             ItemTextForeground = Theme.ThemeLibarary.ItemTextForeground;
+            ItemBigBackground = Theme.ThemeLibarary.ItemBigBackground;
         }
     }
 

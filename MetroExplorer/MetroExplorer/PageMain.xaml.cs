@@ -21,6 +21,7 @@ using WinRTXamlToolkit.Controls.Extensions;
 using Windows.Storage.AccessCache;
 using MetroExplorer.core;
 using Windows.UI.Popups;
+using MetroExplorer.core.Utils;
 
 // Pour en savoir plus sur le modèle d'élément Page Éléments groupés, consultez la page http://go.microsoft.com/fwlink/?LinkId=234231
 
@@ -206,6 +207,11 @@ namespace MetroExplorer
                 }
                 else
                     AddNewItem(ExplorerGroups[1], storageFolder, token);
+                EventLogger.onActionEvent(EventLogger.ADD_FOLDER_DONE, EventLogger.LABEL_HOME_PAGE);
+            }
+            else 
+            {
+                EventLogger.onActionEvent(EventLogger.ADD_FOLDER_CANCEL, EventLogger.LABEL_HOME_PAGE);
             }
         }
 
@@ -214,6 +220,7 @@ namespace MetroExplorer
             //var menu = new PopupMenu();
             //menu.Commands.Add(new UICommand(StringResources.ResourceLoader.GetString("MainPage_PopContextMenu_AddNewDiskOrFolder"), async (command) => 
             //{
+            EventLogger.onActionEvent(EventLogger.ADD_FOLDER_CLICK, EventLogger.LABEL_HOME_PAGE);
                 await AddNewFolder();
             //}));
             //await menu.ShowForSelectionAsync(GetElementRect((FrameworkElement)sender));
@@ -382,6 +389,20 @@ namespace MetroExplorer
             }
         }
 
+        private string _itemBigBackground = Theme.ThemeLibarary.ItemBigBackground;
+        public string ItemBigBackground
+        {
+            get
+            {
+                return _itemBigBackground;
+            }
+            set
+            {
+                _itemBigBackground = value;
+                NotifyPropertyChanged("ItemBigBackground");
+            }
+        }
+
         private void ChangeTheme(Theme.Themes themeYouWant)
         {
             Theme.ThemeLibarary.ChangeTheme(themeYouWant);
@@ -392,6 +413,7 @@ namespace MetroExplorer
             ItemSmallBackground = Theme.ThemeLibarary.ItemSmallBackground;
             ItemSelectedBorderColor = Theme.ThemeLibarary.ItemSelectedBorderColor;
             ItemTextForeground = Theme.ThemeLibarary.ItemTextForeground;
+            ItemBigBackground = Theme.ThemeLibarary.ItemBigBackground;
         }
     }
 }
