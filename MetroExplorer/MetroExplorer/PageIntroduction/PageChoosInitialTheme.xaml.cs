@@ -52,7 +52,7 @@ namespace MetroExplorer.PageIntroduction
         private void Rectangle_Tapped_1(object sender, TappedRoutedEventArgs e)
         {
             Theme.ThemeLibarary.CurrentTheme = Theme.Themes.Bo;
-            this.Frame.Navigate(typeof(PageMain), Theme.Themes.Bo);
+            this.Frame.Navigate(typeof(PageMain));
         }
 
         private void Rectangle_Tapped_2(object sender, TappedRoutedEventArgs e)

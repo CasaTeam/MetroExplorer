@@ -5,14 +5,18 @@ using System.IO;
 using System.Linq;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Resources;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.ApplicationSettings;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=234227
@@ -67,10 +71,14 @@ namespace MetroExplorer
 
             if (rootFrame.Content == null)
             {
+                SettingsPane.GetForCurrentView().CommandsRequested += OnCommandsRequested; // TODO: INIT Command Request 
+                Theme.ThemeLibarary.CurrentTheme = Theme.Themes.EAE9E5; // TODO: INIT DEFAUT Theme
+                Theme.ThemeLibarary.ChangeTheme(Theme.ThemeLibarary.CurrentTheme);
+
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
-                if (!rootFrame.Navigate(typeof(PageIntroduction.PageChoosInitialTheme), args.Arguments))
+                if (!rootFrame.Navigate(typeof(PageMain), args.Arguments))
                 {
                     throw new Exception("Failed to create initial page");
                 }
@@ -92,5 +100,97 @@ namespace MetroExplorer
             //TODO: Save application state and stop any background activity
             deferral.Complete();
         }
+    }
+
+
+    /// <summary>
+    /// CommandsRequested
+    /// </summary>
+    sealed partial class App : Application
+    {
+        void OnCommandsRequested(SettingsPane settingsPane, SettingsPaneCommandsRequestedEventArgs eventArgs)
+        {
+            UICommandInvokedHandler handler = new UICommandInvokedHandler(OnSettingsCommand);
+
+            //SettingsCommand preferenceCommand = new SettingsCommand("Preference", (new ResourceLoader()).GetString("SettingCommand_Preference"), handler);
+            //eventArgs.Request.ApplicationCommands.Add(preferenceCommand);
+        }
+
+        void OnSettingsCommand(IUICommand command)
+        {
+            SettingsCommand settingsCommand = (SettingsCommand)command;
+            PreferenceSettingCommand(settingsCommand);
+        }
+
+        #region Right Command Layout
+        private Popup settingsPopup;
+        private double settingsWidth = 500;
+        private Rect windowBounds;
+
+        void PreferenceSettingCommand(SettingsCommand settingsCommand)
+        {
+            windowBounds = Window.Current.Bounds;
+            if (settingsCommand.Id.ToString() == "Preference")
+            {
+                CreatePopupWindowContainsFlyout("Preference");
+            }
+        }
+
+        private void CreatePopupWindowContainsFlyout(string option)
+        {
+            CreateSettingsPopup();
+            AddProperAnimationForPanel();
+            if (option == "Preference")
+            {
+                LayoutsBar.Preference mypane = new LayoutsBar.Preference();
+                settingsWidth = 400;
+                mypane.Width = settingsWidth;
+                mypane.Height = windowBounds.Height;
+                settingsPopup.Child = mypane;
+            }
+            DefineLocationOfOurPopup();
+        }
+
+        private void CreateSettingsPopup()
+        {
+            settingsPopup = new Popup();
+            settingsPopup.Closed += OnPopupClosed;
+            Window.Current.Activated += OnWindowActivated;
+            settingsPopup.IsLightDismissEnabled = true;
+            settingsPopup.Width = settingsWidth;
+            settingsPopup.Height = windowBounds.Height;
+        }
+
+        private void AddProperAnimationForPanel()
+        {
+            settingsPopup.ChildTransitions = new TransitionCollection();
+            settingsPopup.ChildTransitions.Add(new PaneThemeTransition()
+            {
+                Edge = (SettingsPane.Edge == SettingsEdgeLocation.Right) ?
+                       EdgeTransitionLocation.Right :
+                       EdgeTransitionLocation.Left
+            });
+        }
+
+        private void DefineLocationOfOurPopup()
+        {
+            settingsPopup.SetValue(Canvas.LeftProperty, SettingsPane.Edge == SettingsEdgeLocation.Right ? (windowBounds.Width - settingsWidth) : 0);
+            settingsPopup.SetValue(Canvas.TopProperty, 0);
+            settingsPopup.IsOpen = true;
+        }
+
+        private void OnWindowActivated(object sender, Windows.UI.Core.WindowActivatedEventArgs e)
+        {
+            if (e.WindowActivationState == Windows.UI.Core.CoreWindowActivationState.Deactivated)
+            {
+                settingsPopup.IsOpen = false;
+            }
+        }
+
+        void OnPopupClosed(object sender, object e)
+        {
+            Window.Current.Activated -= OnWindowActivated;
+        }
+        #endregion
     }
 }
