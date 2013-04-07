@@ -561,9 +561,11 @@
                 </Grid>
 
                 <StackPanel  Grid.Row="0" Height="50" Margin="100,0,0,-40" Orientation="Horizontal" VerticalAlignment="Bottom">
-                    <Button HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="5,0" Content="Home" Background="Transparent" BorderThickness="0"
-                                    FontSize="25" Click="ButtonMainPage_Click_1" FontWeight="Light" Foreground="{Binding Path=TitleForeground}"/>
-                    <Rectangle HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="1" Margin="0,10,0,10" Fill="{Binding Path=TitleForeground}"  />
+                    <!--<Button HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="5,0" Content="Home" Background="Transparent" BorderThickness="0"
+                                    FontSize="25" Click="ButtonMainPage_Click_1" FontWeight="Light" Foreground="{Binding Path=TitleForeground}"/>-->
+                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20,0,5,0" Text="Home" 
+                               FontSize="26.667" PointerReleased="ButtonMainPage_Click_1" FontWeight="Light" Foreground="{Binding Path=TitleForeground}"/>
+                    <Rectangle HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="1" Margin="5,20,0,0" Fill="{Binding Path=TitleForeground}"  />
                     <Navigator:Navigator x:Name="Navigator" Background="#FF459973"  Grid.Column="1" Width="Auto" Height="Auto" NPathChanged="NavigatorPathChanged"/>
                 </StackPanel>
 
