@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Windows.UI.Xaml.Media;
-
-namespace MetroExplorer.Components.Navigator.Objects
+﻿namespace MetroExplorer.Components.Navigator.Objects
 {
+    using System.Collections.Generic;
+    using System.Windows.Input;
+    using Windows.UI.Xaml.Media;
+
     public sealed class NavigatorNode
     {
         public string NodeName { get; set; }

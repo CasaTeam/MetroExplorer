@@ -41,7 +41,7 @@ namespace MetroExplorer
             set
             {
                 explorerGroups = value;
-                NotifyPropertyChanged("ExplorerGroups");   
+                NotifyPropertyChanged("ExplorerGroups");
             }
         }
 
@@ -75,7 +75,7 @@ namespace MetroExplorer
 
             ScrollViewer myScrollViewer = itemGridView.GetFirstDescendantOfType<ScrollViewer>();
             myScrollViewer.ViewChanged += MyScrollViewer_ViewChanged;
-            
+
             BottomAppBar.IsOpen = true;
         }
 
@@ -157,8 +157,8 @@ namespace MetroExplorer
             }
         }
 
-        double _lastOffset = 0;
-        double _lastDelta = 0;
+        //double _lastOffset = 0;
+        //double _lastDelta = 0;
         void MyScrollViewer_ViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
         {
             //double offset = ((Windows.UI.Xaml.Controls.ScrollViewer)sender).HorizontalOffset;
@@ -214,7 +214,7 @@ namespace MetroExplorer
             //var menu = new PopupMenu();
             //menu.Commands.Add(new UICommand(StringResources.ResourceLoader.GetString("MainPage_PopContextMenu_AddNewDiskOrFolder"), async (command) => 
             //{
-                await AddNewFolder();
+            await AddNewFolder();
             //}));
             //await menu.ShowForSelectionAsync(GetElementRect((FrameworkElement)sender));
         }
@@ -258,7 +258,7 @@ namespace MetroExplorer
 
         private void ItemGridView_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
-            if(itemGridView.SelectedItems.Count > 0)
+            if (itemGridView.SelectedItems.Count > 0)
                 BottomAppBar.IsOpen = true;
         }
 

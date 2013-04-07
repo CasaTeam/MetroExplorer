@@ -1,18 +1,13 @@
-﻿using MetroExplorer.Components.Navigator.Objects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Input;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Documents;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using MetroExplorer.core;
-
-namespace MetroExplorer.Components.Navigator
+﻿namespace MetroExplorer.Components.Navigator
 {
+    using System.Collections.Generic;
+    using System.Windows.Input;
+    using Windows.UI.Xaml;
+    using Windows.UI.Xaml.Controls;
+    using Windows.UI.Xaml.Input;
+    using Objects;
+    using core;
+
     public sealed class NavigatorButton : Control
     {
         #region Dependency Properties
@@ -53,7 +48,7 @@ namespace MetroExplorer.Components.Navigator
 
         public NavigatorButton()
         {
-            this.DefaultStyleKey = typeof(NavigatorButton);
+            DefaultStyleKey = typeof(NavigatorButton);
         }
 
         #endregion

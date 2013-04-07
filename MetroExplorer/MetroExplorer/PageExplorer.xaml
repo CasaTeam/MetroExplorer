@@ -1,5 +1,5 @@
 ﻿<common:LayoutAwarePage
-    x:Name="pageRoot"
+    x:Name="PageRoot"
     x:Class="MetroExplorer.PageExplorer"
     DataContext="{Binding DefaultViewModel, RelativeSource={RelativeSource Self}}"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -8,7 +8,7 @@
     xmlns:common="using:MetroExplorer.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:Navigator="using:MetroExplorer.Components.Navigator"
+    xmlns:navigator="using:MetroExplorer.Components.Navigator"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -18,7 +18,7 @@
             de la liste d'éléments complète, car les éléments de groupes ne peuvent pas être virtualisés
         -->
         <CollectionViewSource
-            x:Name="groupedItemsViewSource"
+            x:Name="GroupedItemsViewSource"
             Source="{Binding ExplorerGroups}"
             IsSourceGrouped="true"
             />
@@ -42,7 +42,7 @@
             </Storyboard>
         </DataTemplate>
 
-        <DataTemplate x:Key="Standard300x180ItemTemplate">
+        <DataTemplate x:Key="Standard300X180ItemTemplate">
             <Grid HorizontalAlignment="Left" Width="280" Height="140" Margin="0" Background="{StaticResource ItemBackground}">
                 <Image x:Name="ExplorerItemImage" Source="{Binding Image}" Margin="0"
                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
@@ -65,7 +65,7 @@
             </Grid>
         </DataTemplate>
 
-        <DataTemplate x:Key="Standard300x80ItemTemplate">
+        <DataTemplate x:Key="Standard300X80ItemTemplate">
             <Grid HorizontalAlignment="Left" Width="330" Height="65" Margin="0" Background="{StaticResource ItemBackground}">
                 <Grid  Visibility="{Binding Type, Converter={StaticResource FolderFace1Converter}}">
                     <Grid Height="65" Width="65" Background="{StaticResource ItemSmallBackground}" HorizontalAlignment="Left" >
@@ -467,8 +467,8 @@
                     AutomationProperties.Name="Grouped Items"
                     Grid.RowSpan="2"
                     Padding="116,185,40,100"
-                    ItemsSource="{Binding Source={StaticResource groupedItemsViewSource}}"
-                    ItemTemplate="{StaticResource Standard300x180ItemTemplate}"
+                    ItemsSource="{Binding Source={StaticResource GroupedItemsViewSource}}"
+                    ItemTemplate="{StaticResource Standard300X180ItemTemplate}"
                     CanReorderItems="True"
                     IsSwipeEnabled="True" IsItemClickEnabled="True"
                     IsRightTapEnabled="True"
@@ -519,7 +519,7 @@
                     Grid.Row="1"
                     Visibility="Collapsed"
                     Padding="10,0,0,60"
-                    ItemsSource="{Binding Source={StaticResource groupedItemsViewSource}}"
+                    ItemsSource="{Binding Source={StaticResource GroupedItemsViewSource}}"
                     ItemTemplate="{StaticResource Standard80ItemTemplate}"
                     SelectionMode="None"
                     IsSwipeEnabled="false">
@@ -552,7 +552,7 @@
                             <ColumnDefinition Width="480"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Button x:Name="backButton" Grid.Column="0" Opacity="0" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
+                        <Button x:Name="backButton" Grid.Column="0" Opacity="0" IsEnabled="{Binding Frame.CanGoBack, ElementName=PageRoot}" Style="{StaticResource BackButtonStyle}"/>
                         <TextBlock x:Name="pageTitle" Text="{StaticResource AppName}" x:Uid="Uid_PageMain_PageTitle" Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}"
                                    Foreground="{Binding Path=TitleForeground}"/>
                     </Grid>
@@ -566,7 +566,7 @@
                 	<Button HorizontalAlignment="Left" VerticalAlignment="Stretch" Content="Home" Background="Transparent" BorderThickness="0"
                 		FontSize="25" Click="ButtonMainPage_Click_1" FontWeight="Light" Width="95" />
                 	<Rectangle HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="1" Fill="White"  Margin="5,10,0,10" Grid.Column="1"  />
-                	<Navigator:Navigator x:Name="Navigator" Background="#FF459973" Width="Auto" Height="Auto" NPathChanged="NavigatorPathChanged" Margin="0" Grid.Column="2"/>
+                	<navigator:Navigator x:Name="Navigator" Width="Auto" Height="Auto" NPathChanged="NavigatorPathChanged" Margin="0" Grid.Column="2" Background="#FF459973"/>
                 </Grid>
 
                 <VisualStateManager.VisualStateGroups>

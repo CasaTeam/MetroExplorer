@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
-using MetroExplorer.Components.Navigator.Objects;
-
-namespace MetroExplorer.Components.Navigator
+﻿namespace MetroExplorer.Components.Navigator
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Windows.UI.Xaml;
+    using Windows.UI.Xaml.Controls;
+    using Windows.UI.Xaml.Controls.Primitives;
+    using Objects;
+
     public sealed class Navigator : ItemsControl
     {
         #region Constants
 
-        private const string GridItemListElement = "GridItemList";
+        private const string PopupListElement = "PopupList";
 
         private const string ListBoxDropDownElement = "ListBoxDropDown";
 
@@ -24,7 +24,7 @@ namespace MetroExplorer.Components.Navigator
         private int _currentIndex;
         private NavigatorNodeCommandType _commandType;
 
-        private Grid _gridItemList;
+        private Popup _popupList;
         private ListBox _listBoxDropDown;
 
         #endregion
@@ -73,16 +73,16 @@ namespace MetroExplorer.Components.Navigator
                     switch (_commandType)
                     {
                         case NavigatorNodeCommandType.Reduce:
-                            string newPath = Path.Substring(0, Path.IndexOf(args.Path) + args.Path.Length);
+                            string newPath = Path.Substring(0, Path.IndexOf(args.Path, StringComparison.Ordinal) + args.Path.Length);
                             Path = newPath;
                             break;
                         case NavigatorNodeCommandType.ShowList:
                             double positionX = args.PointerPositionX;
-                            if (_gridItemList != null)
+                            if (_popupList != null)
                             {
-                                ((ListBox)_gridItemList.Children[0]).ItemsSource = ItemListArray[_currentIndex];
-                                _gridItemList.Margin = new Thickness(positionX - _gridItemList.Width, ActualHeight, 0, -342.0);
-                                VisualStateManager.GoToState(this, "Pressed", true);
+                                _listBoxDropDown.ItemsSource = ItemListArray[_currentIndex];
+                                _popupList.Margin = new Thickness(positionX - _popupList.Width, ActualHeight, 0, -342.0);
+                                _popupList.IsOpen = true;
                             }
                             break;
                     }
@@ -108,7 +108,7 @@ namespace MetroExplorer.Components.Navigator
 
         #region Properties
 
-        public IReadOnlyList<string>[] ItemListArray { get; set; }
+        public List<string>[] ItemListArray { get; set; }
 
         #endregion
 
@@ -116,7 +116,7 @@ namespace MetroExplorer.Components.Navigator
 
         public Navigator()
         {
-            this.DefaultStyleKey = typeof(Navigator);
+            DefaultStyleKey = typeof(Navigator);
             _commandType = NavigatorNodeCommandType.None;
         }
 
@@ -127,7 +127,7 @@ namespace MetroExplorer.Components.Navigator
         protected override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            _gridItemList = (Grid)GetTemplateChild(GridItemListElement);
+            _popupList = (Popup)GetTemplateChild(PopupListElement);
             _listBoxDropDown = (ListBox)GetTemplateChild(ListBoxDropDownElement);
             if (_listBoxDropDown != null)
             {
@@ -147,8 +147,8 @@ namespace MetroExplorer.Components.Navigator
             _commandType = NavigatorNodeCommandType.Change;
 
             IEnumerable<string> splitedPath = Path.Split('\\').Take(_currentIndex + 1);
-            string newPath = splitedPath.Aggregate(string.Empty, (current, next) => current += next + "\\")
-                + (string.IsNullOrWhiteSpace(((string)e.AddedItems.FirstOrDefault())) ? string.Empty : (string)(e.AddedItems.FirstOrDefault())); ;
+            string newPath = splitedPath.Aggregate(string.Empty, (current, next) => next + "\\")
+                + (string.IsNullOrWhiteSpace(((string)e.AddedItems.FirstOrDefault())) ? string.Empty : (string)(e.AddedItems.FirstOrDefault()));
             NavigatorNodeCommandArgument argument =
                 new NavigatorNodeCommandArgument(
                     _currentIndex,

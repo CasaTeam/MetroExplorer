@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MetroExplorer.Theme;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -51,37 +52,37 @@ namespace MetroExplorer.PageIntroduction
 
         private void Rectangle_Tapped_1(object sender, TappedRoutedEventArgs e)
         {
-            Theme.ThemeLibarary.CurrentTheme = Theme.Themes.Bo;
-            this.Frame.Navigate(typeof(PageMain), Theme.Themes.Bo);
+            ThemeLibarary.CurrentTheme = Themes.Bo;
+            this.Frame.Navigate(typeof(PageMain), Themes.Bo);
         }
 
         private void Rectangle_Tapped_2(object sender, TappedRoutedEventArgs e)
         {
-            Theme.ThemeLibarary.CurrentTheme = Theme.Themes.E2E3DA;
+            ThemeLibarary.CurrentTheme = Themes.E2E3DA;
             this.Frame.Navigate(typeof(PageMain));
         }
 
         private void Rectangle_Tapped_3(object sender, TappedRoutedEventArgs e)
         {
-            Theme.ThemeLibarary.CurrentTheme = Theme.Themes.E4DFD1;
+            ThemeLibarary.CurrentTheme = Themes.E4DFD1;
             this.Frame.Navigate(typeof(PageMain));
         }
 
         private void Rectangle_Tapped_4(object sender, TappedRoutedEventArgs e)
         {
-            Theme.ThemeLibarary.CurrentTheme = Theme.Themes.E4E8E8;
+            ThemeLibarary.CurrentTheme = Themes.E4E8E8;
             this.Frame.Navigate(typeof(PageMain));
         }
 
         private void Rectangle_Tapped_5(object sender, TappedRoutedEventArgs e)
         {
-            Theme.ThemeLibarary.CurrentTheme = Theme.Themes.EAE9E5;
+            ThemeLibarary.CurrentTheme = Themes.EAE9E5;
             this.Frame.Navigate(typeof(PageMain));
         }
 
         private void Rectangle_Tapped_6(object sender, TappedRoutedEventArgs e)
         {
-            Theme.ThemeLibarary.CurrentTheme = Theme.Themes.FFF1DD;
+            ThemeLibarary.CurrentTheme = Themes.FFF1DD;
             this.Frame.Navigate(typeof(PageMain));
         }
     }

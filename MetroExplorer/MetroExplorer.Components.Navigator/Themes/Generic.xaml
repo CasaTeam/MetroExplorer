@@ -24,39 +24,14 @@
             <Setter.Value>
                 <ControlTemplate TargetType="local:Navigator">
                 	<Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" VerticalAlignment="Top" Clip="{Binding Clip, RelativeSource={RelativeSource Mode=TemplatedParent}}">
-                		<VisualStateManager.VisualStateGroups>
-                			<VisualStateGroup x:Name="ListButtonStates">
-                				<VisualStateGroup.Transitions>
-                					<VisualTransition GeneratedDuration="0:0:0.5" To="Pressed">
-                						<VisualTransition.GeneratedEasingFunction>
-                							<QuinticEase/>
-                						</VisualTransition.GeneratedEasingFunction>
-                					</VisualTransition>
-                					<VisualTransition From="Pressed" GeneratedDuration="0:0:0.5">
-                						<VisualTransition.GeneratedEasingFunction>
-                							<QuinticEase EasingMode="EaseIn"/>
-                						</VisualTransition.GeneratedEasingFunction>
-                					</VisualTransition>
-                				</VisualStateGroup.Transitions>
-                				<VisualState x:Name="Pressed">
-                					<Storyboard>
-                						<DoubleAnimation Duration="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="GridItemList" d:IsOptimized="True" To="1"/>
-                						<DoubleAnimation Duration="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="GridItemList" d:IsOptimized="True" To="1"/>
-                					</Storyboard>
-                				</VisualState>
-                			</VisualStateGroup>
-                		</VisualStateManager.VisualStateGroups>
+                		<Popup x:Name="PopupList" Width="270" Height="340" HorizontalAlignment="Left" VerticalAlignment="Top" IsOpen="False" Margin="0" IsLightDismissEnabled="True">
+                			<ListBox x:Name="ListBoxDropDown" Width="{Binding ActualWidth, ElementName=PopupList}" Height="{Binding ActualHeight, ElementName=PopupList}" Background="{TemplateBinding Background}"/>
+                		</Popup>
                 		<ScrollViewer x:Name="NavigatorScrollViewer" HorizontalAlignment="Left" Margin="0" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden" VerticalContentAlignment="Center" ZoomMode="Disabled" IsVerticalRailEnabled="False" VerticalScrollMode="Disabled" VerticalAlignment="Top">
                 			<StackPanel x:Name="NavigatorItemStack" Orientation="Horizontal" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False">
                 				<ItemsPresenter IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False"/>
                 			</StackPanel>
                 		</ScrollViewer>
-                		<Grid x:Name="GridItemList" HorizontalAlignment="Left" Height="342" Width="270" VerticalAlignment="Top" RenderTransformOrigin="1,0">
-                			<Grid.RenderTransform>
-                				<CompositeTransform ScaleX="0" ScaleY="0"/>
-                			</Grid.RenderTransform>
-                			<ListBox x:Name="ListBoxDropDown" Background="{TemplateBinding Background}"/>
-                		</Grid>
                 	</Grid>
                 </ControlTemplate>
             </Setter.Value>

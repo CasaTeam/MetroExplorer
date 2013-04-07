@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MetroExplorer.Components.Navigator.Objects
+﻿namespace MetroExplorer.Components.Navigator.Objects
 {
+    using System;
+
     public enum NavigatorNodeCommandType
     {
         None = 0,
