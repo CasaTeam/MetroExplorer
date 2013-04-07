@@ -1,13 +1,11 @@
-﻿using MetroExplorer.Components.Navigator.Objects;
-using System;
-using System.Linq;
-using System.Windows.Input;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
-
-namespace MetroExplorer.Components.Navigator
+﻿namespace MetroExplorer.Components.Navigator
 {
+    using System.Windows.Input;
+    using Windows.UI.Xaml;
+    using Windows.UI.Xaml.Controls;
+    using Windows.UI.Xaml.Input;
+    using Objects;
+
     public sealed class NavigatorItem : Control
     {
         #region TemplateParts
@@ -60,7 +58,7 @@ namespace MetroExplorer.Components.Navigator
 
         public NavigatorItem()
         {
-            this.DefaultStyleKey = typeof(NavigatorItem);
+            DefaultStyleKey = typeof(NavigatorItem);
         }
 
         #endregion
@@ -87,6 +85,7 @@ namespace MetroExplorer.Components.Navigator
             object sender,
             PointerRoutedEventArgs e)
         {
+            VisualStateManager.GoToState(this, "Entered", true);
         }
 
         private void NavigatorItemPointerExited(
@@ -112,7 +111,8 @@ namespace MetroExplorer.Components.Navigator
             VisualStateManager.GoToState(this, "Released", true);
             if (_pressed && Command != null)
             {
-                Command.Execute(new NavigatorNodeCommandArgument(Index, Content, true));
+                Command.Execute(
+                    new NavigatorNodeCommandArgument(Index, Content, NavigatorNodeCommandType.Reduce));
                 _pressed = false;
             }
         }

@@ -1,36 +1,26 @@
-﻿using MetroExplorer.Components.Navigator.Objects;
+﻿using System.Threading.Tasks;
+using MetroExplorer.Common;
+using MetroExplorer.Components.Navigator.Objects;
 using MetroExplorer.core;
 using MetroExplorer.core.Objects;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Globalization;
-using System.IO;
 using System.Linq;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.Storage;
-using Windows.Storage.FileProperties;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Animation;
-using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using MetroExplorer.core.Utils;
-
-// Pour en savoir plus sur le modèle d'élément Page Éléments groupés, consultez la page http://go.microsoft.com/fwlink/?LinkId=234231
 
 namespace MetroExplorer
 {
     /// <summary>
     /// Page affichant une collection groupée d'éléments.
     /// </summary>
-    public sealed partial class PageExplorer : MetroExplorer.Common.LayoutAwarePage, INotifyPropertyChanged
+    public sealed partial class PageExplorer : LayoutAwarePage, INotifyPropertyChanged
     {
         StorageFolder _currentStorageFolder;
         IList<StorageFolder> _navigatorStorageFolders;
@@ -55,21 +45,20 @@ namespace MetroExplorer
 
         public PageExplorer()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             DataContext = this;
 
-            this.Loaded += PageExplorer_Loaded;
+            Loaded += PageExplorer_Loaded;
         }
 
         void PageExplorer_Loaded(object sender, RoutedEventArgs e)
         {
-            //throw new NotImplementedException();
             InitializeChangingDispatcher();
 
-            if (PageExplorer.BigSquareMode == true)
-                itemGridView.ItemTemplate = this.Resources["Standard300x180ItemTemplate"] as DataTemplate;
+            if (BigSquareMode)
+                itemGridView.ItemTemplate = Resources["Standard300x180ItemTemplate"] as DataTemplate;
             else
-                itemGridView.ItemTemplate = this.Resources["Standard300x80ItemTemplate"] as DataTemplate;
+                itemGridView.ItemTemplate = Resources["Standard300x80ItemTemplate"] as DataTemplate;
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -100,7 +89,6 @@ namespace MetroExplorer
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
-
             EventLogger.onActionEvent(EventLogger.FOLDER_OPENED);
             ExplorerGroups = new ObservableCollection<GroupInfoList<ExplorerItem>>();
             ExplorerGroups.Add(new GroupInfoList<ExplorerItem>() { Key = StringResources.ResourceLoader.GetString("MainExplorer_UserFolderGroupTitle") });
@@ -113,10 +101,20 @@ namespace MetroExplorer
             await RefreshLocalFiles();
         }
 
-        private async System.Threading.Tasks.Task RefreshLocalFiles()
+        private async Task RefreshLocalFiles()
         {
             if (_currentStorageFolder != null)
             {
+                List<List<string>> itemListArray = new List<List<string>>();
+                foreach (StorageFolder storageFolder in _navigatorStorageFolders)
+                {
+                    var items = await storageFolder.GetItemsAsync();
+                    List<string> folderNames = items.OfType<StorageFolder>().Select(item => item.Name).ToList();
+
+                    itemListArray.Add(folderNames);
+                } 
+                Navigator.ItemListArray = itemListArray.ToArray();
+
                 Navigator.Path = _currentStorageFolder.Path;
                 IReadOnlyList<IStorageItem> listFiles = await _currentStorageFolder.GetItemsAsync();
                 foreach (var item in listFiles)
@@ -133,13 +131,32 @@ namespace MetroExplorer
             }
         }
 
-        private void NavigatorPathChanged(object sender, NavigatorNodeCommandArgument e)
+        private async void NavigatorPathChanged(object sender, NavigatorNodeCommandArgument e)
         {
-            IList<StorageFolder> parameters = new List<StorageFolder>();
-            parameters = _navigatorStorageFolders.Take(e.Index + 1).ToList();
+            IList<StorageFolder> parameters = _navigatorStorageFolders.Take(e.Index + 1).ToList();
 
-            if (e.FromInner)
+            if (e.CommandType == NavigatorNodeCommandType.Reduce)
             {
+                _imageChangingDispatcher.Stop();
+                Frame.Navigate(typeof(PageExplorer), parameters);
+            }
+            else if (e.CommandType == NavigatorNodeCommandType.Change)
+            {
+                StorageFolder lastStorageFolder = parameters.LastOrDefault();
+                if (lastStorageFolder != null)
+                {
+                    var results = await lastStorageFolder.GetItemsAsync();
+                    string changedNode = e.Path.Split('\\').LastOrDefault();
+                    foreach (var item in results)
+                    {
+                        if (item is StorageFolder && item.Name == changedNode)
+                        {
+                            StorageFolder storageFolder = (StorageFolder)item;
+                            parameters.Add(storageFolder);
+                            break;
+                        }
+                    }
+                }
                 _imageChangingDispatcher.Stop();
                 Frame.Navigate(typeof(PageExplorer), parameters);
             }
@@ -168,7 +185,7 @@ namespace MetroExplorer
     /// <summary>
     /// Properties for change theme color
     /// </summary>
-    public sealed partial class PageExplorer : MetroExplorer.Common.LayoutAwarePage, INotifyPropertyChanged
+    public sealed partial class PageExplorer : LayoutAwarePage, INotifyPropertyChanged
     {
         private string _backgroundColor = Theme.ThemeLibarary.BackgroundColor;
         public string BackgroundColor
@@ -301,10 +318,7 @@ namespace MetroExplorer
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if (value.ToString() == "Collapsed")
-                return "Visible";
-            else
-                return "Collapsed";
+            return value.ToString() == "Collapsed" ? "Visible" : "Collapsed";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
@@ -321,10 +335,7 @@ namespace MetroExplorer
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if (value as Nullable<ExplorerItemType> == ExplorerItemType.Folder)
-                return "Collapsed";
-            else
-                return "Visible";
+            return value as ExplorerItemType? == ExplorerItemType.Folder ? "Collapsed" : "Visible";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
@@ -340,10 +351,7 @@ namespace MetroExplorer
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if (value as Nullable<ExplorerItemType> == ExplorerItemType.Folder)
-                return "Visible";
-            else
-                return "Collapsed";
+            return value as ExplorerItemType? == ExplorerItemType.Folder ? "Visible" : "Collapsed";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

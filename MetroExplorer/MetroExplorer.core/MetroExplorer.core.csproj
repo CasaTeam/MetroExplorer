@@ -103,6 +103,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entensions.cs" />
     <Compile Include="GroupInfoList.cs" />
     <Compile Include="Objects\Enums.cs" />
     <Compile Include="Objects\ExplorerItem.cs" />

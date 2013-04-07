@@ -1,24 +1,31 @@
-﻿using MetroExplorer.Components.Navigator.Objects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
-
-namespace MetroExplorer.Components.Navigator
+﻿namespace MetroExplorer.Components.Navigator
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Windows.UI.Xaml;
+    using Windows.UI.Xaml.Controls;
+    using Windows.UI.Xaml.Controls.Primitives;
+    using Objects;
+
     public sealed class Navigator : ItemsControl
     {
         #region Constants
+
+        private const string PopupListElement = "PopupList";
+
+        private const string ListBoxDropDownElement = "ListBoxDropDown";
 
         #endregion
 
         #region Fields
 
         private IEnumerable<NavigatorNode> _path;
-        private bool _fromInner;
         private int _currentIndex;
+        private NavigatorNodeCommandType _commandType;
+
+        private Popup _popupList;
+        private ListBox _listBoxDropDown;
 
         #endregion
 
@@ -30,8 +37,8 @@ namespace MetroExplorer.Components.Navigator
 
         #region DependencyProperties
 
-        public static readonly DependencyProperty PathProperty
-            = DependencyProperty.Register("Path", typeof(string), typeof(Navigator),
+        public static readonly DependencyProperty PathProperty =
+            DependencyProperty.Register("Path", typeof(string), typeof(Navigator),
             new PropertyMetadata(string.Empty, PathChanged));
 
         private static void PathChanged(
@@ -47,7 +54,11 @@ namespace MetroExplorer.Components.Navigator
         public void NavigatorPathChanged(
             DependencyPropertyChangedEventArgs e)
         {
-            NavigatorNodeCommandArgument argument = new NavigatorNodeCommandArgument(_currentIndex, (string)e.NewValue, _fromInner);
+            NavigatorNodeCommandArgument argument =
+                new NavigatorNodeCommandArgument(
+                    _currentIndex,
+                    (string)e.NewValue,
+                    _commandType);
 
             int index = 0;
             List<NavigatorNode> nodes = new List<NavigatorNode>();
@@ -56,29 +67,32 @@ namespace MetroExplorer.Components.Navigator
                 NavigatorNodeCommand command = new NavigatorNodeCommand();
                 command.Command += (sender, args) =>
                 {
-                    string newPath = Path.Substring(0, Path.IndexOf(args.Path) + args.Path.Length);
-                    _fromInner = args.FromInner;
                     _currentIndex = args.Index;
-                    Path = newPath;
+
+                    _commandType = args.CommandType;
+                    switch (_commandType)
+                    {
+                        case NavigatorNodeCommandType.Reduce:
+                            string newPath = Path.Substring(0, Path.IndexOf(args.Path, StringComparison.Ordinal) + args.Path.Length);
+                            Path = newPath;
+                            break;
+                        case NavigatorNodeCommandType.ShowList:
+                            double positionX = args.PointerPositionX;
+                            if (_popupList != null)
+                            {
+                                _listBoxDropDown.ItemsSource = ItemListArray[_currentIndex];
+                                _popupList.Margin = new Thickness(positionX - _popupList.Width, ActualHeight, 0, -342.0);
+                                _popupList.IsOpen = true;
+                            }
+                            break;
+                    }
+
                 };
-                nodes.Add(new NavigatorNode(index, value, command));
+                nodes.Add(new NavigatorNode(index, value, command, Background, ItemListArray[index]));
                 index++;
             }
 
             _path = nodes;
-            //_path = argument.Path.Split('\\')
-            //    .Where(value => !string.IsNullOrWhiteSpace(value))
-            //    .Select(value =>
-            //    {
-            //        NavigatorNodeCommand command = new NavigatorNodeCommand();
-            //        command.Command += (sender, args) =>
-            //        {
-            //            string newPath = Path.Substring(0, Path.IndexOf(args.Path) + args.Path.Length);
-            //            _fromInner = args.FromInner;
-            //            Path = newPath;
-            //        };
-            //        return new NavigatorNode(argument.Index, value, command);
-            //    });
             ItemsSource = _path;
             if (NPathChanged != null)
                 NPathChanged(this, argument);
@@ -92,11 +106,18 @@ namespace MetroExplorer.Components.Navigator
 
         #endregion
 
+        #region Properties
+
+        public List<string>[] ItemListArray { get; set; }
+
+        #endregion
+
         #region Constructors
 
         public Navigator()
         {
-            this.DefaultStyleKey = typeof(Navigator);
+            DefaultStyleKey = typeof(Navigator);
+            _commandType = NavigatorNodeCommandType.None;
         }
 
         #endregion
@@ -106,12 +127,36 @@ namespace MetroExplorer.Components.Navigator
         protected override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
+            _popupList = (Popup)GetTemplateChild(PopupListElement);
+            _listBoxDropDown = (ListBox)GetTemplateChild(ListBoxDropDownElement);
+            if (_listBoxDropDown != null)
+            {
+                _listBoxDropDown.SelectionChanged += ListBoxDropDownSelectionChanged;
+                _listBoxDropDown.Opacity = 0.8;
+            }
         }
-
 
         #endregion
 
         #region Events
+
+        private void ListBoxDropDownSelectionChanged(
+            object sender,
+            SelectionChangedEventArgs e)
+        {
+            _commandType = NavigatorNodeCommandType.Change;
+
+            IEnumerable<string> splitedPath = Path.Split('\\').Take(_currentIndex + 1);
+            string newPath = splitedPath.Aggregate(string.Empty, (current, next) => next + "\\")
+                + (string.IsNullOrWhiteSpace(((string)e.AddedItems.FirstOrDefault())) ? string.Empty : (string)(e.AddedItems.FirstOrDefault()));
+            NavigatorNodeCommandArgument argument =
+                new NavigatorNodeCommandArgument(
+                    _currentIndex,
+                    newPath,
+                    _commandType);
+            if (NPathChanged != null)
+                NPathChanged(this, argument);
+        }
 
         #endregion
     }
