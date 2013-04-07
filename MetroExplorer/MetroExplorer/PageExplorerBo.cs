@@ -69,19 +69,24 @@ namespace MetroExplorer
 
         private async Task ChangeFolderCover()
         {
-            if (_loadingFolderImageCount % 7 == 0 && ExplorerGroups != null && ExplorerGroups[0] != null)
+            try
             {
-                for (int i = 0; ExplorerGroups != null && ExplorerGroups[0] != null && i < ExplorerGroups[0].Count; i++)
+                if (_loadingFolderImageCount % 7 == 0 && ExplorerGroups != null && ExplorerGroups[0] != null)
                 {
-                    var sdf = (await ExplorerGroups[0][i].StorageFolder.GetFilesAsync()).Where(p => p.Name.ToUpper().EndsWith(".JPG") || p.Name.ToUpper().EndsWith(".JPEG")
-                                    || p.Name.ToUpper().EndsWith(".PNG") || p.Name.ToUpper().EndsWith(".BMP")).ToList();
-                    if (sdf != null && sdf.Count() > 0)
+                    for (int i = 0; ExplorerGroups != null && ExplorerGroups[0] != null && i < ExplorerGroups[0].Count; i++)
                     {
-                        await ThumbnailPhoto(ExplorerGroups[0][i], sdf[(new Random()).Next(sdf.Count)]);
+                        var sdf = (await ExplorerGroups[0][i].StorageFolder.GetFilesAsync()).Where(p => p.Name.ToUpper().EndsWith(".JPG") || p.Name.ToUpper().EndsWith(".JPEG")
+                                        || p.Name.ToUpper().EndsWith(".PNG") || p.Name.ToUpper().EndsWith(".BMP")).ToList();
+                        if (sdf != null && sdf.Count() > 0)
+                        {
+                            await ThumbnailPhoto(ExplorerGroups[0][i], sdf[(new Random()).Next(sdf.Count)]);
+                        }
                     }
                 }
+                _loadingFolderImageCount = ++_loadingFolderImageCount % 7;
             }
-            _loadingFolderImageCount = ++_loadingFolderImageCount % 7;
+            catch
+            { }
         }
 
         private async void AddNewItem(GroupInfoList<ExplorerItem> itemList, IStorageItem retrievedItem)
