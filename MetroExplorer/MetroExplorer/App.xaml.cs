@@ -18,7 +18,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
-
+using MetroExplorer.core.Utils;
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=234227
 
 namespace MetroExplorer
@@ -46,11 +46,7 @@ namespace MetroExplorer
         /// <param name="args">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
-            #if DEBUG
-            UmengSDK.UmengAnalytics.setDebug(true);
-            #endif
-
-            UmengSDK.UmengAnalytics.onLaunching("5151b11f56240bba2a002fbd");
+            EventLogger.onLaunch();
             Frame rootFrame = Window.Current.Content as Frame;
 
             // Do not repeat app initialization when the Window already has content,

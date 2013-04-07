@@ -23,6 +23,7 @@ using MetroExplorer.core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.Storage.FileProperties;
+using MetroExplorer.core.Utils;
 
 // Pour en savoir plus sur le modèle d'élément Page Éléments groupés, consultez la page http://go.microsoft.com/fwlink/?LinkId=234231
 
@@ -78,6 +79,8 @@ namespace MetroExplorer
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
+
+            EventLogger.onActionEvent(EventLogger.PHOTO_VIEWED);
             Object[] parameters = (Object[])e.Parameter;
             _navigatorStorageFolders = (IList<StorageFolder>)parameters[0];
             seletedFile = (StorageFile)parameters[1];
