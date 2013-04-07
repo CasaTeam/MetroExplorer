@@ -56,9 +56,9 @@ namespace MetroExplorer
             InitializeChangingDispatcher();
 
             if (BigSquareMode)
-                itemGridView.ItemTemplate = Resources["Standard300X180ItemTemplate"] as DataTemplate;
+                itemGridView.ItemTemplate = Resources["Standard300x180ItemTemplate"] as DataTemplate;
             else
-                itemGridView.ItemTemplate = Resources["Standard300X80ItemTemplate"] as DataTemplate;
+                itemGridView.ItemTemplate = Resources["Standard300x80ItemTemplate"] as DataTemplate;
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)

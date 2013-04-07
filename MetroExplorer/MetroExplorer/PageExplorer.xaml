@@ -66,7 +66,7 @@
             </Grid>
         </DataTemplate>
 
-        <DataTemplate x:Key="Standard300X80ItemTemplate">
+        <DataTemplate x:Key="Standard300x80ItemTemplate">
             <Grid HorizontalAlignment="Left" Width="330" Height="65" Margin="0" Background="{StaticResource ItemBackground}">
                 <Grid  Visibility="{Binding Type, Converter={StaticResource FolderFace1Converter}}">
                     <Grid Height="65" Width="65" Background="{StaticResource ItemSmallBackground}" HorizontalAlignment="Left" >
@@ -469,7 +469,7 @@
                     Grid.RowSpan="2"
                     Padding="116,185,40,100"
                     ItemsSource="{Binding Source={StaticResource GroupedItemsViewSource}}"
-                    ItemTemplate="{StaticResource Standard300X180ItemTemplate}"
+                    ItemTemplate="{StaticResource Standard300x180ItemTemplate}"
                     CanReorderItems="True"
                     IsSwipeEnabled="True" IsItemClickEnabled="True"
                     IsRightTapEnabled="True"
