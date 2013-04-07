@@ -516,7 +516,7 @@
                             </GroupStyle.HeaderTemplate>
                             <GroupStyle.Panel>
                                 <ItemsPanelTemplate>
-                                    <VariableSizedWrapGrid Orientation="Vertical" Margin="0,0,0,0"/>
+                                    <VariableSizedWrapGrid Orientation="Vertical" Margin="0,0,20,0"/>
                                 </ItemsPanelTemplate>
                             </GroupStyle.Panel>
                         </GroupStyle>
@@ -619,12 +619,12 @@
             </Grid>
             <Popup HorizontalAlignment="Right" VerticalAlignment="Bottom" IsLightDismissEnabled="False"
                    Visibility="Collapsed" x:Name="Popup_CopyCutPaste" >
-                <ListBox BorderBrush="#FFA63C12" Background="#FF0E5480" x:Name="ListBox_CopyCutPaste" SelectionMode="Single"
+                <ListBox BorderBrush="Black" Background="{Binding Path=BottomBarBackground}" x:Name="ListBox_CopyCutPaste" SelectionMode="Single"
                          Height="95" Width="150" Foreground="#DDFFFFFF" SelectionChanged="ListBox_CopyCutPaste_SelectionChanged_1" >
                     <!--<ListBoxItem x:Uid="Uid_Popup_CopyCutPaste_ListItem_CopyFolder" FontSize="16" FontWeight="Light" Margin="0,10,0,5" Padding="20,5"/>-->
-                    <ListBoxItem x:Uid="Uid_Popup_CopyCutPaste_ListItem_CopyFile" FontSize="16" FontWeight="Light" Margin="0,5" Padding="20,5" />
+                    <ListBoxItem x:Uid="Uid_Popup_CopyCutPaste_ListItem_CopyFile" FontSize="16" FontWeight="Light" Margin="0,5" Padding="20,5" Foreground="#DDFFFFFF" />
                     <!--<ListBoxItem x:Uid="Uid_Popup_CopyCutPaste_ListItem_CutFolder" FontSize="16" FontWeight="Light" Margin="0,5" Padding="20,5"/>-->
-                    <ListBoxItem x:Uid="Uid_Popup_CopyCutPaste_ListItem_CutFile" FontSize="16" FontWeight="Light" Margin="0,0,0,10" Padding="20,5" />
+                    <ListBoxItem x:Uid="Uid_Popup_CopyCutPaste_ListItem_CutFile" FontSize="16" FontWeight="Light" Margin="0,0,0,10" Padding="20,5" Foreground="#DDFFFFFF" />
                 </ListBox>
             </Popup>
         </Grid>

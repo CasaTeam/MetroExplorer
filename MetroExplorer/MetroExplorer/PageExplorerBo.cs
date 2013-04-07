@@ -299,7 +299,7 @@ namespace MetroExplorer
         private void Button_CutPaste_Click(object sender, RoutedEventArgs e)
         {
             Popup_CopyCutPaste.Visibility = Windows.UI.Xaml.Visibility.Visible;
-            Popup_CopyCutPaste.Margin = new Thickness(0, 0, 290, 190);
+            Popup_CopyCutPaste.Margin = new Thickness(0, 0, 405, 190);
             Popup_CopyCutPaste.IsLightDismissEnabled = true;
             Popup_CopyCutPaste.IsOpen = true;
             

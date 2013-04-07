@@ -217,9 +217,8 @@ namespace MetroExplorer
 
         private async void Button_AddNewDiskFolder_Click(object sender, RoutedEventArgs e)
         {
-            await AddNewFolder();
             EventLogger.onActionEvent(EventLogger.ADD_FOLDER_CLICK, EventLogger.LABEL_HOME_PAGE);
-                await AddNewFolder();
+            await AddNewFolder();
         }
 
         public Rect GetElementRect(FrameworkElement element)
