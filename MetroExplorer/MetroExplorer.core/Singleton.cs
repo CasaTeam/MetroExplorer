@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MetroExplorer.core
+﻿namespace MetroExplorer.core
 {
-    public static class Singleton<T> where T : class
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+
+    public static class Singleton<T, TK>
+        where T : class, IEnumerable<TK>
+        where TK : class
     {
         static volatile T _instance;
 
@@ -20,11 +20,11 @@ namespace MetroExplorer.core
         {
             get
             {
-                return (_instance != null) ? _instance : resetAndGetInstance();
+                return _instance ?? ResetAndGetInstance();
             }
         }
 
-        private static T resetAndGetInstance()
+        private static T ResetAndGetInstance()
         {
             lock (_lock)
             {
@@ -39,11 +39,10 @@ namespace MetroExplorer.core
 
         private static void GetInstance()
         {
-            ConstructorInfo constructor = null;
+            ConstructorInfo constructor;
 
             try
             {
-                Type t = typeof(T);
                 constructor = typeof(T).GetTypeInfo().DeclaredConstructors.FirstOrDefault(info => info.IsPrivate);
             }
             catch (Exception excep) { throw new SingletonException(excep); }

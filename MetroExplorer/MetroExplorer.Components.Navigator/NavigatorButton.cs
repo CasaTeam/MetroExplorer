@@ -1,11 +1,8 @@
 ﻿namespace MetroExplorer.Components.Navigator
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Controls;
-    using Windows.UI.Xaml.Controls.Primitives;
     using Objects;
     using core;
     using System.Windows.Input;

@@ -112,10 +112,19 @@ namespace MetroExplorer
                     List<string> folderNames = items.OfType<StorageFolder>().Select(item => item.Name).ToList();
 
                     itemListArray.Add(folderNames);
-                } 
+                }
                 Navigator.ItemListArray = itemListArray.ToArray();
 
-                Navigator.Path = _currentStorageFolder.Path;
+                bool isRealPath = _navigatorStorageFolders.First().Path.Contains(":");
+                
+                Navigator.Path = !isRealPath ?
+                    _navigatorStorageFolders.Aggregate(string.Empty, (current, next) =>
+                        { 
+                            current += next.Name + "\\";
+                            return current;
+                        })
+                    : _currentStorageFolder.Path;
+
                 IReadOnlyList<IStorageItem> listFiles = await _currentStorageFolder.GetItemsAsync();
                 foreach (var item in listFiles)
                 {
