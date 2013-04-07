@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-
-namespace MetroExplorer.Components.Navigator.Objects
+﻿namespace MetroExplorer.Components.Navigator.Objects
 {
+    using System;
+    using System.Windows.Input;
+
     public sealed class NavigatorNodeCommand : ICommand
     {
         public bool CanExecute(object parameter)
@@ -21,6 +17,9 @@ namespace MetroExplorer.Components.Navigator.Objects
         {
             if (Command != null)
                 Command(this, (NavigatorNodeCommandArgument)parameter);
+
+            if (CanExecuteChanged != null)
+                CanExecuteChanged(this, new EventArgs());
         }
     }
 }

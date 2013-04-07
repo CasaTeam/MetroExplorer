@@ -23,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -107,13 +108,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Navigator.cs" />
+    <Compile Include="NavigatorButton.cs" />
     <Compile Include="NavigatorItem.cs" />
     <Compile Include="Objects\NavigatorNode.cs" />
     <Compile Include="Objects\NavigatorNodeCommand.cs" />
     <Compile Include="Objects\NavigatorNodeCommandArgument.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\MetroExplorer.core\MetroExplorer.core.csproj">
+      <Project>{efff2bc1-84e8-4343-9e49-07cc4d0c8f7b}</Project>
+      <Name>MetroExplorer.core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
   </PropertyGroup>
