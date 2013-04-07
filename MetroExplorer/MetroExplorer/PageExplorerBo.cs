@@ -273,6 +273,21 @@ namespace MetroExplorer
                 return true;
             return false;
         }
+
+        private void Button_Sort_Click(object sender, RoutedEventArgs e)
+        {
+            var sortedSource = ExplorerGroups[1].OrderByDescending(p=>p.ModifiedDateTime);
+            List<ExplorerItem> sortedItems = new List<ExplorerItem>();
+            foreach (var item in sortedSource)
+            { 
+                sortedItems.Add(item);
+            }
+            ExplorerGroups[1].Clear();
+            foreach (var item in sortedItems)
+            {
+                ExplorerGroups[1].Add(item);
+            }
+        }
     }
 
     /// <summary>

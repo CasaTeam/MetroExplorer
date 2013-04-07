@@ -21,7 +21,8 @@
             x:Name="groupedItemsViewSource"
             Source="{Binding ExplorerGroups}"
             IsSourceGrouped="true"
-            />
+            >
+        </CollectionViewSource>
 
         <!-- TODO: supprimez cette ligne si la clé AppName est déclarée dans App.xaml -->
         <x:String x:Key="AppName">Mon application</x:String>
@@ -436,6 +437,16 @@
                             <Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
                                 <Setter Property="AutomationProperties.Name" Value=""/>
                                 <Setter Property="Content" Value="&#xE14C;"/>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button x:Name="Button_Sort" Click="Button_Sort_Click"
+                        x:Uid="Uid_Page_Main_Button_Sort"
+                        Margin="5,0,10,0" HorizontalAlignment="Center">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
+                                <Setter Property="AutomationProperties.Name" Value=""/>
+                                <Setter Property="Content" Value="&#xE16E;"/>
                             </Style>
                         </Button.Style>
                     </Button>

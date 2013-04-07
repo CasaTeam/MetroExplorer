@@ -165,6 +165,9 @@
   <data name="Uid_Page_Main_Button_RenameDiskFolder.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
     <value>重命名</value>
   </data>
+  <data name="Uid_Page_Main_Button_Sort.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>按时间排序</value>
+  </data>
   <data name="Uid_Popup_CopyCutPaste_ListItem_CopyFile.Content" xml:space="preserve">
     <value>复制到此</value>
   </data>
