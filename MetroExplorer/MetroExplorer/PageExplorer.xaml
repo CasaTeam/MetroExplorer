@@ -478,7 +478,7 @@
                     AutomationProperties.AutomationId="ItemGridView"
                     AutomationProperties.Name="Grouped Items"
                     Grid.RowSpan="2"
-                    Padding="116,185,40,100"
+                    Padding="116,195,40,100"
                     ItemsSource="{Binding Source={StaticResource GroupedItemsViewSource}}"
                     ItemTemplate="{StaticResource Standard300x180ItemTemplate}"
                     CanReorderItems="True"
@@ -569,13 +569,13 @@
                                    Foreground="{Binding Path=TitleForeground}"/>
                     </Grid>
                 </Grid>
-                <StackPanel Grid.Row="1" Orientation="Horizontal" Height="50" Margin="100,0,0,0" VerticalAlignment="Top">
+                <StackPanel Grid.Row="1" Orientation="Horizontal" Height="65" Margin="100,0,0,0" VerticalAlignment="Top">
                 	<!--<Button HorizontalAlignment="Left" VerticalAlignment="Stretch" Content="Home" Background="Transparent" BorderThickness="0"
                 		FontSize="25" Click="ButtonMainPage_Click_1" FontWeight="Light" Width="95" />-->
                     <TextBlock VerticalAlignment="Bottom" Text="Home" Foreground="{Binding Path=TitleForeground}"
                 		       FontSize="26.667" PointerReleased="ButtonMainPage_Click_1" FontWeight="Light" Margin="20,0,10,8" />
                     <!--<Rectangle HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="1" Fill="White" Height="30" Margin="5,0,5,15" Grid.Column="1"  />-->
-                	<navigator:Navigator x:Name="Navigator" Width="Auto" Height="Auto" NPathChanged="NavigatorPathChanged" Margin="0" Background="#FF459973"/>
+                	<navigator:Navigator x:Name="Navigator" Width="Auto" Height="50" NPathChanged="NavigatorPathChanged" VerticalAlignment="Bottom" Margin="0,0,0,0" Background="#FF459973"/>
                 </StackPanel>
 
                 <VisualStateManager.VisualStateGroups>
@@ -617,16 +617,27 @@
                     </VisualStateGroup>
                 </VisualStateManager.VisualStateGroups>
             </Grid>
-            <Popup HorizontalAlignment="Right" VerticalAlignment="Bottom" IsLightDismissEnabled="False"
+            <Grid>
+                <Popup HorizontalAlignment="Right" VerticalAlignment="Bottom" IsLightDismissEnabled="False"
                    Visibility="Collapsed" x:Name="Popup_CopyCutPaste" >
-                <ListBox BorderBrush="Black" Background="{Binding Path=BottomBarBackground}" x:Name="ListBox_CopyCutPaste" SelectionMode="Single"
+
+                    <ListBox BorderBrush="Black" Background="{Binding Path=BottomBarBackground}" x:Name="ListBox_CopyCutPaste" SelectionMode="Single"
                          Height="95" Width="150" Foreground="#DDFFFFFF" SelectionChanged="ListBox_CopyCutPaste_SelectionChanged_1" >
-                    <!--<ListBoxItem x:Uid="Uid_Popup_CopyCutPaste_ListItem_CopyFolder" FontSize="16" FontWeight="Light" Margin="0,10,0,5" Padding="20,5"/>-->
-                    <ListBoxItem x:Uid="Uid_Popup_CopyCutPaste_ListItem_CopyFile" FontSize="16" FontWeight="Light" Margin="0,5" Padding="20,5" Foreground="#DDFFFFFF" />
-                    <!--<ListBoxItem x:Uid="Uid_Popup_CopyCutPaste_ListItem_CutFolder" FontSize="16" FontWeight="Light" Margin="0,5" Padding="20,5"/>-->
-                    <ListBoxItem x:Uid="Uid_Popup_CopyCutPaste_ListItem_CutFile" FontSize="16" FontWeight="Light" Margin="0,0,0,10" Padding="20,5" Foreground="#DDFFFFFF" />
-                </ListBox>
-            </Popup>
+                        <!--<ListBoxItem x:Uid="Uid_Popup_CopyCutPaste_ListItem_CopyFolder" FontSize="16" FontWeight="Light" Margin="0,10,0,5" Padding="20,5"/>-->
+                        <ListBoxItem x:Uid="Uid_Popup_CopyCutPaste_ListItem_CopyFile" FontSize="16" FontWeight="Light" Margin="0,5" Padding="20,5" Foreground="#DDFFFFFF" />
+                        <!--<ListBoxItem x:Uid="Uid_Popup_CopyCutPaste_ListItem_CutFolder" FontSize="16" FontWeight="Light" Margin="0,5" Padding="20,5"/>-->
+                        <ListBoxItem x:Uid="Uid_Popup_CopyCutPaste_ListItem_CutFile" FontSize="16" FontWeight="Light" Margin="0,0,0,10" Padding="20,5" Foreground="#DDFFFFFF" />
+                    </ListBox>
+                </Popup>
+                <Popup HorizontalAlignment="Right" VerticalAlignment="Bottom" IsLightDismissEnabled="False"
+                   Visibility="Collapsed" x:Name="Popup_Sort" >
+                    <ListBox BorderBrush="Black" Background="{Binding Path=BottomBarBackground}" x:Name="ListBox_Sorte" SelectionMode="Single"
+                         Height="95" Width="150" Foreground="#DDFFFFFF" SelectionChanged="ListBox_Sorte_SelectionChanged_1" >
+                        <ListBoxItem x:Uid="Uid_Popup_Sort_ListItem_DateDesc" FontSize="16" FontWeight="Light" Margin="0,5" Padding="20,5" Foreground="#DDFFFFFF" />
+                        <ListBoxItem x:Uid="Uid_Popup_Sort_ListItem_Name" FontSize="16" FontWeight="Light" Margin="0,0,0,10" Padding="20,5" Foreground="#DDFFFFFF" />
+                    </ListBox>
+                </Popup>
+            </Grid>
         </Grid>
     </Grid>
 </common:LayoutAwarePage>
