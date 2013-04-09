@@ -273,21 +273,6 @@ namespace MetroExplorer
                 return true;
             return false;
         }
-
-        private void Button_Sort_Click(object sender, RoutedEventArgs e)
-        {
-            var sortedSource = ExplorerGroups[1].OrderByDescending(p=>p.ModifiedDateTime);
-            List<ExplorerItem> sortedItems = new List<ExplorerItem>();
-            foreach (var item in sortedSource)
-            { 
-                sortedItems.Add(item);
-            }
-            ExplorerGroups[1].Clear();
-            foreach (var item in sortedItems)
-            {
-                ExplorerGroups[1].Add(item);
-            }
-        }
     }
 
     /// <summary>
@@ -310,7 +295,6 @@ namespace MetroExplorer
             if(sender == null) return;
             Popup_CopyCutPaste.IsOpen = false;
             Popup_CopyCutPaste.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-
             if (ListBox_CopyCutPaste.Items.IndexOf((sender as ListBox).SelectedItem) == 0)
                 await CopyFile();
             else if (ListBox_CopyCutPaste.Items.IndexOf((sender as ListBox).SelectedItem) == 1)
@@ -368,5 +352,59 @@ namespace MetroExplorer
                 PageExplorer.BigSquareMode = false;
             }
         }
+
+        #region sort
+        private void Button_Sort_Click(object sender, RoutedEventArgs e)
+        {
+            Popup_Sort.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            Popup_Sort.Margin = new Thickness(0, 0, 151, 190);
+            Popup_Sort.IsLightDismissEnabled = true;
+            Popup_Sort.IsOpen = true;            
+        }
+
+        private void ListBox_Sorte_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender == null) return;
+            Popup_Sort.IsOpen = false;
+            Popup_Sort.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+
+            if (ListBox_Sorte.Items.IndexOf((sender as ListBox).SelectedItem) == 0)
+                SortByDate();
+            else if (ListBox_Sorte.Items.IndexOf((sender as ListBox).SelectedItem) == 1)
+                SortByName();
+            ListBox_CopyCutPaste.SelectedItem = null;
+            RefreshAfterAddNewItem();
+        }
+
+        private void SortByDate()
+        {
+            var sortedSource = ExplorerGroups[1].OrderByDescending(p => p.ModifiedDateTime);
+            List<ExplorerItem> sortedItems = new List<ExplorerItem>();
+            foreach (var item in sortedSource)
+            {
+                sortedItems.Add(item);
+            }
+            ExplorerGroups[1].Clear();
+            foreach (var item in sortedItems)
+            {
+                ExplorerGroups[1].Add(item);
+            }
+        }
+
+        private void SortByName()
+        {
+            var sortedSource = ExplorerGroups[1].OrderByDescending(p => p.Name);
+            List<ExplorerItem> sortedItems = new List<ExplorerItem>();
+            foreach (var item in sortedSource)
+            {
+                sortedItems.Add(item);
+            }
+            ExplorerGroups[1].Clear();
+            foreach (var item in sortedItems)
+            {
+                ExplorerGroups[1].Add(item);
+            }
+        }
+        #endregion
     }
 }

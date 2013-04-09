@@ -180,6 +180,12 @@
   <data name="Uid_Popup_CopyCutPaste_ListItem_CutFolder.Content" xml:space="preserve">
     <value>抓取文件夹</value>
   </data>
+  <data name="Uid_Popup_Sort_ListItem_DateDesc.Content" xml:space="preserve">
+    <value>按时间排序</value>
+  </data>
+  <data name="Uid_Popup_Sort_ListItem_Name.Content" xml:space="preserve">
+    <value>按名称排序</value>
+  </data>
   <data name="Uid_PreferenceLayout_TextBlock_ThemeeColor.Text" xml:space="preserve">
     <value>Thème en couleur</value>
   </data>
