@@ -83,7 +83,7 @@ namespace MetroExplorer.Components.Navigator
                             if (_popupList != null)
                             {
                                 _listBoxDropDown.ItemsSource = ItemListArray[_currentIndex];
-                                _popupList.Margin = new Thickness(positionX - _popupList.Width, ActualHeight, 0, -342.0);
+                                _popupList.Margin = new Thickness(positionX - _popupList.Width, ActualHeight + 5.0, 0, -342.0);
                                 _popupList.IsOpen = true;
                             }
                             break;
@@ -134,7 +134,7 @@ namespace MetroExplorer.Components.Navigator
             if (_listBoxDropDown != null)
             {
                 _listBoxDropDown.SelectionChanged += ListBoxDropDownSelectionChanged;
-                _listBoxDropDown.Opacity = 0.8;
+                _listBoxDropDown.Opacity = 0.9;
             }
         }
 

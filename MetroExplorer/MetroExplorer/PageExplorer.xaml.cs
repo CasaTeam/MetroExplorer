@@ -1,22 +1,22 @@
-﻿using System.Threading.Tasks;
-using MetroExplorer.Common;
-using MetroExplorer.Components.Navigator.Objects;
-using MetroExplorer.core;
-using MetroExplorer.core.Objects;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using Windows.Storage;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Navigation;
-using MetroExplorer.core.Utils;
-
-namespace MetroExplorer
+﻿namespace MetroExplorer
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.ComponentModel;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Windows.Storage;
+    using Windows.UI.Xaml;
+    using Windows.UI.Xaml.Controls;
+    using Windows.UI.Xaml.Data;
+    using Windows.UI.Xaml.Navigation;
+    using core;
+    using core.Objects;
+    using core.Utils;
+    using Common;
+    using Components.Navigator.Objects;
+
     /// <summary>
     /// Page affichant une collection groupée d'éléments.
     /// </summary>
@@ -116,10 +116,10 @@ namespace MetroExplorer
                 Navigator.ItemListArray = itemListArray.ToArray();
 
                 bool isRealPath = _navigatorStorageFolders.First().Path.Contains(":");
-                
+
                 Navigator.Path = !isRealPath ?
                     _navigatorStorageFolders.Aggregate(string.Empty, (current, next) =>
-                        { 
+                        {
                             current += next.Name + "\\";
                             return current;
                         })

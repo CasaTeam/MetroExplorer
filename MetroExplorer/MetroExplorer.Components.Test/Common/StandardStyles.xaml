@@ -26,8 +26,6 @@
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 
-    <x:String x:Key="ChevronGlyph">&#xE26B;</x:String>
-
     <!-- Styles de RichTextBlock -->
 
     <Style x:Key="BasicRichTextStyle" TargetType="RichTextBlock">
