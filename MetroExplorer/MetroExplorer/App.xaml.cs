@@ -46,7 +46,7 @@ namespace MetroExplorer
         /// <param name="args">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
-            EventLogger.onLaunch();
+            
             Frame rootFrame = Window.Current.Content as Frame;
 
             // Do not repeat app initialization when the Window already has content,
@@ -81,6 +81,8 @@ namespace MetroExplorer
             }
             // Ensure the current window is active
             Window.Current.Activate();
+
+            EventLogger.onLaunch();
         }
 
         /// <summary>
