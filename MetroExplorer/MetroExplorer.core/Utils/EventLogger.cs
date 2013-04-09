@@ -36,7 +36,7 @@ namespace MetroExplorer.core.Utils
             #if DEBUG
             UmengSDK.UmengAnalytics.setDebug(true);
             #endif
-
+            UmengSDK.UmengAnalytics.setSessionContinueInterval(TimeSpan.FromSeconds(30));
             UmengSDK.UmengAnalytics.onLaunching(UMENG_APP_KEY);
         }
 
