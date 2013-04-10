@@ -181,10 +181,16 @@
     <value>抓取文件夹</value>
   </data>
   <data name="Uid_Popup_Sort_ListItem_DateDesc.Content" xml:space="preserve">
-    <value>按时间排序</value>
+    <value>按时间 </value>
   </data>
   <data name="Uid_Popup_Sort_ListItem_Name.Content" xml:space="preserve">
-    <value>按名称排序</value>
+    <value>按名称 </value>
+  </data>
+  <data name="Uid_Popup_Sort_ListItem_Size.Content" xml:space="preserve">
+    <value>按照文件大小 </value>
+  </data>
+  <data name="Uid_Popup_Sort_ListItem_Type.Content" xml:space="preserve">
+    <value>按文件类型</value>
   </data>
   <data name="Uid_PreferenceLayout_TextBlock_ThemeeColor.Text" xml:space="preserve">
     <value>Thème en couleur</value>

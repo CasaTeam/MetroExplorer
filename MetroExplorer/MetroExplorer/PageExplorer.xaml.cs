@@ -105,27 +105,9 @@
         {
             if (_currentStorageFolder != null)
             {
-                List<List<string>> itemListArray = new List<List<string>>();
-                foreach (StorageFolder storageFolder in _navigatorStorageFolders)
-                {
-                    var items = await storageFolder.GetItemsAsync();
-                    List<string> folderNames = items.OfType<StorageFolder>().Select(item => item.Name).ToList();
+                await InitializeNavigator();
 
-                    itemListArray.Add(folderNames);
-                }
-                Navigator.ItemListArray = itemListArray.ToArray();
-
-                bool isRealPath = _navigatorStorageFolders.First().Path.Contains(":");
-
-                Navigator.Path = !isRealPath ?
-                    _navigatorStorageFolders.Aggregate(string.Empty, (current, next) =>
-                        {
-                            current += next.Name + "\\";
-                            return current;
-                        })
-                    : _currentStorageFolder.Path;
-
-                IReadOnlyList<IStorageItem> listFiles = await _currentStorageFolder.GetItemsAsync();
+                var listFiles = await _currentStorageFolder.GetItemsAsync();
                 foreach (var item in listFiles)
                 {
                     if (item is StorageFolder)
@@ -138,6 +120,27 @@
                     }
                 }
             }
+        }
+
+        private async Task InitializeNavigator()
+        {
+            List<List<string>> itemListArray = new List<List<string>>();
+            foreach (StorageFolder storageFolder in _navigatorStorageFolders)
+            {
+                var items = await storageFolder.GetItemsAsync();
+                List<string> folderNames = items.OfType<StorageFolder>().Select(item => item.Name).ToList();
+
+                itemListArray.Add(folderNames);
+            }
+            Navigator.ItemListArray = itemListArray.ToArray();
+            bool isRealPath = _navigatorStorageFolders.First().Path.Contains(":");
+            Navigator.Path = !isRealPath ?
+                _navigatorStorageFolders.Aggregate(string.Empty, (current, next) =>
+                {
+                    current += next.Name + "\\";
+                    return current;
+                })
+                : _currentStorageFolder.Path;
         }
 
         private async void NavigatorPathChanged(object sender, NavigatorNodeCommandArgument e)
@@ -323,6 +326,7 @@
     }
 
 
+    #region value converter
     public class RenameBoxVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
@@ -361,6 +365,23 @@
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             return value as ExplorerItemType? == ExplorerItemType.Folder ? "Visible" : "Collapsed";
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    #endregion
+
+    public class FileSizeFormatConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            if (value != null)
+                return Math.Round(System.Convert.ToDouble(value) / 1024, 2).ToString() + " MB";
+            else
+                return "0 MB";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

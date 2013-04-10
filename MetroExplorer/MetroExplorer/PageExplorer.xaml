@@ -36,6 +36,7 @@
         <local:RenameBoxVisibilityConverter x:Key="RenameBoxVisibilityConverter" />
         <local:FolderFace1Converter x:Key="FolderFace1Converter" />
         <local:FolderFace2Converter x:Key="FolderFace2Converter" />
+        <local:FileSizeFormatConverter x:Key="FileSizeFormatConverter" />
 
         <DataTemplate x:Name="ExplorerItemImageLoadingAnimationTemplate">
             <Storyboard>
@@ -79,11 +80,11 @@
                     </Grid>
                     <Grid VerticalAlignment="Stretch" HorizontalAlignment="Left" Margin="75,0,5,0" Width="252">
                         <TextBlock Foreground="{StaticResource ItemTextForeground}" Text="{Binding Name}" VerticalAlignment="Top" Margin="5,5,0,0" HorizontalAlignment="Left" 
-                               FontSize="16" FontWeight="Light" Width="252" />
-                        <TextBlock Foreground="{StaticResource ItemTextForeground}" Text="{Binding Size}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5,0,0,5"
-                               FontSize="14" FontWeight="Light" Opacity="0.7" />
+                               FontSize="18" FontWeight="Light" Width="252" />
+                        <TextBlock Foreground="{StaticResource ItemTextForeground}" Text="{Binding Size, Converter={StaticResource FileSizeFormatConverter}}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5,0,0,5"
+                               FontSize="18" FontWeight="Light" Opacity="0.7" />
                         <TextBlock Foreground="{StaticResource ItemTextForeground}" Text="{Binding ModifiedDateTime}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="5,0,5,5"
-                               FontSize="14" FontWeight="Light" Opacity="0.7" />
+                               FontSize="18" FontWeight="Light" Opacity="0.7" />
                     </Grid>
                 </Grid>
                 <Grid Visibility="{Binding Type, Converter={StaticResource FolderFace2Converter}}">
@@ -622,7 +623,7 @@
                    Visibility="Collapsed" x:Name="Popup_CopyCutPaste" >
 
                     <ListBox BorderBrush="Black" Background="{Binding Path=BottomBarBackground}" x:Name="ListBox_CopyCutPaste" SelectionMode="Single"
-                         Height="95" Width="150" Foreground="#DDFFFFFF" SelectionChanged="ListBox_CopyCutPaste_SelectionChanged_1" >
+                         Height="88" Width="150" Foreground="#DDFFFFFF" SelectionChanged="ListBox_CopyCutPaste_SelectionChanged_1" >
                         <!--<ListBoxItem x:Uid="Uid_Popup_CopyCutPaste_ListItem_CopyFolder" FontSize="16" FontWeight="Light" Margin="0,10,0,5" Padding="20,5"/>-->
                         <ListBoxItem x:Uid="Uid_Popup_CopyCutPaste_ListItem_CopyFile" FontSize="16" FontWeight="Light" Margin="0,5" Padding="20,5" Foreground="#DDFFFFFF" />
                         <!--<ListBoxItem x:Uid="Uid_Popup_CopyCutPaste_ListItem_CutFolder" FontSize="16" FontWeight="Light" Margin="0,5" Padding="20,5"/>-->
@@ -632,9 +633,11 @@
                 <Popup HorizontalAlignment="Right" VerticalAlignment="Bottom" IsLightDismissEnabled="False"
                    Visibility="Collapsed" x:Name="Popup_Sort" >
                     <ListBox BorderBrush="Black" Background="{Binding Path=BottomBarBackground}" x:Name="ListBox_Sorte" SelectionMode="Single"
-                         Height="95" Width="150" Foreground="#DDFFFFFF" SelectionChanged="ListBox_Sorte_SelectionChanged_1" >
+                         Height="175" Width="150" Foreground="#DDFFFFFF" SelectionChanged="ListBox_Sorte_SelectionChanged_1" >
                         <ListBoxItem x:Uid="Uid_Popup_Sort_ListItem_DateDesc" FontSize="16" FontWeight="Light" Margin="0,5" Padding="20,5" Foreground="#DDFFFFFF" />
                         <ListBoxItem x:Uid="Uid_Popup_Sort_ListItem_Name" FontSize="16" FontWeight="Light" Margin="0,0,0,10" Padding="20,5" Foreground="#DDFFFFFF" />
+                        <ListBoxItem x:Uid="Uid_Popup_Sort_ListItem_Size" FontSize="16" FontWeight="Light" Margin="0,0,0,10" Padding="20,5" Foreground="#DDFFFFFF" />
+                        <ListBoxItem x:Uid="Uid_Popup_Sort_ListItem_Type" FontSize="16" FontWeight="Light" Margin="0,0,0,10" Padding="20,5" Foreground="#DDFFFFFF" />
                     </ListBox>
                 </Popup>
             </Grid>

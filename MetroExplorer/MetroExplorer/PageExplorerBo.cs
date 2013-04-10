@@ -284,7 +284,7 @@ namespace MetroExplorer
         private void Button_CutPaste_Click(object sender, RoutedEventArgs e)
         {
             Popup_CopyCutPaste.Visibility = Windows.UI.Xaml.Visibility.Visible;
-            Popup_CopyCutPaste.Margin = new Thickness(0, 0, 405, 190);
+            Popup_CopyCutPaste.Margin = new Thickness(0, 0, 405, 183);
             Popup_CopyCutPaste.IsLightDismissEnabled = true;
             Popup_CopyCutPaste.IsOpen = true;
             
@@ -357,7 +357,7 @@ namespace MetroExplorer
         private void Button_Sort_Click(object sender, RoutedEventArgs e)
         {
             Popup_Sort.Visibility = Windows.UI.Xaml.Visibility.Visible;
-            Popup_Sort.Margin = new Thickness(0, 0, 151, 190);
+            Popup_Sort.Margin = new Thickness(0, 0, 151, 270);
             Popup_Sort.IsLightDismissEnabled = true;
             Popup_Sort.IsOpen = true;            
         }
@@ -372,6 +372,10 @@ namespace MetroExplorer
                 SortByDate();
             else if (ListBox_Sorte.Items.IndexOf((sender as ListBox).SelectedItem) == 1)
                 SortByName();
+            else if (ListBox_Sorte.Items.IndexOf((sender as ListBox).SelectedItem) == 2)
+                SortBySize();
+            else if (ListBox_Sorte.Items.IndexOf((sender as ListBox).SelectedItem) == 3)
+                SortByType();
             ListBox_CopyCutPaste.SelectedItem = null;
             RefreshAfterAddNewItem();
         }
@@ -379,21 +383,29 @@ namespace MetroExplorer
         private void SortByDate()
         {
             var sortedSource = ExplorerGroups[1].OrderByDescending(p => p.ModifiedDateTime);
-            List<ExplorerItem> sortedItems = new List<ExplorerItem>();
-            foreach (var item in sortedSource)
-            {
-                sortedItems.Add(item);
-            }
-            ExplorerGroups[1].Clear();
-            foreach (var item in sortedItems)
-            {
-                ExplorerGroups[1].Add(item);
-            }
+            RerangeDataSource(sortedSource);
         }
 
         private void SortByName()
         {
             var sortedSource = ExplorerGroups[1].OrderByDescending(p => p.Name);
+            RerangeDataSource(sortedSource);
+        }
+
+        private void SortBySize()
+        {
+            var sortedSource = ExplorerGroups[1].OrderByDescending(p => p.Size);
+            RerangeDataSource(sortedSource);
+        }
+
+        private void SortByType()
+        {
+            var sortedSource = ExplorerGroups[1].OrderByDescending(p => p.Name.Split(new string[] { "." }, StringSplitOptions.None).Last());
+            RerangeDataSource(sortedSource);
+        }
+
+        private void RerangeDataSource(IOrderedEnumerable<ExplorerItem> sortedSource)
+        {
             List<ExplorerItem> sortedItems = new List<ExplorerItem>();
             foreach (var item in sortedSource)
             {
