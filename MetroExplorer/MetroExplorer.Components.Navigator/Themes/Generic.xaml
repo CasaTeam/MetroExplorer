@@ -25,7 +25,13 @@
 				<ControlTemplate TargetType="local:Navigator">
 					<Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" VerticalAlignment="Top" Clip="{Binding Clip, RelativeSource={RelativeSource Mode=TemplatedParent}}">
 						<Popup x:Name="PopupList" Width="270" Height="340" HorizontalAlignment="Left" VerticalAlignment="Top" IsOpen="False" Margin="0" IsLightDismissEnabled="True">
-							<ListBox x:Name="ListBoxDropDown" Width="{Binding ActualWidth, ElementName=PopupList}" Height="{Binding ActualHeight, ElementName=PopupList}" Background="{TemplateBinding Background}" Foreground="White" FontSize="21.333" FontWeight="Bold"/>
+							<ListBox x:Name="ListBoxDropDown" Width="{Binding ActualWidth, ElementName=PopupList}" Height="{Binding ActualHeight, ElementName=PopupList}" Foreground="White" FontWeight="Bold" Background="{x:Null}" ItemContainerStyle="{StaticResource NavigatorListBoxItemStyle}">
+								<ListBox.ItemContainerTransitions>
+									<TransitionCollection>
+										<EntranceThemeTransition/>
+									</TransitionCollection>
+								</ListBox.ItemContainerTransitions>
+							</ListBox>
 						</Popup>
 						<ScrollViewer x:Name="NavigatorScrollViewer" HorizontalAlignment="Left" Margin="0" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden" VerticalContentAlignment="Center" ZoomMode="Disabled" IsVerticalRailEnabled="False" VerticalScrollMode="Disabled" VerticalAlignment="Top">
 							<StackPanel x:Name="NavigatorItemStack" Orientation="Horizontal" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False">
