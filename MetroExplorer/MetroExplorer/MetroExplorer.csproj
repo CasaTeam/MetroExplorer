@@ -101,10 +101,6 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <ProjectReference Include="..\MetroExplorer.Components.CopyCutPanel\MetroExplorer.Components.CopyCutPanel.csproj">
-      <Project>{e075fa51-c48a-4143-bbb7-e60d13015797}</Project>
-      <Name>MetroExplorer.Components.CopyCutPanel</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MetroExplorer.Components.Navigator\MetroExplorer.Components.Navigator.csproj">
       <Project>{d7f662d5-755f-4a66-ae24-c07654af3b04}</Project>
       <Name>MetroExplorer.Components.Navigator</Name>

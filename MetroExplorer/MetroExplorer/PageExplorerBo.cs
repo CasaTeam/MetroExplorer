@@ -1,36 +1,26 @@
-﻿using MetroExplorer.core;
-using MetroExplorer.core.Objects;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Storage;
-using Windows.Storage.FileProperties;
-using Windows.Storage.Pickers;
-using Windows.System;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Animation;
-using Windows.UI.Xaml.Media.Imaging;
-using Windows.UI.Xaml.Navigation;
-using MetroExplorer.core.Utils;
-
-namespace MetroExplorer
+﻿namespace MetroExplorer
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Windows.Storage;
+    using Windows.Storage.FileProperties;
+    using Windows.Storage.Pickers;
+    using Windows.System;
+    using Windows.UI.Xaml;
+    using Windows.UI.Xaml.Controls;
+    using Windows.UI.Xaml.Input;
+    using Windows.UI.Xaml.Media.Imaging;
+    using core;
+    using core.Objects;
+    using core.Utils;
+
     /// <summary>
     /// 
     /// </summary>
-    public sealed partial class PageExplorer : MetroExplorer.Common.LayoutAwarePage, INotifyPropertyChanged
+    public sealed partial class PageExplorer
     {
         DispatcherTimer _imageChangingDispatcher = new DispatcherTimer();
 
@@ -41,9 +31,9 @@ namespace MetroExplorer
             _imageChangingDispatcher.Start();
         }
 
-        int _loadingImageCount = 0;
-        int _loadingFolderImageCount = 0;
-        bool _imageDispatcherLock = false;
+        int _loadingImageCount;
+        int _loadingFolderImageCount;
+        bool _imageDispatcherLock;
         async void ImageChangingDispatcher_Tick(object sender, object e)
         {
             if (_imageDispatcherLock == false && ExplorerGroups != null)
@@ -64,7 +54,7 @@ namespace MetroExplorer
                 await ChangeFolderCover();
                 _imageDispatcherLock = false;
             }
-            LoadingProgressBar.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            LoadingProgressBar.Visibility = Visibility.Collapsed;
         }
 
         private async Task ChangeFolderCover()
@@ -77,7 +67,7 @@ namespace MetroExplorer
                     {
                         var sdf = (await ExplorerGroups[0][i].StorageFolder.GetFilesAsync()).Where(p => p.Name.ToUpper().EndsWith(".JPG") || p.Name.ToUpper().EndsWith(".JPEG")
                                         || p.Name.ToUpper().EndsWith(".PNG") || p.Name.ToUpper().EndsWith(".BMP")).ToList();
-                        if (sdf != null && sdf.Count() > 0)
+                        if (sdf != null && sdf.Any())
                         {
                             await ThumbnailPhoto(ExplorerGroups[0][i], sdf[(new Random()).Next(sdf.Count)]);
                         }
@@ -108,11 +98,11 @@ namespace MetroExplorer
                 item.Size = (await item.StorageFile.GetBasicPropertiesAsync()).Size;
                 item.ModifiedDateTime = (await item.StorageFile.GetBasicPropertiesAsync()).DateModified.DateTime;
             }
-            if(!itemList.Any(p=>p.Name == item.Name))
+            if (itemList.All(p => p.Name != item.Name))
                 itemList.Add(item);
         }
 
-        private async System.Threading.Tasks.Task ThumbnailPhoto(ExplorerItem item, StorageFile sf)
+        private async Task ThumbnailPhoto(ExplorerItem item, StorageFile sf)
         {
             if (item == null) return;
             StorageItemThumbnail fileThumbnail = await sf.GetThumbnailAsync(ThumbnailMode.SingleItem, 250);
@@ -141,6 +131,7 @@ namespace MetroExplorer
                     ExplorerGroups[1].Remove(itemGridView.SelectedItems[0] as ExplorerItem);
                 }
             }
+            await InitializeNavigator();
             BottomAppBar.IsOpen = false;
         }
 
@@ -154,22 +145,8 @@ namespace MetroExplorer
 
         private void AppBar_BottomAppBar_Opened_1(object sender, object e)
         {
-            if (itemGridView.SelectedItems.Count == 1)
-            {
-                Button_RenameDiskFolder.Visibility = Windows.UI.Xaml.Visibility.Visible;
-            }
-            else
-            {
-                Button_RenameDiskFolder.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-            }
-            if (itemGridView.SelectedItems.Count == 0)
-            {
-                Button_RemoveDiskFolder.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-            }
-            else
-            {
-                Button_RemoveDiskFolder.Visibility = Windows.UI.Xaml.Visibility.Visible;
-            }
+            Button_RenameDiskFolder.Visibility = itemGridView.SelectedItems.Count == 1 ? Visibility.Visible : Visibility.Collapsed;
+            Button_RemoveDiskFolder.Visibility = itemGridView.SelectedItems.Count == 0 ? Visibility.Collapsed : Visibility.Visible;
         }
 
         private async void ItemGridView_ItemClick_1(object sender, ItemClickEventArgs e)
@@ -185,12 +162,12 @@ namespace MetroExplorer
             {
                 if (item.StorageFile != null && item.StorageFile.IsImageFile())
                 {
-                    this.Frame.Navigate(typeof(PhotoGallery), new Object[] { _navigatorStorageFolders, item.StorageFile });
+                    Frame.Navigate(typeof(PhotoGallery), new Object[] { _navigatorStorageFolders, item.StorageFile });
                 }
                 else
                 {
-                    var file = await Windows.Storage.StorageFile.GetFileFromPathAsync(item.Path);
-                    var targetStream = await file.OpenAsync(FileAccessMode.Read);
+                    var file = await StorageFile.GetFileFromPathAsync(item.Path);
+                    await file.OpenAsync(FileAccessMode.Read);
                     EventLogger.onActionEvent(EventLogger.FILE_OPENED);
                     await Launcher.LaunchFileAsync(file, new LauncherOptions { DisplayApplicationPicker = true });
 
@@ -224,6 +201,7 @@ namespace MetroExplorer
             Popup_CreateNewFolder.IsOpen = false;
             Popup_CreateNewFolder.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             BottomAppBar.IsOpen = false;
+            await InitializeNavigator();
         }
 
         private void ItemGridView_Tapped(object sender, TappedRoutedEventArgs e)
@@ -268,6 +246,7 @@ namespace MetroExplorer
                 else if ((itemGridView.SelectedItem as ExplorerItem).Type == ExplorerItemType.File)
                     await (itemGridView.SelectedItem as ExplorerItem).StorageFile.RenameAsync((itemGridView.SelectedItem as ExplorerItem).RenamingName, NameCollisionOption.GenerateUniqueName);
             }
+            await InitializeNavigator();
         }
 
         private void ExplorerItemImage_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -290,7 +269,7 @@ namespace MetroExplorer
     /// <summary>
     /// Bottom App bar right buttons
     /// </summary>
-    public sealed partial class PageExplorer : MetroExplorer.Common.LayoutAwarePage, INotifyPropertyChanged
+    public sealed partial class PageExplorer
     {
         #region cutcopypaste
         private void Button_CutPaste_Click(object sender, RoutedEventArgs e)
@@ -299,12 +278,12 @@ namespace MetroExplorer
             Popup_CopyCutPaste.Margin = new Thickness(0, 0, 405, 183);
             Popup_CopyCutPaste.IsLightDismissEnabled = true;
             Popup_CopyCutPaste.IsOpen = true;
-            
+
         }
 
         private async void ListBox_CopyCutPaste_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
-            if(sender == null) return;
+            if (sender == null) return;
             Popup_CopyCutPaste.IsOpen = false;
             Popup_CopyCutPaste.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             if (ListBox_CopyCutPaste.Items.IndexOf((sender as ListBox).SelectedItem) == 0)
@@ -373,7 +352,7 @@ namespace MetroExplorer
             Popup_Sort.Visibility = Windows.UI.Xaml.Visibility.Visible;
             Popup_Sort.Margin = new Thickness(0, 0, 151, 270);
             Popup_Sort.IsLightDismissEnabled = true;
-            Popup_Sort.IsOpen = true;            
+            Popup_Sort.IsOpen = true;
         }
 
         private void ListBox_Sorte_SelectionChanged_1(object sender, SelectionChangedEventArgs e)

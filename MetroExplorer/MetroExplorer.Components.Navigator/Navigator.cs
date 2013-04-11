@@ -1,6 +1,4 @@
-﻿using MetroExplorer.core;
-
-namespace MetroExplorer.Components.Navigator
+﻿namespace MetroExplorer.Components.Navigator
 {
     using System;
     using System.Collections.Generic;
