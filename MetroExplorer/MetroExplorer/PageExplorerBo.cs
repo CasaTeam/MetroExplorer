@@ -198,20 +198,32 @@ namespace MetroExplorer
             }
         }
 
-        private async void Button_AddNewFolder_Click(object sender, RoutedEventArgs e)
+        private  void Button_AddNewFolder_Click(object sender, RoutedEventArgs e)
+        {
+            Popup_CreateNewFolder.IsOpen = true;
+            Popup_CreateNewFolder.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            Popup_CreateNewFolder.Margin = new Thickness(0, 0, 555, 222);
+            Popup_CreateNewFolder.IsLightDismissEnabled = true;
+            TextBox_CreateNewFolder.Focus(Windows.UI.Xaml.FocusState.Keyboard);
+            TextBox_CreateNewFolder.SelectAll();
+        }
+
+        private async void Button_CreateNewFolder_Click(object sender, RoutedEventArgs e)
         {
             StorageFolder sf = await _currentStorageFolder.CreateFolderAsync(StringResources.ResourceLoader.GetString("String_NewFolder"), CreationCollisionOption.GenerateUniqueName);
             ExplorerItem item = new ExplorerItem()
             {
                 Name = sf.Name,
-                RenamingName = sf.Name,
                 Path = sf.Path,
                 Type = ExplorerItemType.Folder,
-                RenameBoxVisibility = "Visible",
+                RenameBoxVisibility = "Collapsed",
                 StorageFolder = sf
             };
             ExplorerGroups[0].Add(item);
             itemGridView.SelectedItem = item;
+            Popup_CreateNewFolder.IsOpen = false;
+            Popup_CreateNewFolder.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            BottomAppBar.IsOpen = false;
         }
 
         private void ItemGridView_Tapped(object sender, TappedRoutedEventArgs e)
@@ -354,6 +366,8 @@ namespace MetroExplorer
         }
 
         #region sort
+        public static SortType CurrentFileListSortType = SortType.None; 
+
         private void Button_Sort_Click(object sender, RoutedEventArgs e)
         {
             Popup_Sort.Visibility = Windows.UI.Xaml.Visibility.Visible;
@@ -368,44 +382,74 @@ namespace MetroExplorer
             Popup_Sort.IsOpen = false;
             Popup_Sort.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
 
-            if (ListBox_Sorte.Items.IndexOf((sender as ListBox).SelectedItem) == 0)
-                SortByDate();
-            else if (ListBox_Sorte.Items.IndexOf((sender as ListBox).SelectedItem) == 1)
-                SortByName();
-            else if (ListBox_Sorte.Items.IndexOf((sender as ListBox).SelectedItem) == 2)
-                SortBySize();
-            else if (ListBox_Sorte.Items.IndexOf((sender as ListBox).SelectedItem) == 3)
-                SortByType();
+            if(ListBox_Sorte.Items.IndexOf((sender as ListBox).SelectedItem) == 0)
+                SortItems(SortType.Date);
+            if (ListBox_Sorte.Items.IndexOf((sender as ListBox).SelectedItem) == 1)
+                SortItems(SortType.Name);
+            if (ListBox_Sorte.Items.IndexOf((sender as ListBox).SelectedItem) == 2)
+                SortItems(SortType.Size);
+            if (ListBox_Sorte.Items.IndexOf((sender as ListBox).SelectedItem) == 3)
+                SortItems(SortType.Type);
+            if (ListBox_Sorte.Items.IndexOf((sender as ListBox).SelectedItem) == 4)
+                SortItems(SortType.None);
             ListBox_CopyCutPaste.SelectedItem = null;
-            RefreshAfterAddNewItem();
         }
 
-        private void SortByDate()
+        private void SortItems(SortType sortType)
         {
-            var sortedSource = ExplorerGroups[1].OrderByDescending(p => p.ModifiedDateTime);
-            RerangeDataSource(sortedSource);
+            IOrderedEnumerable<ExplorerItem> sortedSource = null;
+            if (sortType == SortType.Date)
+                sortedSource = SortByDate(ExplorerGroups[1] as IEnumerable<ExplorerItem>);
+            else if (sortType == SortType.Name)
+                sortedSource = SortByName(ExplorerGroups[1] as IEnumerable<ExplorerItem>);
+            else if (sortType == SortType.Size)
+                sortedSource = SortBySize(ExplorerGroups[1] as IEnumerable<ExplorerItem>);
+            else if (sortType == SortType.Type)
+                sortedSource = SortByType(ExplorerGroups[1] as IEnumerable<ExplorerItem>);
+            else if (sortType == SortType.None)
+                return;
+            if (sortedSource != null)
+                RerangeDataSource(sortedSource);
         }
 
-        private void SortByName()
+        private IOrderedEnumerable<ExplorerItem> SortByDate(IEnumerable<ExplorerItem> items)
         {
-            var sortedSource = ExplorerGroups[1].OrderByDescending(p => p.Name);
-            RerangeDataSource(sortedSource);
+            var sortedSource = items.OrderByDescending(p => p.ModifiedDateTime);
+            PageExplorer.CurrentFileListSortType = SortType.Date;
+            return sortedSource;
         }
 
-        private void SortBySize()
+        private IOrderedEnumerable<ExplorerItem> SortByName(IEnumerable<ExplorerItem> items)
         {
-            var sortedSource = ExplorerGroups[1].OrderByDescending(p => p.Size);
-            RerangeDataSource(sortedSource);
+            var sortedSource = items.OrderByDescending(p => p.Name);
+            PageExplorer.CurrentFileListSortType = SortType.Name;
+            return sortedSource;
         }
 
-        private void SortByType()
+        private IOrderedEnumerable<ExplorerItem> SortBySize(IEnumerable<ExplorerItem> items)
         {
-            var sortedSource = ExplorerGroups[1].OrderByDescending(p => p.Name.Split(new string[] { "." }, StringSplitOptions.None).Last());
-            RerangeDataSource(sortedSource);
+            var sortedSource = items.OrderByDescending(p => p.Size);
+            PageExplorer.CurrentFileListSortType = SortType.Size;
+            return sortedSource;
+        }
+
+        private IOrderedEnumerable<ExplorerItem> SortByType(IEnumerable<ExplorerItem> items)
+        {
+            var sortedSource = items.OrderByDescending(p => p.Name.Split(new string[] { "." }, StringSplitOptions.None).Last());
+            PageExplorer.CurrentFileListSortType = SortType.Type;
+            return sortedSource;
+        }
+
+        private IOrderedEnumerable<ExplorerItem> SortByNone(IEnumerable<ExplorerItem> items)
+        {
+            var sortedSource = items as IOrderedEnumerable<ExplorerItem>;
+            PageExplorer.CurrentFileListSortType = SortType.None;
+            return sortedSource;
         }
 
         private void RerangeDataSource(IOrderedEnumerable<ExplorerItem> sortedSource)
         {
+            if (ExplorerGroups == null || ExplorerGroups[1] == null) return;
             List<ExplorerItem> sortedItems = new List<ExplorerItem>();
             foreach (var item in sortedSource)
             {
@@ -418,5 +462,14 @@ namespace MetroExplorer
             }
         }
         #endregion
+    }
+
+    public enum SortType
+    { 
+        Date,
+        Name,
+        Size,
+        Type,
+        None
     }
 }

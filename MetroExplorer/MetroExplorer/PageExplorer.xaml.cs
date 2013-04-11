@@ -106,7 +106,6 @@
             if (_currentStorageFolder != null)
             {
                 await InitializeNavigator();
-
                 var listFiles = await _currentStorageFolder.GetItemsAsync();
                 foreach (var item in listFiles)
                 {
@@ -119,6 +118,7 @@
                         AddNewItem(ExplorerGroups[1], item as StorageFile);
                     }
                 }
+                //SortItems(PageExplorer.CurrentFileListSortType);
             }
         }
 

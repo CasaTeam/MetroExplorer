@@ -138,6 +138,9 @@
   <data name="String_NewFolder" xml:space="preserve">
     <value>新建文件夹</value>
   </data>
+  <data name="Uid_Button_CreateNewFolder.Content" xml:space="preserve">
+    <value>创建</value>
+  </data>
   <data name="Uid_PageMain_PageTitle.Text" xml:space="preserve">
     <value>Metro Explorer</value>
   </data>
@@ -186,6 +189,9 @@
   <data name="Uid_Popup_Sort_ListItem_Name.Content" xml:space="preserve">
     <value>按名称 </value>
   </data>
+  <data name="Uid_Popup_Sort_ListItem_None.Content" xml:space="preserve">
+    <value>取消排序</value>
+  </data>
   <data name="Uid_Popup_Sort_ListItem_Size.Content" xml:space="preserve">
     <value>按照文件大小 </value>
   </data>
@@ -197,5 +203,8 @@
   </data>
   <data name="Uid_PreferenceLayout_TextBlock_Title.Text" xml:space="preserve">
     <value>Préférence</value>
+  </data>
+  <data name="Uid_TextBox_CreateNewFolder.Text" xml:space="preserve">
+    <value>新建文件夹</value>
   </data>
 </root>

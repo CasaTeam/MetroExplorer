@@ -622,23 +622,35 @@
                 <Popup HorizontalAlignment="Right" VerticalAlignment="Bottom" IsLightDismissEnabled="False"
                    Visibility="Collapsed" x:Name="Popup_CopyCutPaste" >
 
-                    <ListBox BorderBrush="Black" Background="{Binding Path=BottomBarBackground}" x:Name="ListBox_CopyCutPaste" SelectionMode="Single"
+                    <ListBox BorderBrush="{Binding Path=TitleForeground}" Background="White" x:Name="ListBox_CopyCutPaste" SelectionMode="Single"
                          Height="88" Width="150" Foreground="#DDFFFFFF" SelectionChanged="ListBox_CopyCutPaste_SelectionChanged_1" >
                         <!--<ListBoxItem x:Uid="Uid_Popup_CopyCutPaste_ListItem_CopyFolder" FontSize="16" FontWeight="Light" Margin="0,10,0,5" Padding="20,5"/>-->
-                        <ListBoxItem x:Uid="Uid_Popup_CopyCutPaste_ListItem_CopyFile" FontSize="16" FontWeight="Light" Margin="0,5" Padding="20,5" Foreground="#DDFFFFFF" />
+                        <ListBoxItem x:Uid="Uid_Popup_CopyCutPaste_ListItem_CopyFile" FontSize="16" FontWeight="Light" Margin="0,5" Padding="20,5" Foreground="{Binding Path=TitleForeground}" />
                         <!--<ListBoxItem x:Uid="Uid_Popup_CopyCutPaste_ListItem_CutFolder" FontSize="16" FontWeight="Light" Margin="0,5" Padding="20,5"/>-->
-                        <ListBoxItem x:Uid="Uid_Popup_CopyCutPaste_ListItem_CutFile" FontSize="16" FontWeight="Light" Margin="0,0,0,10" Padding="20,5" Foreground="#DDFFFFFF" />
+                        <ListBoxItem x:Uid="Uid_Popup_CopyCutPaste_ListItem_CutFile" FontSize="16" FontWeight="Light" Margin="0,0,0,10" Padding="20,5" Foreground="{Binding Path=TitleForeground}" />
                     </ListBox>
                 </Popup>
                 <Popup HorizontalAlignment="Right" VerticalAlignment="Bottom" IsLightDismissEnabled="False"
                    Visibility="Collapsed" x:Name="Popup_Sort" >
-                    <ListBox BorderBrush="Black" Background="{Binding Path=BottomBarBackground}" x:Name="ListBox_Sorte" SelectionMode="Single"
+                    <ListBox BorderBrush="{Binding Path=TitleForeground}" Background="White" x:Name="ListBox_Sorte" SelectionMode="Single"
                          Height="175" Width="150" Foreground="#DDFFFFFF" SelectionChanged="ListBox_Sorte_SelectionChanged_1" >
-                        <ListBoxItem x:Uid="Uid_Popup_Sort_ListItem_DateDesc" FontSize="16" FontWeight="Light" Margin="0,5" Padding="20,5" Foreground="#DDFFFFFF" />
-                        <ListBoxItem x:Uid="Uid_Popup_Sort_ListItem_Name" FontSize="16" FontWeight="Light" Margin="0,0,0,10" Padding="20,5" Foreground="#DDFFFFFF" />
-                        <ListBoxItem x:Uid="Uid_Popup_Sort_ListItem_Size" FontSize="16" FontWeight="Light" Margin="0,0,0,10" Padding="20,5" Foreground="#DDFFFFFF" />
-                        <ListBoxItem x:Uid="Uid_Popup_Sort_ListItem_Type" FontSize="16" FontWeight="Light" Margin="0,0,0,10" Padding="20,5" Foreground="#DDFFFFFF" />
+                        <ListBoxItem x:Uid="Uid_Popup_Sort_ListItem_DateDesc" FontSize="16" FontWeight="Light" Margin="0,5" Padding="20,5" Foreground="{Binding Path=TitleForeground}" />
+                        <ListBoxItem x:Uid="Uid_Popup_Sort_ListItem_Name" FontSize="16" FontWeight="Light" Margin="0,0,0,10" Padding="20,5" Foreground="{Binding Path=TitleForeground}" />
+                        <ListBoxItem x:Uid="Uid_Popup_Sort_ListItem_Size" FontSize="16" FontWeight="Light" Margin="0,0,0,10" Padding="20,5" Foreground="{Binding Path=TitleForeground}" />
+                        <ListBoxItem x:Uid="Uid_Popup_Sort_ListItem_Type" FontSize="16" FontWeight="Light" Margin="0,0,0,10" Padding="20,5" Foreground="{Binding Path=TitleForeground}" />
+                        <!--<ListBoxItem x:Uid="Uid_Popup_Sort_ListItem_None" FontSize="16" FontWeight="Light" Margin="0,0,0,10" Padding="20,5" Foreground="#DDFFFFFF" />-->
                     </ListBox>
+                </Popup>
+                <Popup HorizontalAlignment="Right" VerticalAlignment="Bottom" IsLightDismissEnabled="False"
+                   Visibility="Collapsed" x:Name="Popup_CreateNewFolder" >
+                    <Border BorderBrush="{Binding Path=TitleForeground}" BorderThickness="2">
+                        <Grid Width="230" Height="123" Background="White">
+                            <TextBox x:Name="TextBox_CreateNewFolder" BorderBrush="{Binding Path=TitleForeground}" FontSize="18" 
+                                     x:Uid="Uid_TextBox_CreateNewFolder" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="20,25,20,10" />
+                            <Button x:Uid="Uid_Button_CreateNewFolder" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5,70,15,0" Click="Button_CreateNewFolder_Click"
+                                    Background="{Binding Path=BottomBarBackground}" Foreground="#DDFFFFFF" FontSize="16"  />
+                        </Grid>
+                    </Border>
                 </Popup>
             </Grid>
         </Grid>
