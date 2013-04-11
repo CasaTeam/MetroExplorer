@@ -4,7 +4,6 @@
     DataContext="{Binding DefaultViewModel, RelativeSource={RelativeSource Self}}"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:MetroExplorer"
     xmlns:core="using:MetroExplorer.core"
     xmlns:common="using:MetroExplorer.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"

@@ -14,13 +14,12 @@
     using core;
     using core.Objects;
     using core.Utils;
-    using Common;
     using Components.Navigator.Objects;
 
     /// <summary>
     /// Page affichant une collection groupée d'éléments.
     /// </summary>
-    public sealed partial class PageExplorer : LayoutAwarePage, INotifyPropertyChanged
+    public sealed partial class PageExplorer : INotifyPropertyChanged
     {
         StorageFolder _currentStorageFolder;
         IList<StorageFolder> _navigatorStorageFolders;
@@ -90,9 +89,17 @@
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             EventLogger.onActionEvent(EventLogger.FOLDER_OPENED);
-            ExplorerGroups = new ObservableCollection<GroupInfoList<ExplorerItem>>();
-            ExplorerGroups.Add(new GroupInfoList<ExplorerItem>() { Key = StringResources.ResourceLoader.GetString("MainExplorer_UserFolderGroupTitle") });
-            ExplorerGroups.Add(new GroupInfoList<ExplorerItem>() { Key = StringResources.ResourceLoader.GetString("MainExplorer_UserFileGroupTitle") });
+            ExplorerGroups = new ObservableCollection<GroupInfoList<ExplorerItem>>
+                {
+                    new GroupInfoList<ExplorerItem>
+                        {
+                            Key = StringResources.ResourceLoader.GetString("MainExplorer_UserFolderGroupTitle")
+                        },
+                    new GroupInfoList<ExplorerItem>
+                        {
+                            Key = StringResources.ResourceLoader.GetString("MainExplorer_UserFileGroupTitle")
+                        }
+                };
             _navigatorStorageFolders = new List<StorageFolder>();
             _navigatorStorageFolders = (IList<StorageFolder>)e.Parameter;
             _currentStorageFolder = _navigatorStorageFolders.LastOrDefault();
@@ -197,7 +204,7 @@
     /// <summary>
     /// Properties for change theme color
     /// </summary>
-    public sealed partial class PageExplorer : LayoutAwarePage, INotifyPropertyChanged
+    public sealed partial class PageExplorer
     {
         private string _backgroundColor = Theme.ThemeLibarary.BackgroundColor;
         public string BackgroundColor
@@ -336,7 +343,7 @@
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
-            throw new NotImplementedException();
+            return null;
         }
     }
 
@@ -353,7 +360,7 @@
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
-            throw new NotImplementedException();
+            return null;
         }
     }
 
@@ -369,7 +376,7 @@
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
-            throw new NotImplementedException();
+            return null;
         }
     }
     #endregion
@@ -380,13 +387,12 @@
         {
             if (value != null)
                 return Math.Round(System.Convert.ToDouble(value) / 1024, 2).ToString() + " MB";
-            else
-                return "0 MB";
+            return "0 MB";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
-            throw new NotImplementedException();
+            return null;
         }
     }
     #endregion
