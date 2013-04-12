@@ -1,158 +1,147 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
-using Windows.Storage;
-using Windows.UI.Xaml.Media.Imaging;
-
-namespace MetroExplorer.core.Objects
+﻿namespace MetroExplorer.core.Objects
 {
+    using System;
+    using System.ComponentModel;
+    using System.Xml.Serialization;
+    using Windows.Storage;
+    using Windows.UI.Xaml.Media.Imaging;
+
     public class ExplorerItem : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private string name;
+        private string _name;
+        private string _path;
+        private double _width;
+        private double _height;
+        private ExplorerItemType _type;
+        private ulong _size;
+        private DateTime _modifiedDateTime;
+        [XmlIgnore]
+        private StorageFolder _storageFolder;
+        [XmlIgnore]
+        private StorageFile _storageFile;
+        [XmlIgnore]
+        private BitmapImage _image;
+        [XmlIgnore]
+        private string _renameBoxVisibility = "Collapsed";
+        [XmlIgnore]
+        private string _renamingName;
+
+
         public string Name
         {
-            get { return name; }
+            get { return _name; }
             set
             {
-                name = value;
+                _name = value;
                 NotifyPropertyChanged("Name");
             }
         }
-
-        private string path;
         public string Path
         {
-            get { return path; }
+            get { return _path; }
             set
             {
-                path = value;
+                _path = value;
                 NotifyPropertyChanged("ImagePath");
             }
         }
-
-        private double width = 0;
         public double Width
         {
-            get { return width; }
+            get { return _width; }
             set
             {
-                width = value;
+                _width = value;
                 NotifyPropertyChanged("Width");
             }
         }
-
-        private double height = 0;
         public double Height
         {
-            get { return height; }
+            get { return _height; }
             set
             {
-                height = value;
+                _height = value;
                 NotifyPropertyChanged("Height");
             }
         }
-
-        private ExplorerItemType type;
         public ExplorerItemType Type
         {
-            get { return type; }
+            get { return _type; }
             set
             {
-                type = value;
+                _type = value;
                 NotifyPropertyChanged("Type");
             }
         }
-
-        private ulong size = 0;
         public ulong Size
         {
-            get { return size; }
+            get { return _size; }
             set
             {
-                size = value;
+                _size = value;
                 NotifyPropertyChanged("Size");
             }
         }
-
-        private DateTime modifiedDateTime;
         public DateTime ModifiedDateTime
         {
-            get { return modifiedDateTime; }
+            get { return _modifiedDateTime; }
             set
             {
-                modifiedDateTime = value;
+                _modifiedDateTime = value;
                 NotifyPropertyChanged("ModifiedDateTime");
             }
         }
-
-        [XmlIgnore]
-        private StorageFolder storageFolder;
         [XmlIgnore]
         public StorageFolder StorageFolder
         {
-            get { return storageFolder; }
+            get { return _storageFolder; }
             set
             {
-                storageFolder = value;
+                _storageFolder = value;
                 NotifyPropertyChanged("StorageFolder");
             }
         }
-
-        [XmlIgnore]
-        private StorageFile storageFile;
         [XmlIgnore]
         public StorageFile StorageFile
         {
-            get { return storageFile; }
+            get { return _storageFile; }
             set
             {
-                storageFile = value;
+                _storageFile = value;
                 NotifyPropertyChanged("StorageFile");
             }
         }
-
-        [XmlIgnore]
-        private BitmapImage image;
         [XmlIgnore]
         public BitmapImage Image
         {
-            get { return image; }
+            get { return _image; }
             set
             {
-                image = value;
+                _image = value;
                 NotifyPropertyChanged("Image");
             }
         }
 
         #region 用来操作添加删除，重命名文件文件夹的属性
         [XmlIgnore]
-        private string renameBoxVisibility = "Collapsed";
-        [XmlIgnore]
         public string RenameBoxVisibility
         {
-            get { return renameBoxVisibility; }
+            get { return _renameBoxVisibility; }
             set
             {
-                renameBoxVisibility = value;
+                _renameBoxVisibility = value;
                 NotifyPropertyChanged("RenameBoxVisibility");
             }
         }
 
         [XmlIgnore]
-        private string renamingName;
-        [XmlIgnore]
         public string RenamingName
         {
-            get { return renamingName; }
+            get { return _renamingName; }
             set
             {
-                renamingName = value;
+                _renamingName = value;
                 NotifyPropertyChanged("RenamingName");
             }
         }

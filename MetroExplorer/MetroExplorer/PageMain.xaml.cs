@@ -1,32 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using MetroExplorer.Common;
-using System.Collections.ObjectModel;
-using MetroExplorer.core.Objects;
-using System.ComponentModel;
-using Windows.Storage;
-using Windows.Storage.Pickers;
-using WinRTXamlToolkit.Controls.Extensions;
-using Windows.Storage.AccessCache;
-using MetroExplorer.core;
-using Windows.UI.Popups;
-using MetroExplorer.core.Utils;
-
-// Pour en savoir plus sur le modèle d'élément Page Éléments groupés, consultez la page http://go.microsoft.com/fwlink/?LinkId=234231
-
-namespace MetroExplorer
+﻿namespace MetroExplorer
 {
+    using System;
+    using System.Collections.Generic;
+    using Windows.Foundation;
+    using Windows.UI.Xaml;
+    using Windows.UI.Xaml.Controls;
+    using Windows.UI.Xaml.Input;
+    using Windows.UI.Xaml.Media;
+    using Windows.UI.Xaml.Navigation;
+    using System.ComponentModel;
+    using Windows.Storage;
+    using Windows.Storage.Pickers;
+    using WinRTXamlToolkit.Controls.Extensions;
+    using Windows.Storage.AccessCache;
+    using System.Collections.ObjectModel;
+    using Common;
+    using core;
+    using core.Objects;
+    using core.Utils;
+
     /// <summary>
     /// Page affichant une collection groupée d'éléments.
     /// </summary>
@@ -209,7 +201,7 @@ namespace MetroExplorer
                     AddNewItem(ExplorerGroups[1], storageFolder, token);
                 EventLogger.onActionEvent(EventLogger.ADD_FOLDER_DONE, EventLogger.LABEL_HOME_PAGE);
             }
-            else 
+            else
             {
                 EventLogger.onActionEvent(EventLogger.ADD_FOLDER_CANCEL, EventLogger.LABEL_HOME_PAGE);
             }

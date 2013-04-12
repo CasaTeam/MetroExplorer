@@ -129,11 +129,9 @@
             base.OnApplyTemplate();
             _popupList = (Popup)GetTemplateChild(PopupListElement);
             _listBoxDropDown = (ListBox)GetTemplateChild(ListBoxDropDownElement);
-            if (_listBoxDropDown != null)
-            {
-                _listBoxDropDown.SelectionChanged += ListBoxDropDownSelectionChanged;
-                _listBoxDropDown.Opacity = 0.9;
-            }
+            if (_listBoxDropDown == null) return;
+            _listBoxDropDown.SelectionChanged += ListBoxDropDownSelectionChanged;
+            _listBoxDropDown.Opacity = 0.9;
         }
 
         #endregion
@@ -150,10 +148,7 @@
             string newPath = splitedPath.Aggregate(string.Empty, (current, next) => next + "\\")
                 + (string.IsNullOrWhiteSpace(((string)e.AddedItems.FirstOrDefault())) ? string.Empty : (string)(e.AddedItems.FirstOrDefault()));
             NavigatorNodeCommandArgument argument =
-                new NavigatorNodeCommandArgument(
-                    _currentIndex,
-                    newPath,
-                    _commandType);
+                new NavigatorNodeCommandArgument(_currentIndex, newPath, _commandType);
             if (NPathChanged != null)
                 NPathChanged(this, argument);
         }
