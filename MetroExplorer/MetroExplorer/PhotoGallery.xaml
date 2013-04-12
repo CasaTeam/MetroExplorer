@@ -9,8 +9,6 @@
 
 
     <Page.Resources>
-        <!-- TODO: supprimez cette ligne si la clé AppName est déclarée dans App.xaml -->
-        <x:String x:Key="AppName">Mon application</x:String>
         <DataTemplate x:Key="FlipViewItemTemplate">
             <Grid>
 
@@ -32,9 +30,7 @@
                 <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" VerticalAlignment="Center" Style="{StaticResource BackButtonStyle}" Margin="10,19,0,8" ManipulationMode="RotateInertia"/>
 
         -->
-        <FlipView x:Name="ImageFlipVIew" SelectionChanged="flipView_SelectionChanged" Grid.Row="1" ItemTemplate="{StaticResource FlipViewItemTemplate}" ItemsSource="{Binding items}" SelectedIndex="-1">
-
-        </FlipView>
+        <FlipView x:Name="ImageFlipVIew" SelectionChanged="flipView_SelectionChanged" Grid.Row="1" ItemTemplate="{StaticResource FlipViewItemTemplate}" ItemsSource="{Binding items}" SelectedIndex="-1"/>
         <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" VerticalAlignment="Top" Style="{StaticResource BackButtonStyle}" Margin="10,19,0,8" ManipulationMode="RotateInertia" VerticalContentAlignment="Top" HorizontalAlignment="Left" HorizontalContentAlignment="Left"/>
 
     </Grid>

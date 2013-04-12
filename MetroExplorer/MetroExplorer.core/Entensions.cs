@@ -1,8 +1,8 @@
-﻿using Windows.UI.Xaml;
-using Windows.UI.Xaml.Media;
-
-namespace MetroExplorer.core
+﻿namespace MetroExplorer.core
 {
+    using Windows.UI.Xaml;
+    using Windows.UI.Xaml.Media;
+
     public static class Entensions
     {
         public static DependencyObject GetParentByName(this DependencyObject obj, string name)

@@ -1,23 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.ApplicationModel.Resources;
-
-namespace MetroExplorer.core
+﻿namespace MetroExplorer.core
 {
+    using Windows.ApplicationModel.Resources;
+
     public class StringResources
     {
-        private static ResourceLoader resourceLoader;
+        private static ResourceLoader _resourceLoader;
         public static ResourceLoader ResourceLoader
         {
-            get
-            {
-                if (resourceLoader == null)
-                    resourceLoader = new ResourceLoader();
-                return resourceLoader;
-            }
+            get { return _resourceLoader ?? (_resourceLoader = new ResourceLoader()); }
         }
     }
 }

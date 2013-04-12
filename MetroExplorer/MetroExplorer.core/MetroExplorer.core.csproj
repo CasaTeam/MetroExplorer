@@ -99,17 +99,13 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Entensions.cs" />
-    <Compile Include="GroupInfoList.cs" />
+    <Compile Include="Objects\GroupInfoList.cs" />
     <Compile Include="Objects\Enums.cs" />
     <Compile Include="Objects\ExplorerItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Singleton.cs" />
-    <Compile Include="StorageFileExtensioni.cs" />
+    <Compile Include="StorageFileExtension.cs" />
     <Compile Include="StringResources.cs" />
     <Compile Include="UIElementAnimationExtensions.cs" />
     <Compile Include="Utils\EventLogger.cs" />

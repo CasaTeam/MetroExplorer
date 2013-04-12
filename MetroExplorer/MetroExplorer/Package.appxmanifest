@@ -2,7 +2,7 @@
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
   <Identity Name="075dcb47-665f-49de-8937-068336dd4f9a" Publisher="CN=Rue Cadet" Version="1.0.0.0" />
   <Properties>
-    <DisplayName>Windows8MetroExplorer</DisplayName>
+    <DisplayName>MetroExplorer</DisplayName>
     <PublisherDisplayName>Rue Cadet</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -14,8 +14,8 @@
     <Resource Language="x-generate" />
   </Resources>
   <Applications>
-    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="Windows8MetroExplorer.App">
-      <VisualElements DisplayName="Windows8MetroExplorer" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="Windows8MetroExplorer" ForegroundText="light" BackgroundColor="#464646">
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="MetroExplorer.App">
+      <VisualElements DisplayName="MetroExplorer" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="MetroExplorer" ForegroundText="light" BackgroundColor="#464646">
         <DefaultTile ShowName="allLogos" />
         <SplashScreen Image="Assets\SplashScreen.png" />
       </VisualElements>

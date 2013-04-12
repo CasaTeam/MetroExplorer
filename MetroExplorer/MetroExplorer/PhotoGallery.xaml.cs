@@ -1,34 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using MetroExplorer.Common;
-using System.Collections.ObjectModel;
-using MetroExplorer.core.Objects;
-using System.ComponentModel;
-using Windows.Storage;
-using Windows.Storage.Pickers;
-using Windows.Storage.Streams;
-using Windows.Storage.AccessCache;
-using MetroExplorer.core;
-using Windows.UI.Popups;
-using Windows.UI.Xaml.Media.Imaging;
-using Windows.Storage.FileProperties;
-using MetroExplorer.core.Utils;
-
-// Pour en savoir plus sur le modèle d'élément Page Éléments groupés, consultez la page http://go.microsoft.com/fwlink/?LinkId=234231
-
-namespace MetroExplorer
+﻿namespace MetroExplorer
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Windows.UI.Xaml.Controls;
+    using Windows.UI.Xaml.Navigation;
+    using Windows.Storage;
+    using Windows.UI.Xaml.Media.Imaging;
+    using Windows.Storage.FileProperties;
+    using Common;
+    using core;
+    using core.Objects;
+    using core.Utils;
+
     /// <summary>
     /// Page affichant une collection groupée d'éléments.
     /// </summary>
@@ -45,7 +29,7 @@ namespace MetroExplorer
 
         public PhotoGallery()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             items = new List<ExplorerItem>();
         }
 
@@ -68,7 +52,8 @@ namespace MetroExplorer
                 {
                     flipview.FadeOutCustom(new TimeSpan(0, 0, 0, 0, 0));
                 }
-                else {
+                else
+                {
                     flipview.FadeOut(new TimeSpan(0, 0, 0, 0, 0));
                     flipview.FadeInCustom(new TimeSpan(0, 0, 0, 1, 0));
                     isFadeInFirst = false;
@@ -90,10 +75,10 @@ namespace MetroExplorer
                 IReadOnlyList<IStorageItem> listFiles = await currentStorageFolder.GetItemsAsync();
                 foreach (var item in listFiles)
                 {
-                    
+
                     if (item is StorageFile)
                     {
-                        StorageFile file = (StorageFile) item;
+                        StorageFile file = (StorageFile)item;
 
                         if (file != null && file.IsImageFile())
                         {
@@ -117,10 +102,10 @@ namespace MetroExplorer
                             //    photoItem.Image = bitmapImage;
                             //    items.Add(photoItem);
                             //}  
-                        }                    
+                        }
                     }
                 }
-                for (int i = 0; i < items.Count; i++ )
+                for (int i = 0; i < items.Count; i++)
                 {
                     ExplorerItem item = items.ElementAt(i) as ExplorerItem;
                     if (item != null && seletedFile.Name.Equals(item.Name))
