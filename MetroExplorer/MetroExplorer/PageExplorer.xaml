@@ -32,6 +32,7 @@
         <SolidColorBrush x:Key="ItemSelectedBorderColor" Color="{Binding Path=ItemSelectedBorderColor}"/>
         <SolidColorBrush x:Key="ItemTextForeground" Color="{Binding Path=ItemTextForeground}"/>
         <SolidColorBrush x:Key="ItemBigBackground" Color="{Binding Path=ItemBigBackground}"/>
+        <SolidColorBrush x:Key="TitleForeground" Color="{Binding Path=TitleForeground}"/> 
 
         <local:RenameBoxVisibilityConverter x:Key="RenameBoxVisibilityConverter" />
         <local:FolderFace1Converter x:Key="FolderFace1Converter" />
@@ -101,6 +102,7 @@
 
             </Grid>
         </DataTemplate>
+        
         <Style x:Key="ExplorerGridViewItemStyle" TargetType="GridViewItem">
             <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}"/>
             <Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}"/>
@@ -381,6 +383,150 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        
+        <Style x:Key="ListBoxItemStylePopupItem" TargetType="ListBoxItem">
+        	<Setter Property="Background" Value="Transparent"/>
+        	<Setter Property="TabNavigation" Value="Local"/>
+        	<Setter Property="Padding" Value="8,10"/>
+        	<Setter Property="HorizontalContentAlignment" Value="Left"/>
+        	<Setter Property="Template">
+        		<Setter.Value>
+        			<ControlTemplate TargetType="ListBoxItem">
+        				<Border x:Name="LayoutRoot" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+        					<VisualStateManager.VisualStateGroups>
+        						<VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="LayoutRoot">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="Transparent"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource TitleForeground}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                        <VisualState x:Name="PointerOver">
+        								<Storyboard>
+        									<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="LayoutRoot">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="Transparent"/>
+        									</ObjectAnimationUsingKeyFrames>
+        									<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ItemBigBackground}"/>
+        									</ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+        							</VisualState>
+        							<VisualState x:Name="Disabled">
+        								<Storyboard>
+        									<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="LayoutRoot">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="Transparent"/>
+        									</ObjectAnimationUsingKeyFrames>
+        									<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+        										<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ListBoxItemDisabledForegroundThemeBrush}"/>
+        									</ObjectAnimationUsingKeyFrames>
+        								</Storyboard>
+        							</VisualState>
+        							<VisualState x:Name="Pressed">
+        								<Storyboard>
+        									<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="PressedBackground"/>
+        									<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+        										<DiscreteObjectKeyFrame KeyTime="0" Value="#DDFFFFFF"/>
+        									</ObjectAnimationUsingKeyFrames>
+        								</Storyboard>
+        							</VisualState>
+        						</VisualStateGroup>
+        						<VisualStateGroup x:Name="SelectionStates">
+                                    <VisualState x:Name="Unselected">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="InnerGrid">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="#FFFFFFFF"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ListBoxItemSelectedForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>-->
+                                        </Storyboard>
+                                    </VisualState> 
+                                    <VisualState x:Name="Selected">
+        								<Storyboard>
+        									<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="InnerGrid">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ItemBigBackground}"/>
+        									</ObjectAnimationUsingKeyFrames>
+        									<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+        										<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ListBoxItemSelectedForegroundThemeBrush}"/>
+        									</ObjectAnimationUsingKeyFrames>
+        								</Storyboard>
+        							</VisualState>
+        							<VisualState x:Name="SelectedUnfocused">
+        								<Storyboard>
+        									<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="InnerGrid">
+        										<DiscreteObjectKeyFrame KeyTime="0" Value="#FFFFFFFF"/>
+        									</ObjectAnimationUsingKeyFrames>
+        									<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+        										<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ListBoxItemSelectedForegroundThemeBrush}"/>
+        									</ObjectAnimationUsingKeyFrames>
+        								</Storyboard>
+        							</VisualState>
+        							<VisualState x:Name="SelectedDisabled">
+        								<Storyboard>
+        									<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="InnerGrid">
+        										<DiscreteObjectKeyFrame KeyTime="0" Value="#FFFFFF"/>
+        									</ObjectAnimationUsingKeyFrames>
+        									<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+        										<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ListBoxItemSelectedDisabledForegroundThemeBrush}"/>
+        									</ObjectAnimationUsingKeyFrames>
+        								</Storyboard>
+        							</VisualState>
+        							<VisualState x:Name="SelectedPointerOver">
+        								<Storyboard>
+        									<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="InnerGrid">
+        										<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ListBoxItemSelectedPointerOverBackgroundThemeBrush}"/>
+        									</ObjectAnimationUsingKeyFrames>
+        									<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+        										<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ListBoxItemSelectedForegroundThemeBrush}"/>
+        									</ObjectAnimationUsingKeyFrames>
+        								</Storyboard>
+        							</VisualState>
+        							<VisualState x:Name="SelectedPressed">
+        								<Storyboard>
+        									<!--<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="InnerGrid">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ItemBigBackground}"/>
+        									</ObjectAnimationUsingKeyFrames>-->
+        									<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+        										<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ListBoxItemSelectedForegroundThemeBrush}"/>
+        									</ObjectAnimationUsingKeyFrames>
+        								</Storyboard>
+        							</VisualState>
+        						</VisualStateGroup>
+        						<VisualStateGroup x:Name="FocusStates">
+        							<VisualState x:Name="Focused">
+        								<Storyboard>
+        									<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualWhite"/>
+        									<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualBlack"/>
+        								</Storyboard>
+        							</VisualState>
+                                    <VisualState x:Name="Unfocused">
+                                        <!--<Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="InnerGrid">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="#FFFFFFFF"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>-->
+                                        <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ListBoxItemSelectedForegroundThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>-->
+                                    </VisualState>
+                                    <VisualState x:Name="PointerFocused"/>
+        						</VisualStateGroup>
+        					</VisualStateManager.VisualStateGroups>
+        					<Grid x:Name="InnerGrid" Background="Transparent">
+                                <Rectangle x:Name="PressedBackground" Fill="{StaticResource ItemBigBackground}" Opacity="0"/>
+        						<ContentPresenter x:Name="ContentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+        						<Rectangle x:Name="FocusVisualWhite" Opacity="0" StrokeDashOffset=".5" StrokeEndLineCap="Square" Stroke="{StaticResource FocusVisualWhiteStrokeThemeBrush}" StrokeDashArray="1,1"/>
+        						<Rectangle x:Name="FocusVisualBlack" Opacity="0" StrokeDashOffset="1.5" StrokeEndLineCap="Square" Stroke="{StaticResource FocusVisualBlackStrokeThemeBrush}" StrokeDashArray="1,1"/>
+        					</Grid>
+        				</Border>
+        			</ControlTemplate>
+        		</Setter.Value>
+        	</Setter>
+        </Style>
     </common:LayoutAwarePage.Resources>
 
     <common:LayoutAwarePage.BottomAppBar>
@@ -573,8 +719,8 @@
                 <Grid Grid.Row="1" Height="50" Margin="100,0,0,0" VerticalAlignment="Top">
                     <!--<Button HorizontalAlignment="Left" VerticalAlignment="Stretch" Content="Home" Background="Transparent" BorderThickness="0"
                 		FontSize="25" Click="ButtonMainPage_Click_1" FontWeight="Light" Width="95" />-->
-                    <TextBlock VerticalAlignment="Bottom" Text="Home" Foreground="{Binding TitleForeground}"
-                		FontSize="26.667" PointerReleased="ButtonMainPage_Click_1" FontWeight="Light" Margin="20,0,1177,8" />
+                    <TextBlock VerticalAlignment="Bottom" Text="Home" Foreground="{Binding TitleForeground}" HorizontalAlignment="Left"
+                		FontSize="26.667" PointerReleased="ButtonMainPage_Click_1" FontWeight="Light" Margin="20,0,0,8" />
                     <!--<Rectangle HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="1" Fill="White" Height="30" Margin="5,0,5,15" Grid.Column="1"  />-->
                     <navigator:Navigator x:Name="Navigator" Width="Auto" Height="Auto" NPathChanged="NavigatorPathChanged" Background="#FF459973" Margin="100,0,0,0"/>
                 </Grid>
@@ -619,29 +765,35 @@
                 </VisualStateManager.VisualStateGroups>
             </Grid>
             <Grid>
-                <Popup HorizontalAlignment="Right" VerticalAlignment="Bottom" IsLightDismissEnabled="False"
+                <Popup HorizontalAlignment="Right" VerticalAlignment="Bottom" IsLightDismissEnabled="True"
                    Visibility="Collapsed" x:Name="Popup_CopyCutPaste" >
 
                     <ListBox BorderBrush="{Binding Path=TitleForeground}" Background="White" x:Name="ListBox_CopyCutPaste" SelectionMode="Single"
                          Height="88" Width="150" Foreground="#DDFFFFFF" SelectionChanged="ListBox_CopyCutPaste_SelectionChanged_1" >
                         <!--<ListBoxItem x:Uid="Uid_Popup_CopyCutPaste_ListItem_CopyFolder" FontSize="16" FontWeight="Light" Margin="0,10,0,5" Padding="20,5"/>-->
-                        <ListBoxItem x:Uid="Uid_Popup_CopyCutPaste_ListItem_CopyFile" FontSize="16" FontWeight="Light" Margin="0,5" Padding="20,5" Foreground="{Binding Path=TitleForeground}" />
+                        <ListBoxItem x:Uid="Uid_Popup_CopyCutPaste_ListItem_CopyFile" FontSize="16" FontWeight="Light" Margin="0,5" Padding="20,5" Foreground="{Binding Path=TitleForeground}"
+                                     Style="{StaticResource ListBoxItemStylePopupItem}"/>
                         <!--<ListBoxItem x:Uid="Uid_Popup_CopyCutPaste_ListItem_CutFolder" FontSize="16" FontWeight="Light" Margin="0,5" Padding="20,5"/>-->
-                        <ListBoxItem x:Uid="Uid_Popup_CopyCutPaste_ListItem_CutFile" FontSize="16" FontWeight="Light" Margin="0,0,0,10" Padding="20,5" Foreground="{Binding Path=TitleForeground}" />
+                        <ListBoxItem x:Uid="Uid_Popup_CopyCutPaste_ListItem_CutFile" FontSize="16" FontWeight="Light" Margin="0,0,0,10" Padding="20,5" Foreground="{Binding Path=TitleForeground}"
+                                     Style="{StaticResource ListBoxItemStylePopupItem}"/>
                     </ListBox>
                 </Popup>
-                <Popup HorizontalAlignment="Right" VerticalAlignment="Bottom" IsLightDismissEnabled="False"
+                <Popup HorizontalAlignment="Right" VerticalAlignment="Bottom" IsLightDismissEnabled="True"
                    Visibility="Collapsed" x:Name="Popup_Sort" >
-                    <ListBox BorderBrush="{Binding Path=TitleForeground}" Background="White" x:Name="ListBox_Sorte" SelectionMode="Single"
+                    <ListBox BorderBrush="{Binding TitleForeground}" Background="White" x:Name="ListBox_Sorte" SelectionMode="Single"
                          Height="175" Width="150" Foreground="#DDFFFFFF" SelectionChanged="ListBox_Sorte_SelectionChanged_1" >
-                        <ListBoxItem x:Uid="Uid_Popup_Sort_ListItem_DateDesc" FontSize="16" FontWeight="Light" Margin="0,5" Padding="20,5" Foreground="{Binding Path=TitleForeground}" />
-                        <ListBoxItem x:Uid="Uid_Popup_Sort_ListItem_Name" FontSize="16" FontWeight="Light" Margin="0,0,0,10" Padding="20,5" Foreground="{Binding Path=TitleForeground}" />
-                        <ListBoxItem x:Uid="Uid_Popup_Sort_ListItem_Size" FontSize="16" FontWeight="Light" Margin="0,0,0,10" Padding="20,5" Foreground="{Binding Path=TitleForeground}" />
-                        <ListBoxItem x:Uid="Uid_Popup_Sort_ListItem_Type" FontSize="16" FontWeight="Light" Margin="0,0,0,10" Padding="20,5" Foreground="{Binding Path=TitleForeground}" />
+                        <ListBoxItem x:Uid="Uid_Popup_Sort_ListItem_DateDesc" FontSize="16" FontWeight="Light" Margin="0,5" Padding="20,5" Foreground="{Binding TitleForeground}"
+                                     IsHoldingEnabled="False" Style="{StaticResource ListBoxItemStylePopupItem}" />
+                        <ListBoxItem x:Uid="Uid_Popup_Sort_ListItem_Name" FontSize="16" FontWeight="Light" Margin="0,0,0,10" Padding="20,5" Foreground="{Binding TitleForeground}"
+                                     IsHoldingEnabled="False" Style="{StaticResource ListBoxItemStylePopupItem}" />
+                        <ListBoxItem x:Uid="Uid_Popup_Sort_ListItem_Size" FontSize="16" FontWeight="Light" Margin="0,0,0,10" Padding="20,5" Foreground="{Binding TitleForeground}"
+                                     IsHoldingEnabled="False" Style="{StaticResource ListBoxItemStylePopupItem}" />
+                        <ListBoxItem x:Uid="Uid_Popup_Sort_ListItem_Type" FontSize="16" FontWeight="Light" Margin="0,0,0,10" Padding="20,5" Foreground="{Binding TitleForeground}"
+                                     IsHoldingEnabled="False" Style="{StaticResource ListBoxItemStylePopupItem}" />
                         <!--<ListBoxItem x:Uid="Uid_Popup_Sort_ListItem_None" FontSize="16" FontWeight="Light" Margin="0,0,0,10" Padding="20,5" Foreground="#DDFFFFFF" />-->
                     </ListBox>
                 </Popup>
-                <Popup HorizontalAlignment="Right" VerticalAlignment="Bottom" IsLightDismissEnabled="False"
+                <Popup HorizontalAlignment="Right" VerticalAlignment="Bottom" IsLightDismissEnabled="True"
                    Visibility="Collapsed" x:Name="Popup_CreateNewFolder" >
                     <Border BorderBrush="{Binding Path=TitleForeground}" BorderThickness="2">
                         <Grid Width="230" Height="123" Background="White">

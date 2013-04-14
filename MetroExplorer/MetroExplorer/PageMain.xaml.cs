@@ -38,7 +38,7 @@
             }
         }
 
-        Dictionary<ExplorerItem, string> dicItemToken = new Dictionary<ExplorerItem, string>();
+        Dictionary<ExplorerItem, string> _dicItemToken = new Dictionary<ExplorerItem, string>();
 
         public PageMain()
         {
@@ -76,23 +76,54 @@
         {
             if (Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList != null && Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList.Entries.Count > 0)
             {
+                bool ifDiskCExist = false; // TODO: 确定是否C盘已经被添加
+                List<string> lostTokens = new List<string>(); // TODO: 避免有些已经不用的token仍然存在MostRecentlyUsedList中
                 foreach (var item in Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList.Entries)
                 {
-                    var retrievedItem = await StorageApplicationPermissions.MostRecentlyUsedList.GetItemAsync(item.Token);
-                    if (retrievedItem is StorageFolder)
+                    try
                     {
-                        StorageFolder retrievedFolder = retrievedItem as StorageFolder;
-                        if (retrievedFolder.Name.Contains(":\\"))
+                        var retrievedItem = await StorageApplicationPermissions.MostRecentlyUsedList.GetItemAsync(item.Token);
+                        if (retrievedItem is StorageFolder)
                         {
-                            AddNewItem(ExplorerGroups[0], retrievedFolder, item.Token);
-                        }
-                        else
-                        {
-                            AddNewItem(ExplorerGroups[1], retrievedFolder, item.Token);
+                            StorageFolder retrievedFolder = retrievedItem as StorageFolder;
+                            if (retrievedFolder.Name.Contains(":\\"))
+                            {
+                                AddNewItem(ExplorerGroups[0], retrievedFolder, item.Token);
+                                if (retrievedFolder.Name == "C:\\")
+                                    ifDiskCExist = true;
+                            }
+                            else
+                            {
+                                AddNewItem(ExplorerGroups[1], retrievedFolder, item.Token);
+                            }
                         }
                     }
+                    catch
+                    {
+                        // 出现异常。可能是因为用户修改了某个文件夹的信息
+                        lostTokens.Add(item.Token);
+                    }
                 }
+                if (!ifDiskCExist) // 如果c盘没有被加入过，则初始默认设置
+                {
+                    AddDefaultDiskC();
+                }
+                foreach (var token in lostTokens)
+                    Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList.Remove(token);
             }
+        }
+
+        private void AddDefaultDiskC()
+        {
+            ExplorerItem diskC = new ExplorerItem()
+            {
+                Name = "C:\\",
+                Path = "",
+                StorageFolder = null,
+                Type = ExplorerItemType.Folder
+            };
+            ExplorerGroups[0].Add(diskC);
+            _dicItemToken.Add(diskC, diskC.Name);
         }
 
         private void AddNewItem(GroupInfoList<ExplorerItem> itemList, StorageFolder retrievedFolder, string token)
@@ -105,7 +136,7 @@
                 Type = ExplorerItemType.Folder
             };
             itemList.Add(item);
-            dicItemToken.Add(item, token);
+            _dicItemToken.Add(item, token);
         }
 
         private void InitializeSystemFolders()
@@ -138,16 +169,14 @@
                 StorageFolder = KnownFolders.VideosLibrary,
                 Type = ExplorerItemType.Folder
             });
-            if (KnownFolders.RemovableDevices != null)
+
+            ExplorerGroups[1].Add(new ExplorerItem()
             {
-                ExplorerGroups[0].Add(new ExplorerItem()
-                {
-                    Name = KnownFolders.RemovableDevices.Name,
-                    Path = KnownFolders.RemovableDevices.Path,
-                    StorageFolder = KnownFolders.RemovableDevices,
-                    Type = ExplorerItemType.Folder
-                });
-            }
+                Name = StringResources.ResourceLoader.GetString("String_AddNewShortCutFolder"),
+                Path = StringResources.ResourceLoader.GetString("String_AddNewShortCutFolder"),
+                StorageFolder = null,
+                Type = ExplorerItemType.Folder
+            });
         }
 
         //double _lastOffset = 0;
@@ -187,26 +216,45 @@
 
         private async System.Threading.Tasks.Task AddNewFolder()
         {
+            StorageFolder storageFolder = await GetStorageFolderFromFolderPicker();
+            if (storageFolder == null)
+            {
+                EventLogger.onActionEvent(EventLogger.ADD_FOLDER_CANCEL, EventLogger.LABEL_HOME_PAGE); 
+                return;
+            }
+            foreach (var key in _dicItemToken.Keys)
+            {
+                if (key.Name == storageFolder.Name)
+                    return;
+            }
+            AddNewFolder2(storageFolder);
+            EventLogger.onActionEvent(EventLogger.ADD_FOLDER_DONE, EventLogger.LABEL_HOME_PAGE);
+        }
+
+        private void AddNewFolder2(StorageFolder storageFolder)
+        {
+            foreach (var item in _dicItemToken)
+            {
+                if (item.Key.StorageFolder == storageFolder)
+                    return;
+            }
+            string token = Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList.Add(storageFolder, storageFolder.Name);
+            if (storageFolder.Name.Contains(":\\"))
+            {
+                AddNewItem(ExplorerGroups[0], storageFolder, token);
+            }
+            else
+                AddNewItem(ExplorerGroups[1], storageFolder, token);
+        }
+
+        private static async System.Threading.Tasks.Task<StorageFolder> GetStorageFolderFromFolderPicker()
+        {
             FolderPicker folderPicker = new FolderPicker();
             folderPicker.ViewMode = PickerViewMode.List;
             folderPicker.SuggestedStartLocation = PickerLocationId.Desktop;
             folderPicker.FileTypeFilter.Add("*");
             StorageFolder storageFolder = await folderPicker.PickSingleFolderAsync();
-            if (storageFolder != null)
-            {
-                string token = Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList.Add(storageFolder, storageFolder.Name);
-                if (storageFolder.Name.Contains(":\\"))
-                {
-                    AddNewItem(ExplorerGroups[0], storageFolder, token);
-                }
-                else
-                    AddNewItem(ExplorerGroups[1], storageFolder, token);
-                EventLogger.onActionEvent(EventLogger.ADD_FOLDER_DONE, EventLogger.LABEL_HOME_PAGE);
-            }
-            else
-            {
-                EventLogger.onActionEvent(EventLogger.ADD_FOLDER_CANCEL, EventLogger.LABEL_HOME_PAGE);
-            }
+            return storageFolder;
         }
 
         private async void Button_AddNewDiskFolder_Click(object sender, RoutedEventArgs e)
@@ -227,7 +275,7 @@
             if (itemGridView.SelectedItems == null || itemGridView.SelectedItems.Count == 0) return;
             while (itemGridView.SelectedItems.Count > 0)
             {
-                Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList.Remove(dicItemToken[(itemGridView.SelectedItems[0] as ExplorerItem)]);
+                Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList.Remove(_dicItemToken[(itemGridView.SelectedItems[0] as ExplorerItem)]);
                 if (ExplorerGroups[0].Contains(itemGridView.SelectedItems[0] as ExplorerItem))
                 {
                     ExplorerGroups[0].Remove(itemGridView.SelectedItems[0] as ExplorerItem);
@@ -258,9 +306,45 @@
                 BottomAppBar.IsOpen = true;
         }
 
-        private void ItemGridView_ItemClick_1(object sender, ItemClickEventArgs e)
+        private async void ItemGridView_ItemClick_1(object sender, ItemClickEventArgs e)
         {
             ExplorerItem item = e.ClickedItem as ExplorerItem;
+            if (item.StorageFolder != null)
+            {
+                NavigateToExplorer(item);
+            }
+            else
+            {
+                if (item.Path == StringResources.ResourceLoader.GetString("String_NewFolder") && item.Name == StringResources.ResourceLoader.GetString("String_NewFolder"))
+                { 
+                    // TODO: 添加新快捷方式文件夹
+                    await AddNewFolder();
+                }
+                else
+                {
+                    await ClickedOnUndefinedDiskCItem(item);
+                }
+            }
+        }
+
+        private async System.Threading.Tasks.Task ClickedOnUndefinedDiskCItem(ExplorerItem item)
+        {
+            var storageFolder = await GetStorageFolderFromFolderPicker();
+            if (storageFolder != null && storageFolder.Name == item.Name)
+            {
+                item.Path = storageFolder.Path;
+                item.StorageFolder = storageFolder;
+                Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList.Add(item.StorageFolder, item.Name);
+                NavigateToExplorer(item);
+            }
+            else if (storageFolder != null)
+            {
+                AddNewFolder2(storageFolder);
+            }
+        }
+
+        private void NavigateToExplorer(ExplorerItem item)
+        {
             IList<StorageFolder> _navigatorStorageFolders = new List<StorageFolder> { item.StorageFolder };
             this.Frame.Navigate(typeof(PageExplorer), _navigatorStorageFolders);
         }

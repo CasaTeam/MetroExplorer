@@ -180,7 +180,6 @@
             Popup_CreateNewFolder.IsOpen = true;
             Popup_CreateNewFolder.Visibility = Windows.UI.Xaml.Visibility.Visible;
             Popup_CreateNewFolder.Margin = new Thickness(0, 0, 555, 222);
-            Popup_CreateNewFolder.IsLightDismissEnabled = true;
             TextBox_CreateNewFolder.Focus(Windows.UI.Xaml.FocusState.Keyboard);
             TextBox_CreateNewFolder.SelectAll();
         }
@@ -276,7 +275,6 @@
         {
             Popup_CopyCutPaste.Visibility = Windows.UI.Xaml.Visibility.Visible;
             Popup_CopyCutPaste.Margin = new Thickness(0, 0, 405, 183);
-            Popup_CopyCutPaste.IsLightDismissEnabled = true;
             Popup_CopyCutPaste.IsOpen = true;
 
         }
@@ -345,13 +343,12 @@
         }
 
         #region sort
-        public static SortType CurrentFileListSortType = SortType.None; 
+        private Dictionary<SortType, SortOrderType> _sortedRecoder = new Dictionary<SortType, SortOrderType>();
 
         private void Button_Sort_Click(object sender, RoutedEventArgs e)
         {
             Popup_Sort.Visibility = Windows.UI.Xaml.Visibility.Visible;
             Popup_Sort.Margin = new Thickness(0, 0, 151, 270);
-            Popup_Sort.IsLightDismissEnabled = true;
             Popup_Sort.IsOpen = true;
         }
 
@@ -371,7 +368,7 @@
                 SortItems(SortType.Type);
             if (ListBox_Sorte.Items.IndexOf((sender as ListBox).SelectedItem) == 4)
                 SortItems(SortType.None);
-            ListBox_CopyCutPaste.SelectedItem = null;
+            ListBox_Sorte.SelectedItem = null;
         }
 
         private void SortItems(SortType sortType)
@@ -393,36 +390,103 @@
 
         private IOrderedEnumerable<ExplorerItem> SortByDate(IEnumerable<ExplorerItem> items)
         {
-            var sortedSource = items.OrderByDescending(p => p.ModifiedDateTime);
-            PageExplorer.CurrentFileListSortType = SortType.Date;
+            IOrderedEnumerable<ExplorerItem> sortedSource;
+            if (_sortedRecoder.Keys.Contains(SortType.Date))
+            { 
+                if(_sortedRecoder[SortType.Date] == SortOrderType.Ascend)
+                {
+                    sortedSource = items.OrderByDescending(p => p.ModifiedDateTime);
+                    _sortedRecoder[SortType.Date] = SortOrderType.Descend;
+                }
+                else 
+                {
+                    sortedSource = items.OrderBy(p => p.ModifiedDateTime);
+                    _sortedRecoder[SortType.Date] = SortOrderType.Ascend;
+                }
+            }
+            else
+            {
+                sortedSource = items.OrderBy(p => p.ModifiedDateTime);
+                _sortedRecoder.Add(SortType.Date, SortOrderType.Ascend);
+            }
             return sortedSource;
         }
 
         private IOrderedEnumerable<ExplorerItem> SortByName(IEnumerable<ExplorerItem> items)
         {
-            var sortedSource = items.OrderByDescending(p => p.Name);
-            PageExplorer.CurrentFileListSortType = SortType.Name;
+            IOrderedEnumerable<ExplorerItem> sortedSource;
+            if (_sortedRecoder.Keys.Contains(SortType.Name))
+            {
+                if (_sortedRecoder[SortType.Name] == SortOrderType.Ascend)
+                {
+                    sortedSource = items.OrderByDescending(p => p.Name);
+                    _sortedRecoder[SortType.Name] = SortOrderType.Descend;
+                }
+                else
+                {
+                    sortedSource = items.OrderBy(p => p.Name);
+                    _sortedRecoder[SortType.Name] = SortOrderType.Ascend;
+                }
+            }
+            else
+            {
+                sortedSource = items.OrderBy(p => p.Name);
+                _sortedRecoder.Add(SortType.Name, SortOrderType.Ascend);
+            }
             return sortedSource;
         }
 
         private IOrderedEnumerable<ExplorerItem> SortBySize(IEnumerable<ExplorerItem> items)
         {
-            var sortedSource = items.OrderByDescending(p => p.Size);
-            PageExplorer.CurrentFileListSortType = SortType.Size;
+            IOrderedEnumerable<ExplorerItem> sortedSource;
+            if (_sortedRecoder.Keys.Contains(SortType.Size))
+            {
+                if (_sortedRecoder[SortType.Size] == SortOrderType.Ascend)
+                {
+                    sortedSource = items.OrderByDescending(p => p.Size);
+                    _sortedRecoder[SortType.Size] = SortOrderType.Descend;
+                }
+                else
+                {
+                    sortedSource = items.OrderBy(p => p.Size);
+                    _sortedRecoder[SortType.Size] = SortOrderType.Ascend;
+                }
+            }
+            else
+            {
+                sortedSource = items.OrderBy(p => p.Size);
+                _sortedRecoder.Add(SortType.Size, SortOrderType.Ascend);
+            }
             return sortedSource;
         }
 
         private IOrderedEnumerable<ExplorerItem> SortByType(IEnumerable<ExplorerItem> items)
         {
-            var sortedSource = items.OrderByDescending(p => p.Name.Split(new string[] { "." }, StringSplitOptions.None).Last());
-            PageExplorer.CurrentFileListSortType = SortType.Type;
+            IOrderedEnumerable<ExplorerItem> sortedSource;
+            if (_sortedRecoder.Keys.Contains(SortType.Type))
+            {
+                if (_sortedRecoder[SortType.Type] == SortOrderType.Ascend)
+                {
+                    sortedSource = items.OrderByDescending(p => p.Type);
+                    _sortedRecoder[SortType.Type] = SortOrderType.Descend;
+                }
+                else
+                {
+                    sortedSource = items.OrderBy(p => p.Type);
+                    _sortedRecoder[SortType.Type] = SortOrderType.Ascend;
+                }
+            }
+            else
+            {
+                sortedSource = items.OrderBy(p => p.Type);
+                _sortedRecoder.Add(SortType.Type, SortOrderType.Ascend);
+            }
             return sortedSource;
         }
 
         private IOrderedEnumerable<ExplorerItem> SortByNone(IEnumerable<ExplorerItem> items)
         {
             var sortedSource = items as IOrderedEnumerable<ExplorerItem>;
-            PageExplorer.CurrentFileListSortType = SortType.None;
             return sortedSource;
         }
 
@@ -450,5 +514,11 @@
         Size,
         Type,
         None
+    }
+
+    public enum SortOrderType
+    { 
+        Ascend,
+        Descend
     }
 }
