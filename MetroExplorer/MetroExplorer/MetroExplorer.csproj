@@ -155,8 +155,10 @@
     <None Include="MetroExplorer_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Background.jpg" />
+    <Content Include="Assets\DiskLogo.png" />
     <Content Include="Assets\folder.png" />
+    <Content Include="Assets\FolderLogo.png" />
+    <Content Include="Assets\FolderLogo2.png" />
     <Content Include="Assets\Logo.png" />
     <Content Include="Assets\SmallLogo.png" />
     <Content Include="Assets\SplashScreen.png" />

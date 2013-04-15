@@ -18,6 +18,7 @@
     using core;
     using core.Objects;
     using core.Utils;
+    using Windows.UI.Xaml.Media.Imaging;
 
     /// <summary>
     /// Page affichant une collection groupée d'éléments.
@@ -135,6 +136,10 @@
                 StorageFolder = retrievedFolder,
                 Type = ExplorerItemType.Folder
             };
+            if (item.Name.Contains(":\\"))
+                item.Image = GetBitMapImageFromLocalSource("Assets/DiskLogo.png");
+            else
+                item.Image = GetBitMapImageFromLocalSource("Assets/FolderLogo2.png");
             itemList.Add(item);
             _dicItemToken.Add(item, token);
         }
@@ -146,28 +151,32 @@
                 Name = KnownFolders.PicturesLibrary.Name,
                 Path = KnownFolders.PicturesLibrary.Path,
                 StorageFolder = KnownFolders.PicturesLibrary,
-                Type = ExplorerItemType.Folder
+                Type = ExplorerItemType.Folder,
+                Image = GetBitMapImageFromLocalSource("Assets/FolderLogo.png")
             });
             ExplorerGroups[0].Add(new ExplorerItem()
             {
                 Name = KnownFolders.MusicLibrary.Name,
                 Path = KnownFolders.MusicLibrary.Path,
                 StorageFolder = KnownFolders.MusicLibrary,
-                Type = ExplorerItemType.Folder
+                Type = ExplorerItemType.Folder,
+                Image = GetBitMapImageFromLocalSource("Assets/FolderLogo.png")
             });
             ExplorerGroups[0].Add(new ExplorerItem()
             {
                 Name = KnownFolders.DocumentsLibrary.Name,
                 Path = KnownFolders.DocumentsLibrary.Path,
                 StorageFolder = KnownFolders.DocumentsLibrary,
-                Type = ExplorerItemType.Folder
+                Type = ExplorerItemType.Folder,
+                Image = GetBitMapImageFromLocalSource("Assets/FolderLogo.png")
             });
             ExplorerGroups[0].Add(new ExplorerItem()
             {
                 Name = KnownFolders.VideosLibrary.Name,
                 Path = KnownFolders.VideosLibrary.Path,
                 StorageFolder = KnownFolders.VideosLibrary,
-                Type = ExplorerItemType.Folder
+                Type = ExplorerItemType.Folder,
+                Image = GetBitMapImageFromLocalSource("Assets/FolderLogo.png")
             });
 
             ExplorerGroups[1].Add(new ExplorerItem()
@@ -175,8 +184,19 @@
                 Name = StringResources.ResourceLoader.GetString("String_AddNewShortCutFolder"),
                 Path = StringResources.ResourceLoader.GetString("String_AddNewShortCutFolder"),
                 StorageFolder = null,
-                Type = ExplorerItemType.Folder
+                Type = ExplorerItemType.Folder,
+                Image = GetBitMapImageFromLocalSource("Assets/FolderLogo2.png")
             });
+        }
+
+        private BitmapImage GetBitMapImageFromLocalSource(string url)
+        {
+
+
+            var result = new BitmapImage(new Uri(this.BaseUri, @url));
+    
+            //result.UriSource = uri;
+            return result;
         }
 
         //double _lastOffset = 0;
@@ -355,6 +375,11 @@
                 Button_RemoveDiskFolder.Visibility = Windows.UI.Xaml.Visibility.Visible;
             else
                 Button_RemoveDiskFolder.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+        }
+
+        private void ExplorerItemImage_Loaded(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 

@@ -136,7 +136,7 @@
     <value>Préférence</value>
   </data>
   <data name="String_AddNewShortCutFolder" xml:space="preserve">
-    <value>Add New Shortcut Mode Folder</value>
+    <value>New Shortcut Mode Folder</value>
   </data>
   <data name="String_NewFolder" xml:space="preserve">
     <value>新建文件夹</value>
