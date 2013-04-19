@@ -24,10 +24,13 @@
         [XmlIgnore]
         private BitmapImage _image;
         [XmlIgnore]
+        private BitmapImage _defautImage;
+        [XmlIgnore]
         private string _renameBoxVisibility = "Collapsed";
         [XmlIgnore]
         private string _renamingName;
 
+        public string LastImageName { get; set; }
 
         public string Name
         {
@@ -120,6 +123,17 @@
             {
                 _image = value;
                 NotifyPropertyChanged("Image");
+            }
+        }
+
+        [XmlIgnore]
+        public BitmapImage DefautImage
+        {
+            get { return _defautImage; }
+            set
+            {
+                _defautImage = value;
+                NotifyPropertyChanged("DefautImage");
             }
         }
 

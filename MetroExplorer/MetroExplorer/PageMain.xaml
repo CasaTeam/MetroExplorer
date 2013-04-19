@@ -56,9 +56,12 @@
 		
 		<DataTemplate x:Key="Standard300x180ItemTemplate">
 			<Grid HorizontalAlignment="Left" Width="280" Height="140" Margin="0" Background="{StaticResource ItemBigBackground}">
-                <Image x:Name="ExplorerItemImage" Source="{Binding Image}" Height="80" Width="80"
+                <Image x:Name="ExplorerItemImage" Source="{Binding DefautImage}" Height="80" Width="80"
                        HorizontalAlignment="Center" VerticalAlignment="Top"
-                       Loaded="ExplorerItemImage_Loaded" Margin="20,20,20,20" />
+                       Margin="20,20,20,20" />
+                <Image Source="{Binding Image}" Height="140" Width="280" HorizontalAlignment="Center" VerticalAlignment="Center"
+                       Stretch="UniformToFill"  Margin="0" SizeChanged="Image_SizeChanged"  />
+                <Rectangle Fill="{StaticResource ItemBigBackground}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="35"/>
                 <TextBlock Foreground="{StaticResource ItemTextForeground}" TextAlignment="Center" Text="{Binding Name}"
 							FontSize="22" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="5" FontWeight="Light"
 							TextWrapping="NoWrap" />

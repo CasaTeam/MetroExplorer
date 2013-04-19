@@ -11,7 +11,7 @@
     using System.ComponentModel;
     using Windows.Storage;
     using Windows.Storage.Pickers;
-    using WinRTXamlToolkit.Controls.Extensions;
+    
     using Windows.Storage.AccessCache;
     using System.Collections.ObjectModel;
     using Common;
@@ -19,6 +19,8 @@
     using core.Objects;
     using core.Utils;
     using Windows.UI.Xaml.Media.Imaging;
+    using Windows.Storage.FileProperties;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// Page affichant une collection groupée d'éléments.
@@ -41,6 +43,8 @@
 
         Dictionary<ExplorerItem, string> _dicItemToken = new Dictionary<ExplorerItem, string>();
 
+        DispatcherTimer _folderImageChangeDispatcher = new DispatcherTimer();
+
         public PageMain()
         {
             this.InitializeComponent();
@@ -58,7 +62,7 @@
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-
+            
         }
 
 
@@ -67,10 +71,56 @@
             InitializeSystemFolders();
             await initializeUsersFolders();
 
-            ScrollViewer myScrollViewer = itemGridView.GetFirstDescendantOfType<ScrollViewer>();
-            myScrollViewer.ViewChanged += MyScrollViewerViewChanged;
-
             BottomAppBar.IsOpen = true;
+
+            _folderImageChangeDispatcher.Tick += FolderImageChangeDispatcher_Tick;
+            _folderImageChangeDispatcher.Interval = new TimeSpan(0, 0, 0, 1, 500);
+            _folderImageChangeDispatcher.Start();
+        }
+
+        int _lastChangedFolder = 0;
+        async void FolderImageChangeDispatcher_Tick(object sender, object e)
+        {
+            try
+            {
+                if (ExplorerGroups == null || ExplorerGroups[1] == null || ExplorerGroups[1].Count == 0)
+                    return;
+                if (_lastChangedFolder == explorerGroups[1].Count)
+                    _lastChangedFolder = 0;
+                _lastChangedFolder++;
+                var exploreItem = explorerGroups[1][_lastChangedFolder];
+                if(exploreItem.StorageFolder == null) return;
+                var files = await exploreItem.StorageFolder.GetFilesAsync();
+
+                foreach (var file in files)
+                {
+                    if (file.Name.ToUpper().EndsWith(".PNG") || file.Name.ToUpper().EndsWith(".JPG") || file.Name.ToUpper().EndsWith(".JPEG") ||
+                        file.Name.ToUpper().EndsWith(".BMP") || file.Name.ToUpper().EndsWith(".RMVB") || file.Name.ToUpper().EndsWith(".MP4") ||
+                        file.Name.ToUpper().EndsWith(".MKV") || file.Name.ToUpper().EndsWith(".PNG"))
+                    {
+                        if (file.Name == exploreItem.LastImageName) continue;
+                        await ThumbnailPhoto(exploreItem, file);
+                        exploreItem.LastImageName = file.Name;
+                        break;
+                    }
+                }
+                
+            }
+            catch
+            { }
+        }
+
+        private async Task ThumbnailPhoto(ExplorerItem item, StorageFile sf)
+        {
+            if (item == null) return;
+            if (!sf.Name.ToUpper().EndsWith(".PNG") && !sf.Name.ToUpper().EndsWith(".JPG") && !sf.Name.ToUpper().EndsWith(".JPEG") &&
+               !sf.Name.ToUpper().EndsWith(".BMP") && !sf.Name.ToUpper().EndsWith(".RMVB") && !sf.Name.ToUpper().EndsWith(".MP4") &&
+               !sf.Name.ToUpper().EndsWith(".MKV") && !sf.Name.ToUpper().EndsWith(".PNG")) return;
+            StorageItemThumbnail fileThumbnail = await sf.GetThumbnailAsync(ThumbnailMode.SingleItem, 280);
+            BitmapImage bitmapImage = new BitmapImage();
+            bitmapImage.SetSource(fileThumbnail);
+            item.Image = bitmapImage;
+            item.DefautImage = null;
         }
 
         private async System.Threading.Tasks.Task initializeUsersFolders()
@@ -137,9 +187,9 @@
                 Type = ExplorerItemType.Folder
             };
             if (item.Name.Contains(":\\"))
-                item.Image = GetBitMapImageFromLocalSource("Assets/DiskLogo.png");
+                item.DefautImage = GetBitMapImageFromLocalSource("Assets/DiskLogo.png");
             else
-                item.Image = GetBitMapImageFromLocalSource("Assets/FolderLogo2.png");
+                item.DefautImage = GetBitMapImageFromLocalSource("Assets/FolderLogo2.png");
             itemList.Add(item);
             _dicItemToken.Add(item, token);
         }
@@ -152,7 +202,7 @@
                 Path = KnownFolders.PicturesLibrary.Path,
                 StorageFolder = KnownFolders.PicturesLibrary,
                 Type = ExplorerItemType.Folder,
-                Image = GetBitMapImageFromLocalSource("Assets/FolderLogo.png")
+                DefautImage = GetBitMapImageFromLocalSource("Assets/FolderLogo.png")
             });
             ExplorerGroups[0].Add(new ExplorerItem()
             {
@@ -160,7 +210,7 @@
                 Path = KnownFolders.MusicLibrary.Path,
                 StorageFolder = KnownFolders.MusicLibrary,
                 Type = ExplorerItemType.Folder,
-                Image = GetBitMapImageFromLocalSource("Assets/FolderLogo.png")
+                DefautImage = GetBitMapImageFromLocalSource("Assets/FolderLogo.png")
             });
             ExplorerGroups[0].Add(new ExplorerItem()
             {
@@ -168,7 +218,7 @@
                 Path = KnownFolders.DocumentsLibrary.Path,
                 StorageFolder = KnownFolders.DocumentsLibrary,
                 Type = ExplorerItemType.Folder,
-                Image = GetBitMapImageFromLocalSource("Assets/FolderLogo.png")
+                DefautImage = GetBitMapImageFromLocalSource("Assets/FolderLogo.png")
             });
             ExplorerGroups[0].Add(new ExplorerItem()
             {
@@ -176,7 +226,7 @@
                 Path = KnownFolders.VideosLibrary.Path,
                 StorageFolder = KnownFolders.VideosLibrary,
                 Type = ExplorerItemType.Folder,
-                Image = GetBitMapImageFromLocalSource("Assets/FolderLogo.png")
+                DefautImage = GetBitMapImageFromLocalSource("Assets/FolderLogo.png")
             });
 
             ExplorerGroups[1].Add(new ExplorerItem()
@@ -185,7 +235,7 @@
                 Path = StringResources.ResourceLoader.GetString("String_AddNewShortCutFolder"),
                 StorageFolder = null,
                 Type = ExplorerItemType.Folder,
-                Image = GetBitMapImageFromLocalSource("Assets/FolderLogo2.png")
+                DefautImage = GetBitMapImageFromLocalSource("Assets/FolderLogo2.png")
             });
         }
 
@@ -197,20 +247,6 @@
     
             //result.UriSource = uri;
             return result;
-        }
-
-        //double _lastOffset = 0;
-        //double _lastDelta = 0;
-        void MyScrollViewerViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
-        {
-            //double offset = ((Windows.UI.Xaml.Controls.ScrollViewer)sender).HorizontalOffset;
-            //double scroll = ((Windows.UI.Xaml.Controls.ScrollViewer)sender).ScrollableWidth;
-            //double viewportwidth = ((Windows.UI.Xaml.Controls.ScrollViewer)sender).ViewportWidth;
-            //var delta = _lastDelta + (offset - _lastOffset) * 80;
-            //if (Math.Abs(Image_Background.ActualWidth) > Math.Abs(offset * 90))
-            //    Image_Background.Margin = new Thickness(-delta, 0, 0, 0);
-            //_lastOffset = offset;
-            //_lastDelta = delta;
         }
 
         /// <summary>
@@ -379,7 +415,18 @@
 
         private void ExplorerItemImage_Loaded(object sender, RoutedEventArgs e)
         {
+            
+        }
 
+        /// <summary>
+        /// 这个事件只有图片大小变了之后，才能被捕捉到
+        /// 需要找到另外一个更好地捕捉图片更换的UIElement的方法
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Image_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            (sender as Image).FadeInCustom(new TimeSpan(0, 0, 0, 1));
         }
     }
 
