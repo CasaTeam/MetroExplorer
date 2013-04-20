@@ -1,6 +1,7 @@
 ﻿namespace MetroExplorer.core.Objects
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel;
     using System.Xml.Serialization;
     using Windows.Storage;
@@ -30,7 +31,8 @@
         [XmlIgnore]
         private string _renamingName;
 
-        public string LastImageName { get; set; }
+        public List<string> LastImageName = new List<string>();
+        public int LastImageIndex = -1;
 
         public string Name
         {

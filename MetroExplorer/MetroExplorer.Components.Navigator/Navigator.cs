@@ -88,7 +88,8 @@
                     }
 
                 };
-                nodes.Add(new NavigatorNode(index, value, command, Background, ItemListArray[index]));
+                if (index < ItemListArray.Count())
+                    nodes.Add(new NavigatorNode(index, value, command, Background, ItemListArray[index]));
                 index++;
             }
 

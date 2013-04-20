@@ -99,6 +99,9 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Behavior\Behavior.cs" />
+    <Compile Include="Behavior\ImageSourceChangedBehavior.cs" />
+    <Compile Include="Behavior\Interaction.cs" />
     <Compile Include="Entensions.cs" />
     <Compile Include="Objects\GroupInfoList.cs" />
     <Compile Include="Objects\Enums.cs" />

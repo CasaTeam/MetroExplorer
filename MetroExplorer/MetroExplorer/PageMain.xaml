@@ -7,6 +7,7 @@
 	xmlns:common="using:MetroExplorer.Common"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:bh="using:MetroExplorer.core.Behavior"
 	mc:Ignorable="d">
 
 	<common:LayoutAwarePage.BottomAppBar>
@@ -59,8 +60,12 @@
                 <Image x:Name="ExplorerItemImage" Source="{Binding DefautImage}" Height="80" Width="80"
                        HorizontalAlignment="Center" VerticalAlignment="Top"
                        Margin="20,20,20,20" />
-                <Image Source="{Binding Image}" Height="140" Width="280" HorizontalAlignment="Center" VerticalAlignment="Center"
-                       Stretch="UniformToFill"  Margin="0" SizeChanged="Image_SizeChanged"  />
+                <Image  Height="140" Width="280" HorizontalAlignment="Center" VerticalAlignment="Center"
+                       Stretch="UniformToFill"  Margin="0" SizeChanged="Image_SizeChanged" >
+                    <bh:Interaction.Behaviors>
+                        <bh:ImageSourceChangedBehavior Source="{Binding Image}"/>
+                    </bh:Interaction.Behaviors>
+                </Image>
                 <Rectangle Fill="{StaticResource ItemBigBackground}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="35"/>
                 <TextBlock Foreground="{StaticResource ItemTextForeground}" TextAlignment="Center" Text="{Binding Name}"
 							FontSize="22" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="5" FontWeight="Light"

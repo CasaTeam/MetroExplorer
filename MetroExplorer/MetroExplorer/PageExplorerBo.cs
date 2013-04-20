@@ -32,7 +32,7 @@
         }
 
         int _loadingImageCount;
-        int _loadingFolderImageCount;
+        //int _loadingFolderImageCount;
         bool _imageDispatcherLock;
         async void ImageChangingDispatcher_Tick(object sender, object e)
         {
@@ -57,23 +57,34 @@
             LoadingProgressBar.Visibility = Visibility.Collapsed;
         }
 
+        int _lastChangedFolder = 0;
         private async Task ChangeFolderCover()
         {
             try
             {
-                if (_loadingFolderImageCount % 7 == 0 && ExplorerGroups != null && ExplorerGroups[0] != null)
-                {
-                    for (int i = 0; ExplorerGroups != null && ExplorerGroups[0] != null && i < ExplorerGroups[0].Count; i++)
+                if (_lastChangedFolder == ExplorerGroups[0].Count)
+                    _lastChangedFolder = 0;
+                _lastChangedFolder++;
+                var exploreItem = ExplorerGroups[0][_lastChangedFolder];
+                if (exploreItem.StorageFolder == null) return;
+                var files = await exploreItem.StorageFolder.GetFilesAsync();
+                if (exploreItem.LastImageIndex == -2) return;
+                if (exploreItem.LastImageIndex == -1)
+                    foreach (var file in files)
                     {
-                        var sdf = (await ExplorerGroups[0][i].StorageFolder.GetFilesAsync()).Where(p => p.Name.ToUpper().EndsWith(".JPG") || p.Name.ToUpper().EndsWith(".JPEG")
-                                        || p.Name.ToUpper().EndsWith(".PNG") || p.Name.ToUpper().EndsWith(".BMP")).ToList();
-                        if (sdf != null && sdf.Any())
+                        exploreItem.LastImageIndex = -2;
+                        if (file.Name.ToUpper().EndsWith(".PNG") || file.Name.ToUpper().EndsWith(".JPG") || file.Name.ToUpper().EndsWith(".JPEG") ||
+                            file.Name.ToUpper().EndsWith(".BMP") || file.Name.ToUpper().EndsWith(".RMVB") || file.Name.ToUpper().EndsWith(".MP4") ||
+                            file.Name.ToUpper().EndsWith(".MKV") || file.Name.ToUpper().EndsWith(".PNG"))
                         {
-                            await ThumbnailPhoto(ExplorerGroups[0][i], sdf[(new Random()).Next(sdf.Count)]);
+                            exploreItem.LastImageName.Add(file.Name);
+                            exploreItem.LastImageIndex = 0;
                         }
                     }
-                }
-                _loadingFolderImageCount = ++_loadingFolderImageCount % 7;
+                if (exploreItem.LastImageIndex == exploreItem.LastImageName.Count - 1)
+                    exploreItem.LastImageIndex = 0;
+                await ThumbnailPhoto(exploreItem, files[exploreItem.LastImageIndex]);
+                exploreItem.LastImageIndex++;
             }
             catch
             { }
@@ -251,6 +262,7 @@
         private void ExplorerItemImage_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             //(sender as Image).FadeOut();
+            if (e.PreviousSize.Height == 0) return;
             (sender as Image).FadeInCustom(new TimeSpan(0, 0, 0, 1, 500));
         }
 

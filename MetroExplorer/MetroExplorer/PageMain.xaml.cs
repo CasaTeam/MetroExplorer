@@ -92,19 +92,24 @@
                 if(exploreItem.StorageFolder == null) return;
                 var files = await exploreItem.StorageFolder.GetFilesAsync();
 
-                foreach (var file in files)
-                {
-                    if (file.Name.ToUpper().EndsWith(".PNG") || file.Name.ToUpper().EndsWith(".JPG") || file.Name.ToUpper().EndsWith(".JPEG") ||
-                        file.Name.ToUpper().EndsWith(".BMP") || file.Name.ToUpper().EndsWith(".RMVB") || file.Name.ToUpper().EndsWith(".MP4") ||
-                        file.Name.ToUpper().EndsWith(".MKV") || file.Name.ToUpper().EndsWith(".PNG"))
+                if (exploreItem.LastImageIndex == -2) return;
+                if (exploreItem.LastImageIndex == -1)
+                    foreach (var file in files)
                     {
-                        if (file.Name == exploreItem.LastImageName) continue;
-                        await ThumbnailPhoto(exploreItem, file);
-                        exploreItem.LastImageName = file.Name;
-                        break;
+                        exploreItem.LastImageIndex = -2;
+                        if (file.Name.ToUpper().EndsWith(".PNG") || file.Name.ToUpper().EndsWith(".JPG") || file.Name.ToUpper().EndsWith(".JPEG") ||
+                            file.Name.ToUpper().EndsWith(".BMP") || file.Name.ToUpper().EndsWith(".RMVB") || file.Name.ToUpper().EndsWith(".MP4") ||
+                            file.Name.ToUpper().EndsWith(".MKV") || file.Name.ToUpper().EndsWith(".PNG"))
+                        {
+                            exploreItem.LastImageName.Add(file.Name);
+                            exploreItem.LastImageIndex = 0;
+                        }
                     }
-                }
                 
+                if (exploreItem.LastImageIndex == exploreItem.LastImageName.Count - 1)
+                    exploreItem.LastImageIndex = 0;
+                await ThumbnailPhoto(exploreItem, files[exploreItem.LastImageIndex]);
+                exploreItem.LastImageIndex++;
             }
             catch
             { }
