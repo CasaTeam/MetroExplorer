@@ -259,13 +259,6 @@
             await InitializeNavigator();
         }
 
-        private void ExplorerItemImage_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            //(sender as Image).FadeOut();
-            if (e.PreviousSize.Height == 0) return;
-            (sender as Image).FadeInCustom(new TimeSpan(0, 0, 0, 1, 500));
-        }
-
         private Boolean IsImageFile(StorageFile file)
         {
             if (file.FileType.ToUpper().Equals(".JPG") ||

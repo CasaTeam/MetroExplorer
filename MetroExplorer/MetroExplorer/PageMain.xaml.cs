@@ -423,17 +423,6 @@
         {
             
         }
-
-        /// <summary>
-        /// 这个事件只有图片大小变了之后，才能被捕捉到
-        /// 需要找到另外一个更好地捕捉图片更换的UIElement的方法
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Image_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            //(sender as Image).FadeInCustom(new TimeSpan(0, 0, 0, 1));
-        }
     }
 
 

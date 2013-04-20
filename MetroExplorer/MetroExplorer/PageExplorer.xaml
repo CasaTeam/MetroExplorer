@@ -9,6 +9,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:navigator="using:MetroExplorer.Components.Navigator"
+    xmlns:bh="using:MetroExplorer.core.Behavior"
     mc:Ignorable="d">
 
     <common:LayoutAwarePage.Resources>
@@ -48,10 +49,12 @@
 
         <DataTemplate x:Key="Standard300x180ItemTemplate">
             <Grid HorizontalAlignment="Left" Width="280" Height="140" Margin="0" Background="{StaticResource ItemBigBackground}">
-                <Image x:Name="ExplorerItemImage" Source="{Binding Image}" Margin="0"
+                <Image x:Name="ExplorerItemImage" Margin="0"
                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-                       Stretch="UniformToFill"  Loaded="ExplorerItemImage_Loaded" 
-                       SizeChanged="ExplorerItemImage_SizeChanged" >
+                       Stretch="UniformToFill"  Loaded="ExplorerItemImage_Loaded">
+                    <bh:Interaction.Behaviors>
+                        <bh:ImageSourceChangedBehavior SSource="{Binding Path=Image}"/>
+                    </bh:Interaction.Behaviors>
                 </Image>
                 <Grid VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="{StaticResource ItemBigBackground}">
                     <TextBlock Foreground="{StaticResource ItemTextForeground}" TextAlignment="Center" Text="{Binding Name}"  Visibility="{Binding RenameBoxVisibility, Converter={StaticResource RenameBoxVisibilityConverter}}"
@@ -75,8 +78,7 @@
                     <Grid Height="65" Width="65" Background="{StaticResource ItemSmallBackground}" HorizontalAlignment="Left" >
                         <Image x:Name="ExplorerItemImage" Source="{Binding Image}" Height="65" Width="65"
                        HorizontalAlignment="Center" VerticalAlignment="Center"
-                       Stretch="UniformToFill" Loaded="ExplorerItemImage_Loaded"
-                       SizeChanged="ExplorerItemImage_SizeChanged">
+                       Stretch="UniformToFill" Loaded="ExplorerItemImage_Loaded">
                         </Image>
                     </Grid>
                     <Grid VerticalAlignment="Stretch" HorizontalAlignment="Left" Margin="75,0,5,0" Width="252">

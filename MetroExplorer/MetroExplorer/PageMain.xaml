@@ -65,7 +65,7 @@
                        Margin="20,20,20,20" />
                 <Image x:Name="BackgroundImage"  
                        Height="140" Width="280" HorizontalAlignment="Center" VerticalAlignment="Center"
-                       Stretch="UniformToFill"  Margin="0" SizeChanged="Image_SizeChanged" >
+                       Stretch="UniformToFill"  Margin="0" >
                     <bh:Interaction.Behaviors>
                         <bh:ImageSourceChangedBehavior SSource="{Binding Path=Image}"/>
                     </bh:Interaction.Behaviors>
