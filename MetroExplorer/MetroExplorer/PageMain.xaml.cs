@@ -21,6 +21,7 @@
     using Windows.UI.Xaml.Media.Imaging;
     using Windows.Storage.FileProperties;
     using System.Threading.Tasks;
+    using Windows.UI.Xaml.Data;
 
     /// <summary>
     /// Page affichant une collection groupée d'éléments.
@@ -431,7 +432,7 @@
         /// <param name="e"></param>
         private void Image_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            (sender as Image).FadeInCustom(new TimeSpan(0, 0, 0, 1));
+            //(sender as Image).FadeInCustom(new TimeSpan(0, 0, 0, 1));
         }
     }
 
@@ -566,4 +567,19 @@
             ItemBigBackground = Theme.ThemeLibarary.ItemBigBackground;
         }
     }
+
+
+    //public class ImageSourceConverter : IValueConverter
+    //{
+    //    public object Convert(object value, Type targetType, object parameter, string language)
+    //    {
+    //        //return value.ToString() == "Collapsed" ? "Visible" : "Collapsed";
+    //        return value;
+    //    }
+
+    //    public object ConvertBack(object value, Type targetType, object parameter, string language)
+    //    {
+    //        return null;
+    //    }
+    //}
 }
