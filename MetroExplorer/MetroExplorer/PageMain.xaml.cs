@@ -337,6 +337,12 @@
             if (itemGridView.SelectedItems == null || itemGridView.SelectedItems.Count == 0) return;
             while (itemGridView.SelectedItems.Count > 0)
             {
+                if (!_dicItemToken.ContainsKey((itemGridView.SelectedItems[0] as ExplorerItem)))
+                {
+                    if (itemGridView.SelectedItems.Count == 1)
+                        break;
+                    continue;
+                } 
                 Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList.Remove(_dicItemToken[(itemGridView.SelectedItems[0] as ExplorerItem)]);
                 if (ExplorerGroups[0].Contains(itemGridView.SelectedItems[0] as ExplorerItem))
                 {
