@@ -159,13 +159,26 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\DiskLogo.png" />
+    <Content Include="Assets\document.png" />
     <Content Include="Assets\folder.png" />
     <Content Include="Assets\FolderLogo.png" />
     <Content Include="Assets\FolderLogo2.png" />
     <Content Include="Assets\Logo.png" />
+    <Content Include="Assets\Logo1.scale-100.png" />
+    <Content Include="Assets\Logo1.scale-140.png" />
+    <Content Include="Assets\Logo1.scale-180.png" />
+    <Content Include="Assets\Logo1.scale-80.png" />
+    <Content Include="Assets\Logo150150.png" />
+    <Content Include="Assets\Logo620300.png" />
+    <Content Include="Assets\music.png" />
+    <Content Include="Assets\photos.png" />
     <Content Include="Assets\SmallLogo.png" />
     <Content Include="Assets\SplashScreen.png" />
+    <Content Include="Assets\SplashScreen.scale-100.png" />
     <Content Include="Assets\StoreLogo.png" />
+    <Content Include="Assets\video.png" />
+    <Content Include="Assets\WideLogo.scale-100.png" />
+    <Content Include="Assets\WideLogo.scale-80.png" />
     <Content Include="Common\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>

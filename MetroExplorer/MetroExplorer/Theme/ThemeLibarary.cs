@@ -28,7 +28,8 @@
                     FillTheme("#FFE4E8E8", "#FF607075", "#FF607075", "#FF90B1B2", "#FF607075", "#FF6285A2", "#FFFFFFFF", "#FF607075");
                     break;
                 case Themes.EAE9E5:
-                    FillTheme("#FFEAE9E5", "#FF9E403E", "#FF343029", "#FFAEAEA1", "#FF9E403E", "#FF828174", "#FFFFFFFF", "#FF9E403E");
+                    //FillTheme("#FFEAE9E5", "#FF9E403E", "#FF343029", "#FFAEAEA1", "#FF9E403E", "#FF828174", "#FFFFFFFF", "#FF9E403E");
+                    FillTheme("#FFf2f2f2", "#FF1e90cd", "#FF343029", "#FF1e90cd", "#FF1e90cd", "#FF828174", "#FFFFFFFF", "#FF1e90cd");
                     break;
                 case Themes.FFF1DD:
                     FillTheme("#FFFFF1DD", "#FFC7AE86", "#FFB39667", "#FFE1988C", "#FFC7AE86", "#FF83BDB0", "#FFFFFFFF", "#FFC7AE86");

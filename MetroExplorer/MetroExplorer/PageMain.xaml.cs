@@ -206,7 +206,7 @@
                 Path = KnownFolders.PicturesLibrary.Path,
                 StorageFolder = KnownFolders.PicturesLibrary,
                 Type = ExplorerItemType.Folder,
-                DefautImage = GetBitMapImageFromLocalSource("Assets/FolderLogo.png")
+                DefautImage = GetBitMapImageFromLocalSource("Assets/photos.png")
             });
             ExplorerGroups[0].Add(new ExplorerItem()
             {
@@ -214,7 +214,7 @@
                 Path = KnownFolders.MusicLibrary.Path,
                 StorageFolder = KnownFolders.MusicLibrary,
                 Type = ExplorerItemType.Folder,
-                DefautImage = GetBitMapImageFromLocalSource("Assets/FolderLogo.png")
+                DefautImage = GetBitMapImageFromLocalSource("Assets/music.png")
             });
             ExplorerGroups[0].Add(new ExplorerItem()
             {
@@ -222,7 +222,7 @@
                 Path = KnownFolders.DocumentsLibrary.Path,
                 StorageFolder = KnownFolders.DocumentsLibrary,
                 Type = ExplorerItemType.Folder,
-                DefautImage = GetBitMapImageFromLocalSource("Assets/FolderLogo.png")
+                DefautImage = GetBitMapImageFromLocalSource("Assets/document.png")
             });
             ExplorerGroups[0].Add(new ExplorerItem()
             {
@@ -230,7 +230,7 @@
                 Path = KnownFolders.VideosLibrary.Path,
                 StorageFolder = KnownFolders.VideosLibrary,
                 Type = ExplorerItemType.Folder,
-                DefautImage = GetBitMapImageFromLocalSource("Assets/FolderLogo.png")
+                DefautImage = GetBitMapImageFromLocalSource("Assets/video.png")
             });
 
             ExplorerGroups[1].Add(new ExplorerItem()
