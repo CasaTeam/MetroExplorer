@@ -21,8 +21,6 @@
     /// </summary>
     public sealed partial class PageExplorer : INotifyPropertyChanged
     {
-        //StorageFolder _currentStorageFolder;
-        //IList<StorageFolder> _navigatorStorageFolders;
         private readonly MetroExplorerLocalDataSource _dataSource;
         ObservableCollection<GroupInfoList<ExplorerItem>> _explorerGroups;
         public ObservableCollection<GroupInfoList<ExplorerItem>> ExplorerGroups
@@ -149,20 +147,11 @@
                 itemListArray.Add(folderNames);
             }
             Navigator.ItemListArray = itemListArray.ToArray();
-            //bool isRealPath = _navigatorStorageFolders.First().Path.Contains(":");
-            //Navigator.Path = !isRealPath ?
-            //    _navigatorStorageFolders.Aggregate(string.Empty, (current, next) =>
-            //    {
-            //        current += next.Name + "\\";
-            //        return current;
-            //    })
-            //    : _currentStorageFolder.Path;
             Navigator.Path = _dataSource.GetPath();
         }
 
         private async void NavigatorPathChanged(object sender, NavigatorNodeCommandArgument e)
         {
-            //IList<StorageFolder> parameters = _navigatorStorageFolders.Take(e.Index + 1).ToList();
             if (e.CommandType == NavigatorNodeCommandType.None) return;
 
             _dataSource.CutNavigatorFromIndex(e.Index);

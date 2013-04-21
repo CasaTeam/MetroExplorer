@@ -166,16 +166,13 @@
             if (item.Type == ExplorerItemType.Folder)
             {
                 //this.Frame.Navigate(typeof(PageExplorer), item.StorageFolder);
-                //_navigatorStorageFolders.Add(item.StorageFolder);
                 _dataSource.NavigatorStorageFolders.Add(item.StorageFolder);
-                //Frame.Navigate(typeof(PageExplorer), _navigatorStorageFolders);
                 Frame.Navigate(typeof(PageExplorer), null);
             }
             else if (item.Type == ExplorerItemType.File)
             {
                 if (item.StorageFile != null && item.StorageFile.IsImageFile())
                 {
-                    //Frame.Navigate(typeof(PhotoGallery), new Object[] { _navigatorStorageFolders, item.StorageFile });
                     Frame.Navigate(typeof(PhotoGallery), new Object[] { null, item.StorageFile });
                 }
                 else

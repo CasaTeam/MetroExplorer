@@ -19,9 +19,8 @@
 
     public sealed partial class PhotoGallery : LayoutAwarePage
     {
-        StorageFolder currentStorageFolder;
         List<ExplorerItem> items;
-        IList<StorageFolder> _navigatorStorageFolders;
+        private readonly MetroExplorerLocalDataSource _dataSource;
         StorageFile seletedFile;
         int mSeletedIndex;
 
@@ -31,13 +30,12 @@
         {
             InitializeComponent();
             items = new List<ExplorerItem>();
+            _dataSource = Singleton<MetroExplorerLocalDataSource>.Instance;
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            currentStorageFolder = null;
             items = null;
-            _navigatorStorageFolders = null;
             seletedFile = null;
             GC.Collect();
         }
@@ -67,9 +65,8 @@
 
             EventLogger.onActionEvent(EventLogger.PHOTO_VIEWED);
             Object[] parameters = (Object[])e.Parameter;
-            _navigatorStorageFolders = (IList<StorageFolder>)parameters[0];
             seletedFile = (StorageFile)parameters[1];
-            currentStorageFolder = _navigatorStorageFolders.LastOrDefault();
+            StorageFolder currentStorageFolder = _dataSource.CurrentStorageFolder;
             if (currentStorageFolder != null)
             {
                 IReadOnlyList<IStorageItem> listFiles = await currentStorageFolder.GetItemsAsync();
