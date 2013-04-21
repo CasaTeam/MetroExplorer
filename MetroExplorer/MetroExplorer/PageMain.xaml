@@ -42,7 +42,6 @@
 	<Page.Resources>
 		<CollectionViewSource
 			x:Name="groupedItemsViewSource"
-			Source="{Binding ExplorerGroups}"
 			IsSourceGrouped="true"
 			/>
 

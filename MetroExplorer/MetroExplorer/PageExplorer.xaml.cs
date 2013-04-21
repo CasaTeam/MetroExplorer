@@ -52,7 +52,7 @@
 
         void PageExplorer_Loaded(object sender, RoutedEventArgs e)
         {
-            InitializeChangingDispatcher();
+            
 
             if (BigSquareMode)
                 itemGridView.ItemTemplate = Resources["Standard300x180ItemTemplate"] as DataTemplate;
@@ -106,6 +106,9 @@
 
             ChangeTheme(Theme.ThemeLibarary.CurrentTheme);
             await RefreshLocalFiles();
+            GroupedItemsViewSource.Source = ExplorerGroups;
+
+            InitializeChangingDispatcher();
         }
 
         private async Task RefreshLocalFiles()

@@ -43,7 +43,8 @@
                 {
                     for (int i = 1; i % 20 != 0 && ExplorerGroups != null && _loadingImageCount < ExplorerGroups[1].Count; i++)
                     {
-                        await ThumbnailPhoto(ExplorerGroups[1][_loadingImageCount], ExplorerGroups[1][_loadingImageCount].StorageFile);
+                        var file = ExplorerGroups[1][_loadingImageCount].StorageFile;
+                        await ThumbnailPhoto(ExplorerGroups[1][_loadingImageCount], file, true);
                         _loadingImageCount++;
                     }
                 }
@@ -113,13 +114,17 @@
                 itemList.Add(item);
         }
 
-        private async Task ThumbnailPhoto(ExplorerItem item, StorageFile sf)
+        private async Task ThumbnailPhoto(ExplorerItem item, StorageFile sf, bool file = false)
         {
             if (item == null) return;
+            
             StorageItemThumbnail fileThumbnail = await sf.GetThumbnailAsync(ThumbnailMode.SingleItem, 250);
             BitmapImage bitmapImage = new BitmapImage();
             bitmapImage.SetSource(fileThumbnail);
-            item.Image = bitmapImage;
+            if (file == false)
+                item.Image = bitmapImage;
+            else
+                item.DefautImage = bitmapImage;
         }
 
         private void ExplorerItemImage_Loaded(object sender, RoutedEventArgs e)
