@@ -4,15 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{68121672-25A8-4A15-A449-A75133CDA6EC}</ProjectGuid>
+    <ProjectGuid>{5953E9CF-3124-444C-9C42-64B394756367}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MetroExplorer</RootNamespace>
-    <AssemblyName>MetroExplorer</AssemblyName>
-    <DefaultLanguage>en-US</DefaultLanguage>
+    <RootNamespace>ApplicationTest</RootNamespace>
+    <AssemblyName>ApplicationTest</AssemblyName>
+    <DefaultLanguage>fr-FR</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>Windows8MetroExplorer_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>ApplicationTest_TemporaryKey.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -23,7 +23,6 @@
     <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -102,14 +101,6 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <ProjectReference Include="..\MetroExplorer.Components.Navigator\MetroExplorer.Components.Navigator.csproj">
-      <Project>{d7f662d5-755f-4a66-ae24-c07654af3b04}</Project>
-      <Name>MetroExplorer.Components.Navigator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MetroExplorer.core\MetroExplorer.core.csproj">
-      <Project>{efff2bc1-84e8-4343-9e49-07cc4d0c8f7b}</Project>
-      <Name>MetroExplorer.core</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -121,47 +112,21 @@
     <Compile Include="Common\LayoutAwarePage.cs" />
     <Compile Include="Common\RichTextColumns.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
-    <Compile Include="LayoutsBar\Preference.xaml.cs">
-      <DependentUpon>Preference.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PageExplorer.xaml.cs">
-      <DependentUpon>PageExplorer.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PageExplorerBo.cs" />
-    <Compile Include="PageIntroduction\PageChoosInitialTheme.xaml.cs">
-      <DependentUpon>PageChoosInitialTheme.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PageMain.xaml.cs">
-      <DependentUpon>PageMain.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PagePreview.xaml.cs">
-      <DependentUpon>PagePreview.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PageSearch.xaml.cs">
-      <DependentUpon>PageSearch.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PageUserGuide.xaml.cs">
-      <DependentUpon>PageUserGuide.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PhotoGallery.xaml.cs">
-      <DependentUpon>PhotoGallery.xaml</DependentUpon>
+    <Compile Include="MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Theme\ThemeLibarary.cs" />
+    <Compile Include="Search.xaml.cs">
+      <DependentUpon>Search.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="packages.config" />
-    <PRIResource Include="strings\zh-CN\Resources.resw" />
-    <None Include="MetroExplorer_TemporaryKey.pfx" />
+    <None Include="ApplicationTest_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\DiskLogo.png" />
-    <Content Include="Assets\folder.png" />
-    <Content Include="Assets\FolderLogo.png" />
-    <Content Include="Assets\FolderLogo2.png" />
     <Content Include="Assets\Logo.png" />
     <Content Include="Assets\SmallLogo.png" />
     <Content Include="Assets\SplashScreen.png" />
@@ -177,43 +142,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="LayoutsBar\Preference.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="PageExplorer.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="PageIntroduction\PageChoosInitialTheme.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="PageMain.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="PagePreview.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="PageSearch.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="PageUserGuide.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="PhotoGallery.xaml">
+    <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="WinRTXamlToolkit">
-      <HintPath>..\packages\winrtxamltoolkit.1.3.5.3\lib\netcore45\WinRTXamlToolkit.dll</HintPath>
-    </Reference>
+    <Page Include="Search.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

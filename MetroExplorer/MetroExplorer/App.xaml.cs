@@ -88,6 +88,51 @@ namespace MetroExplorer
             //TODO: Save application state and stop any background activity
             deferral.Complete();
         }
+
+        /// <summary>
+        /// Appelé lorsque l'application est activée pour afficher les résultats de la recherche.
+        /// </summary>
+        /// <param name="args">Détails relatifs à la requête d'activation.</param>
+        protected async override void OnSearchActivated(Windows.ApplicationModel.Activation.SearchActivatedEventArgs args)
+        {
+            // TODO: enregistrez l'événement Windows.ApplicationModel.Search.SearchPane.GetForCurrentView().QuerySubmitted
+            // dans OnWindowCreated pour accélérer les recherches une fois l'application exécutée
+
+            // Si la fenêtre n'utilise pas encore la navigation Frame, insérez votre propre Frame
+            var previousContent = Window.Current.Content;
+            var frame = previousContent as Frame;
+
+            // Si l'application ne contient pas de frame de niveau supérieur, il se peut qu'il s'agisse 
+            // du lancement initial de l'application. En général, cette méthode et OnLaunched 
+            // dans App.xaml.cs peuvent appeler une méthode commune.
+            if (frame == null)
+            {
+                // Créez un Frame utilisable en tant que contexte de navigation et associez-lui une
+                // clé SuspensionManager
+                frame = new Frame();
+                MetroExplorer.Common.SuspensionManager.RegisterFrame(frame, "AppFrame");
+
+                if (args.PreviousExecutionState == ApplicationExecutionState.Terminated)
+                {
+                    // Restaurez l'état de la session enregistrée uniquement lorsque cela est nécessaire
+                    try
+                    {
+                        await MetroExplorer.Common.SuspensionManager.RestoreAsync();
+                    }
+                    catch (MetroExplorer.Common.SuspensionManagerException)
+                    {
+                        //Un problème est survenu lors de la restauration de l'état.
+                        //Partez du principe que l'état est absent et poursuivez
+                    }
+                }
+            }
+
+            frame.Navigate(typeof(PageSearch), args.QueryText);
+            Window.Current.Content = frame;
+
+            // Vérifiez que la fenêtre actuelle est active
+            Window.Current.Activate();
+        }
     }
 
 

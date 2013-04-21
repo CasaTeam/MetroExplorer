@@ -11,18 +11,19 @@
     using Windows.UI.Xaml.Controls;
     using Windows.UI.Xaml.Data;
     using Windows.UI.Xaml.Navigation;
+    using Components.Navigator.Objects;
     using core;
     using core.Objects;
     using core.Utils;
-    using Components.Navigator.Objects;
 
     /// <summary>
     /// Page affichant une collection groupée d'éléments.
     /// </summary>
     public sealed partial class PageExplorer : INotifyPropertyChanged
     {
-        StorageFolder _currentStorageFolder;
-        IList<StorageFolder> _navigatorStorageFolders;
+        //StorageFolder _currentStorageFolder;
+        //IList<StorageFolder> _navigatorStorageFolders;
+        private readonly MetroExplorerLocalDataSource _dataSource;
         ObservableCollection<GroupInfoList<ExplorerItem>> _explorerGroups;
         public ObservableCollection<GroupInfoList<ExplorerItem>> ExplorerGroups
         {
@@ -47,6 +48,8 @@
             InitializeComponent();
             DataContext = this;
 
+            _dataSource = Singleton<MetroExplorerLocalDataSource>.Instance;
+
             Loaded += PageExplorer_Loaded;
         }
 
@@ -65,8 +68,8 @@
             _imageChangingDispatcher.Stop();
             _imageChangingDispatcher.Tick -= ImageChangingDispatcher_Tick;
             _imageChangingDispatcher = null;
-            _navigatorStorageFolders = null;
-            _currentStorageFolder = null;
+            //_navigatorStorageFolders = null;
+            //_currentStorageFolder = null;
             ExplorerGroups = new ObservableCollection<GroupInfoList<ExplorerItem>>();
             ExplorerGroups = null;
             GC.Collect();
@@ -100,9 +103,8 @@
                             Key = StringResources.ResourceLoader.GetString("MainExplorer_UserFileGroupTitle")
                         }
                 };
-            _navigatorStorageFolders = new List<StorageFolder>();
-            _navigatorStorageFolders = (IList<StorageFolder>)e.Parameter;
-            _currentStorageFolder = _navigatorStorageFolders.LastOrDefault();
+            //_navigatorStorageFolders = (IList<StorageFolder>)e.Parameter;
+            //_currentStorageFolder = _navigatorStorageFolders.LastOrDefault();
 
             ChangeTheme(Theme.ThemeLibarary.CurrentTheme);
             await RefreshLocalFiles();
@@ -110,13 +112,15 @@
 
         private async Task RefreshLocalFiles()
         {
-            if (_currentStorageFolder != null)
+            //if (_currentStorageFolder != null)
+            if (_dataSource.CurrentStorageFolder != null)
             {
                 // TODO: 添加try catch是避免用户在加载过程中连续两次刷新页面造成的ExplorerGroups清零混乱
                 try
                 {
                     await InitializeNavigator();
-                    var listFiles = await _currentStorageFolder.GetItemsAsync();
+                    //var listFiles = await _currentStorageFolder.GetItemsAsync();
+                    var listFiles = await _dataSource.CurrentStorageFolder.GetItemsAsync();
                     foreach (var item in listFiles)
                     {
                         if (item is StorageFolder)
@@ -137,7 +141,7 @@
         private async Task InitializeNavigator()
         {
             List<List<string>> itemListArray = new List<List<string>>();
-            foreach (StorageFolder storageFolder in _navigatorStorageFolders)
+            foreach (StorageFolder storageFolder in _dataSource.NavigatorStorageFolders)//_navigatorStorageFolders)
             {
                 var items = await storageFolder.GetItemsAsync();
                 List<string> folderNames = items.OfType<StorageFolder>().Select(item => item.Name).ToList();
@@ -145,28 +149,31 @@
                 itemListArray.Add(folderNames);
             }
             Navigator.ItemListArray = itemListArray.ToArray();
-            bool isRealPath = _navigatorStorageFolders.First().Path.Contains(":");
-            Navigator.Path = !isRealPath ?
-                _navigatorStorageFolders.Aggregate(string.Empty, (current, next) =>
-                {
-                    current += next.Name + "\\";
-                    return current;
-                })
-                : _currentStorageFolder.Path;
+            //bool isRealPath = _navigatorStorageFolders.First().Path.Contains(":");
+            //Navigator.Path = !isRealPath ?
+            //    _navigatorStorageFolders.Aggregate(string.Empty, (current, next) =>
+            //    {
+            //        current += next.Name + "\\";
+            //        return current;
+            //    })
+            //    : _currentStorageFolder.Path;
+            Navigator.Path = _dataSource.GetPath();
         }
 
         private async void NavigatorPathChanged(object sender, NavigatorNodeCommandArgument e)
         {
-            IList<StorageFolder> parameters = _navigatorStorageFolders.Take(e.Index + 1).ToList();
+            //IList<StorageFolder> parameters = _navigatorStorageFolders.Take(e.Index + 1).ToList();
+            if (e.CommandType == NavigatorNodeCommandType.None) return;
 
+            _dataSource.CutNavigatorFromIndex(e.Index);
             if (e.CommandType == NavigatorNodeCommandType.Reduce)
             {
                 _imageChangingDispatcher.Stop();
-                Frame.Navigate(typeof(PageExplorer), parameters);
+                Frame.Navigate(typeof(PageExplorer), null);
             }
             else if (e.CommandType == NavigatorNodeCommandType.Change)
             {
-                StorageFolder lastStorageFolder = parameters.LastOrDefault();
+                StorageFolder lastStorageFolder = _dataSource.CurrentStorageFolder;
                 if (lastStorageFolder != null)
                 {
                     var results = await lastStorageFolder.GetItemsAsync();
@@ -176,13 +183,13 @@
                         if (item is StorageFolder && item.Name == changedNode)
                         {
                             StorageFolder storageFolder = (StorageFolder)item;
-                            parameters.Add(storageFolder);
+                            _dataSource.NavigatorStorageFolders.Add(storageFolder);
                             break;
                         }
                     }
                 }
                 _imageChangingDispatcher.Stop();
-                Frame.Navigate(typeof(PageExplorer), parameters);
+                Frame.Navigate(typeof(PageExplorer), null);
             }
         }
 

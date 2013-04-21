@@ -11,7 +11,6 @@
     using System.ComponentModel;
     using Windows.Storage;
     using Windows.Storage.Pickers;
-    
     using Windows.Storage.AccessCache;
     using System.Collections.ObjectModel;
     using Common;
@@ -21,7 +20,6 @@
     using Windows.UI.Xaml.Media.Imaging;
     using Windows.Storage.FileProperties;
     using System.Threading.Tasks;
-    using Windows.UI.Xaml.Data;
 
     /// <summary>
     /// Page affichant une collection groupée d'éléments.
@@ -63,7 +61,7 @@
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            
+
         }
 
 
@@ -90,7 +88,7 @@
                     _lastChangedFolder = 0;
                 _lastChangedFolder++;
                 var exploreItem = explorerGroups[1][_lastChangedFolder];
-                if(exploreItem.StorageFolder == null) return;
+                if (exploreItem.StorageFolder == null) return;
                 var files = await exploreItem.StorageFolder.GetFilesAsync();
 
                 if (exploreItem.LastImageIndex == -2) return;
@@ -106,7 +104,7 @@
                             exploreItem.LastImageIndex = 0;
                         }
                     }
-                
+
                 if (exploreItem.LastImageIndex == exploreItem.LastImageName.Count - 1)
                     exploreItem.LastImageIndex = 0;
                 await ThumbnailPhoto(exploreItem, files[exploreItem.LastImageIndex]);
@@ -250,7 +248,7 @@
 
 
             var result = new BitmapImage(new Uri(this.BaseUri, @url));
-    
+
             //result.UriSource = uri;
             return result;
         }
@@ -265,7 +263,7 @@
         /// <param name="pageState">Dictionnaire d'état conservé par cette page durant une session
         /// antérieure. Null lors de la première visite de la page.</param>
         protected override void LoadState(
-            Object navigationParameter, 
+            Object navigationParameter,
             Dictionary<String, Object> pageState)
         {
             // TODO: assignez une collection de groupes pouvant être liés à this.DefaultViewModel["Groups"]
@@ -281,7 +279,7 @@
             StorageFolder storageFolder = await GetStorageFolderFromFolderPicker();
             if (storageFolder == null)
             {
-                EventLogger.onActionEvent(EventLogger.ADD_FOLDER_CANCEL, EventLogger.LABEL_HOME_PAGE); 
+                EventLogger.onActionEvent(EventLogger.ADD_FOLDER_CANCEL, EventLogger.LABEL_HOME_PAGE);
                 return;
             }
             foreach (var key in _dicItemToken.Keys)
@@ -342,7 +340,7 @@
                     if (itemGridView.SelectedItems.Count == 1)
                         break;
                     continue;
-                } 
+                }
                 Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList.Remove(_dicItemToken[(itemGridView.SelectedItems[0] as ExplorerItem)]);
                 if (ExplorerGroups[0].Contains(itemGridView.SelectedItems[0] as ExplorerItem))
                 {
@@ -384,7 +382,7 @@
             else
             {
                 if (item.Path == StringResources.ResourceLoader.GetString("String_NewFolder") && item.Name == StringResources.ResourceLoader.GetString("String_NewFolder"))
-                { 
+                {
                     // TODO: 添加新快捷方式文件夹
                     await AddNewFolder();
                 }
@@ -413,8 +411,12 @@
 
         private void NavigateToExplorer(ExplorerItem item)
         {
-            IList<StorageFolder> _navigatorStorageFolders = new List<StorageFolder> { item.StorageFolder };
-            this.Frame.Navigate(typeof(PageExplorer), _navigatorStorageFolders);
+            Singleton<MetroExplorerLocalDataSource>.Instance.NavigatorStorageFolders =
+                new List<StorageFolder>
+                {
+                    item.StorageFolder
+                };
+            Frame.Navigate(typeof(PageExplorer), null);
         }
 
         private void AppBar_BottomAppBar_Opened_1(object sender, object e)
@@ -427,7 +429,7 @@
 
         private void ExplorerItemImage_Loaded(object sender, RoutedEventArgs e)
         {
-            
+
         }
     }
 
