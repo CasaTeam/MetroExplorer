@@ -171,14 +171,14 @@
             if (item.Type == ExplorerItemType.Folder)
             {
                 //this.Frame.Navigate(typeof(PageExplorer), item.StorageFolder);
-                _navigatorStorageFolders.Add(item.StorageFolder);
-                Frame.Navigate(typeof(PageExplorer), _navigatorStorageFolders);
+                _dataSource.NavigatorStorageFolders.Add(item.StorageFolder);
+                Frame.Navigate(typeof(PageExplorer), null);
             }
             else if (item.Type == ExplorerItemType.File)
             {
                 if (item.StorageFile != null && item.StorageFile.IsImageFile())
                 {
-                    Frame.Navigate(typeof(PhotoGallery), new Object[] { _navigatorStorageFolders, item.StorageFile });
+                    Frame.Navigate(typeof(PhotoGallery), new Object[] { null, item.StorageFile });
                 }
                 else
                 {
@@ -191,7 +191,7 @@
             }
         }
 
-        private  void Button_AddNewFolder_Click(object sender, RoutedEventArgs e)
+        private void Button_AddNewFolder_Click(object sender, RoutedEventArgs e)
         {
             Popup_CreateNewFolder.IsOpen = true;
             Popup_CreateNewFolder.Visibility = Windows.UI.Xaml.Visibility.Visible;
@@ -202,7 +202,8 @@
 
         private async void Button_CreateNewFolder_Click(object sender, RoutedEventArgs e)
         {
-            StorageFolder sf = await _currentStorageFolder.CreateFolderAsync(StringResources.ResourceLoader.GetString("String_NewFolder"), CreationCollisionOption.GenerateUniqueName);
+            //StorageFolder sf = await _currentStorageFolder.CreateFolderAsync(StringResources.ResourceLoader.GetString("String_NewFolder"), CreationCollisionOption.GenerateUniqueName);
+            StorageFolder sf = await _dataSource.CurrentStorageFolder.CreateFolderAsync(StringResources.ResourceLoader.GetString("String_NewFolder"), CreationCollisionOption.GenerateUniqueName);
             ExplorerItem item = new ExplorerItem()
             {
                 Name = sf.Name,
@@ -318,7 +319,8 @@
             var sf = await filePicker.PickMultipleFilesAsync();
             for (int i = 0; i < sf.Count; i++)
             {
-                await sf[i].CopyAsync(_currentStorageFolder, sf[i].Name, NameCollisionOption.GenerateUniqueName);
+                //await sf[i].CopyAsync(_currentStorageFolder, sf[i].Name, NameCollisionOption.GenerateUniqueName);
+                await sf[i].CopyAsync(_dataSource.CurrentStorageFolder, sf[i].Name, NameCollisionOption.GenerateUniqueName);
             }
         }
 
@@ -331,7 +333,8 @@
             var sf = await filePicker.PickMultipleFilesAsync();
             for (int i = 0; i < sf.Count; i++)
             {
-                await sf[i].CopyAsync(_currentStorageFolder, sf[i].Name, NameCollisionOption.GenerateUniqueName);
+                //await sf[i].CopyAsync(_currentStorageFolder, sf[i].Name, NameCollisionOption.GenerateUniqueName);
+                await sf[i].CopyAsync(_dataSource.CurrentStorageFolder, sf[i].Name, NameCollisionOption.GenerateUniqueName);
                 await sf[i].DeleteAsync(StorageDeleteOption.Default);
             }
             GC.Collect();
@@ -368,7 +371,7 @@
             Popup_Sort.IsOpen = false;
             Popup_Sort.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
 
-            if(ListBox_Sorte.Items.IndexOf((sender as ListBox).SelectedItem) == 0)
+            if (ListBox_Sorte.Items.IndexOf((sender as ListBox).SelectedItem) == 0)
                 SortItems(SortType.Date);
             if (ListBox_Sorte.Items.IndexOf((sender as ListBox).SelectedItem) == 1)
                 SortItems(SortType.Name);
@@ -402,13 +405,13 @@
         {
             IOrderedEnumerable<ExplorerItem> sortedSource;
             if (_sortedRecoder.Keys.Contains(SortType.Date))
-            { 
-                if(_sortedRecoder[SortType.Date] == SortOrderType.Ascend)
+            {
+                if (_sortedRecoder[SortType.Date] == SortOrderType.Ascend)
                 {
                     sortedSource = items.OrderByDescending(p => p.ModifiedDateTime);
                     _sortedRecoder[SortType.Date] = SortOrderType.Descend;
                 }
-                else 
+                else
                 {
                     sortedSource = items.OrderBy(p => p.ModifiedDateTime);
                     _sortedRecoder[SortType.Date] = SortOrderType.Ascend;
@@ -518,7 +521,7 @@
     }
 
     public enum SortType
-    { 
+    {
         Date,
         Name,
         Size,
@@ -527,7 +530,7 @@
     }
 
     public enum SortOrderType
-    { 
+    {
         Ascend,
         Descend
     }

@@ -137,6 +137,9 @@
     <Compile Include="PagePreview.xaml.cs">
       <DependentUpon>PagePreview.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PageSearch.xaml.cs">
+      <DependentUpon>PageSearch.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PageUserGuide.xaml.cs">
       <DependentUpon>PageUserGuide.xaml</DependentUpon>
     </Compile>
@@ -205,6 +208,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PagePreview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PageSearch.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

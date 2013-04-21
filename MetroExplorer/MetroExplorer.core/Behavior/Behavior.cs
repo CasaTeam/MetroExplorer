@@ -6,11 +6,10 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
 using System;
-using System.Reflection;
 
-/// http://winrtbehaviors.codeplex.com/SourceControl/changeset/view/19567#261274
 namespace MetroExplorer.core.Behavior
 {
+    /// http://winrtbehaviors.codeplex.com/SourceControl/changeset/view/19567#261274
     public abstract class Behavior : FrameworkElement
     {
         private FrameworkElement associatedObject;

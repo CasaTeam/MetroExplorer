@@ -1,13 +1,11 @@
 ﻿namespace MetroExplorer.core
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
 
-    public static class Singleton<T, TK>
-        where T : class, IEnumerable<TK>
-        where TK : class
+    public static class Singleton<T>
+        where T : class
     {
         static volatile T _instance;
 
