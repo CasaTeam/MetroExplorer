@@ -127,7 +127,7 @@ namespace MetroExplorer
                 }
             }
 
-            frame.Navigate(typeof(PageSearch), args.QueryText);
+            frame.Navigate(typeof(PageExplorer), args.QueryText);
             Window.Current.Content = frame;
 
             // Vérifiez que la fenêtre actuelle est active

@@ -90,28 +90,7 @@
             { }
         }
 
-        private async void AddNewItem(GroupInfoList<ExplorerItem> itemList, IStorageItem retrievedItem)
-        {
-            ExplorerItem item = new ExplorerItem()
-            {
-                Name = retrievedItem.Name,
-                Path = retrievedItem.Path
-            };
-            if (retrievedItem is StorageFolder)
-            {
-                item.StorageFolder = retrievedItem as StorageFolder;
-                item.Type = ExplorerItemType.Folder;
-            }
-            else if (retrievedItem is StorageFile)
-            {
-                item.StorageFile = retrievedItem as StorageFile;
-                item.Type = ExplorerItemType.File;
-                item.Size = (await item.StorageFile.GetBasicPropertiesAsync()).Size;
-                item.ModifiedDateTime = (await item.StorageFile.GetBasicPropertiesAsync()).DateModified.DateTime;
-            }
-            if (itemList.All(p => p.Name != item.Name))
-                itemList.Add(item);
-        }
+        
 
         private async Task ThumbnailPhoto(ExplorerItem item, StorageFile sf)
         {

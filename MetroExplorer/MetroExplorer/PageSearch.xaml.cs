@@ -1,21 +1,45 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+﻿using System.Collections.ObjectModel;
+using MetroExplorer.core.Utils;
+using Windows.Storage;
+using Windows.System;
+using Windows.UI.Xaml.Input;
 
 namespace MetroExplorer
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Windows.UI.Xaml;
+    using Windows.UI.Xaml.Controls;
+    using Common;
+    using core;
+    using core.Objects;
+
     /// <summary>
     /// Cette page affiche les résultats d'une recherche globale effectuée dans cette application.
     /// </summary>
-    public sealed partial class PageSearch : MetroExplorer.Common.LayoutAwarePage
+    public sealed partial class PageSearch : LayoutAwarePage
     {
+        private readonly MetroExplorerLocalDataSource _dataSource;
+        private readonly ObservableCollection<GroupInfoList<ExplorerItem>> _explorerGroups;
 
         public PageSearch()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+
+            _dataSource = Singleton<MetroExplorerLocalDataSource>.Instance;
+            _explorerGroups = new ObservableCollection<GroupInfoList<ExplorerItem>>
+                {
+                    new GroupInfoList<ExplorerItem>()
+                        {
+                            Key = StringResources.ResourceLoader.GetString("MainPage_UserFolderGroupTitle")
+                        },
+                    new GroupInfoList<ExplorerItem>()
+                        {
+                            Key = StringResources.ResourceLoader.GetString("MainPage_SystemFolderGroupTitle")
+                        }
+                };
         }
 
         /// <summary>
@@ -27,26 +51,29 @@ namespace MetroExplorer
         /// </param>
         /// <param name="pageState">Dictionnaire d'état conservé par cette page durant une session
         /// antérieure. Null lors de la première visite de la page.</param>
-        protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
+        protected override async void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
             var queryText = navigationParameter as String;
-
-            // TODO: logique de recherche spécifique à l'application. Le processus de recherche est chargé de la
-            //       création d'une liste de catégories de résultats sélectionnables par l'utilisateur :
-            //
-            //       filterList.Add(new Filter("<filter name>", <result count>));
-            //
-            //       Seul le premier filtre (en général « Tout ») doit transmettre la valeur True comme troisième argument
-            //       afin de démarrer avec l'état actif. Les résultats du filtre actif sont fournis
-            //       dans Filter_SelectionChanged ci-dessous.
+            var query = queryText.ToLower();
+            var items = await _dataSource.CurrentStorageFolder.GetItemsAsync();
+            var itemsFilter = items.Where(item => item.Name.ToLower().Contains(query));
+            int count = 0;
+            foreach (var item in itemsFilter)
+            {
+                if (item is StorageFolder)
+                    _explorerGroups[0].AddItem(item);
+                else if (item is StorageFile)
+                    _explorerGroups[1].AddItem(item);
+                count++;
+            }
 
             var filterList = new List<Filter>();
-            filterList.Add(new Filter("All", 0, true));
+            filterList.Add(new Filter("All", count, true));
 
             // Communiquez les résultats via le modèle d'affichage
-            this.DefaultViewModel["QueryText"] = '\u201c' + queryText + '\u201d';
-            this.DefaultViewModel["Filters"] = filterList;
-            this.DefaultViewModel["ShowFilters"] = filterList.Count > 1;
+            DefaultViewModel["QueryText"] = '\u201c' + queryText + '\u201d';
+            DefaultViewModel["Filters"] = filterList;
+            DefaultViewModel["ShowFilters"] = filterList.Count > 1;
         }
 
         /// <summary>
@@ -64,8 +91,7 @@ namespace MetroExplorer
                 // la représentation RadioButton utilisée avec un état d'affichage autre que Snapped de refléter les modifications apportées
                 selectedFilter.Active = true;
 
-                // TODO: répondez à la modification du filtre actif en associant this.DefaultViewModel["Results"]
-                //       à une collection d'éléments avec des propriétés Image, Title, Subtitle et Description pouvant être liées
+                DefaultViewModel["Results"] = _explorerGroups;
 
                 // Vérifie que des résultats sont trouvés
                 object results;
@@ -99,49 +125,6 @@ namespace MetroExplorer
             }
         }
 
-        /// <summary>
-        /// Modèle d'affichage décrivant l'un des filtres disponibles pour l'affichage des résultats de recherche.
-        /// </summary>
-        private sealed class Filter : MetroExplorer.Common.BindableBase
-        {
-            private String _name;
-            private int _count;
-            private bool _active;
-
-            public Filter(String name, int count, bool active = false)
-            {
-                this.Name = name;
-                this.Count = count;
-                this.Active = active;
-            }
-
-            public override String ToString()
-            {
-                return Description;
-            }
-
-            public String Name
-            {
-                get { return _name; }
-                set { if (this.SetProperty(ref _name, value)) this.OnPropertyChanged("Description"); }
-            }
-
-            public int Count
-            {
-                get { return _count; }
-                set { if (this.SetProperty(ref _count, value)) this.OnPropertyChanged("Description"); }
-            }
-
-            public bool Active
-            {
-                get { return _active; }
-                set { this.SetProperty(ref _active, value); }
-            }
-
-            public String Description
-            {
-                get { return String.Format("{0} ({1})", _name, _count); }
-            }
-        }
+        
     }
 }

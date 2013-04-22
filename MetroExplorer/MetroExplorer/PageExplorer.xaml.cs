@@ -61,15 +61,17 @@
                 itemGridView.ItemTemplate = Resources["Standard300x80ItemTemplate"] as DataTemplate;
         }
 
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        protected override async void OnNavigatedFrom(NavigationEventArgs e)
         {
             _imageChangingDispatcher.Stop();
             _imageChangingDispatcher.Tick -= ImageChangingDispatcher_Tick;
             _imageChangingDispatcher = null;
+            if (e != null && e.Parameter != null && e.Parameter is string)
+                await Search(e.Parameter as string);
             //_navigatorStorageFolders = null;
             //_currentStorageFolder = null;
-            ExplorerGroups = new ObservableCollection<GroupInfoList<ExplorerItem>>();
-            ExplorerGroups = null;
+            //ExplorerGroups = new ObservableCollection<GroupInfoList<ExplorerItem>>();
+            //ExplorerGroups = null;
             GC.Collect();
         }
 
@@ -84,7 +86,7 @@
         /// antérieure. Null lors de la première visite de la page.</param>
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
-            // TODO: assignez une collection de groupes pouvant être liés à this.DefaultViewModel["Groups"]
+
         }
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
@@ -118,16 +120,25 @@
                 {
                     await InitializeNavigator();
                     //var listFiles = await _currentStorageFolder.GetItemsAsync();
-                    var listFiles = await _dataSource.CurrentStorageFolder.GetItemsAsync();
-                    foreach (var item in listFiles)
+                    if (_dataSource.FromSearch)
                     {
-                        if (item is StorageFolder)
+                        ExplorerGroups = _dataSource.SearchedItems;
+                        _dataSource.FromSearch = false;
+                        _dataSource.SearchedItems = null;
+                    }
+                    else
+                    {
+                        var listFiles = await _dataSource.CurrentStorageFolder.GetItemsAsync();
+                        foreach (var item in listFiles)
                         {
-                            AddNewItem(ExplorerGroups[0], item as StorageFolder);
-                        }
-                        else if (item is StorageFile)
-                        {
-                            AddNewItem(ExplorerGroups[1], item as StorageFile);
+                            if (item is StorageFolder)
+                            {
+                                ExplorerGroups[0].AddItem(item);
+                            }
+                            else if (item is StorageFile)
+                            {
+                                ExplorerGroups[1].AddItem(item);
+                            }
                         }
                     }
                     //SortItems(PageExplorer.CurrentFileListSortType);
@@ -148,6 +159,41 @@
             }
             Navigator.ItemListArray = itemListArray.ToArray();
             Navigator.Path = _dataSource.GetPath();
+        }
+
+        private async Task Search(string navigationParameter)
+        {
+            if (_dataSource == null || _dataSource.CurrentStorageFolder == null) return;
+            ObservableCollection<GroupInfoList<ExplorerItem>> explorerGroups = new ObservableCollection<GroupInfoList<ExplorerItem>>
+                {
+                    new GroupInfoList<ExplorerItem>
+                        {
+                            Key = StringResources.ResourceLoader.GetString("MainPage_UserFolderGroupTitle")
+                        },
+                    new GroupInfoList<ExplorerItem>
+                        {
+                            Key = StringResources.ResourceLoader.GetString("MainPage_SystemFolderGroupTitle")
+                        }
+                };
+            var queryText = navigationParameter;
+            var query = queryText.ToLower();
+            var items = await _dataSource.CurrentStorageFolder.GetItemsAsync();
+            var itemsFilter = items.Where(item => item.Name.ToLower().Contains(query));
+            int count = 0;
+            foreach (var item in itemsFilter)
+            {
+                if (item is StorageFolder)
+                    explorerGroups[0].AddItem(item);
+                else if (item is StorageFile)
+                    explorerGroups[1].AddItem(item);
+                count++;
+            }
+
+            if (explorerGroups.Count > 0)
+            {
+                _dataSource.FromSearch = true;
+                _dataSource.SearchedItems = explorerGroups;
+            }
         }
 
         private async void NavigatorPathChanged(object sender, NavigatorNodeCommandArgument e)
@@ -184,6 +230,7 @@
 
         private void ButtonMainPage_Click_1(object sender, RoutedEventArgs e)
         {
+            _dataSource.NavigatorStorageFolders = new List<StorageFolder>();
             _imageChangingDispatcher.Stop();
             Frame.Navigate(typeof(PageMain));
         }

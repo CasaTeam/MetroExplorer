@@ -1,4 +1,6 @@
-﻿namespace MetroExplorer.core.Objects
+﻿using System.Collections.ObjectModel;
+
+namespace MetroExplorer.core.Objects
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -22,7 +24,14 @@
             get { return _navigatorStorageFolders.LastOrDefault(); }
         }
 
-        private MetroExplorerLocalDataSource() { }
+        public bool FromSearch { get; set; }
+
+        public ObservableCollection<GroupInfoList<ExplorerItem>> SearchedItems { get; set; }
+
+        private MetroExplorerLocalDataSource()
+        {
+            _navigatorStorageFolders = new List<StorageFolder>();
+        }
 
         public string GetPath()
         {
