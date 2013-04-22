@@ -161,6 +161,7 @@
   <ItemGroup>
     <Content Include="Assets\DiskLogo.png" />
     <Content Include="Assets\document.png" />
+    <Content Include="Assets\flag.png" />
     <Content Include="Assets\folder.png" />
     <Content Include="Assets\FolderLogo.png" />
     <Content Include="Assets\FolderLogo2.png" />

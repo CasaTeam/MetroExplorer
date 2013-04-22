@@ -70,11 +70,13 @@
             InitializeSystemFolders();
             await initializeUsersFolders();
 
+            groupedItemsViewSource.Source = ExplorerGroups;
             BottomAppBar.IsOpen = true;
 
             _folderImageChangeDispatcher.Tick += FolderImageChangeDispatcher_Tick;
             _folderImageChangeDispatcher.Interval = new TimeSpan(0, 0, 0, 1, 500);
             _folderImageChangeDispatcher.Start();
+
         }
 
         int _lastChangedFolder = 0;
@@ -98,7 +100,7 @@
                         exploreItem.LastImageIndex = -2;
                         if (file.Name.ToUpper().EndsWith(".PNG") || file.Name.ToUpper().EndsWith(".JPG") || file.Name.ToUpper().EndsWith(".JPEG") ||
                             file.Name.ToUpper().EndsWith(".BMP") || file.Name.ToUpper().EndsWith(".RMVB") || file.Name.ToUpper().EndsWith(".MP4") ||
-                            file.Name.ToUpper().EndsWith(".MKV") || file.Name.ToUpper().EndsWith(".PNG"))
+                            file.Name.ToUpper().EndsWith(".PNG"))
                         {
                             exploreItem.LastImageName.Add(file.Name);
                             exploreItem.LastImageIndex = 0;
@@ -119,7 +121,7 @@
             if (item == null) return;
             if (!sf.Name.ToUpper().EndsWith(".PNG") && !sf.Name.ToUpper().EndsWith(".JPG") && !sf.Name.ToUpper().EndsWith(".JPEG") &&
                !sf.Name.ToUpper().EndsWith(".BMP") && !sf.Name.ToUpper().EndsWith(".RMVB") && !sf.Name.ToUpper().EndsWith(".MP4") &&
-               !sf.Name.ToUpper().EndsWith(".MKV") && !sf.Name.ToUpper().EndsWith(".PNG")) return;
+               !sf.Name.ToUpper().EndsWith(".PNG")) return;
             StorageItemThumbnail fileThumbnail = await sf.GetThumbnailAsync(ThumbnailMode.SingleItem, 280);
             BitmapImage bitmapImage = new BitmapImage();
             bitmapImage.SetSource(fileThumbnail);

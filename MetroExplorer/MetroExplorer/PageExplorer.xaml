@@ -25,7 +25,6 @@
 			IsSourceGrouped="true"
 			>
 		</CollectionViewSource>
-		<CollectionViewSource x:Name="filtersViewSource" Source="{Binding Filters}"/>
 
 		<!-- TODO: supprimez cette ligne si la clé AppName est déclarée dans App.xaml -->
 		<x:String x:Key="AppName">Mon application</x:String>
