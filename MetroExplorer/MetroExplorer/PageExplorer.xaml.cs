@@ -1,4 +1,6 @@
-﻿namespace MetroExplorer
+﻿using Windows.ApplicationModel.Search;
+
+namespace MetroExplorer
 {
     using System;
     using System.Collections.Generic;
@@ -22,6 +24,8 @@
     public sealed partial class PageExplorer : INotifyPropertyChanged
     {
         private readonly MetroExplorerLocalDataSource _dataSource;
+        private List<string> _currentItems;
+
         ObservableCollection<GroupInfoList<ExplorerItem>> _explorerGroups;
         public ObservableCollection<GroupInfoList<ExplorerItem>> ExplorerGroups
         {
@@ -48,13 +52,23 @@
 
             _dataSource = Singleton<MetroExplorerLocalDataSource>.Instance;
 
+            SearchPane.GetForCurrentView().SuggestionsRequested += PageExplorerSuggestionsRequested;
             Loaded += PageExplorer_Loaded;
+        }
+
+        void PageExplorerSuggestionsRequested(
+           SearchPane sender,
+           SearchPaneSuggestionsRequestedEventArgs args)
+        {
+            string query = args.QueryText.ToLower();
+            if (_dataSource.CurrentStorageFolder == null) return;
+            foreach (string item in _currentItems)
+                if (item.ToLower().StartsWith(query))
+                    args.Request.SearchSuggestionCollection.AppendQuerySuggestion(item);
         }
 
         void PageExplorer_Loaded(object sender, RoutedEventArgs e)
         {
-            
-
             if (BigSquareMode)
                 itemGridView.ItemTemplate = Resources["Standard300x180ItemTemplate"] as DataTemplate;
             else
@@ -146,14 +160,15 @@
                     }
                     //SortItems(PageExplorer.CurrentFileListSortType);
                 }
-                catch { }
+                catch
+                { }
             }
         }
 
         private async Task InitializeNavigator()
         {
             List<List<string>> itemListArray = new List<List<string>>();
-            foreach (StorageFolder storageFolder in _dataSource.NavigatorStorageFolders)//_navigatorStorageFolders)
+            foreach (StorageFolder storageFolder in _dataSource.NavigatorStorageFolders)
             {
                 var items = await storageFolder.GetItemsAsync();
                 List<string> folderNames = items.OfType<StorageFolder>().Select(item => item.Name).ToList();
@@ -162,6 +177,9 @@
             }
             Navigator.ItemListArray = itemListArray.ToArray();
             Navigator.Path = _dataSource.GetPath();
+
+            var currentItems = await _dataSource.CurrentStorageFolder.GetItemsAsync();
+            _currentItems = currentItems.Select(item => item.Name).ToList();
         }
 
         private async Task Search(string navigationParameter)
@@ -182,14 +200,12 @@
             var query = queryText.ToLower();
             var items = await _dataSource.CurrentStorageFolder.GetItemsAsync();
             var itemsFilter = items.Where(item => item.Name.ToLower().Contains(query));
-            int count = 0;
             foreach (var item in itemsFilter)
             {
                 if (item is StorageFolder)
                     explorerGroups[0].AddItem(item);
                 else if (item is StorageFile)
                     explorerGroups[1].AddItem(item);
-                count++;
             }
 
             if (explorerGroups.Count > 0)
