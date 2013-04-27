@@ -1,6 +1,4 @@
-﻿using Windows.ApplicationModel.Search;
-
-namespace MetroExplorer
+﻿namespace MetroExplorer
 {
     using System;
     using System.Collections.Generic;
@@ -24,7 +22,7 @@ namespace MetroExplorer
     public sealed partial class PageExplorer : INotifyPropertyChanged
     {
         private readonly MetroExplorerLocalDataSource _dataSource;
-        private List<string> _currentItems;
+        public static List<string> CurrentItems;
 
         ObservableCollection<GroupInfoList<ExplorerItem>> _explorerGroups;
         public ObservableCollection<GroupInfoList<ExplorerItem>> ExplorerGroups
@@ -51,20 +49,7 @@ namespace MetroExplorer
             DataContext = this;
 
             _dataSource = Singleton<MetroExplorerLocalDataSource>.Instance;
-
-            SearchPane.GetForCurrentView().SuggestionsRequested += PageExplorerSuggestionsRequested;
             Loaded += PageExplorer_Loaded;
-        }
-
-        void PageExplorerSuggestionsRequested(
-           SearchPane sender,
-           SearchPaneSuggestionsRequestedEventArgs args)
-        {
-            string query = args.QueryText.ToLower();
-            if (_dataSource.CurrentStorageFolder == null) return;
-            foreach (string item in _currentItems)
-                if (item.ToLower().StartsWith(query))
-                    args.Request.SearchSuggestionCollection.AppendQuerySuggestion(item);
         }
 
         void PageExplorer_Loaded(object sender, RoutedEventArgs e)
@@ -179,7 +164,7 @@ namespace MetroExplorer
             Navigator.Path = _dataSource.GetPath();
 
             var currentItems = await _dataSource.CurrentStorageFolder.GetItemsAsync();
-            _currentItems = currentItems.Select(item => item.Name).ToList();
+            CurrentItems = currentItems.Select(item => item.Name).ToList();
         }
 
         private async Task Search(string navigationParameter)
@@ -251,6 +236,7 @@ namespace MetroExplorer
         {
             _dataSource.NavigatorStorageFolders = new List<StorageFolder>();
             _imageChangingDispatcher.Stop();
+            CurrentItems = null;
             Frame.Navigate(typeof(PageMain));
         }
 

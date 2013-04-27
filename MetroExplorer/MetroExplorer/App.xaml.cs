@@ -1,6 +1,7 @@
 ﻿using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Search;
 using Windows.Foundation;
 using Windows.UI.ApplicationSettings;
 using Windows.UI.Popups;
@@ -36,7 +37,7 @@ namespace MetroExplorer
         /// <param name="args">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
-            
+
             Frame rootFrame = Window.Current.Content as Frame;
 
             // Do not repeat app initialization when the Window already has content,
@@ -69,10 +70,25 @@ namespace MetroExplorer
                     throw new Exception("Failed to create initial page");
                 }
             }
+
+            SearchPane searchPane = SearchPane.GetForCurrentView();
+            searchPane.SearchHistoryEnabled = false;
+            searchPane.SuggestionsRequested += PageExplorerSuggestionsRequested;
             // Ensure the current window is active
             Window.Current.Activate();
 
             EventLogger.onLaunch();
+        }
+
+        void PageExplorerSuggestionsRequested(
+           SearchPane sender,
+           SearchPaneSuggestionsRequestedEventArgs args)
+        {
+            string query = args.QueryText.ToLower();
+            if (PageExplorer.CurrentItems == null) return;
+            foreach (string item in PageExplorer.CurrentItems)
+                if (item.ToLower().StartsWith(query))
+                    args.Request.SearchSuggestionCollection.AppendQuerySuggestion(item);
         }
 
         /// <summary>
