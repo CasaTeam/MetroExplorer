@@ -725,7 +725,11 @@
 					<TextBlock VerticalAlignment="Bottom" Text="Home" Foreground="{Binding TitleForeground}" HorizontalAlignment="Left"
 						FontSize="26.667" PointerReleased="ButtonMainPage_Click_1" FontWeight="Light" Margin="20,0,0,8" />
 					<!--<Rectangle HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="1" Fill="White" Height="30" Margin="5,0,5,15" Grid.Column="1"  />-->
-					<navigator:Navigator x:Name="Navigator" Width="Auto" Height="Auto" NPathChanged="NavigatorPathChanged" Background="#FF459973" Margin="100,0,0,0"/>
+					<navigator:Navigator x:Name="Navigator" Width="Auto" Height="Auto" NPathChanged="NavigatorPathChanged" Background="#FF1A6987" Margin="100,0,0,0">
+						<navigator:Navigator.DropBackground>
+							<SolidColorBrush Color="#FF1A6987" Opacity="0.95"/>
+						</navigator:Navigator.DropBackground>
+					</navigator:Navigator>
 				</Grid>
 
 				<VisualStateManager.VisualStateGroups>

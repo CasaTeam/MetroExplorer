@@ -32,9 +32,6 @@
 												</DiscreteObjectKeyFrame.Value>
 											</DiscreteObjectKeyFrame>
 										</ObjectAnimationUsingKeyFrames>
-										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Border.Background)" Storyboard.TargetName="border">
-											<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ListViewItemPointerOverBackgroundThemeBrush}"/>
-										</ObjectAnimationUsingKeyFrames>
 									</Storyboard>
 								</VisualState>
 								<VisualState x:Name="Disabled">
@@ -106,7 +103,7 @@
 						</VisualStateManager.VisualStateGroups>
 						<Grid x:Name="InnerGrid">
 							<Rectangle x:Name="PressedBackground" Fill="{StaticResource ListBoxItemPressedBackgroundThemeBrush}" Opacity="0"/>
-							<Border x:Name="border" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Background="#FF15915E" Padding="{TemplateBinding Padding}" CornerRadius="5">
+							<Border x:Name="border" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Padding="{TemplateBinding Padding}" CornerRadius="5">
 								<Border.Projection>
 									<PlaneProjection/>
 								</Border.Projection>

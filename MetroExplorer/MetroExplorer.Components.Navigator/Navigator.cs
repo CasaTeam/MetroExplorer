@@ -1,4 +1,6 @@
-﻿namespace MetroExplorer.Components.Navigator
+﻿using Windows.UI.Xaml.Media;
+
+namespace MetroExplorer.Components.Navigator
 {
     using System;
     using System.Collections.Generic;
@@ -103,6 +105,17 @@
         {
             get { return (string)GetValue(PathProperty); }
             set { SetValue(PathProperty, value); }
+        }
+
+
+        public static readonly DependencyProperty DropBackgroundProperty =
+            DependencyProperty.Register("DropBackground", typeof(Brush), typeof(NavigatorItem),
+                                        new PropertyMetadata(new SolidColorBrush()));
+
+        public Brush DropBackground
+        {
+            get { return (Brush)GetValue(DropBackgroundProperty); }
+            set { SetValue(DropBackgroundProperty, value); }
         }
 
         #endregion
