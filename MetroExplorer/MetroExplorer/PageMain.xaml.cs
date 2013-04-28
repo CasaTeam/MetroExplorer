@@ -42,12 +42,13 @@
 
         Dictionary<ExplorerItem, string> _dicItemToken = new Dictionary<ExplorerItem, string>();
 
-        DispatcherTimer _folderImageChangeDispatcher = new DispatcherTimer();
+        DispatcherTimer _folderImageChangeDispatcher;
 
         public PageMain()
         {
             this.InitializeComponent();
             DataContext = this;
+            this.NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
             ExplorerGroups = new ObservableCollection<GroupInfoList<ExplorerItem>>();
             ExplorerGroups.Add(new GroupInfoList<ExplorerItem>() { Key = StringResources.ResourceLoader.GetString("MainPage_UserFolderGroupTitle") });
             ExplorerGroups.Add(new GroupInfoList<ExplorerItem>() { Key = StringResources.ResourceLoader.GetString("MainPage_SystemFolderGroupTitle") });
@@ -61,18 +62,24 @@
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-
+            _folderImageChangeDispatcher.Stop();
         }
 
 
         async void PageMain_Loaded(object sender, RoutedEventArgs e)
         {
+            if(_folderImageChangeDispatcher != null)
+            {
+                _folderImageChangeDispatcher.Start();
+                return;
+            }
             InitializeSystemFolders();
             await initializeUsersFolders();
 
             groupedItemsViewSource.Source = ExplorerGroups;
             BottomAppBar.IsOpen = true;
 
+            _folderImageChangeDispatcher = new DispatcherTimer();
             _folderImageChangeDispatcher.Tick += FolderImageChangeDispatcher_Tick;
             _folderImageChangeDispatcher.Interval = new TimeSpan(0, 0, 0, 1, 500);
             _folderImageChangeDispatcher.Start();

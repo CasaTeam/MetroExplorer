@@ -13,10 +13,10 @@
         <DataTemplate x:Key="FlipViewItemTemplate">
             <Grid>
                 <Image Source="{Binding Image}" Width="Auto" Height="Auto" Stretch="Uniform" Opacity="1"/>
-                <!--<Border Background="#A5000000" Height="80" VerticalAlignment="Bottom">
+                <Border Background="#A5000000" Height="70" VerticalAlignment="Bottom">
                     <TextBlock Text="{Binding Name}" FontFamily="Segoe UI" FontSize="26.667" 
                                        Foreground="#CCFFFFFF" Padding="15,20"/>
-                </Border>-->
+                </Border>
             </Grid>
         </DataTemplate>
 

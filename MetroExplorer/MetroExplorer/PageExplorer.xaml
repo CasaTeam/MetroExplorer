@@ -83,6 +83,9 @@
 					   HorizontalAlignment="Center" VerticalAlignment="Center"
 					   Stretch="UniformToFill" Loaded="ExplorerItemImage_Loaded">
 						</Image>
+                        <Image Source="{Binding DefautImage}" Height="65" Width="65"
+					   HorizontalAlignment="Center" VerticalAlignment="Center"
+					   Stretch="UniformToFill"  />
 					</Grid>
 					<Grid VerticalAlignment="Stretch" HorizontalAlignment="Left" Margin="75,0,5,0" Width="252">
 						<TextBlock Foreground="{StaticResource ItemTextForeground}" Text="{Binding Name}" VerticalAlignment="Top" Margin="5,5,0,0" HorizontalAlignment="Left" 

@@ -10,6 +10,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Media.Animation;
 using MetroExplorer.core.Utils;
+using Windows.ApplicationModel.Resources;
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=234227
 
 namespace MetroExplorer
@@ -161,14 +162,14 @@ namespace MetroExplorer
         {
             UICommandInvokedHandler handler = new UICommandInvokedHandler(OnSettingsCommand);
 
-            //SettingsCommand preferenceCommand = new SettingsCommand("Preference", (new ResourceLoader()).GetString("SettingCommand_Preference"), handler);
-            //eventArgs.Request.ApplicationCommands.Add(preferenceCommand);
+            SettingsCommand preferenceCommand = new SettingsCommand("SupportUs", (new ResourceLoader()).GetString("SettingCommand_SupportUs"), handler);
+            eventArgs.Request.ApplicationCommands.Add(preferenceCommand);
         }
 
         void OnSettingsCommand(IUICommand command)
         {
             SettingsCommand settingsCommand = (SettingsCommand)command;
-            PreferenceSettingCommand(settingsCommand);
+            SupportSettingCommand(settingsCommand);
         }
 
         #region Right Command Layout
@@ -176,12 +177,12 @@ namespace MetroExplorer
         private double settingsWidth = 500;
         private Rect windowBounds;
 
-        void PreferenceSettingCommand(SettingsCommand settingsCommand)
+        void SupportSettingCommand(SettingsCommand settingsCommand)
         {
             windowBounds = Window.Current.Bounds;
-            if (settingsCommand.Id.ToString() == "Preference")
+            if (settingsCommand.Id.ToString() == "SupportUs")
             {
-                CreatePopupWindowContainsFlyout("Preference");
+                CreatePopupWindowContainsFlyout("SupportUs");
             }
         }
 
@@ -189,10 +190,10 @@ namespace MetroExplorer
         {
             CreateSettingsPopup();
             AddProperAnimationForPanel();
-            if (option == "Preference")
+            if (option == "SupportUs")
             {
-                LayoutsBar.Preference mypane = new LayoutsBar.Preference();
-                settingsWidth = 400;
+                LayoutsBar.SupportUs mypane = new LayoutsBar.SupportUs();
+                settingsWidth = 600;
                 mypane.Width = settingsWidth;
                 mypane.Height = windowBounds.Height;
                 settingsPopup.Child = mypane;

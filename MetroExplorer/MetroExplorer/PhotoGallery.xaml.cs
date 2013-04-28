@@ -14,6 +14,7 @@
     using core.Utils;
     using System.ComponentModel;
     using System.Collections.ObjectModel;
+    using Windows.UI.Xaml;
 
     /// <summary>
     /// Page affichant une collection groupée d'éléments.
@@ -38,12 +39,19 @@
 
         private readonly MetroExplorerLocalDataSource _dataSource;
 
+        DispatcherTimer _sliderDispatcher = new DispatcherTimer();
+
         public PhotoGallery()
         {
             InitializeComponent();
             DataContext = this;
             _dataSource = Singleton<MetroExplorerLocalDataSource>.Instance;
             this.Loaded += PhotoGallery_Loaded;
+            this.Unloaded += PhotoGallery_Unloaded;
+        }
+
+        void PhotoGallery_Unloaded(object sender, RoutedEventArgs e)
+        {
         }
 
         async void PhotoGallery_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
@@ -65,6 +73,8 @@
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
+            _sliderDispatcher.Stop();
+            _sliderDispatcher = null;
             GC.Collect();
         }
 
@@ -103,12 +113,33 @@
         {
             SliderModeButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             UnSliderModeButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
+
+            _sliderDispatcher.Tick += SliderDispatcher_Tick;
+            _sliderDispatcher.Interval = new TimeSpan(0, 0, 0, 3);
+            _sliderDispatcher.Start();
+        }
+
+        async void SliderDispatcher_Tick(object sender, object e)
+        {
+            if (Photos.Count == _potentialPhotos.Count && ImageFlipVIew.SelectedIndex == Photos.Count - 1)
+            {
+                ImageFlipVIew.SelectedIndex = 0;
+                return;
+            }
+            else if (Photos.Count < _potentialPhotos.Count)
+            {
+                await PhotoThumbnail(_potentialPhotos[Photos.Count]);
+                Photos.Add(_potentialPhotos[Photos.Count]);
+            }
+            ImageFlipVIew.SelectedIndex++;
         }
 
         private void UnSliderModeButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             UnSliderModeButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             SliderModeButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            _sliderDispatcher.Stop();
+            _sliderDispatcher = null;
         }
     }
 
@@ -241,8 +272,6 @@
             ItemTextForeground = Theme.ThemeLibarary.ItemTextForeground;
             ItemBigBackground = Theme.ThemeLibarary.ItemBigBackground;
         }
-
-        
     }
 
     public sealed partial class PhotoGallery

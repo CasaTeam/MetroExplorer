@@ -132,8 +132,8 @@
   <data name="MainPage_UserFolderGroupTitle" xml:space="preserve">
     <value>System Folders</value>
   </data>
-  <data name="SettingCommand_Preference" xml:space="preserve">
-    <value>Préférence</value>
+  <data name="SettingCommand_SupportUs" xml:space="preserve">
+    <value>Support Us</value>
   </data>
   <data name="String_AddNewShortCutFolder" xml:space="preserve">
     <value>New Shortcut Mode Folder</value>
@@ -208,10 +208,10 @@
     <value>按文件类型</value>
   </data>
   <data name="Uid_PreferenceLayout_TextBlock_ThemeeColor.Text" xml:space="preserve">
-    <value>Thème en couleur</value>
+    <value>每点击一下您喜欢的广告，就是给我们0.02美元的支持 :)</value>
   </data>
-  <data name="Uid_PreferenceLayout_TextBlock_Title.Text" xml:space="preserve">
-    <value>Préférence</value>
+  <data name="Uid_SupportUsLayout_TextBlock_Title.Text" xml:space="preserve">
+    <value>Support Us</value>
   </data>
   <data name="Uid_TextBox_CreateNewFolder.Text" xml:space="preserve">
     <value>新建文件夹</value>
