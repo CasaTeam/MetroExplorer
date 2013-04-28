@@ -5,22 +5,52 @@
     xmlns:common="using:MetroExplorer.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    DataContext="{Binding DefaultViewModel, RelativeSource={RelativeSource Self}}"
     mc:Ignorable="d">
 
 
     <Page.Resources>
         <DataTemplate x:Key="FlipViewItemTemplate">
             <Grid>
-
                 <Image Source="{Binding Image}" Width="Auto" Height="Auto" Stretch="Uniform" Opacity="1"/>
-                <Border Background="#A5000000" Height="80" VerticalAlignment="Bottom">
+                <!--<Border Background="#A5000000" Height="80" VerticalAlignment="Bottom">
                     <TextBlock Text="{Binding Name}" FontFamily="Segoe UI" FontSize="26.667" 
                                        Foreground="#CCFFFFFF" Padding="15,20"/>
-                </Border>
+                </Border>-->
             </Grid>
         </DataTemplate>
 
     </Page.Resources>
+
+    <common:LayoutAwarePage.BottomAppBar>
+        <AppBar x:Name="AppBar_BottomAppBar"
+				Background="{Binding Path=BottomBarBackground}" BorderBrush="{Binding Path=BottomBarBackground}">
+            <Grid Height="90" x:Name="Grid_BottomAppBar" HorizontalAlignment="Stretch">
+                <Grid>
+                    <Button Click="SliderModeButton_Click" FontWeight="ExtraLight"
+				x:Uid="Uid_PagePhotoGallery_SliderModeButton" x:Name="SliderModeButton"
+				Margin="0,0,10,0" HorizontalAlignment="Right" >
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
+                                <Setter Property="AutomationProperties.Name" Value=""/>
+                                <Setter Property="Content" Value="&#xE102;"/>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button Click="UnSliderModeButton_Click" FontWeight="ExtraLight"
+				            x:Uid="Uid_PagePhotoGallery_UnSliderModeButton" x:Name="UnSliderModeButton"
+				            Margin="0,0,10,0" HorizontalAlignment="Right" Visibility="Collapsed" >
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
+                                <Setter Property="AutomationProperties.Name" Value=""/>
+                                <Setter Property="Content" Value="&#xE103;"/>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </Grid>
+            </Grid>
+        </AppBar>
+    </common:LayoutAwarePage.BottomAppBar>
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
 
@@ -30,7 +60,7 @@
                 <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" VerticalAlignment="Center" Style="{StaticResource BackButtonStyle}" Margin="10,19,0,8" ManipulationMode="RotateInertia"/>
 
         -->
-        <FlipView x:Name="ImageFlipVIew" SelectionChanged="flipView_SelectionChanged" Grid.Row="1" ItemTemplate="{StaticResource FlipViewItemTemplate}" ItemsSource="{Binding items}" SelectedIndex="-1"/>
+        <FlipView x:Name="ImageFlipVIew" SelectionChanged="flipView_SelectionChanged" Grid.Row="1" ItemTemplate="{StaticResource FlipViewItemTemplate}" />
         <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" VerticalAlignment="Top" Style="{StaticResource BackButtonStyle}" Margin="10,19,0,8" ManipulationMode="RotateInertia" VerticalContentAlignment="Top" HorizontalAlignment="Left" HorizontalContentAlignment="Left"/>
 
     </Grid>

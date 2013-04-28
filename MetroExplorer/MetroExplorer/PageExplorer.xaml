@@ -57,6 +57,8 @@
 						<bh:ImageSourceChangedBehavior SSource="{Binding Path=Image}"/>
 					</bh:Interaction.Behaviors>
 				</Image>
+                <Image Source="{Binding DefautImage}" Margin="0" Stretch="UniformToFill" 
+					   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
 				<Grid VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="{StaticResource ItemBigBackground}">
 					<TextBlock Foreground="{StaticResource ItemTextForeground}" TextAlignment="Center" Text="{Binding Name}"  Visibility="{Binding RenameBoxVisibility, Converter={StaticResource RenameBoxVisibilityConverter}}"
 							FontSize="22" Margin="5" FontWeight="Light" MaxHeight="30"

@@ -12,109 +12,251 @@
     using core;
     using core.Objects;
     using core.Utils;
+    using System.ComponentModel;
+    using System.Collections.ObjectModel;
 
     /// <summary>
     /// Page affichant une collection groupée d'éléments.
     /// </summary>
 
-    public sealed partial class PhotoGallery : LayoutAwarePage
+    public sealed partial class PhotoGallery : LayoutAwarePage, INotifyPropertyChanged
     {
-        List<ExplorerItem> items;
-        private readonly MetroExplorerLocalDataSource _dataSource;
-        StorageFile seletedFile;
-        int mSeletedIndex;
+        ObservableCollection<ExplorerItem> _photos = new ObservableCollection<ExplorerItem>();
+        public ObservableCollection<ExplorerItem> Photos
+        {
+            get {
+                return _photos;
+            }
+            set
+            {
+                _photos = value;
+                NotifyPropertyChanged("Photos");
+            }
+        }
 
-        private bool isFadeInFirst = true;
+        private List<ExplorerItem> _potentialPhotos;
+
+        private readonly MetroExplorerLocalDataSource _dataSource;
 
         public PhotoGallery()
         {
             InitializeComponent();
-            items = new List<ExplorerItem>();
+            DataContext = this;
             _dataSource = Singleton<MetroExplorerLocalDataSource>.Instance;
+            this.Loaded += PhotoGallery_Loaded;
+        }
+
+        async void PhotoGallery_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            ImageFlipVIew.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+
+            await PhotoThumbnail(_potentialPhotos[0]);
+            Photos.Add(_potentialPhotos[0]);
+
+            if (_potentialPhotos.Count > 1)
+            {
+                await PhotoThumbnail(_potentialPhotos[1]);
+                Photos.Add(_potentialPhotos[1]);
+            }
+
+            ImageFlipVIew.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            LoadingProgressBar.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            items = null;
-            seletedFile = null;
             GC.Collect();
         }
 
-        private void flipView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void flipView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             FlipView flipview = (FlipView)sender;
             ExplorerItem selected = (ExplorerItem)flipview.SelectedItem;
-            if (mSeletedIndex != 0 && isFadeInFirst)
+            if (Photos.Count < _potentialPhotos.Count)
             {
-                if (flipview.SelectedIndex != mSeletedIndex)
-                {
-                    flipview.FadeOutCustom(new TimeSpan(0, 0, 0, 0, 0));
-                }
-                else
-                {
-                    flipview.FadeOut(new TimeSpan(0, 0, 0, 0, 0));
-                    flipview.FadeInCustom(new TimeSpan(0, 0, 0, 1, 0));
-                    isFadeInFirst = false;
-                }
+                if (Photos.Contains(_potentialPhotos[Photos.Count])) return;
+                await PhotoThumbnail(_potentialPhotos[Photos.Count]);
+                Photos.Add(_potentialPhotos[Photos.Count]);
             }
-
         }
 
-        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            ChangeTheme(Theme.ThemeLibarary.CurrentTheme);
+
+            ImageFlipVIew.ItemsSource = Photos;
+
+            _potentialPhotos = e.Parameter as List<ExplorerItem>;
 
             EventLogger.onActionEvent(EventLogger.PHOTO_VIEWED);
-            Object[] parameters = (Object[])e.Parameter;
-            seletedFile = (StorageFile)parameters[1];
-            StorageFolder currentStorageFolder = _dataSource.CurrentStorageFolder;
-            if (currentStorageFolder != null)
-            {
-                IReadOnlyList<IStorageItem> listFiles = await currentStorageFolder.GetItemsAsync();
-                foreach (var item in listFiles)
-                {
-
-                    if (item is StorageFile)
-                    {
-                        StorageFile file = (StorageFile)item;
-
-                        if (file != null && file.IsImageFile())
-                        {
-                            StorageItemThumbnail fileThumbnail = await file.GetThumbnailAsync(ThumbnailMode.SingleItem, (uint)this.ActualHeight, ThumbnailOptions.UseCurrentScale);
-                            BitmapImage bitmapImage = new BitmapImage();
-                            bitmapImage.SetSource(fileThumbnail);
-                            ExplorerItem photoItem = new ExplorerItem();
-                            photoItem.Name = file.Name;
-                            photoItem.Image = bitmapImage;
-                            items.Add(photoItem);
-                            // Ensure the stream is disposed once the image is loaded
-                            //using (IRandomAccessStream fileStream = await file.OpenAsync(Windows.Storage.FileAccessMode.Read))
-                            //{
-                            //    // Set the image source to the selected bitmap
-                            //    BitmapImage bitmapImage = new BitmapImage();
-
-                            //    await bitmapImage.SetSourceAsync(fileStream);
-
-                            //    ExplorerItem photoItem = new ExplorerItem();
-                            //    photoItem.Name = file.Name;
-                            //    photoItem.Image = bitmapImage;
-                            //    items.Add(photoItem);
-                            //}  
-                        }
-                    }
-                }
-                for (int i = 0; i < items.Count; i++)
-                {
-                    ExplorerItem item = items.ElementAt(i) as ExplorerItem;
-                    if (item != null && seletedFile.Name.Equals(item.Name))
-                    {
-                        mSeletedIndex = i;
-                    }
-                }
-                ImageFlipVIew.ItemsSource = items;
-                ImageFlipVIew.SelectedIndex = mSeletedIndex;
-            }
-            LoadingProgressBar.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }
 
+        private async System.Threading.Tasks.Task PhotoThumbnail(ExplorerItem photo)
+        {
+            StorageItemThumbnail fileThumbnail = await photo.StorageFile.GetThumbnailAsync(ThumbnailMode.SingleItem, (uint)this.ActualHeight, ThumbnailOptions.UseCurrentScale);
+            BitmapImage bitmapImage = new BitmapImage();
+            bitmapImage.SetSource(fileThumbnail);
+            photo.Image = bitmapImage;
+        }
+
+        private void SliderModeButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            SliderModeButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            UnSliderModeButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
+        }
+
+        private void UnSliderModeButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            UnSliderModeButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            SliderModeButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
+        }
+    }
+
+    /// <summary>
+    /// Properties for change theme color
+    /// </summary>
+    public sealed partial class PhotoGallery
+    {
+        private string _backgroundColor = Theme.ThemeLibarary.BackgroundColor;
+        public string BackgroundColor
+        {
+            get
+            {
+                return _backgroundColor;
+            }
+            set
+            {
+                _backgroundColor = value;
+                NotifyPropertyChanged("BackgroundColor");
+            }
+        }
+
+        private string _bottomBarBackground = Theme.ThemeLibarary.BottomBarBackground;
+        public string BottomBarBackground
+        {
+            get
+            {
+                return _bottomBarBackground;
+            }
+            set
+            {
+                _bottomBarBackground = value;
+                NotifyPropertyChanged("BottomBarBackground");
+            }
+        }
+
+        private string _titleForeground = Theme.ThemeLibarary.TitleForeground;
+        public string TitleForeground
+        {
+            get
+            {
+                return _titleForeground;
+            }
+            set
+            {
+                _titleForeground = value;
+                NotifyPropertyChanged("TitleForeground");
+            }
+        }
+
+        private string _itemBackground = Theme.ThemeLibarary.ItemBackground;
+        public string ItemBackground
+        {
+            get
+            {
+                return _itemBackground;
+            }
+            set
+            {
+                _itemBackground = value;
+                NotifyPropertyChanged("ItemBackground");
+            }
+        }
+
+        private string _itemSmallBackground = Theme.ThemeLibarary.ItemSmallBackground;
+        public string ItemSmallBackground
+        {
+            get
+            {
+                return _itemSmallBackground;
+            }
+            set
+            {
+                _itemSmallBackground = value;
+                NotifyPropertyChanged("ItemSmallBackground");
+            }
+        }
+
+        private string _itemSelectedBorderColor = Theme.ThemeLibarary.ItemSelectedBorderColor;
+        public string ItemSelectedBorderColor
+        {
+            get
+            {
+                return _itemSelectedBorderColor;
+            }
+            set
+            {
+                _itemSelectedBorderColor = value;
+                NotifyPropertyChanged("ItemSelectedBorderColor");
+            }
+        }
+
+        private string _itemTextForeground = Theme.ThemeLibarary.ItemSelectedBorderColor;
+        public string ItemTextForeground
+        {
+            get
+            {
+                return _itemTextForeground;
+            }
+            set
+            {
+                _itemTextForeground = value;
+                NotifyPropertyChanged("ItemTextForeground");
+            }
+        }
+
+        private string _itemBigBackground = Theme.ThemeLibarary.ItemBigBackground;
+        public string ItemBigBackground
+        {
+            get
+            {
+                return _itemBigBackground;
+            }
+            set
+            {
+                _itemBigBackground = value;
+                NotifyPropertyChanged("ItemBigBackground");
+            }
+        }
+
+        private void ChangeTheme(Theme.Themes themeYouWant)
+        {
+            Theme.ThemeLibarary.ChangeTheme(themeYouWant);
+            BackgroundColor = Theme.ThemeLibarary.BackgroundColor;
+            BottomBarBackground = Theme.ThemeLibarary.BottomBarBackground;
+            TitleForeground = Theme.ThemeLibarary.TitleForeground;
+            ItemBackground = Theme.ThemeLibarary.ItemBackground;
+            ItemSmallBackground = Theme.ThemeLibarary.ItemSmallBackground;
+            ItemSelectedBorderColor = Theme.ThemeLibarary.ItemSelectedBorderColor;
+            ItemTextForeground = Theme.ThemeLibarary.ItemTextForeground;
+            ItemBigBackground = Theme.ThemeLibarary.ItemBigBackground;
+        }
+
+        
+    }
+
+    public sealed partial class PhotoGallery
+    {
+        #region propertychanged
+        private void NotifyPropertyChanged(String changedPropertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(changedPropertyName));
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        #endregion
     }
 }
