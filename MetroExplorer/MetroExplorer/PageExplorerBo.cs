@@ -91,8 +91,6 @@
             { }
         }
 
-        
-
         private async Task ThumbnailPhoto(ExplorerItem item, StorageFile sf, bool file = false)
         {
             if (item == null) return;
@@ -157,7 +155,13 @@
             {
                 if (item.StorageFile != null && item.StorageFile.IsImageFile())
                 {
-                    Frame.Navigate(typeof(PhotoGallery), new Object[] { null, item.StorageFile });
+                    var parameters = ExplorerGroups[1].Where(p=> p.StorageFile.FileType.ToUpper().Equals(".JPG") ||
+                                                                 p.StorageFile.FileType.ToUpper().Equals(".JPEG") ||
+                                                                 p.StorageFile.FileType.ToUpper().Equals(".PNG") ||
+                                                                 p.StorageFile.FileType.ToUpper().Equals(".BMP")).ToList();
+                    parameters.Remove(item);
+                    parameters.Insert(0, item);
+                    Frame.Navigate(typeof(PhotoGallery), parameters);
                 }
                 else
                 {
@@ -165,7 +169,6 @@
                     await file.OpenAsync(FileAccessMode.Read);
                     EventLogger.onActionEvent(EventLogger.FILE_OPENED);
                     await Launcher.LaunchFileAsync(file, new LauncherOptions { DisplayApplicationPicker = true });
-
                 }
             }
         }

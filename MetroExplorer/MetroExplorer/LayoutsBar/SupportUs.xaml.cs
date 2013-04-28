@@ -23,11 +23,11 @@ namespace MetroExplorer.LayoutsBar
     /// <summary>
     /// A basic page that provides characteristics common to most applications.
     /// </summary>
-    public sealed partial class Preference : MetroExplorer.Common.LayoutAwarePage
+    public sealed partial class SupportUs : MetroExplorer.Common.LayoutAwarePage
     {
         const int ContentAnimationOffset = 100;
 
-        public Preference()
+        public SupportUs()
         {
             this.InitializeComponent();
 
@@ -97,7 +97,7 @@ namespace MetroExplorer.LayoutsBar
         #endregion
     }
 
-    public sealed partial class Preference : MetroExplorer.Common.LayoutAwarePage, INotifyPropertyChanged
+    public sealed partial class SupportUs : MetroExplorer.Common.LayoutAwarePage, INotifyPropertyChanged
     {
         private string _backgroundColor = "WHITE";
         public string BackgroundColor

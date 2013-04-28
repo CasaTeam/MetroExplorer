@@ -57,6 +57,8 @@
 						<bh:ImageSourceChangedBehavior SSource="{Binding Path=Image}"/>
 					</bh:Interaction.Behaviors>
 				</Image>
+                <Image Source="{Binding DefautImage}" Margin="0" Stretch="UniformToFill" 
+					   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
 				<Grid VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="{StaticResource ItemBigBackground}">
 					<TextBlock Foreground="{StaticResource ItemTextForeground}" TextAlignment="Center" Text="{Binding Name}"  Visibility="{Binding RenameBoxVisibility, Converter={StaticResource RenameBoxVisibilityConverter}}"
 							FontSize="22" Margin="5" FontWeight="Light" MaxHeight="30"
@@ -81,6 +83,9 @@
 					   HorizontalAlignment="Center" VerticalAlignment="Center"
 					   Stretch="UniformToFill" Loaded="ExplorerItemImage_Loaded">
 						</Image>
+                        <Image Source="{Binding DefautImage}" Height="65" Width="65"
+					   HorizontalAlignment="Center" VerticalAlignment="Center"
+					   Stretch="UniformToFill"  />
 					</Grid>
 					<Grid VerticalAlignment="Stretch" HorizontalAlignment="Left" Margin="75,0,5,0" Width="252">
 						<TextBlock Foreground="{StaticResource ItemTextForeground}" Text="{Binding Name}" VerticalAlignment="Top" Margin="5,5,0,0" HorizontalAlignment="Left" 
