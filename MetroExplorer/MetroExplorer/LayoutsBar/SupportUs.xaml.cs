@@ -26,23 +26,39 @@ namespace MetroExplorer.LayoutsBar
     public sealed partial class SupportUs : MetroExplorer.Common.LayoutAwarePage
     {
         const int ContentAnimationOffset = 100;
-
+        DispatcherTimer dispatcherTimer = null;
         public SupportUs()
         {
             this.InitializeComponent();
 
-            ChangeTheme(Theme.ThemeLibarary.CurrentTheme);
+            dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Tick += dispatcherTimer_Tick;
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 300);
 
-            FlyoutContent.Transitions = new TransitionCollection();
-            FlyoutContent.Transitions.Add(new EntranceThemeTransition()
-            {
-                FromHorizontalOffset = (SettingsPane.Edge == SettingsEdgeLocation.Right) ? ContentAnimationOffset : (ContentAnimationOffset * -1)
-            });
-            this.Loaded += Preference_Loaded;
+            ChangeTheme(Theme.ThemeLibarary.CurrentTheme);
+            this.Loaded += SupportUs_Loaded;
+            this.Unloaded += SupportUs_Unloaded;
         }
 
-        void Preference_Loaded(object sender, RoutedEventArgs e)
+        void SupportUs_Loaded(object sender, RoutedEventArgs e)
         {
+            dispatcherTimer.Start();
+        }
+
+        void SupportUs_Unloaded(object sender, RoutedEventArgs e)
+        {
+            dispatcherTimer.Stop();
+        }
+
+        void dispatcherTimer_Tick(object sender, object e)
+        {
+            AdControl1.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            dispatcherTimer.Stop();
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+          
         }
 
         /// <summary>
@@ -82,6 +98,8 @@ namespace MetroExplorer.LayoutsBar
             {
                 SettingsPane.Show();
             }
+
+            AdControl1.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }
 
         #region propertychanged

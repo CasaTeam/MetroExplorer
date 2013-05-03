@@ -192,6 +192,7 @@ namespace MetroExplorer
             AddProperAnimationForPanel();
             if (option == "SupportUs")
             {
+                settingsPopup.IsLightDismissEnabled = false;
                 LayoutsBar.SupportUs mypane = new LayoutsBar.SupportUs();
                 settingsWidth = 600;
                 mypane.Width = settingsWidth;
@@ -218,7 +219,7 @@ namespace MetroExplorer
             {
                 Edge = (SettingsPane.Edge == SettingsEdgeLocation.Right) ?
                        EdgeTransitionLocation.Right :
-                       EdgeTransitionLocation.Left
+                       EdgeTransitionLocation.Left,
             });
         }
 
