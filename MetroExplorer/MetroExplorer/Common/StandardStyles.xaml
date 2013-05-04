@@ -1978,4 +1978,15 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style x:Key="TextBoxStyle1" TargetType="TextBox">
+    	<Setter Property="Template">
+    		<Setter.Value>
+    			<ControlTemplate TargetType="TextBox">
+    				<Grid>
+    					<ContentPresenter x:Name="ContentPresenter" ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}" ContentTransitions="{TemplateBinding ContentControl.ContentTransitions}" Content="{TemplateBinding ContentControl.Content}"/>
+    				</Grid>
+    			</ControlTemplate>
+    		</Setter.Value>
+    	</Setter>
+    </Style>
 </ResourceDictionary>

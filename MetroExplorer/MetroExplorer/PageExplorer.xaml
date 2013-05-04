@@ -49,7 +49,7 @@
 		</DataTemplate>
 
 		<DataTemplate x:Key="Standard300x180ItemTemplate">
-			<Grid HorizontalAlignment="Left" Width="280" Height="140" Margin="0" Background="{StaticResource ItemBigBackground}">
+			<Grid HorizontalAlignment="Left" Width="280" Height="140" Margin="0" Background="{StaticResource ItemBigBackground}" Loaded="ItemGrid_Loaded">
 				<Image x:Name="ExplorerItemImage" Margin="0"
 					   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
 					   Stretch="UniformToFill"  Loaded="ExplorerItemImage_Loaded">
@@ -648,7 +648,7 @@
 					SelectionMode="Multiple" ItemContainerStyle="{StaticResource ExplorerGridViewItemStyle}">
 					<GridView.ItemsPanel>
 						<ItemsPanelTemplate>
-							<VirtualizingStackPanel Orientation="Horizontal"/>
+							<VirtualizingStackPanel VirtualizingStackPanel.VirtualizationMode="Recycling"  Orientation="Horizontal"/>
 						</ItemsPanelTemplate>
 					</GridView.ItemsPanel>
 					<GridView.GroupStyle>
@@ -671,7 +671,7 @@
 							</GroupStyle.HeaderTemplate>
 							<GroupStyle.Panel>
 								<ItemsPanelTemplate>
-									<VariableSizedWrapGrid Orientation="Vertical" Margin="0,0,20,0"/>
+                                    <VariableSizedWrapGrid VirtualizingStackPanel.VirtualizationMode="Recycling" Orientation="Vertical" Margin="0,0,0,0"/>
 								</ItemsPanelTemplate>
 							</GroupStyle.Panel>
 						</GroupStyle>
@@ -730,11 +730,7 @@
 					<TextBlock VerticalAlignment="Bottom" Text="Home" Foreground="{Binding TitleForeground}" HorizontalAlignment="Left"
 						FontSize="26.667" PointerReleased="ButtonMainPage_Click_1" FontWeight="Light" Margin="20,0,0,8" />
 					<!--<Rectangle HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="1" Fill="White" Height="30" Margin="5,0,5,15" Grid.Column="1"  />-->
-					<navigator:Navigator x:Name="Navigator" Width="Auto" Height="Auto" NPathChanged="NavigatorPathChanged" Background="#FF1A6987" Margin="100,0,0,0">
-						<navigator:Navigator.DropBackground>
-							<SolidColorBrush Color="#FF1A6987" Opacity="0.95"/>
-						</navigator:Navigator.DropBackground>
-					</navigator:Navigator>
+					<navigator:Navigator x:Name="Navigator" Width="Auto" Height="Auto" NPathChanged="NavigatorPathChanged" Background="#FF1A6987" Margin="100,0,0,0" DropBackground="{x:Null}"/>
 				</Grid>
 
 				<VisualStateManager.VisualStateGroups>

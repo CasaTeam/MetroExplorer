@@ -37,7 +37,7 @@
                 NotifyPropertyChanged("ExplorerGroups");
             }
         }
-
+            
         /// <summary>
         /// 是大方块显示，还是列表显示。如果是true，那就指大方块显示
         /// </summary>
@@ -131,6 +131,7 @@
                     else
                     {
                         var listFiles = await _dataSource.CurrentStorageFolder.GetItemsAsync();
+
                         foreach (var item in listFiles)
                         {
                             if (item is StorageFolder)

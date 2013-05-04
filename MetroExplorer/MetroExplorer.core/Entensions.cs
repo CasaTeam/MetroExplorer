@@ -18,6 +18,30 @@ namespace MetroExplorer.core
             return objFind.GetParentByName(name);
         }
 
+        public static void AddFakeItem(this GroupInfoList<ExplorerItem> itemList)
+        {
+            itemList.Add(new ExplorerItem());
+        }
+
+        public async static void AffactItem(this ExplorerItem item, IStorageItem realItem)
+        {
+            item.Name = realItem.Name;
+            item.Path = realItem.Path;
+
+            if (realItem is StorageFolder)
+            {
+                item.StorageFolder = realItem as StorageFolder;
+                item.Type = ExplorerItemType.Folder;
+            }
+            else if (realItem is StorageFile)
+            {
+                item.StorageFile = realItem as StorageFile;
+                item.Type = ExplorerItemType.File;
+                item.Size = (await item.StorageFile.GetBasicPropertiesAsync()).Size;
+                item.ModifiedDateTime = (await item.StorageFile.GetBasicPropertiesAsync()).DateModified.DateTime;
+            }
+        }
+
         public async static void AddItem(this GroupInfoList<ExplorerItem> itemList,
             IStorageItem retrievedItem)
         {

@@ -27,7 +27,7 @@
         private void InitializeChangingDispatcher()
         {
             _imageChangingDispatcher.Tick += ImageChangingDispatcher_Tick;
-            _imageChangingDispatcher.Interval = new TimeSpan(0, 0, 0, 0, 500);
+            _imageChangingDispatcher.Interval = new TimeSpan(0, 0, 0, 1, 500);
             _imageChangingDispatcher.Start();
         }
 
@@ -56,6 +56,16 @@
                 _imageDispatcherLock = false;
             }
             LoadingProgressBar.Visibility = Visibility.Collapsed;
+        }
+        
+        private async void ItemGrid_Loaded(object sender, RoutedEventArgs e)
+        {
+            //if (ExplorerGroups[1].Count > 0)
+            //{
+            //    var item = ExplorerGroups[1].Single(p => p.Name == (((sender as Grid).Children[2] as Grid).Children[0] as TextBlock).Text);
+            //    if (item != null && item.DefautImage == null)
+            //        await ThumbnailPhoto(item, item.StorageFile, true);
+            //}
         }
 
         int _lastChangedFolder = 0;

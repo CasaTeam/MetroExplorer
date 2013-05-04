@@ -145,7 +145,6 @@ namespace MetroExplorer.Components.Navigator
             _listBoxDropDown = (ListBox)GetTemplateChild(ListBoxDropDownElement);
             if (_listBoxDropDown == null) return;
             _listBoxDropDown.SelectionChanged += ListBoxDropDownSelectionChanged;
-            _listBoxDropDown.Opacity = 0.9;
         }
 
         #endregion
