@@ -151,7 +151,7 @@
 			<Grid x:Name="FlyoutContent" Grid.Row="1" Margin="0" VerticalAlignment="Stretch" >
 				<TextBlock x:Uid="Uid_PreferenceLayout_TextBlock_ThemeeColor" HorizontalAlignment="Left" Height="25" FontSize="20" Margin="56,39,0,0" 
 						   TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="263"/>
-                <UI:AdControl x:Name="AdControl1" Opacity="0" ApplicationId="d55d5bbd-d9eb-424b-bd51-8355a100ece0" Visibility="Collapsed"
+                <UI:AdControl x:Name="AdControl1" Opacity="0" ApplicationId="d55d5bbd-d9eb-424b-bd51-8355a100ece0" Visibility="Collapsed" 
                               AdUnitId="127915" HorizontalAlignment="Left" Height="250" VerticalAlignment="Center"  Width="250"/>
 			</Grid>
 		</Grid>
