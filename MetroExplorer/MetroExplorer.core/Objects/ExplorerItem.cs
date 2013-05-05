@@ -30,6 +30,9 @@
         private string _renameBoxVisibility = "Collapsed";
         [XmlIgnore]
         private string _renamingName;
+        [XmlIgnore]
+        private string _textWrap = "Wrap";
+
 
         public List<string> LastImageName = new List<string>();
         public int LastImageIndex = -1;
@@ -136,6 +139,17 @@
             {
                 _defautImage = value;
                 NotifyPropertyChanged("DefautImage");
+            }
+        }
+
+        [XmlIgnore]
+        public string TextWrap
+        {
+            get { return _textWrap; }
+            set
+            {
+                _textWrap = value;
+                NotifyPropertyChanged("TextWrap");
             }
         }
 

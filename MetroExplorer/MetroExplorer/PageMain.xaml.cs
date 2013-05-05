@@ -48,7 +48,7 @@
         {
             this.InitializeComponent();
             DataContext = this;
-            this.NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
+            //this.NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
             ExplorerGroups = new ObservableCollection<GroupInfoList<ExplorerItem>>();
             ExplorerGroups.Add(new GroupInfoList<ExplorerItem>() { Key = StringResources.ResourceLoader.GetString("MainPage_UserFolderGroupTitle") });
             ExplorerGroups.Add(new GroupInfoList<ExplorerItem>() { Key = StringResources.ResourceLoader.GetString("MainPage_SystemFolderGroupTitle") });
@@ -111,6 +111,7 @@
                         {
                             exploreItem.LastImageName.Add(file.Name);
                             exploreItem.LastImageIndex = 0;
+                            exploreItem.TextWrap = "NoWrap";
                         }
                     }
 
@@ -138,15 +139,15 @@
 
         private async System.Threading.Tasks.Task initializeUsersFolders()
         {
-            if (Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList != null && Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList.Entries.Count > 0)
+            if (Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList != null && Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.Entries.Count > 0)
             {
                 bool ifDiskCExist = false; // TODO: 确定是否C盘已经被添加
                 List<string> lostTokens = new List<string>(); // TODO: 避免有些已经不用的token仍然存在MostRecentlyUsedList中
-                foreach (var item in Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList.Entries)
+                foreach (var item in Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.Entries)
                 {
                     try
                     {
-                        var retrievedItem = await StorageApplicationPermissions.MostRecentlyUsedList.GetItemAsync(item.Token);
+                        var retrievedItem = await StorageApplicationPermissions.FutureAccessList.GetItemAsync(item.Token);
                         if (retrievedItem is StorageFolder)
                         {
                             StorageFolder retrievedFolder = retrievedItem as StorageFolder;
@@ -173,7 +174,7 @@
                     AddDefaultDiskC();
                 }
                 foreach (var token in lostTokens)
-                    Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList.Remove(token);
+                    Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.Remove(token);
             }
         }
 
@@ -201,8 +202,8 @@
             };
             if (item.Name.Contains(":\\"))
                 item.DefautImage = GetBitMapImageFromLocalSource("Assets/DiskLogo.png");
-            else
-                item.DefautImage = GetBitMapImageFromLocalSource("Assets/FolderLogo2.png");
+            //else
+            //    item.DefautImage = GetBitMapImageFromLocalSource("Assets/FolderLogo2.png");
             itemList.Add(item);
             _dicItemToken.Add(item, token);
         }
@@ -307,7 +308,7 @@
                 if (item.Key.StorageFolder == storageFolder)
                     return;
             }
-            string token = Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList.Add(storageFolder, storageFolder.Name);
+            string token = Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.Add(storageFolder, storageFolder.Name);
             if (storageFolder.Name.Contains(":\\"))
             {
                 AddNewItem(ExplorerGroups[0], storageFolder, token);
@@ -350,7 +351,7 @@
                         break;
                     continue;
                 }
-                Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList.Remove(_dicItemToken[(itemGridView.SelectedItems[0] as ExplorerItem)]);
+                Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.Remove(_dicItemToken[(itemGridView.SelectedItems[0] as ExplorerItem)]);
                 if (ExplorerGroups[0].Contains(itemGridView.SelectedItems[0] as ExplorerItem))
                 {
                     ExplorerGroups[0].Remove(itemGridView.SelectedItems[0] as ExplorerItem);
@@ -409,7 +410,7 @@
             {
                 item.Path = storageFolder.Path;
                 item.StorageFolder = storageFolder;
-                Windows.Storage.AccessCache.StorageApplicationPermissions.MostRecentlyUsedList.Add(item.StorageFolder, item.Name);
+                Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.Add(item.StorageFolder, item.Name);
                 NavigateToExplorer(item);
             }
             else if (storageFolder != null)

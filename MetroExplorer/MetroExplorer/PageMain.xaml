@@ -68,11 +68,11 @@
                     <bh:Interaction.Behaviors>
                         <bh:ImageSourceChangedBehavior SSource="{Binding Path=Image}"/>
                     </bh:Interaction.Behaviors>
-                </Image> <!--Source="{Binding Image}"-->
+                </Image>
                 <Rectangle Fill="{StaticResource ItemBigBackground}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="35"/>
                 <TextBlock Foreground="{StaticResource ItemTextForeground}" TextAlignment="Center" Text="{Binding Name}"
-							FontSize="22" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="5" FontWeight="Light"
-							TextWrapping="NoWrap" />
+						   FontSize="22" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="5" FontWeight="Light"
+						   TextWrapping="{Binding TextWrap}" />
 			</Grid>
 		</DataTemplate>
 
@@ -375,13 +375,17 @@
 			</Grid.RowDefinitions>
 
 			<Grid Height="140">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="Auto"/>
-					<ColumnDefinition Width="*"/>
-				</Grid.ColumnDefinitions>
-				<Button x:Name="backButton" Opacity="0" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
-				<TextBlock Text="{StaticResource AppName}" x:Uid="Uid_PageMain_PageTitle" Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}"
+                <Grid Height="140">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="backButton" Opacity="0" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
+                    <TextBlock Text="{StaticResource AppName}" Grid.Column="1" x:Uid="Uid_PageMain_PageTitle" Style="{StaticResource PageHeaderTextStyle}"
 						   Foreground="{Binding Path=TitleForeground}"/>
+                </Grid>
+                <TextBlock x:Uid="Uid_PageMain_SupportUsTile" HorizontalAlignment="Right" VerticalAlignment="Center" Height="30" 
+                           Margin="0,10,25,0" Foreground="Orange" />
 			</Grid>
 
 			<GridView

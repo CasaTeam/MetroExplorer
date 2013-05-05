@@ -132,8 +132,20 @@
   <data name="MainPage_UserFolderGroupTitle" xml:space="preserve">
     <value>System Folders</value>
   </data>
+  <data name="SettingCommand_ContactUs" xml:space="preserve">
+    <value>联系我们</value>
+  </data>
+  <data name="SettingCommand_LanguageSetting" xml:space="preserve">
+    <value>语言设置</value>
+  </data>
+  <data name="SettingCommand_Policy" xml:space="preserve">
+    <value>隐私声明</value>
+  </data>
   <data name="SettingCommand_SupportUs" xml:space="preserve">
     <value>Support Us</value>
+  </data>
+  <data name="SettingCommand_UserGuide" xml:space="preserve">
+    <value>用户向导</value>
   </data>
   <data name="String_AddNewShortCutFolder" xml:space="preserve">
     <value>New Shortcut Mode Folder</value>
@@ -146,6 +158,12 @@
   </data>
   <data name="Uid_PageMain_PageTitle.Text" xml:space="preserve">
     <value>Metro Explorer</value>
+  </data>
+  <data name="Uid_PageMain_SupportUsTile.Text" xml:space="preserve">
+    <value>Support Us</value>
+  </data>
+  <data name="Uid_PagePhotoGallery_OpenPhotoButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>打开</value>
   </data>
   <data name="Uid_PagePhotoGallery_SliderModeButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
     <value>幻灯片播放</value>

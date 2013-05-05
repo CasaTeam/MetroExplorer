@@ -164,6 +164,18 @@ namespace MetroExplorer
 
             SettingsCommand preferenceCommand = new SettingsCommand("SupportUs", (new ResourceLoader()).GetString("SettingCommand_SupportUs"), handler);
             eventArgs.Request.ApplicationCommands.Add(preferenceCommand);
+
+            SettingsCommand languageCommand = new SettingsCommand("LanguageSetting", (new ResourceLoader()).GetString("SettingCommand_LanguageSetting"), handler);
+            eventArgs.Request.ApplicationCommands.Add(languageCommand);
+
+            SettingsCommand contactUsCommand = new SettingsCommand("ContactUsCommand", (new ResourceLoader()).GetString("SettingCommand_ContactUs"), handler);
+            eventArgs.Request.ApplicationCommands.Add(contactUsCommand);
+
+            SettingsCommand policyCommand = new SettingsCommand("PolicyCommand", (new ResourceLoader()).GetString("SettingCommand_Policy"), handler);
+            eventArgs.Request.ApplicationCommands.Add(policyCommand);
+
+            SettingsCommand userGuideCommand = new SettingsCommand("UserGuideCommand", (new ResourceLoader()).GetString("SettingCommand_UserGuide"), handler);
+            eventArgs.Request.ApplicationCommands.Add(userGuideCommand);
         }
 
         void OnSettingsCommand(IUICommand command)

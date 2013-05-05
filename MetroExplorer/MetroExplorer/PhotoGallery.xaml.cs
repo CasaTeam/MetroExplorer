@@ -15,6 +15,7 @@
     using System.ComponentModel;
     using System.Collections.ObjectModel;
     using Windows.UI.Xaml;
+    using Windows.System;
 
     /// <summary>
     /// Page affichant une collection groupée d'éléments.
@@ -140,6 +141,20 @@
             SliderModeButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
             _sliderDispatcher.Stop();
             _sliderDispatcher = null;
+        }
+
+        private async void OpenPhotoButton_Click(object sender, RoutedEventArgs e)
+        {
+            if ((ImageFlipVIew.SelectedItem as ExplorerItem).StorageFile == null) return;
+            try
+            {
+                await (ImageFlipVIew.SelectedItem as ExplorerItem).StorageFile.OpenAsync(FileAccessMode.Read);
+                await Launcher.LaunchFileAsync((ImageFlipVIew.SelectedItem as ExplorerItem).StorageFile, new LauncherOptions { DisplayApplicationPicker = true });
+            }
+            catch(Exception exp)
+            {
+                //EventLogger.onActionEvent(EventLogger.);
+            }
         }
     }
 

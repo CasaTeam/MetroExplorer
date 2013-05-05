@@ -61,7 +61,7 @@
 					   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
 				<Grid VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="{StaticResource ItemBigBackground}">
 					<TextBlock Foreground="{StaticResource ItemTextForeground}" TextAlignment="Center" Text="{Binding Name}"  Visibility="{Binding RenameBoxVisibility, Converter={StaticResource RenameBoxVisibilityConverter}}"
-							FontSize="22" Margin="5" FontWeight="Light" MaxHeight="30"
+							FontSize="22" Margin="5" FontWeight="Light" MaxHeight="60"
 							TextWrapping="Wrap" />
 					<StackPanel Visibility="{Binding RenameBoxVisibility}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="5">
 						<TextBlock Margin="7,3" HorizontalAlignment="Stretch" FontSize="24" Text="{Binding Name}" MaxHeight="60"/>

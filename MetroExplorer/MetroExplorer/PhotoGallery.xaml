@@ -27,6 +27,16 @@
 				Background="{Binding Path=BottomBarBackground}" BorderBrush="{Binding Path=BottomBarBackground}">
             <Grid Height="90" x:Name="Grid_BottomAppBar" HorizontalAlignment="Stretch">
                 <Grid>
+                    <Button Click="OpenPhotoButton_Click" FontWeight="ExtraLight"
+				x:Uid="Uid_PagePhotoGallery_OpenPhotoButton" x:Name="OpenPhotoButton"
+				Margin="0,0,130,0" HorizontalAlignment="Right" >
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
+                                <Setter Property="AutomationProperties.Name" Value=""/>
+                                <Setter Property="Content" Value="&#xE11D;"/>
+                            </Style>
+                        </Button.Style>
+                    </Button>
                     <Button Click="SliderModeButton_Click" FontWeight="ExtraLight"
 				x:Uid="Uid_PagePhotoGallery_SliderModeButton" x:Name="SliderModeButton"
 				Margin="0,0,10,0" HorizontalAlignment="Right" >

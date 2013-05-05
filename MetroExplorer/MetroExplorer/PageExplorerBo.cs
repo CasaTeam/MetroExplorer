@@ -195,7 +195,7 @@
         private async void Button_CreateNewFolder_Click(object sender, RoutedEventArgs e)
         {
             //StorageFolder sf = await _currentStorageFolder.CreateFolderAsync(StringResources.ResourceLoader.GetString("String_NewFolder"), CreationCollisionOption.GenerateUniqueName);
-            StorageFolder sf = await _dataSource.CurrentStorageFolder.CreateFolderAsync(StringResources.ResourceLoader.GetString("String_NewFolder"), CreationCollisionOption.GenerateUniqueName);
+            StorageFolder sf = await _dataSource.CurrentStorageFolder.CreateFolderAsync(TextBox_CreateNewFolder.Text, CreationCollisionOption.GenerateUniqueName);
             ExplorerItem item = new ExplorerItem()
             {
                 Name = sf.Name,
