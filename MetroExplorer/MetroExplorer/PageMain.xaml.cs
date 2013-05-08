@@ -279,11 +279,6 @@
             // TODO: assignez une collection de groupes pouvant être liés à this.DefaultViewModel["Groups"]
         }
 
-        private void ItemGridView_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-
-        }
-
         private async System.Threading.Tasks.Task AddNewFolder()
         {
             StorageFolder storageFolder = await GetStorageFolderFromFolderPicker();

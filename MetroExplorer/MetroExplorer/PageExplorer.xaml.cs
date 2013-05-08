@@ -105,6 +105,7 @@
             //_navigatorStorageFolders = (IList<StorageFolder>)e.Parameter;
             //_currentStorageFolder = _navigatorStorageFolders.LastOrDefault();
 
+            FolderNameTextBlock.Text = _dataSource.CurrentStorageFolder.Name;
             ChangeTheme(Theme.ThemeLibarary.CurrentTheme);
             await RefreshLocalFiles();
             GroupedItemsViewSource.Source = ExplorerGroups;

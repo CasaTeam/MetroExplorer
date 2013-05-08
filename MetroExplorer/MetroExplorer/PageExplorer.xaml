@@ -619,21 +619,28 @@
 	<Grid Background="{Binding Path=BackgroundColor}">
 		<Grid Background="{Binding Path=BackgroundColor}">
 			<Grid>
-				<!--<Image x:Name="Image_Background" Source="Assets/Background.jpg" Stretch="UniformToFill"
-				   HorizontalAlignment="Left"/>-->
-			</Grid>
-			<Grid>
 				<Grid.RowDefinitions>
 					<RowDefinition Height="126"/>
 					<RowDefinition/>
 				</Grid.RowDefinitions>
-
-				<GridView
+                
+                <Grid Grid.Row="1">
+                    <Grid Height="50" Margin="100,0,0,0" VerticalAlignment="Top" x:Name="Grid_Navigator">
+                        <!--<Button HorizontalAlignment="Left" VerticalAlignment="Stretch" Content="Home" Background="Transparent" BorderThickness="0"
+						FontSize="25" Click="ButtonMainPage_Click_1" FontWeight="Light" Width="95" />-->
+                        <TextBlock VerticalAlignment="Bottom" Text="Home" Foreground="{Binding TitleForeground}" HorizontalAlignment="Left"
+						FontSize="26.667" PointerReleased="ButtonMainPage_Click_1" FontWeight="Light" Margin="20,0,0,8" />
+                        <!--<Rectangle HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="1" Fill="White" Height="30" Margin="5,0,5,15" Grid.Column="1"  />-->
+                        <navigator:Navigator x:Name="Navigator" Width="Auto" Height="Auto" NPathChanged="NavigatorPathChanged" Background="#FF1A6987" Margin="100,0,0,0" DropBackground="{x:Null}"/>
+                    </Grid>
+                    
+                    <GridView
 					x:Name="itemGridView" 
 					AutomationProperties.AutomationId="ItemGridView"
 					AutomationProperties.Name="Grouped Items"
 					Grid.RowSpan="2"
-					Padding="116,195,40,100"
+                    Margin="0,52,0,0"
+					Padding="116,0,40,100"
 					ItemsSource="{Binding Source={StaticResource GroupedItemsViewSource}}"
 					ItemTemplate="{StaticResource Standard300x180ItemTemplate}"
 					CanReorderItems="True"
@@ -646,74 +653,85 @@
 					Tapped="ItemGridView_Tapped"
 					ItemClick="ItemGridView_ItemClick_1"
 					SelectionMode="Multiple" ItemContainerStyle="{StaticResource ExplorerGridViewItemStyle}">
-					<GridView.ItemsPanel>
-						<ItemsPanelTemplate>
-							<VirtualizingStackPanel VirtualizingStackPanel.VirtualizationMode="Recycling"  Orientation="Horizontal"/>
-						</ItemsPanelTemplate>
-					</GridView.ItemsPanel>
-					<GridView.GroupStyle>
-						<GroupStyle>
-							<GroupStyle.HeaderTemplate>
-								<DataTemplate>
-									<Grid Margin="1,0,0,6">
-										<Button AutomationProperties.Name="Group Title"
+                        <GridView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel VirtualizingStackPanel.VirtualizationMode="Recycling"  Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </GridView.ItemsPanel>
+                        <GridView.GroupStyle>
+                            <GroupStyle>
+                                <GroupStyle.HeaderTemplate>
+                                    <DataTemplate>
+                                        <Grid Margin="1,0,0,6">
+                                            <Button AutomationProperties.Name="Group Title"
 												Style="{StaticResource TextPrimaryButtonStyle}">
-											<StackPanel Orientation="Horizontal">
-												<TextBlock Text="{Binding Key}" Margin="3,-7,10,10" Style="{StaticResource GroupHeaderTextStyle}" Foreground="#FFFFFFFF" Visibility="Collapsed" />
-												<Grid>
-													<TextBlock Text="{StaticResource ChevronGlyph}" FontFamily="Segoe UI Symbol" Margin="0,-7,0,10" Style="{StaticResource GroupHeaderTextStyle}"
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding Key}" Margin="3,-7,10,10" Style="{StaticResource GroupHeaderTextStyle}" Foreground="#FFFFFFFF" Visibility="Collapsed" />
+                                                    <Grid>
+                                                        <TextBlock Text="{StaticResource ChevronGlyph}" FontFamily="Segoe UI Symbol" Margin="0,-7,0,10" Style="{StaticResource GroupHeaderTextStyle}"
 													   Visibility="Collapsed"/>
-												</Grid>
-											</StackPanel>
-										</Button>
-									</Grid>
-								</DataTemplate>
-							</GroupStyle.HeaderTemplate>
-							<GroupStyle.Panel>
-								<ItemsPanelTemplate>
-                                    <VariableSizedWrapGrid VirtualizingStackPanel.VirtualizationMode="Recycling" Orientation="Vertical" Margin="0,0,0,0"/>
-								</ItemsPanelTemplate>
-							</GroupStyle.Panel>
-						</GroupStyle>
-					</GridView.GroupStyle>
-				</GridView>
+                                                    </Grid>
+                                                </StackPanel>
+                                            </Button>
+                                        </Grid>
+                                    </DataTemplate>
+                                </GroupStyle.HeaderTemplate>
+                                <GroupStyle.Panel>
+                                    <ItemsPanelTemplate>
+                                        <VariableSizedWrapGrid VirtualizingStackPanel.VirtualizationMode="Recycling" Orientation="Vertical" Margin="0,0,0,0"/>
+                                    </ItemsPanelTemplate>
+                                </GroupStyle.Panel>
+                            </GroupStyle>
+                        </GridView.GroupStyle>
+                    </GridView>
 
-				<!-- Liste de défilement vertical utilisée uniquement lorsque l'état d'affichage a la valeur Snapped -->
-				<ListView
+                    <!-- Liste de défilement vertical utilisée uniquement lorsque l'état d'affichage a la valeur Snapped -->
+                    <ListView
 					x:Name="itemListView"
 					AutomationProperties.AutomationId="ItemListView"
 					AutomationProperties.Name="Grouped Items"
-					Grid.Row="1"
+				    Margin="0,-60,0,0"
 					Visibility="Collapsed"
 					Padding="10,0,0,60"
+                    SelectionChanged="ItemGridView_SelectionChanged_1"
+					CanReorderItems="True"
+					IsSwipeEnabled="False" IsItemClickEnabled="True"
+					IsRightTapEnabled="True"
+					IsHoldingEnabled="True" 
+                    IsTapEnabled="True"
+					Tapped="ItemGridView_Tapped"
+					ItemClick="ItemGridView_ItemClick_1"
 					ItemsSource="{Binding Source={StaticResource GroupedItemsViewSource}}"
-					ItemTemplate="{StaticResource Standard80ItemTemplate}"
-					SelectionMode="None"
-					IsSwipeEnabled="false">
+					ItemTemplate="{StaticResource Standard80ForExplorerItemTemplate}"
+					SelectionMode="None">
 
-					<ListView.GroupStyle>
-						<GroupStyle>
-							<GroupStyle.HeaderTemplate>
-								<DataTemplate>
-									<Grid Margin="7,7,0,0">
-										<Button
+                        <ListView.GroupStyle>
+                            <GroupStyle>
+                                <GroupStyle.HeaderTemplate>
+                                    <DataTemplate>
+                                        <Grid Margin="7,7,0,0">
+                                            <Button
 									AutomationProperties.Name="Group Title"
 									Style="{StaticResource TextPrimaryButtonStyle}">
-											<StackPanel Orientation="Horizontal">
-												<TextBlock Text="{Binding Title}" Margin="3,-7,10,10" Style="{StaticResource GroupHeaderTextStyle}" />
-												<TextBlock Text="{StaticResource ChevronGlyph}" FontFamily="Segoe UI Symbol" Margin="0,-7,0,10" Style="{StaticResource GroupHeaderTextStyle}"/>
-											</StackPanel>
-										</Button>
-									</Grid>
-								</DataTemplate>
-							</GroupStyle.HeaderTemplate>
-						</GroupStyle>
-					</ListView.GroupStyle>
-				</ListView>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding Key}" Margin="3,-7,10,10" Style="{StaticResource GroupHeaderTextStyle}" Foreground="{StaticResource TitleForeground}" />
+                                                    <TextBlock Text="{StaticResource ChevronGlyph}" FontFamily="Segoe UI Symbol" Margin="0,-7,0,10" Style="{StaticResource GroupHeaderTextStyle}"/>
+                                                </StackPanel>
+                                            </Button>
+                                        </Grid>
+                                    </DataTemplate>
+                                </GroupStyle.HeaderTemplate>
+                            </GroupStyle>
+                        </ListView.GroupStyle>
+                    </ListView>
+                </Grid>
 
-				<Grid Grid.Row="0">
+
+                <Grid Grid.Row="0">
 					<ProgressBar IsIndeterminate="True" Height="8" Margin="0,2,0,0" VerticalAlignment="Top" x:Name="LoadingProgressBar"/>
-					<Grid Height="140">
+                    <TextBlock x:Name="FolderNameTextBlock" Margin="20,20,0,0" VerticalAlignment="Top" Style="{StaticResource GroupHeaderTextStyle}"
+								Foreground="{Binding Path=TitleForeground}" Visibility="Collapsed"/>
+                    <Grid Height="140" x:Name="Grid_Title">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="Auto"/>
 							<ColumnDefinition Width="480"/>
@@ -724,53 +742,8 @@
 								   Foreground="{Binding Path=TitleForeground}"/>
 					</Grid>
 				</Grid>
-				<Grid Grid.Row="1" Height="50" Margin="100,0,0,0" VerticalAlignment="Top">
-					<!--<Button HorizontalAlignment="Left" VerticalAlignment="Stretch" Content="Home" Background="Transparent" BorderThickness="0"
-						FontSize="25" Click="ButtonMainPage_Click_1" FontWeight="Light" Width="95" />-->
-					<TextBlock VerticalAlignment="Bottom" Text="Home" Foreground="{Binding TitleForeground}" HorizontalAlignment="Left"
-						FontSize="26.667" PointerReleased="ButtonMainPage_Click_1" FontWeight="Light" Margin="20,0,0,8" />
-					<!--<Rectangle HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="1" Fill="White" Height="30" Margin="5,0,5,15" Grid.Column="1"  />-->
-					<navigator:Navigator x:Name="Navigator" Width="Auto" Height="Auto" NPathChanged="NavigatorPathChanged" Background="#FF1A6987" Margin="100,0,0,0" DropBackground="{x:Null}"/>
-				</Grid>
+				
 
-				<VisualStateManager.VisualStateGroups>
-					<!-- Les états visuels reflètent l'état d'affichage de l'application -->
-					<VisualStateGroup x:Name="ApplicationViewStates">
-						<VisualState x:Name="FullScreenLandscape"/>
-						<VisualState x:Name="Filled"/>
-						<!-- La totalité de la page respecte la convention de marge étroite de 100 pixels du mode Portrait -->
-						<VisualState x:Name="FullScreenPortrait">
-							<Storyboard>
-								<ObjectAnimationUsingKeyFrames Storyboard.TargetName="backButton" Storyboard.TargetProperty="Style">
-									<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PortraitBackButtonStyle}"/>
-								</ObjectAnimationUsingKeyFrames>
-								<ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemGridView" Storyboard.TargetProperty="Padding">
-									<DiscreteObjectKeyFrame KeyTime="0" Value="96,137,10,56"/>
-								</ObjectAnimationUsingKeyFrames>
-							</Storyboard>
-						</VisualState>
-						<!--
-					Le bouton Précédent et le titre ont un style différent lorsque l'état d'affichage a la valeur Snapped, et la représentation de liste est remplacée
-					par la grille affichée dans tous les autres affichages
-				-->
-						<VisualState x:Name="Snapped">
-							<Storyboard>
-								<ObjectAnimationUsingKeyFrames Storyboard.TargetName="backButton" Storyboard.TargetProperty="Style">
-									<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedBackButtonStyle}"/>
-								</ObjectAnimationUsingKeyFrames>
-								<ObjectAnimationUsingKeyFrames Storyboard.TargetName="pageTitle" Storyboard.TargetProperty="Style">
-									<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedPageHeaderTextStyle}"/>
-								</ObjectAnimationUsingKeyFrames>
-								<ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemListView" Storyboard.TargetProperty="Visibility">
-									<DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
-								</ObjectAnimationUsingKeyFrames>
-								<ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemGridView" Storyboard.TargetProperty="Visibility">
-									<DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
-								</ObjectAnimationUsingKeyFrames>
-							</Storyboard>
-						</VisualState>
-					</VisualStateGroup>
-				</VisualStateManager.VisualStateGroups>
 			</Grid>
 			<Grid>
 				<Popup HorizontalAlignment="Right" VerticalAlignment="Bottom" IsLightDismissEnabled="True"
@@ -814,5 +787,62 @@
 				</Popup>
 			</Grid>
 		</Grid>
-	</Grid>
+        <VisualStateManager.VisualStateGroups>
+            <!-- Les états visuels reflètent l'état d'affichage de l'application -->
+            <VisualStateGroup x:Name="ApplicationViewStates">
+                <VisualState x:Name="FullScreenLandscape"/>
+                <VisualState x:Name="Filled"/>
+
+                <!-- La totalité de la page respecte la convention de marge étroite de 100 pixels du mode Portrait -->
+                <VisualState x:Name="FullScreenPortrait">
+                    <!--<Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="backButton" Storyboard.TargetProperty="Style">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PortraitBackButtonStyle}"/>
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemGridView" Storyboard.TargetProperty="Padding">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="96,137,10,56"/>
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>-->
+                </VisualState>
+
+                <!--
+					Le bouton Précédent et le titre ont un style différent lorsque l'état d'affichage a la valeur Snapped, et la représentation de liste est remplacée
+					par la grille affichée dans tous les autres affichages
+					-->
+                <VisualState x:Name="Snapped">
+                    <Storyboard>
+                        <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetName="backButton" Storyboard.TargetProperty="Style">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedBackButtonStyle}"/>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="pageTitle" Storyboard.TargetProperty="Style">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedPageHeaderTextStyle}"/>
+                        </ObjectAnimationUsingKeyFrames>-->
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Grid_Title" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="AppBar_BottomAppBar" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Grid_Navigator" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="FolderNameTextBlock" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LoadingProgressBar" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemListView" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemGridView" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+    </Grid>
 </common:LayoutAwarePage>

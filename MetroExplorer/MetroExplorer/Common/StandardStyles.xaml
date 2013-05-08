@@ -1862,6 +1862,13 @@
         </Grid>
     </DataTemplate>
 
+    <DataTemplate x:Key="Standard80ForExplorerItemTemplate">
+        <Border Margin="6" HorizontalAlignment="Stretch" Width="240" Height="70" Background="#FF1e90cd">
+            <TextBlock Text="{Binding Name}" Style="{StaticResource ItemTextStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"
+                       Margin="8,0"/>
+        </Border>
+    </DataTemplate>
+
     <!-- Grid-appropriate 300 by 70 pixel item template as seen in the SearchResultsPage -->
     <DataTemplate x:Key="StandardSmallIcon300x70ItemTemplate">
         <Grid Width="294" Margin="6">
