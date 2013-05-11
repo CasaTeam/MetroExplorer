@@ -15,7 +15,7 @@
 				<ColumnDefinition Width="32"/>
 			</Grid.ColumnDefinitions>
 			<local:NavigatorButton HorizontalAlignment="Right" Margin="0,0,5,0" Width="32" Grid.ColumnSpan="2" Command="{Binding NodeAction}" Index="{Binding NodeIndex}" Background="{Binding Background}"/>
-			<local:NavigatorItem Background="{Binding Background}" Content="{Binding NodeName}" Command="{Binding NodeAction}" Index="{Binding NodeIndex}"/>
+			<local:NavigatorItem Background="{Binding Background}" Content="{Binding NodeName}" Command="{Binding NodeAction}" Index="{Binding NodeIndex}" IsLast="{Binding IsLast}"/>
 		</Grid>
 	</DataTemplate>
 
@@ -24,8 +24,8 @@
 			<Setter.Value>
 				<ControlTemplate TargetType="local:Navigator">
 					<Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" VerticalAlignment="Top" Clip="{Binding Clip, RelativeSource={RelativeSource Mode=TemplatedParent}}">
-						<Popup x:Name="PopupList" Width="220" Height="340" HorizontalAlignment="Left" VerticalAlignment="Top" IsOpen="False" Margin="0" IsLightDismissEnabled="True">
-							<ListBox x:Name="ListBoxDropDown" Width="{Binding ActualWidth, ElementName=PopupList}" Height="{Binding ActualHeight, ElementName=PopupList}" Foreground="White" FontWeight="Bold" ItemContainerStyle="{StaticResource NavigatorListBoxItemStyle}" Background="{Binding DropBackground, RelativeSource={RelativeSource Mode=TemplatedParent}}" HorizontalContentAlignment="Right">
+						<Popup x:Name="PopupList" Width="220" HorizontalAlignment="Left" VerticalAlignment="Top" IsOpen="False" Margin="0" IsLightDismissEnabled="True" MaxHeight="340">
+							<ListBox x:Name="ListBoxDropDown" Width="{Binding ActualWidth, ElementName=PopupList}" Foreground="White" FontWeight="Bold" ItemContainerStyle="{StaticResource NavigatorListBoxItemStyle}" Background="{Binding DropBackground, RelativeSource={RelativeSource Mode=TemplatedParent}}" HorizontalContentAlignment="Right" MaxHeight="{Binding MaxHeight, ElementName=PopupList}">
 								<ListBox.ItemContainerTransitions>
 									<TransitionCollection>
 										<EntranceThemeTransition/>
@@ -42,8 +42,6 @@
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
-		<Setter Property="Width" Value="500"/>
-		<Setter Property="Height" Value="50"/>
 		<Setter Property="ItemsPanel" Value="{StaticResource NavigatorItemsPanelTemplate}"/>
 		<Setter Property="ItemTemplate" Value="{StaticResource NavigatorDataTemplate}"/>
 	</Style>
