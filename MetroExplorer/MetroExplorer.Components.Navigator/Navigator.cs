@@ -1,6 +1,4 @@
-﻿using Windows.UI.Xaml.Media;
-
-namespace MetroExplorer.Components.Navigator
+﻿namespace MetroExplorer.Components.Navigator
 {
     using System;
     using System.Collections.Generic;
@@ -8,6 +6,7 @@ namespace MetroExplorer.Components.Navigator
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Controls;
     using Windows.UI.Xaml.Controls.Primitives;
+    using Windows.UI.Xaml.Media;
     using Objects;
 
     public sealed class Navigator : ItemsControl
@@ -62,7 +61,8 @@ namespace MetroExplorer.Components.Navigator
                     (string)e.NewValue,
                     _commandType);
 
-            int index = 0;
+            int index = 0,
+                size = ItemListArray.Count();
             List<NavigatorNode> nodes = new List<NavigatorNode>();
             foreach (string value in argument.Path.Split('\\').Where(value => !string.IsNullOrWhiteSpace(value)))
             {
@@ -90,8 +90,8 @@ namespace MetroExplorer.Components.Navigator
                     }
 
                 };
-                if (index < ItemListArray.Count())
-                    nodes.Add(new NavigatorNode(index, value, command, Background, ItemListArray[index]));
+                if (index < size)
+                    nodes.Add(new NavigatorNode(index, value, command, Background, index == size - 1, ItemListArray[index]));
                 index++;
             }
 
@@ -159,7 +159,8 @@ namespace MetroExplorer.Components.Navigator
 
             IEnumerable<string> splitedPath = Path.Split('\\').Take(_currentIndex + 1);
             string newPath = splitedPath.Aggregate(string.Empty, (current, next) => next + "\\")
-                + (string.IsNullOrWhiteSpace(((string)e.AddedItems.FirstOrDefault())) ? string.Empty : (string)(e.AddedItems.FirstOrDefault()));
+                + (string.IsNullOrWhiteSpace(((string)e.AddedItems.FirstOrDefault())) ?
+                string.Empty : (string)(e.AddedItems.FirstOrDefault()));
             NavigatorNodeCommandArgument argument =
                 new NavigatorNodeCommandArgument(_currentIndex, newPath, _commandType);
             if (NPathChanged != null)
