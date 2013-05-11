@@ -122,6 +122,8 @@
     <Compile Include="Common\LayoutAwarePage.cs" />
     <Compile Include="Common\RichTextColumns.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
+    <Compile Include="Common\TextFileAccess.cs" />
+    <Compile Include="FirstUsingRecord.cs" />
     <Compile Include="LayoutsBar\SupportUs.xaml.cs">
       <DependentUpon>SupportUs.xaml</DependentUpon>
     </Compile>
@@ -129,13 +131,16 @@
       <DependentUpon>PageExplorer.xaml</DependentUpon>
     </Compile>
     <Compile Include="PageExplorerBo.cs" />
-    <Compile Include="PageIntroduction\PageChoosInitialTheme.xaml.cs">
-      <DependentUpon>PageChoosInitialTheme.xaml</DependentUpon>
-    </Compile>
     <Compile Include="PageMain.xaml.cs">
       <DependentUpon>PageMain.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PageUserGuide.xaml.cs">
+    <Compile Include="PageUserGuilde\PageUserGuidePage3.xaml.cs">
+      <DependentUpon>PageUserGuidePage3.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageUserGuilde\PageUserGuidePage2.xaml.cs">
+      <DependentUpon>PageUserGuidePage2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageUserGuilde\PageUserGuide.xaml.cs">
       <DependentUpon>PageUserGuide.xaml</DependentUpon>
     </Compile>
     <Compile Include="PhotoGallery.xaml.cs">
@@ -196,15 +201,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PageIntroduction\PageChoosInitialTheme.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="PageMain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PageUserGuide.xaml">
+    <Page Include="PageUserGuilde\PageUserGuidePage3.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageUserGuilde\PageUserGuidePage2.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageUserGuilde\PageUserGuide.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

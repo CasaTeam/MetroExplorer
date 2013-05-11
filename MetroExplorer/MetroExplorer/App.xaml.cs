@@ -36,7 +36,7 @@ namespace MetroExplorer
         /// search results, and so forth.
         /// </summary>
         /// <param name="args">Details about the launch request and process.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs args)
+        protected async override void OnLaunched(LaunchActivatedEventArgs args)
         {
 
             Frame rootFrame = Window.Current.Content as Frame;
@@ -63,13 +63,26 @@ namespace MetroExplorer
                 Theme.ThemeLibarary.CurrentTheme = Theme.Themes.EAE9E5; // TODO: INIT DEFAUT Theme
                 Theme.ThemeLibarary.ChangeTheme(Theme.ThemeLibarary.CurrentTheme);
 
-                // When the navigation stack isn't restored navigate to the first page,
-                // configuring the new page by passing required information as a navigation
-                // parameter
-                if (!rootFrame.Navigate(typeof(PageMain), args.Arguments))
+                if (await FirstUsingRecord.GetInstance().IsFirstUsing())
                 {
-                    throw new Exception("Failed to create initial page");
+                    FirstUsingRecord.GetInstance().WriteRecordGuidePageFile("");
+
+                    // When the navigation stack isn't restored navigate to the first page,
+                    // configuring the new page by passing required information as a navigation
+                    // parameter
+                    if (!rootFrame.Navigate(typeof(PageUserGuide), args.Arguments))
+                    {
+                        throw new Exception("Failed to create initial page");
+                    }
                 }
+                else
+                {
+                    if (!rootFrame.Navigate(typeof(PageMain), args.Arguments))
+                    {
+                        throw new Exception("Failed to create initial page");
+                    }
+                }
+                    
             }
 
             SearchPane searchPane = SearchPane.GetForCurrentView();

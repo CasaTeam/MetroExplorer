@@ -156,6 +156,12 @@
   <data name="Uid_Button_CreateNewFolder.Content" xml:space="preserve">
     <value>创建</value>
   </data>
+  <data name="Uid_Button_ToGuidPage2.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>下一页</value>
+  </data>
+  <data name="Uid_Button_ToMainPage.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>开始使用</value>
+  </data>
   <data name="Uid_PageMain_PageTitle.Text" xml:space="preserve">
     <value>Metro Explorer</value>
   </data>
