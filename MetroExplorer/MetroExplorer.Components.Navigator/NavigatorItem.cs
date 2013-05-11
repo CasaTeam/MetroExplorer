@@ -52,6 +52,16 @@
             set { SetValue(IndexProperty, value); }
         }
 
+        public static readonly DependencyProperty IsLastProperty =
+            DependencyProperty.Register("IsLast", typeof(bool), typeof(NavigatorItem),
+            new PropertyMetadata(false));
+
+        public bool IsLast
+        {
+            get { return (bool)GetValue(IsLastProperty); }
+            set { SetValue(IsLastProperty, value); }
+        }
+
         #endregion
 
         #region Constructors
@@ -100,6 +110,7 @@
             object sender,
             PointerRoutedEventArgs e)
         {
+            if (IsLast) return;
             _pressed = true;
             VisualStateManager.GoToState(this, "Pressed", true);
         }
