@@ -36,6 +36,11 @@
         bool _imageDispatcherLock;
         async void ImageChangingDispatcher_Tick(object sender, object e)
         {
+            if (PageExplorer.BigSquareMode == false)
+            {
+                LoadingProgressBar.Visibility = Visibility.Collapsed;
+                return;
+            }
             if (_imageDispatcherLock == false && ExplorerGroups != null)
             {
                 _imageDispatcherLock = true;

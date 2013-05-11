@@ -15,6 +15,8 @@
     using core;
     using core.Objects;
     using core.Utils;
+    using Windows.Storage.FileProperties;
+    using Windows.UI.Xaml.Media.Imaging;
 
     /// <summary>
     /// Page affichant une collection groupée d'éléments.
@@ -43,6 +45,8 @@
         /// </summary>
         public static bool BigSquareMode = true;
 
+        public static Uri BaseUriStatic { get; set; } 
+
         public PageExplorer()
         {
             InitializeComponent();
@@ -50,6 +54,8 @@
 
             _dataSource = Singleton<MetroExplorerLocalDataSource>.Instance;
             Loaded += PageExplorer_Loaded;
+
+            BaseUriStatic = this.BaseUri;
         }
 
         void PageExplorer_Loaded(object sender, RoutedEventArgs e)
@@ -443,6 +449,51 @@
             if (value != null)
                 return Math.Round(System.Convert.ToDouble(value) / 1024, 2).ToString() + " MB";
             return "0 MB";
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            return null;
+        }
+    }
+
+    public class StorageFileToConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            BitmapImage resultBitMap = null;
+            if (value != null)
+            {
+                if (value is StorageFile)
+                {
+                    if((value as StorageFile).Name.ToUpper().EndsWith(".PNG") || (value as StorageFile).Name.ToUpper().EndsWith(".JPG") ||
+                       (value as StorageFile).Name.ToUpper().EndsWith(".JEPG") || (value as StorageFile).Name.ToUpper().EndsWith(".BMP") ||
+                       (value as StorageFile).Name.ToUpper().EndsWith(".GIF") )
+                        resultBitMap = new BitmapImage(new Uri(PageExplorer.BaseUriStatic, @"Assets/camera.png"));
+                    else if ((value as StorageFile).Name.ToUpper().EndsWith(".MP4") || (value as StorageFile).Name.ToUpper().EndsWith(".RMVB") ||
+                       (value as StorageFile).Name.ToUpper().EndsWith(".MKV") || (value as StorageFile).Name.ToUpper().EndsWith(".BMP"))
+                        resultBitMap = new BitmapImage(new Uri(PageExplorer.BaseUriStatic, @"Assets/video.png"));
+                    else if ((value as StorageFile).Name.ToUpper().EndsWith(".xls") || (value as StorageFile).Name.ToUpper().EndsWith(".xlsx") ||
+                       (value as StorageFile).Name.ToUpper().EndsWith(".docx") || (value as StorageFile).Name.ToUpper().EndsWith(".doc") ||
+                        (value as StorageFile).Name.ToUpper().EndsWith(".ppt") || (value as StorageFile).Name.ToUpper().EndsWith(".pptx"))
+                        resultBitMap = new BitmapImage(new Uri(PageExplorer.BaseUriStatic, @"Assets/flag.png"));
+                    else
+                        resultBitMap = new BitmapImage(new Uri(PageExplorer.BaseUriStatic, @"Assets/favs.png"));
+                    return resultBitMap;
+                }
+                else
+                {
+                    var result = new BitmapImage(new Uri(PageExplorer.BaseUriStatic, @"Assets/folder.png"));
+                    return result;
+                }
+            }
+            var result2 = new BitmapImage(new Uri(PageExplorer.BaseUriStatic, @"Assets/FolderLogo2.png"));
+            return result2;
+        }
+
+        public async void GetStorageItemThumbnail(StorageFile sf, StorageItemThumbnail result)
+        {
+            result = await sf.GetThumbnailAsync(ThumbnailMode.SingleItem, 250);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

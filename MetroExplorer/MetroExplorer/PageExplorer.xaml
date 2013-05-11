@@ -40,6 +40,7 @@
 		<local:FolderFace1Converter x:Key="FolderFace1Converter" />
 		<local:FolderFace2Converter x:Key="FolderFace2Converter" />
 		<local:FileSizeFormatConverter x:Key="FileSizeFormatConverter" />
+        <local:StorageFileToConverter x:Key="StorageFileToConverter" />
 
 		<DataTemplate x:Name="ExplorerItemImageLoadingAnimationTemplate">
 			<Storyboard>
@@ -77,16 +78,13 @@
 
 		<DataTemplate x:Key="Standard300x80ItemTemplate">
 			<Grid HorizontalAlignment="Left" Width="330" Height="65" Margin="0" Background="{StaticResource ItemBackground}">
-				<Grid  Visibility="{Binding Type, Converter={StaticResource FolderFace1Converter}}">
-					<Grid Height="65" Width="65" Background="{StaticResource ItemSmallBackground}" HorizontalAlignment="Left" >
-						<Image x:Name="ExplorerItemImage" Source="{Binding Image}" Height="65" Width="65"
-					   HorizontalAlignment="Center" VerticalAlignment="Center"
-					   Stretch="UniformToFill" Loaded="ExplorerItemImage_Loaded">
-						</Image>
-                        <Image Source="{Binding DefautImage}" Height="65" Width="65"
-					   HorizontalAlignment="Center" VerticalAlignment="Center"
-					   Stretch="UniformToFill"  />
-					</Grid>
+                <Grid Height="65" Width="65" Background="{StaticResource ItemSmallBackground}" HorizontalAlignment="Left" >
+                    <Image x:Name="ExplorerItemImage" Source="{Binding StorageFile, Converter={StaticResource StorageFileToConverter}}" Height="65" Width="65"
+					       HorizontalAlignment="Center" VerticalAlignment="Center" 
+					       Stretch="UniformToFill" Loaded="ExplorerItemImage_Loaded">
+                    </Image>
+                </Grid>
+                <Grid  Visibility="{Binding Type, Converter={StaticResource FolderFace1Converter}}">
 					<Grid VerticalAlignment="Stretch" HorizontalAlignment="Left" Margin="75,0,5,0" Width="252">
 						<TextBlock Foreground="{StaticResource ItemTextForeground}" Text="{Binding Name}" VerticalAlignment="Top" Margin="5,5,0,0" HorizontalAlignment="Left" 
 							   FontSize="18" FontWeight="Light" Width="252" />
@@ -97,17 +95,11 @@
 					</Grid>
 				</Grid>
 				<Grid Visibility="{Binding Type, Converter={StaticResource FolderFace2Converter}}">
-					<Grid Height="65" Width="65" Background="{StaticResource ItemSmallBackground}" HorizontalAlignment="Left" >
-						<Image x:Name="ExplorerFolderImage" Height="65" Width="65" 
-					   VerticalAlignment="Center"
-					   Stretch="UniformToFill" Source="Assets/folder.png"  />
-					</Grid>
 					<Grid VerticalAlignment="Stretch" HorizontalAlignment="Left" Margin="75,0,5,0" >
 						<TextBlock Foreground="#FFFFFFFF" Text="{Binding Name}" VerticalAlignment="Center" Margin="5,0,0,5" HorizontalAlignment="Left"
 							   FontSize="18" FontWeight="Light" Width="252" />
 					</Grid>
 				</Grid>
-
 			</Grid>
 		</DataTemplate>
 
