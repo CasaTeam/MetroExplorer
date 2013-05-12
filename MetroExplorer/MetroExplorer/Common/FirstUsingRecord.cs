@@ -26,7 +26,6 @@ namespace MetroExplorer
                 return false;
         }
 
-        //
         public void WriteRecordGuidePageFile(string text)
         {
             Common.TextFileAccess.GetInstance().CreateWriteText(text, GuidePageFileRecordName);

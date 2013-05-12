@@ -25,7 +25,7 @@
 		<SolidColorBrush x:Key="ItemBigBackground" Color="{Binding Path=ItemBigBackground}"/>
 		<SolidColorBrush x:Key="TitleForeground" Color="{Binding Path=TitleForeground}"/>
 		<SolidColorBrush x:Key="BackgroundColor" Color="{Binding Path=BackgroundColor}"/>
-
+ 
 		<Style x:Key="SettingsBackButtonStyle" TargetType="Button">
 			<Setter Property="MinWidth" Value="0"/>
 			<Setter Property="FontFamily" Value="Segoe UI Symbol"/>
@@ -152,7 +152,11 @@
 				<TextBlock x:Uid="Uid_PreferenceLayout_TextBlock_ThemeeColor" HorizontalAlignment="Left" Height="25" FontSize="20" Margin="56,39,0,0" 
 						   TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="263"/>
                 <UI:AdControl x:Name="AdControl1" Opacity="0" ApplicationId="d55d5bbd-d9eb-424b-bd51-8355a100ece0" Visibility="Collapsed" 
-                              AdUnitId="127915" HorizontalAlignment="Left" Height="250" VerticalAlignment="Center"  Width="250"/>
+                              AdUnitId="127915" HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" 
+                              Margin="30,200,30,0" Width="450"/>
+                <UI:AdControl x:Name="AdControl2" Opacity="0" ApplicationId="d55d5bbd-d9eb-424b-bd51-8355a100ece1" Visibility="Collapsed" 
+                              AdUnitId="127916" HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" 
+                              Margin="30,630,30,0" Width="450"/>
 			</Grid>
 		</Grid>
 
