@@ -181,13 +181,13 @@ namespace MetroExplorer
             SettingsCommand languageCommand = new SettingsCommand("LanguageSetting", (new ResourceLoader()).GetString("SettingCommand_LanguageSetting"), handler);
             eventArgs.Request.ApplicationCommands.Add(languageCommand);
 
-            SettingsCommand contactUsCommand = new SettingsCommand("ContactUsCommand", (new ResourceLoader()).GetString("SettingCommand_ContactUs"), handler);
+            SettingsCommand contactUsCommand = new SettingsCommand("ContactUs", (new ResourceLoader()).GetString("SettingCommand_ContactUs"), handler);
             eventArgs.Request.ApplicationCommands.Add(contactUsCommand);
 
-            SettingsCommand policyCommand = new SettingsCommand("PolicyCommand", (new ResourceLoader()).GetString("SettingCommand_Policy"), handler);
+            SettingsCommand policyCommand = new SettingsCommand("PrivacyPolicy", (new ResourceLoader()).GetString("SettingCommand_Policy"), handler);
             eventArgs.Request.ApplicationCommands.Add(policyCommand);
 
-            SettingsCommand userGuideCommand = new SettingsCommand("UserGuideCommand", (new ResourceLoader()).GetString("SettingCommand_UserGuide"), handler);
+            SettingsCommand userGuideCommand = new SettingsCommand("UserGuide", (new ResourceLoader()).GetString("SettingCommand_UserGuide"), handler);
             eventArgs.Request.ApplicationCommands.Add(userGuideCommand);
         }
 
@@ -195,6 +195,10 @@ namespace MetroExplorer
         {
             SettingsCommand settingsCommand = (SettingsCommand)command;
             SupportSettingCommand(settingsCommand);
+            LanguageSettingCommand(settingsCommand);
+            ContactUsCommand(settingsCommand);
+            PrivacyPolicyCommand(settingsCommand);
+            UserGuideCommand(settingsCommand);
         }
 
         #region Right Command Layout
@@ -211,6 +215,43 @@ namespace MetroExplorer
             }
         }
 
+        void LanguageSettingCommand(SettingsCommand settingsCommand)
+        {
+            if (settingsCommand.Id.ToString() == "LanguageSetting")
+            {
+                CreatePopupWindowContainsFlyout("LanguageSetting");
+            }
+        }
+
+        void ContactUsCommand(SettingsCommand settingsCommand)
+        {
+            windowBounds = Window.Current.Bounds;
+            if (settingsCommand.Id.ToString() == "ContactUs")
+            {
+                CreatePopupWindowContainsFlyout("ContactUs");
+            }
+        }
+
+        async void PrivacyPolicyCommand(SettingsCommand settingsCommand)
+        {
+            windowBounds = Window.Current.Bounds;
+            if (settingsCommand.Id.ToString() == "PrivacyPolicy")
+            {
+                var mailto = new Uri("http://www.comiscience.info/privacy/pushthemonmapsprivacypolicy.txt");
+                await Windows.System.Launcher.LaunchUriAsync(mailto);
+            }
+        }
+
+        void UserGuideCommand(SettingsCommand settingsCommand)
+        {
+            windowBounds = Window.Current.Bounds;
+            if (settingsCommand.Id.ToString() == "UserGuide")
+            {
+                Frame rootFrame = Window.Current.Content as Frame;
+                rootFrame.Navigate(typeof(PageUserGuide));
+            }
+        }
+
         private void CreatePopupWindowContainsFlyout(string option)
         {
             CreateSettingsPopup();
@@ -220,6 +261,22 @@ namespace MetroExplorer
                 settingsPopup.IsLightDismissEnabled = false;
                 LayoutsBar.SupportUs mypane = new LayoutsBar.SupportUs();
                 settingsWidth = 600;
+                mypane.Width = settingsWidth;
+                mypane.Height = windowBounds.Height;
+                settingsPopup.Child = mypane;
+            }
+            else if (option == "LanguageSetting")
+            {
+                LayoutsBar.LanguagesSetting mypane = new LayoutsBar.LanguagesSetting();
+                settingsWidth = 400;
+                mypane.Width = settingsWidth;
+                mypane.Height = windowBounds.Height;
+                settingsPopup.Child = mypane;
+            }
+            else if (option == "ContactUs")
+            {
+                LayoutsBar.ContactUs mypane = new LayoutsBar.ContactUs();
+                settingsWidth = 400;
                 mypane.Width = settingsWidth;
                 mypane.Height = windowBounds.Height;
                 settingsPopup.Child = mypane;

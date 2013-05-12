@@ -53,6 +53,7 @@ namespace MetroExplorer.LayoutsBar
         void dispatcherTimer_Tick(object sender, object e)
         {
             AdControl1.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            AdControl2.Visibility = Windows.UI.Xaml.Visibility.Visible;
             dispatcherTimer.Stop();
         }
 
@@ -100,6 +101,7 @@ namespace MetroExplorer.LayoutsBar
             }
 
             AdControl1.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            AdControl2.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }
 
         #region propertychanged
