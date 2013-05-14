@@ -17,6 +17,7 @@
     using core.Utils;
     using Windows.Storage.FileProperties;
     using Windows.UI.Xaml.Media.Imaging;
+    using MetroExplorer.Common;
 
     /// <summary>
     /// Page affichant une collection groupée d'éléments.
@@ -58,8 +59,12 @@
             BaseUriStatic = this.BaseUri;
         }
 
-        void PageExplorer_Loaded(object sender, RoutedEventArgs e)
+        async void PageExplorer_Loaded(object sender, RoutedEventArgs e)
         {
+            if (await UserPreferenceRecord.GetInstance().IfListMode())
+                BigSquareMode = false;
+            else
+                BigSquareMode = true;
             if (BigSquareMode)
                 itemGridView.ItemTemplate = Resources["Standard300x180ItemTemplate"] as DataTemplate;
             else
@@ -447,8 +452,15 @@
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             if (value != null)
-                return Math.Round(System.Convert.ToDouble(value) / 1024, 2).ToString() + " MB";
-            return "0 MB";
+            {
+                if (System.Convert.ToDouble(value) < 1024 * 1024)
+                    return Math.Round(System.Convert.ToDouble(value) / 1024, 2).ToString() + " KB";
+                else if (System.Convert.ToDouble(value) <= 1024 * 1024 * 1024)
+                    return Math.Round(System.Convert.ToDouble(value) / (1024 * 1024), 2).ToString() + " MB";
+                else if (System.Convert.ToDouble(value) > 1024 * 1024 * 1024)
+                    return Math.Round(System.Convert.ToDouble(value) / (1024 * 1024 * 1024), 2).ToString() + " GB";
+            }
+            return "0 KB";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

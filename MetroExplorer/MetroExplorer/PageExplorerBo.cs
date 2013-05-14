@@ -16,6 +16,7 @@
     using core;
     using core.Objects;
     using core.Utils;
+    using MetroExplorer.Common;
 
     /// <summary>
     /// 
@@ -344,11 +345,13 @@
             {
                 itemGridView.ItemTemplate = this.Resources["Standard300x180ItemTemplate"] as DataTemplate;
                 PageExplorer.BigSquareMode = true;
+                UserPreferenceRecord.GetInstance().WriteUserPreferenceRecord("Square");
             }
             else
             {
                 itemGridView.ItemTemplate = this.Resources["Standard300x80ItemTemplate"] as DataTemplate;
                 PageExplorer.BigSquareMode = false;
+                UserPreferenceRecord.GetInstance().WriteUserPreferenceRecord("List");
             }
         }
 
