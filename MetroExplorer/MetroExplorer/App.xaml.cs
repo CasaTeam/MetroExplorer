@@ -101,7 +101,7 @@ namespace MetroExplorer
             string query = args.QueryText.ToLower();
             if (PageExplorer.CurrentItems == null) return;
             foreach (string item in PageExplorer.CurrentItems)
-                if (item.ToLower().StartsWith(query))
+                if (item.ToLower().Contains(query))
                     args.Request.SearchSuggestionCollection.AppendQuerySuggestion(item);
         }
 
