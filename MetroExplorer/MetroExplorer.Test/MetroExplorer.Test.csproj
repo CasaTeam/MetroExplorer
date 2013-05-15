@@ -6,14 +6,15 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{EFFF2BC1-84E8-4343-9E49-07CC4D0C8F7B}</ProjectGuid>
+    <ProjectGuid>{97E3E5A3-82CE-4BD4-9D98-A67899B1C31D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MetroExplorer.core</RootNamespace>
-    <AssemblyName>MetroExplorer.core</AssemblyName>
+    <RootNamespace>MetroExplorer.Test</RootNamespace>
+    <AssemblyName>MetroExplorer.Test</AssemblyName>
     <DefaultLanguage>fr-FR</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <PackageCertificateKeyFile>MetroExplorer.Test_TemporaryKey.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -98,28 +99,44 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <AppXPackage>True</AppXPackage>
+    <AppxPackageIncludePrivateSymbols>true</AppxPackageIncludePrivateSymbols>
+  </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Behavior\Behavior.cs" />
-    <Compile Include="Behavior\ImageSourceChangedBehavior.cs" />
-    <Compile Include="Behavior\Interaction.cs" />
-    <Compile Include="Entensions.cs" />
-    <Compile Include="Objects\GroupInfoList.cs" />
-    <Compile Include="Objects\Enums.cs" />
-    <Compile Include="Objects\ExplorerItem.cs" />
-    <Compile Include="Objects\Levenshtein.cs" />
-    <Compile Include="Objects\MetroExplorerLocalDataSource.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Singleton.cs" />
-    <Compile Include="StorageFileExtension.cs" />
-    <Compile Include="StringResources.cs" />
-    <Compile Include="UIElementAnimationExtensions.cs" />
-    <Compile Include="Utils\EventLogger.cs" />
-    <Compile Include="VariableGridView.cs" />
+    <!--A reference to the entire .Net Framework and Windows SDK are automatically included-->
+    <SDKReference Include="MSTestFramework, Version=11.0" />
+    <SDKReference Include="TestPlatform, Version=11.0" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="UmengWinStoreLibrary">
-      <HintPath>..\packages\umeng1.0\UmengWinStoreLibrary.dll</HintPath>
-    </Reference>
+    <Compile Include="UnitTest1.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+    <None Include="MetroExplorer.Test_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\UnitTestLogo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\UnitTestSmallLogo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\UnitTestSplashScreen.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\UnitTestStoreLogo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MetroExplorer.core\MetroExplorer.core.csproj">
+      <Project>{efff2bc1-84e8-4343-9e49-07cc4d0c8f7b}</Project>
+      <Name>MetroExplorer.core</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
@@ -128,7 +145,7 @@
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
-  </Target>
+  </Target>  
   <Target Name="AfterBuild">
   </Target>
   -->

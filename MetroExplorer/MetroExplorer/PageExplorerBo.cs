@@ -30,6 +30,19 @@
             _imageChangingDispatcher.Tick += ImageChangingDispatcher_Tick;
             _imageChangingDispatcher.Interval = new TimeSpan(0, 0, 0, 1, 500);
             _imageChangingDispatcher.Start();
+
+            // ToDo: Search Without Enter Button
+            //try
+            //{
+                
+            //}
+            //catch (Exception)
+            //{
+            //    // Todo: if we enter someting fast in the search panel, there will be an exception here.
+            //}
+            //finally
+            //{
+            //}
         }
 
         int _loadingImageCount;
@@ -63,7 +76,7 @@
             }
             LoadingProgressBar.Visibility = Visibility.Collapsed;
         }
-        
+
         private async void ItemGrid_Loaded(object sender, RoutedEventArgs e)
         {
             //if (ExplorerGroups[1].Count > 0)
@@ -110,7 +123,7 @@
         private async Task ThumbnailPhoto(ExplorerItem item, StorageFile sf, bool file = false)
         {
             if (item == null) return;
-            
+
             StorageItemThumbnail fileThumbnail = await sf.GetThumbnailAsync(ThumbnailMode.SingleItem, 250);
             BitmapImage bitmapImage = new BitmapImage();
             bitmapImage.SetSource(fileThumbnail);
@@ -171,7 +184,7 @@
             {
                 if (item.StorageFile != null && item.StorageFile.IsImageFile())
                 {
-                    var parameters = ExplorerGroups[1].Where(p=> p.StorageFile.FileType.ToUpper().Equals(".JPG") ||
+                    var parameters = ExplorerGroups[1].Where(p => p.StorageFile.FileType.ToUpper().Equals(".JPG") ||
                                                                  p.StorageFile.FileType.ToUpper().Equals(".JPEG") ||
                                                                  p.StorageFile.FileType.ToUpper().Equals(".PNG") ||
                                                                  p.StorageFile.FileType.ToUpper().Equals(".BMP")).ToList();

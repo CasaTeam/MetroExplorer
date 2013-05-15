@@ -40,13 +40,13 @@
                 NotifyPropertyChanged("ExplorerGroups");
             }
         }
-            
+
         /// <summary>
         /// 是大方块显示，还是列表显示。如果是true，那就指大方块显示
         /// </summary>
         public static bool BigSquareMode = true;
 
-        public static Uri BaseUriStatic { get; set; } 
+        public static Uri BaseUriStatic { get; set; }
 
         public PageExplorer()
         {
@@ -197,7 +197,12 @@
             var queryText = navigationParameter;
             var query = queryText.ToLower();
             var items = await _dataSource.CurrentStorageFolder.GetItemsAsync();
-            var itemsFilter = items.Where(item => item.Name.ToLower().Contains(query));
+            var itemsFilter = items.Select(item => new
+                    {
+                        Distance = item.Name.ToLower().Contains(query) ? 1 : Levenshtein.Distance(item.Name.ToLower(), query),
+                        Item = item
+                    }
+            ).Where(newItem => newItem.Distance > 0.5).OrderByDescending(newItem => newItem.Distance).Select(newItem => newItem.Item);
             foreach (var item in itemsFilter)
             {
                 if (item is StorageFolder)
@@ -478,9 +483,9 @@
             {
                 if (value is StorageFile)
                 {
-                    if((value as StorageFile).Name.ToUpper().EndsWith(".PNG") || (value as StorageFile).Name.ToUpper().EndsWith(".JPG") ||
+                    if ((value as StorageFile).Name.ToUpper().EndsWith(".PNG") || (value as StorageFile).Name.ToUpper().EndsWith(".JPG") ||
                        (value as StorageFile).Name.ToUpper().EndsWith(".JEPG") || (value as StorageFile).Name.ToUpper().EndsWith(".BMP") ||
-                       (value as StorageFile).Name.ToUpper().EndsWith(".GIF") )
+                       (value as StorageFile).Name.ToUpper().EndsWith(".GIF"))
                         resultBitMap = new BitmapImage(new Uri(PageExplorer.BaseUriStatic, @"Assets/camera.png"));
                     else if ((value as StorageFile).Name.ToUpper().EndsWith(".MP4") || (value as StorageFile).Name.ToUpper().EndsWith(".RMVB") ||
                        (value as StorageFile).Name.ToUpper().EndsWith(".MKV") || (value as StorageFile).Name.ToUpper().EndsWith(".BMP"))

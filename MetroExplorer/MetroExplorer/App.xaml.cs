@@ -82,16 +82,26 @@ namespace MetroExplorer
                         throw new Exception("Failed to create initial page");
                     }
                 }
-                    
+
             }
 
             SearchPane searchPane = SearchPane.GetForCurrentView();
             searchPane.SearchHistoryEnabled = false;
+            searchPane.ShowOnKeyboardInput = true;
+            searchPane.QueryChanged += searchPaneQueryChanged;
             searchPane.SuggestionsRequested += PageExplorerSuggestionsRequested;
             // Ensure the current window is active
             Window.Current.Activate();
 
             EventLogger.onLaunch();
+        }
+
+        void searchPaneQueryChanged(SearchPane sender, SearchPaneQueryChangedEventArgs args)
+        {
+            //var previousContent = Window.Current.Content;
+            //var frame = previousContent as Frame;
+            //if (frame.CurrentSourcePageType == typeof(PageExplorer))
+            //    frame.Navigate(typeof(PageExplorer), args.QueryText);
         }
 
         void PageExplorerSuggestionsRequested(
@@ -123,8 +133,9 @@ namespace MetroExplorer
         /// Appelé lorsque l'application est activée pour afficher les résultats de la recherche.
         /// </summary>
         /// <param name="args">Détails relatifs à la requête d'activation.</param>
-        protected async override void OnSearchActivated(Windows.ApplicationModel.Activation.SearchActivatedEventArgs args)
+        protected async override void OnSearchActivated(SearchActivatedEventArgs args)
         {
+
             // TODO: enregistrez l'événement Windows.ApplicationModel.Search.SearchPane.GetForCurrentView().QuerySubmitted
             // dans OnWindowCreated pour accélérer les recherches une fois l'application exécutée
 
@@ -157,7 +168,9 @@ namespace MetroExplorer
                 }
             }
 
-            frame.Navigate(typeof(PageExplorer), args.QueryText);
+            if (frame.CurrentSourcePageType == typeof(PageExplorer))
+                frame.Navigate(typeof(PageExplorer), args.QueryText);
+
             Window.Current.Content = frame;
 
             // Vérifiez que la fenêtre actuelle est active
