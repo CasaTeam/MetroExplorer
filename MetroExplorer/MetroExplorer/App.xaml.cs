@@ -11,6 +11,8 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Media.Animation;
 using MetroExplorer.core.Utils;
 using Windows.ApplicationModel.Resources;
+using Windows.System.Threading;
+using System.Threading.Tasks;
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=234227
 
 namespace MetroExplorer
@@ -20,14 +22,37 @@ namespace MetroExplorer
     /// </summary>
     sealed partial class App : Application
     {
+        public static string CurrentQuery;
+        public static string LastQuery;
+        private readonly DispatcherTimer _dispatcher;
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
         public App()
         {
-            this.InitializeComponent();
-            this.Suspending += OnSuspending;
+            InitializeComponent();
+            Suspending += OnSuspending;
+
+            LastQuery = CurrentQuery = string.Empty;
+            _dispatcher = new DispatcherTimer();
+            _dispatcher.Tick += (sender, e) =>
+            {
+                var previousContent = Window.Current.Content;
+                var frame = previousContent as Frame;
+                if (frame.CurrentSourcePageType == typeof(PageExplorer))
+                {
+                    if (LastQuery.Equals(CurrentQuery))
+                    {
+                        frame.Navigate(typeof(PageExplorer), LastQuery);
+                        _dispatcher.Stop();
+                    }
+                }
+
+                LastQuery = CurrentQuery;
+            };
+            _dispatcher.Interval = TimeSpan.FromMilliseconds(500);
         }
 
         /// <summary>
@@ -90,18 +115,24 @@ namespace MetroExplorer
             searchPane.ShowOnKeyboardInput = true;
             searchPane.QueryChanged += searchPaneQueryChanged;
             searchPane.SuggestionsRequested += PageExplorerSuggestionsRequested;
+
             // Ensure the current window is active
             Window.Current.Activate();
 
             EventLogger.onLaunch();
         }
 
-        void searchPaneQueryChanged(SearchPane sender, SearchPaneQueryChangedEventArgs args)
+        void searchPaneQueryChanged(SearchPane sender,
+            SearchPaneQueryChangedEventArgs args)
         {
-            //var previousContent = Window.Current.Content;
-            //var frame = previousContent as Frame;
-            //if (frame.CurrentSourcePageType == typeof(PageExplorer))
-            //    frame.Navigate(typeof(PageExplorer), args.QueryText);
+            var previousContent = Window.Current.Content;
+            var frame = previousContent as Frame;
+            if (frame.CurrentSourcePageType == typeof(PageExplorer))
+            {
+                CurrentQuery = args.QueryText;
+                if (!_dispatcher.IsEnabled)
+                    _dispatcher.Start();
+            }
         }
 
         void PageExplorerSuggestionsRequested(
@@ -168,8 +199,8 @@ namespace MetroExplorer
                 }
             }
 
-            if (frame.CurrentSourcePageType == typeof(PageExplorer))
-                frame.Navigate(typeof(PageExplorer), args.QueryText);
+            //if (frame.CurrentSourcePageType == typeof(PageExplorer))
+            //    frame.Navigate(typeof(PageExplorer), args.QueryText);
 
             Window.Current.Content = frame;
 

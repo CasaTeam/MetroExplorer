@@ -13,7 +13,7 @@ namespace MetroExplorer.Test
         [TestMethod]
         public void TestMethod1()
         {
-            float distance = Levenshtein.Distance("user", "us");
+            float distance = Levenshtein.Distance("birthday Cake.bmp", "cake bmp");
             distance = Levenshtein.Distance("vomax", "volmax");
         }
     }

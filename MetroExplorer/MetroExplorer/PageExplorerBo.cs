@@ -27,22 +27,10 @@
 
         private void InitializeChangingDispatcher()
         {
+            _imageChangingDispatcher = new DispatcherTimer();
             _imageChangingDispatcher.Tick += ImageChangingDispatcher_Tick;
             _imageChangingDispatcher.Interval = new TimeSpan(0, 0, 0, 1, 500);
             _imageChangingDispatcher.Start();
-
-            // ToDo: Search Without Enter Button
-            //try
-            //{
-                
-            //}
-            //catch (Exception)
-            //{
-            //    // Todo: if we enter someting fast in the search panel, there will be an exception here.
-            //}
-            //finally
-            //{
-            //}
         }
 
         int _loadingImageCount;

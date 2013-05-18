@@ -76,12 +76,14 @@
             _imageChangingDispatcher.Stop();
             _imageChangingDispatcher.Tick -= ImageChangingDispatcher_Tick;
             _imageChangingDispatcher = null;
+            var currentContent = Window.Current.Content;
+            var frame = currentContent as Frame;
+
+            if (e.SourcePageType == frame.CurrentSourcePageType)
+                App.LastQuery = App.CurrentQuery = string.Empty;
+
             if (e != null && e.Parameter != null && e.Parameter is string)
                 await Search(e.Parameter as string);
-            //_navigatorStorageFolders = null;
-            //_currentStorageFolder = null;
-            //ExplorerGroups = new ObservableCollection<GroupInfoList<ExplorerItem>>();
-            //ExplorerGroups = null;
             GC.Collect();
         }
 
@@ -202,13 +204,13 @@
                         Distance = item.Name.ToLower().Contains(query) ? 1 : Levenshtein.Distance(item.Name.ToLower(), query),
                         Item = item
                     }
-            ).Where(newItem => newItem.Distance > 0.5).OrderByDescending(newItem => newItem.Distance).Select(newItem => newItem.Item);
+            ).Where(newItem => newItem.Distance >= 0.8).OrderByDescending(newItem => newItem.Distance);
             foreach (var item in itemsFilter)
             {
-                if (item is StorageFolder)
-                    explorerGroups[0].AddItem(item);
-                else if (item is StorageFile)
-                    explorerGroups[1].AddItem(item);
+                if (item.Item is StorageFolder)
+                    explorerGroups[0].AddItem(item.Item);
+                else if (item.Item is StorageFile)
+                    explorerGroups[1].AddItem(item.Item);
             }
 
             if (explorerGroups.Count > 0)
