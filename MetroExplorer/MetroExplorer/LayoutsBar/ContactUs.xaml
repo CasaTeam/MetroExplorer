@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     d:DesignHeight="768"
-    d:DesignWidth="400">
+    d:DesignWidth="450">
 
     <Border BorderBrush="#DD000000" BorderThickness="1,0,0,0">
         <Grid Background="#DD000000" VerticalAlignment="Stretch">
@@ -130,11 +130,25 @@
 
             <!-- Settings Panel Content -->
             <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1">
-                <Grid Margin="80,33,40,39" VerticalAlignment="Top" Grid.RowSpan="3">
+                <Grid Margin="40,10,30,39" VerticalAlignment="Top" Grid.RowSpan="3">
                     <StackPanel x:Name="FlyoutContent">
-                        <TextBlock Text="Surface Knight" Margin="0,10" FontWeight="Light" FontSize="20" />
-                        <TextBlock Text="comiscience@hotmail.fr" Foreground="Violet" FontSize="20" Tapped="TextBlock_Tapped_1"  Margin="0,40,0,15" FontWeight="Light" Height="30" />
-                        <Image Height="121" VerticalAlignment="Bottom" Source="/Assets/facebook.png" Tapped="Image_Tapped" Margin="0,0,105,0"/>
+                        <TextBlock x:Uid="Uid_TextBlock_ContactUsMetroExplorer" Text="Metro Explorer" Margin="0,0,0,5" FontWeight="Light" FontSize="20"
+                                   Foreground="White"/>
+                        <TextBlock x:Uid="Uid_TextBlock_ContactUsByCasaTeam"  Text="By Casa Team" Margin="0,0" FontWeight="Light" FontSize="18"
+                                   Foreground="White"/>
+
+                        <TextBlock x:Uid="Uid_TextBlock_ContactUsMailDeSupport"  Text="Mail de support" Margin="0,20,0,5" FontWeight="Light" FontSize="20"
+                                   Foreground="White"/>
+                        <TextBlock x:Uid="Uid_TextBlock_ContactUsMail"  Text="casapublic@hotmail.com" FontWeight="Light" FontSize="18" Foreground="SkyBlue"
+                                   Tapped="TextBlock_Tapped_1" Margin="0,0,0,5" />
+
+                        <TextBlock x:Uid="Uid_TextBlock_ContactUsFacebook" Text="Restez informé en nous suivant sur Facebook:" Margin="0,20,0,5" FontWeight="Light" FontSize="18"
+                                   Foreground="White" TextWrapping="Wrap" />
+                        <Image Height="80" Source="/Assets/facebook.png" HorizontalAlignment="Left"
+                               Tapped="Image_Tapped" Margin="0,5,0,0"/>
+
+                        <TextBlock x:Uid="Uid_TextBlock_ContactUsSuportus" Text="" Margin="0,20,0,5" FontWeight="Light" FontSize="18"
+                                   Foreground="White" TextWrapping="Wrap" />
                     </StackPanel>
                 </Grid>
             </ScrollViewer>

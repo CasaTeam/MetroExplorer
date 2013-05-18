@@ -129,6 +129,9 @@
     <Compile Include="LayoutsBar\ContactUs.xaml.cs">
       <DependentUpon>ContactUs.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LayoutsBar\Policy.xaml.cs">
+      <DependentUpon>Policy.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LayoutsBar\LanguagesSetting.xaml.cs">
       <DependentUpon>LanguagesSetting.xaml</DependentUpon>
     </Compile>
@@ -169,6 +172,7 @@
     <Content Include="Assets\camera.png" />
     <Content Include="Assets\DiskLogo.png" />
     <Content Include="Assets\document.png" />
+    <Content Include="Assets\facebook.png" />
     <Content Include="Assets\favs.png" />
     <Content Include="Assets\flag.png" />
     <Content Include="Assets\folder.png" />
@@ -204,6 +208,10 @@
     <Page Include="LayoutsBar\ContactUs.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LayoutsBar\Policy.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="LayoutsBar\LanguagesSetting.xaml">
       <SubType>Designer</SubType>

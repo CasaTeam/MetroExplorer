@@ -237,6 +237,33 @@
   <data name="Uid_SupportUsLayout_TextBlock_Title.Text" xml:space="preserve">
     <value>Support Us</value>
   </data>
+  <data name="Uid_SupportUs_Text.Text" xml:space="preserve">
+    <value>For our future functionnalities and your future convinient. Please encourage us to continue to serve you my lords. Every time you click a advertissement intrested by you could give us a lot of inspiration, while feed us a little to eat.</value>
+  </data>
+  <data name="Uid_TextBlock_ContactUs.Text" xml:space="preserve">
+    <value>About Us</value>
+  </data>
+  <data name="Uid_TextBlock_ContactUsByCasaTeam.Text" xml:space="preserve">
+    <value>By Casa Team</value>
+  </data>
+  <data name="Uid_TextBlock_ContactUsFacebook.Text" xml:space="preserve">
+    <value>Restez informé en nous suivant sur Facebook:</value>
+  </data>
+  <data name="Uid_TextBlock_ContactUsMail.Text" xml:space="preserve">
+    <value>casapublic@hotmail.com</value>
+  </data>
+  <data name="Uid_TextBlock_ContactUsMailDeSupport.Text" xml:space="preserve">
+    <value>Mail de support</value>
+  </data>
+  <data name="Uid_TextBlock_ContactUsMetroExplorer.Text" xml:space="preserve">
+    <value>Metro Explorer</value>
+  </data>
+  <data name="Uid_TextBlock_ContactUsSuportus.Text" xml:space="preserve">
+    <value>Please click support us in the menu and click advertise within to support us</value>
+  </data>
+  <data name="Uid_TextBlock_Policy.Text" xml:space="preserve">
+    <value>Politique de confitentialité</value>
+  </data>
   <data name="Uid_TextBox_CreateNewFolder.Text" xml:space="preserve">
     <value>新建文件夹</value>
   </data>

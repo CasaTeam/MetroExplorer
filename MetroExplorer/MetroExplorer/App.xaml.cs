@@ -281,8 +281,9 @@ namespace MetroExplorer
             windowBounds = Window.Current.Bounds;
             if (settingsCommand.Id.ToString() == "PrivacyPolicy")
             {
-                var mailto = new Uri("http://www.comiscience.info/privacy/pushthemonmapsprivacypolicy.txt");
-                await Windows.System.Launcher.LaunchUriAsync(mailto);
+                CreatePopupWindowContainsFlyout("PrivacyPolicy");
+                //var mailto = new Uri("http://www.comiscience.info/privacy/pushthemonmapsprivacypolicy.txt");
+                //await Windows.System.Launcher.LaunchUriAsync(mailto);
             }
         }
 
@@ -304,7 +305,7 @@ namespace MetroExplorer
             {
                 settingsPopup.IsLightDismissEnabled = false;
                 LayoutsBar.SupportUs mypane = new LayoutsBar.SupportUs();
-                settingsWidth = 600;
+                settingsWidth = 400;
                 mypane.Width = settingsWidth;
                 mypane.Height = windowBounds.Height;
                 settingsPopup.Child = mypane;
@@ -320,6 +321,14 @@ namespace MetroExplorer
             else if (option == "ContactUs")
             {
                 LayoutsBar.ContactUs mypane = new LayoutsBar.ContactUs();
+                settingsWidth = 400;
+                mypane.Width = settingsWidth;
+                mypane.Height = windowBounds.Height;
+                settingsPopup.Child = mypane;
+            }
+            else if (option == "PrivacyPolicy")
+            {
+                LayoutsBar.Policy mypane = new LayoutsBar.Policy();
                 settingsWidth = 400;
                 mypane.Width = settingsWidth;
                 mypane.Height = windowBounds.Height;

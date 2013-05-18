@@ -124,8 +124,8 @@
 		</Style>
 	</common:LayoutAwarePage.Resources>
 
-	<Border x:Name="MainBorder" BorderBrush="Black" BorderThickness="1,0,0,0">
-		<Grid x:Name="MainGrid" Background="Black"  VerticalAlignment="Stretch">
+    <Border x:Name="MainBorder" BorderBrush="#DD000000" BorderThickness="1,0,0,0">
+        <Grid x:Name="MainGrid" Background="#DD000000"  VerticalAlignment="Stretch">
 
 			<!-- Root grid definition -->
 			<Grid.RowDefinitions>  
@@ -148,16 +148,14 @@
 				</StackPanel>
 			</Grid>
 
-			<Grid x:Name="FlyoutContent" Grid.Row="1" Margin="0" VerticalAlignment="Stretch" >
-				<TextBlock x:Uid="Uid_PreferenceLayout_TextBlock_ThemeeColor" HorizontalAlignment="Left" Height="25" FontSize="20" Margin="56,39,0,0" 
-						   TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="263"/>
+			<StackPanel x:Name="FlyoutContent" Grid.Row="1" Margin="0" VerticalAlignment="Stretch" >
+				<TextBlock x:Uid="Uid_SupportUs_Text" HorizontalAlignment="Left" FontSize="18" Margin="40,15,30,0" 
+						   TextWrapping="Wrap" Text="TextBlock" FontWeight="Light"
+                           VerticalAlignment="Top"/>
                 <UI:AdControl x:Name="AdControl1" Opacity="0" ApplicationId="d55d5bbd-d9eb-424b-bd51-8355a100ece0" Visibility="Collapsed" 
-                              AdUnitId="127915" HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" 
-                              Margin="30,200,30,0" Width="450"/>
-                <UI:AdControl x:Name="AdControl2" Opacity="0" ApplicationId="d55d5bbd-d9eb-424b-bd51-8355a100ece1" Visibility="Collapsed" 
-                              AdUnitId="127916" HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" 
-                              Margin="30,630,30,0" Width="450"/>
-			</Grid>
+                              AdUnitId="127915" HorizontalAlignment="Left"
+                              Margin="40,15,30,0" Width="320" Height="200"/>
+            </StackPanel>
 		</Grid>
 
 	</Border>

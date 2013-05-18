@@ -29,7 +29,7 @@
         {
             _imageChangingDispatcher = new DispatcherTimer();
             _imageChangingDispatcher.Tick += ImageChangingDispatcher_Tick;
-            _imageChangingDispatcher.Interval = new TimeSpan(0, 0, 0, 1, 500);
+            _imageChangingDispatcher.Interval = new TimeSpan(0, 0, 0, 0, 500);
             _imageChangingDispatcher.Start();
         }
 
@@ -48,7 +48,7 @@
                 _imageDispatcherLock = true;
                 if (ExplorerGroups != null && ExplorerGroups[1] != null && _loadingImageCount < ExplorerGroups[1].Count)
                 {
-                    for (int i = 1; i % 20 != 0 && ExplorerGroups != null && _loadingImageCount < ExplorerGroups[1].Count; i++)
+                    for (int i = 1; i % 30 != 0 && ExplorerGroups != null && _loadingImageCount < ExplorerGroups[1].Count; i++)
                     {
                         var file = ExplorerGroups[1][_loadingImageCount].StorageFile;
                         await ThumbnailPhoto(ExplorerGroups[1][_loadingImageCount], file, true);

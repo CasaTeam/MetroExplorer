@@ -64,14 +64,6 @@
 					<TextBlock Foreground="{StaticResource ItemTextForeground}" TextAlignment="Center" Text="{Binding Name}"  Visibility="{Binding RenameBoxVisibility, Converter={StaticResource RenameBoxVisibilityConverter}}"
 							FontSize="19" Margin="3,3,3,2" FontWeight="Light" MaxHeight="50"
 							TextWrapping="Wrap" />
-					<StackPanel Visibility="{Binding RenameBoxVisibility}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="5">
-						<TextBlock Margin="7,3" HorizontalAlignment="Stretch" FontSize="22" Text="{Binding Name}" MaxHeight="60"/>
-						<TextBox Margin="7,3" HorizontalAlignment="Stretch" FontSize="22" Text="{Binding RenamingName, Mode=TwoWay}"/>
-						<StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Left">
-							<Button x:Uid="Uid_Page_Explorer_Button_RenameFolder" FontSize="20" Click="Button_RenameFolder_Click" />
-							<Button x:Uid="Uid_Page_Explorer_Button_CancelRename" FontSize="20" Click="Button_CancelRename_Click" Margin="5,0,0,0" />
-						</StackPanel>
-					</StackPanel>
 				</Grid>
 			</Grid>
 		</DataTemplate>

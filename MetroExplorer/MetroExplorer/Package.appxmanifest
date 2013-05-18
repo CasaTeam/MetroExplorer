@@ -36,14 +36,11 @@
   </Applications>
   <Capabilities>
     <Capability Name="internetClient" />
-    <Capability Name="documentsLibrary" />
-    <Capability Name="privateNetworkClientServer" />
     <Capability Name="videosLibrary" />
     <Capability Name="removableStorage" />
     <Capability Name="picturesLibrary" />
     <Capability Name="musicLibrary" />
     <DeviceCapability Name="webcam" />
-    <DeviceCapability Name="location" />
     <DeviceCapability Name="proximity" />
     <DeviceCapability Name="microphone" />
   </Capabilities>

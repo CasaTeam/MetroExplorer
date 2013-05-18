@@ -226,14 +226,14 @@
                 Type = ExplorerItemType.Folder,
                 DefautImage = GetBitMapImageFromLocalSource("Assets/music.png")
             });
-            ExplorerGroups[0].Add(new ExplorerItem()
-            {
-                Name = KnownFolders.DocumentsLibrary.Name,
-                Path = KnownFolders.DocumentsLibrary.Path,
-                StorageFolder = KnownFolders.DocumentsLibrary,
-                Type = ExplorerItemType.Folder,
-                DefautImage = GetBitMapImageFromLocalSource("Assets/document.png")
-            });
+            //ExplorerGroups[0].Add(new ExplorerItem()
+            //{
+            //    Name = KnownFolders.DocumentsLibrary.Name,
+            //    Path = KnownFolders.DocumentsLibrary.Path,
+            //    StorageFolder = KnownFolders.DocumentsLibrary,
+            //    Type = ExplorerItemType.Folder,
+            //    DefautImage = GetBitMapImageFromLocalSource("Assets/document.png")
+            //});
             ExplorerGroups[0].Add(new ExplorerItem()
             {
                 Name = KnownFolders.VideosLibrary.Name,
