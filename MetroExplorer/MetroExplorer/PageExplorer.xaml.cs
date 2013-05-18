@@ -52,7 +52,7 @@
         {
             InitializeComponent();
             DataContext = this;
-
+            //this.NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
             _dataSource = Singleton<MetroExplorerLocalDataSource>.Instance;
             Loaded += PageExplorer_Loaded;
 
@@ -136,27 +136,26 @@
                 {
                     await InitializeNavigator();
                     //var listFiles = await _currentStorageFolder.GetItemsAsync();
-                    if (_dataSource.FromSearch)
+                    if (!_dataSource.FromSearch)
+                    {
+                        var listFiles = await _dataSource.CurrentStorageFolder.GetItemsAsync();
+                        foreach (var item in listFiles)
+                        {
+                            if (item is StorageFile)
+                            {
+                                ExplorerGroups[1].AddFileItem(item as StorageFile);
+                            }
+                            else if (item is StorageFolder)
+                            {
+                                ExplorerGroups[0].AddStorageItem(item as StorageFolder);
+                            }
+                        }
+                    }
+                    else
                     {
                         ExplorerGroups = _dataSource.SearchedItems;
                         _dataSource.FromSearch = false;
                         _dataSource.SearchedItems = null;
-                    }
-                    else
-                    {
-                        var listFiles = await _dataSource.CurrentStorageFolder.GetItemsAsync();
-
-                        foreach (var item in listFiles)
-                        {
-                            if (item is StorageFolder)
-                            {
-                                ExplorerGroups[0].AddItem(item);
-                            }
-                            else if (item is StorageFile)
-                            {
-                                ExplorerGroups[1].AddItem(item);
-                            }
-                        }
                     }
                     //SortItems(PageExplorer.CurrentFileListSortType);
                 }
@@ -189,7 +188,8 @@
             _dataSource.CutNavigatorFromIndex(e.Index);
             if (e.CommandType == NavigatorNodeCommandType.Reduce)
             {
-                _imageChangingDispatcher.Stop();
+                if (_imageChangingDispatcher != null)
+                    _imageChangingDispatcher.Stop();
                 Frame.Navigate(typeof(PageExplorer), null);
             }
             else if (e.CommandType == NavigatorNodeCommandType.Change)

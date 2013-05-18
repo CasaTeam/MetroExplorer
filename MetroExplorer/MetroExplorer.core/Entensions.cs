@@ -42,6 +42,32 @@ namespace MetroExplorer.core
             }
         }
 
+        public static void AddStorageItem(this GroupInfoList<ExplorerItem> itemList, StorageFolder retrievedItem)
+        {
+            ExplorerItem item = new ExplorerItem
+            {
+                Name = retrievedItem.Name,
+                Path = retrievedItem.Path,
+                StorageFolder = retrievedItem as StorageFolder,
+                Type = ExplorerItemType.Folder
+            };
+            itemList.Add(item);
+        }
+
+        public async static void AddFileItem(this GroupInfoList<ExplorerItem> itemList, StorageFile retrievedItem)
+        {
+            ExplorerItem item = new ExplorerItem
+            {
+                Name = retrievedItem.Name,
+                Path = retrievedItem.Path,
+                StorageFile = retrievedItem,
+                Type = ExplorerItemType.File,
+                Size = (await retrievedItem.GetBasicPropertiesAsync()).Size,
+                ModifiedDateTime = (await retrievedItem.GetBasicPropertiesAsync()).DateModified.DateTime
+            };
+            itemList.Add(item);
+        }
+
         public async static void AddItem(this GroupInfoList<ExplorerItem> itemList,
             IStorageItem retrievedItem)
         {
