@@ -153,30 +153,6 @@
             }
         }
 
-        #region 用来操作添加删除，重命名文件文件夹的属性
-        [XmlIgnore]
-        public string RenameBoxVisibility
-        {
-            get { return _renameBoxVisibility; }
-            set
-            {
-                _renameBoxVisibility = value;
-                NotifyPropertyChanged("RenameBoxVisibility");
-            }
-        }
-
-        [XmlIgnore]
-        public string RenamingName
-        {
-            get { return _renamingName; }
-            set
-            {
-                _renamingName = value;
-                NotifyPropertyChanged("RenamingName");
-            }
-        }
-        #endregion
-
         public void NotifyPropertyChanged(String changedPropertyName)
         {
             if (PropertyChanged != null)

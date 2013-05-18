@@ -126,6 +126,7 @@
     <Compile Include="Common\TextFileAccess.cs" />
     <Compile Include="Common\FirstUsingRecord.cs" />
     <Compile Include="Common\UserPreferenceRecord.cs" />
+    <Compile Include="PageExplorerSearch.cs" />
     <Compile Include="LayoutsBar\ContactUs.xaml.cs">
       <DependentUpon>ContactUs.xaml</DependentUpon>
     </Compile>
@@ -142,6 +143,7 @@
       <DependentUpon>PageExplorer.xaml</DependentUpon>
     </Compile>
     <Compile Include="PageExplorerBo.cs" />
+    <Compile Include="PageExplorerTraditionalCopyPaste.cs" />
     <Compile Include="PageMain.xaml.cs">
       <DependentUpon>PageMain.xaml</DependentUpon>
     </Compile>

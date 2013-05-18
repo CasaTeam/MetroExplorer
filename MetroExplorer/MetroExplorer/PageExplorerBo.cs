@@ -48,7 +48,7 @@
                 _imageDispatcherLock = true;
                 if (ExplorerGroups != null && ExplorerGroups[1] != null && _loadingImageCount < ExplorerGroups[1].Count)
                 {
-                    for (int i = 1; i % 30 != 0 && ExplorerGroups != null && _loadingImageCount < ExplorerGroups[1].Count; i++)
+                    for (int i = 1; i % 40 != 0 && ExplorerGroups != null && _loadingImageCount < ExplorerGroups[1].Count; i++)
                     {
                         var file = ExplorerGroups[1][_loadingImageCount].StorageFile;
                         await ThumbnailPhoto(ExplorerGroups[1][_loadingImageCount], file, true);
@@ -63,16 +63,6 @@
                 _imageDispatcherLock = false;
             }
             LoadingProgressBar.Visibility = Visibility.Collapsed;
-        }
-
-        private async void ItemGrid_Loaded(object sender, RoutedEventArgs e)
-        {
-            //if (ExplorerGroups[1].Count > 0)
-            //{
-            //    var item = ExplorerGroups[1].Single(p => p.Name == (((sender as Grid).Children[2] as Grid).Children[0] as TextBlock).Text);
-            //    if (item != null && item.DefautImage == null)
-            //        await ThumbnailPhoto(item, item.StorageFile, true);
-            //}
         }
 
         int _lastChangedFolder = 0;
@@ -145,14 +135,6 @@
             BottomAppBar.IsOpen = false;
         }
 
-        private void Button_RenameDiskFolder_Click(object sender, RoutedEventArgs e)
-        {
-            if (itemGridView.SelectedItems.Count == 1)
-            {
-                (itemGridView.SelectedItem as ExplorerItem).RenameBoxVisibility = "Visible";
-            }
-        }
-
         private void AppBar_BottomAppBar_Opened_1(object sender, object e)
         {
             Button_RenameDiskFolder.Visibility = itemGridView.SelectedItems.Count == 1 ? Visibility.Visible : Visibility.Collapsed;
@@ -194,7 +176,7 @@
         {
             Popup_CreateNewFolder.IsOpen = true;
             Popup_CreateNewFolder.Visibility = Windows.UI.Xaml.Visibility.Visible;
-            Popup_CreateNewFolder.Margin = new Thickness(0, 0, 555, 222);
+            Popup_CreateNewFolder.Margin = new Thickness(0, 0, 910, 222);
             TextBox_CreateNewFolder.Focus(Windows.UI.Xaml.FocusState.Keyboard);
             TextBox_CreateNewFolder.SelectAll();
         }
@@ -208,7 +190,6 @@
                 Name = sf.Name,
                 Path = sf.Path,
                 Type = ExplorerItemType.Folder,
-                RenameBoxVisibility = "Collapsed",
                 StorageFolder = sf
             };
             ExplorerGroups[0].Add(item);
@@ -219,49 +200,34 @@
             await InitializeNavigator();
         }
 
-        private void ItemGridView_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-
-        }
-
         private void ItemGridView_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
-            foreach (var selectedItem in e.RemovedItems)
-            {
-                if ((selectedItem as ExplorerItem).RenameBoxVisibility == "Visible")
-                    (selectedItem as ExplorerItem).RenameBoxVisibility = "Collapsed";
-            }
-            foreach (var selectedItem in itemGridView.SelectedItems)
-            {
-                if (itemGridView.SelectedItems.Count > 1 && (selectedItem as ExplorerItem).RenameBoxVisibility == "Visible")
-                    (selectedItem as ExplorerItem).RenameBoxVisibility = "Collapsed";
-            }
-            if (itemGridView.SelectedItems.Count == 1 && (itemGridView.SelectedItems[0] as ExplorerItem).RenameBoxVisibility == "Visible")
-                BottomAppBar.IsOpen = false;
-            else if (itemGridView.SelectedItems.Count > 0)
-                BottomAppBar.IsOpen = true;
         }
 
-        private void Button_CancelRename_Click(object sender, RoutedEventArgs e)
+        private void RenameDiskFolderButtonClick(object sender, RoutedEventArgs e)
         {
-            if (itemGridView.SelectedItem != null)
+            if (itemGridView.SelectedItem != null && itemGridView.SelectedItems.Count == 1 &&
+                (itemGridView.SelectedItem as ExplorerItem).Type == ExplorerItemType.Folder)
             {
-                (itemGridView.SelectedItem as ExplorerItem).RenameBoxVisibility = "Collapsed";
+                Popup_RenameFolder.IsOpen = true;
+                Popup_RenameFolder.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                Popup_RenameFolder.Margin = new Thickness(60, 0, 0, 222);
+                TextBox_RenameFolder.Text = (itemGridView.SelectedItem as ExplorerItem).Name;
+                TextBox_RenameFolder.Focus(Windows.UI.Xaml.FocusState.Keyboard);
+                TextBox_RenameFolder.SelectAll();
             }
         }
 
-        private async void Button_RenameFolder_Click(object sender, RoutedEventArgs e)
+        private async void ConfirmRenameFolderButtonClick(object sender, RoutedEventArgs e)
         {
-            if (itemGridView.SelectedItem != null)
+            if ((itemGridView.SelectedItem as ExplorerItem).Name != TextBox_RenameFolder.Text)
             {
-                (itemGridView.SelectedItem as ExplorerItem).Name = (itemGridView.SelectedItem as ExplorerItem).RenamingName;
-                (itemGridView.SelectedItem as ExplorerItem).RenameBoxVisibility = "Collapsed";
-                if ((itemGridView.SelectedItem as ExplorerItem).Type == ExplorerItemType.Folder)
-                    await (itemGridView.SelectedItem as ExplorerItem).StorageFolder.RenameAsync((itemGridView.SelectedItem as ExplorerItem).RenamingName, NameCollisionOption.GenerateUniqueName);
-                else if ((itemGridView.SelectedItem as ExplorerItem).Type == ExplorerItemType.File)
-                    await (itemGridView.SelectedItem as ExplorerItem).StorageFile.RenameAsync((itemGridView.SelectedItem as ExplorerItem).RenamingName, NameCollisionOption.GenerateUniqueName);
+                (itemGridView.SelectedItem as ExplorerItem).Name = TextBox_RenameFolder.Text;
+                await (itemGridView.SelectedItem as ExplorerItem).StorageFolder.RenameAsync(TextBox_RenameFolder.Text, NameCollisionOption.ReplaceExisting);
+                await InitializeNavigator();
             }
-            await InitializeNavigator();
+            Popup_RenameFolder.IsOpen = false;
+            Popup_RenameFolder.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }
 
         private Boolean IsImageFile(StorageFile file)

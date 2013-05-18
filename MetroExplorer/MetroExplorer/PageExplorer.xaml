@@ -50,7 +50,7 @@
 		</DataTemplate>
 
 		<DataTemplate x:Key="Standard300x180ItemTemplate">
-			<Grid HorizontalAlignment="Left" Width="280" Height="140" Margin="0" Background="{StaticResource ItemBigBackground}" Loaded="ItemGrid_Loaded">
+			<Grid HorizontalAlignment="Left" Width="280" Height="140" Margin="0" Background="{StaticResource ItemBigBackground}">
 				<Image x:Name="ExplorerItemImage" Margin="0"
 					   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
 					   Stretch="UniformToFill"  Loaded="ExplorerItemImage_Loaded">
@@ -519,6 +519,79 @@
 				</Setter.Value>
 			</Setter>
 		</Style>
+		<Style x:Key="ButtonBlueStyle" TargetType="Button">
+			<Setter Property="Background" Value="{StaticResource ButtonBackgroundThemeBrush}"/>
+			<Setter Property="Foreground" Value="{StaticResource ButtonForegroundThemeBrush}"/>
+			<Setter Property="BorderBrush" Value="{StaticResource ButtonBorderThemeBrush}"/>
+			<Setter Property="BorderThickness" Value="{StaticResource ButtonBorderThemeThickness}"/>
+			<Setter Property="Padding" Value="12,4,12,4"/>
+			<Setter Property="HorizontalAlignment" Value="Left"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+			<Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}"/>
+			<Setter Property="FontWeight" Value="SemiBold"/>
+			<Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="Button">
+						<Grid>
+							<VisualStateManager.VisualStateGroups>
+								<VisualStateGroup x:Name="CommonStates">
+									<VisualState x:Name="Normal"/>
+									<VisualState x:Name="PointerOver">
+										<Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="#881e90cd"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="Border">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ButtonDisabledBorderThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+									</VisualState>
+									<VisualState x:Name="Pressed">
+										<Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="#DD1e90cd"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="Border">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ButtonDisabledBorderThemeBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+									</VisualState>
+									<VisualState x:Name="Disabled">
+										<Storyboard>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+												<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ButtonDisabledBackgroundThemeBrush}"/>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="Border">
+												<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ButtonDisabledBorderThemeBrush}"/>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+												<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ButtonDisabledForegroundThemeBrush}"/>
+											</ObjectAnimationUsingKeyFrames>
+										</Storyboard>
+									</VisualState>
+								</VisualStateGroup>
+								<VisualStateGroup x:Name="FocusStates">
+									<VisualState x:Name="Focused">
+										<Storyboard>
+											<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualWhite"/>
+											<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualBlack"/>
+										</Storyboard>
+									</VisualState>
+									<VisualState x:Name="Unfocused"/>
+									<VisualState x:Name="PointerFocused"/>
+								</VisualStateGroup>
+							</VisualStateManager.VisualStateGroups>
+							<Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Margin="3">
+								<ContentPresenter x:Name="ContentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+							</Border>
+							<Rectangle x:Name="FocusVisualWhite" IsHitTestVisible="False" Opacity="0" StrokeDashOffset="1.5" StrokeEndLineCap="Square" Stroke="{StaticResource FocusVisualWhiteStrokeThemeBrush}" StrokeDashArray="1,1"/>
+							<Rectangle x:Name="FocusVisualBlack" IsHitTestVisible="False" Opacity="0" StrokeDashOffset="0.5" StrokeEndLineCap="Square" Stroke="{StaticResource FocusVisualBlackStrokeThemeBrush}" StrokeDashArray="1,1"/>
+						</Grid>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
 	</common:LayoutAwarePage.Resources>
 
 	<common:LayoutAwarePage.BottomAppBar>
@@ -536,7 +609,7 @@
 							</Style>
 						</Button.Style>
 					</Button>
-					<Button x:Name="Button_RenameDiskFolder" Visibility="Collapsed" Click="Button_RenameDiskFolder_Click"
+                    <Button x:Name="Button_RenameDiskFolder" Click="RenameDiskFolderButtonClick"
 						x:Uid="Uid_Page_Main_Button_RenameDiskFolder"
 						Margin="5,0" HorizontalAlignment="Center">
 						<Button.Style>
@@ -554,11 +627,42 @@
 						<Button.Style>
 							<Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
 								<Setter Property="AutomationProperties.Name" Value=""/>
-								<Setter Property="Content" Value="&#xE109;"/>
+								<Setter Property="Content" Value="&#xE1DA;"/>
 							</Style>
 						</Button.Style>
 					</Button>
-					<Button Click="Button_CutPaste_Click"
+                    <Rectangle Width="2" VerticalAlignment="Stretch"  HorizontalAlignment="Center" Margin="15,30,15,30" Fill="White" />
+                    <Button Click="PageExplorerCopyButtonClick"
+						x:Uid="Uid_PageExplorerCopyButton"
+						Margin="5,0" HorizontalAlignment="Center">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
+                                <Setter Property="AutomationProperties.Name" Value=""/>
+                                <Setter Property="Content" Value="&#xE16F;"/>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button Click="PageExplorerCutButtonClick"
+						x:Uid="Uid_PageExplorerCutButton"
+						Margin="5,0" HorizontalAlignment="Center">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
+                                <Setter Property="AutomationProperties.Name" Value=""/>
+                                <Setter Property="Content" Value="&#xE16B;"/>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button Click="PageExplorerPasteButtonClick"
+						x:Uid="Uid_PageExplorerPasteButton"
+						Margin="5,0" HorizontalAlignment="Center">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
+                                <Setter Property="AutomationProperties.Name" Value=""/>
+                                <Setter Property="Content" Value="&#xE16D;"/>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button Click="Button_CutPaste_Click"
 						x:Uid="Uid_Page_Main_Button_CutPaste"
 						Margin="5,0" HorizontalAlignment="Center">
 						<Button.Style>
@@ -571,7 +675,7 @@
 					<Rectangle Width="2" VerticalAlignment="Stretch"  HorizontalAlignment="Center" Margin="15,30,15,30" Fill="White" />
 					<Button x:Name="Button_Detail" Click="Button_Detail_Click"
 						x:Uid="Uid_Page_Main_Button_Detail"
-						Margin="5,0,10,0" HorizontalAlignment="Center">
+						Margin="5,0,5,0" HorizontalAlignment="Center">
 						<Button.Style>
 							<Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
 								<Setter Property="AutomationProperties.Name" Value=""/>
@@ -634,7 +738,6 @@
 					SelectionChanged="ItemGridView_SelectionChanged_1"
 					AllowDrop="True"
 					IsTapEnabled="True"
-					Tapped="ItemGridView_Tapped"
 					ItemClick="ItemGridView_ItemClick_1"
 					SelectionMode="Multiple" ItemContainerStyle="{StaticResource ExplorerGridViewItemStyle}">
                         <GridView.ItemsPanel>
@@ -683,7 +786,6 @@
 					IsRightTapEnabled="True"
 					IsHoldingEnabled="True" 
                     IsTapEnabled="True"
-					Tapped="ItemGridView_Tapped"
 					ItemClick="ItemGridView_ItemClick_1"
 					ItemsSource="{Binding Source={StaticResource GroupedItemsViewSource}}"
 					ItemTemplate="{StaticResource Standard80ForExplorerItemTemplate}"
@@ -765,11 +867,25 @@
 							<TextBox x:Name="TextBox_CreateNewFolder" BorderBrush="{Binding Path=TitleForeground}" FontSize="18" 
 									 x:Uid="Uid_TextBox_CreateNewFolder" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="20,25,20,10" />
 							<Button x:Uid="Uid_Button_CreateNewFolder" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5,70,15,0" Click="Button_CreateNewFolder_Click"
-									Background="{Binding Path=BottomBarBackground}" Foreground="#DDFFFFFF" FontSize="16"  />
+									Background="{Binding Path=BottomBarBackground}" Foreground="#DDFFFFFF" FontSize="16" 
+									Style="{StaticResource ButtonBlueStyle}" />
 						</Grid>
 					</Border>
 				</Popup>
-			</Grid>
+                <Popup HorizontalAlignment="Left" VerticalAlignment="Bottom" IsLightDismissEnabled="True"
+				   Visibility="Collapsed" x:Name="Popup_RenameFolder" >
+                    <Border BorderBrush="{Binding Path=TitleForeground}" BorderThickness="2">
+                        <Grid Width="230" Height="123" Background="White">
+                            <TextBox x:Name="TextBox_RenameFolder" BorderBrush="{Binding Path=TitleForeground}" FontSize="18"
+									 HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="20,25,20,10" />
+                            <Button x:Uid="Uid_Button_RenameFolder" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5,70,15,0" Click="ConfirmRenameFolderButtonClick"
+									Background="{Binding Path=BottomBarBackground}" Foreground="#DDFFFFFF" FontSize="16" 
+									Style="{StaticResource ButtonBlueStyle}"  >
+                            </Button>
+                        </Grid>
+                    </Border>
+                </Popup>
+            </Grid>
 		</Grid>
         <VisualStateManager.VisualStateGroups>
             <!-- Les états visuels reflètent l'état d'affichage de l'application -->
