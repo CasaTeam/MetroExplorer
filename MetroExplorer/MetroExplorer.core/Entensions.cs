@@ -62,8 +62,6 @@ namespace MetroExplorer.core
                 Path = retrievedItem.Path,
                 StorageFile = retrievedItem,
                 Type = ExplorerItemType.File,
-                Size = (await retrievedItem.GetBasicPropertiesAsync()).Size,
-                ModifiedDateTime = (await retrievedItem.GetBasicPropertiesAsync()).DateModified.DateTime
             };
             itemList.Add(item);
         }

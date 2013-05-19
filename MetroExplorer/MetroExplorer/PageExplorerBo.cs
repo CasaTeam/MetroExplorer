@@ -34,13 +34,32 @@
         }
 
         int _loadingImageCount;
-        //int _loadingFolderImageCount;
+        int _loadingFileSizeCount;
         bool _imageDispatcherLock;
         async void ImageChangingDispatcher_Tick(object sender, object e)
         {
             if (PageExplorer.BigSquareMode == false)
             {
                 LoadingProgressBar.Visibility = Visibility.Collapsed;
+                if (_imageDispatcherLock == false && ExplorerGroups != null)
+                {
+                    _imageDispatcherLock = true;
+                    if (ExplorerGroups != null && ExplorerGroups[1] != null && _loadingImageCount < ExplorerGroups[1].Count)
+                    {
+                        for (int i = 1; i % 40 != 0 && ExplorerGroups != null && _loadingFileSizeCount < ExplorerGroups[1].Count; i++)
+                        {
+                            if (ExplorerGroups[1][_loadingFileSizeCount].Size == 0)
+                            {
+                                var file = ExplorerGroups[1][_loadingFileSizeCount].StorageFile;
+                                ExplorerGroups[1][_loadingFileSizeCount].Size = (await file.GetBasicPropertiesAsync()).Size;
+                                ExplorerGroups[1][_loadingFileSizeCount].ModifiedDateTime = (await file.GetBasicPropertiesAsync()).DateModified.DateTime;
+                            }
+                            _loadingFileSizeCount++;
+                        }
+                    }
+                    await ChangeFolderCover();
+                    _imageDispatcherLock = false;
+                }
                 return;
             }
             if (_imageDispatcherLock == false && ExplorerGroups != null)
@@ -100,7 +119,7 @@
 
         private async Task ThumbnailPhoto(ExplorerItem item, StorageFile sf, bool file = false)
         {
-            if (item == null) return;
+            if (item == null && item.DefautImage != null) return;
 
             StorageItemThumbnail fileThumbnail = await sf.GetThumbnailAsync(ThumbnailMode.SingleItem, 250);
             BitmapImage bitmapImage = new BitmapImage();
@@ -365,7 +384,11 @@
             else if (sortType == SortType.None)
                 return;
             if (sortedSource != null)
+            {
                 RerangeDataSource(sortedSource);
+                _loadingFileSizeCount = 0;
+                _loadingImageCount = 0;
+            }
         }
 
         private IOrderedEnumerable<ExplorerItem> SortByDate(IEnumerable<ExplorerItem> items)
