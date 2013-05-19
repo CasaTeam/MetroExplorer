@@ -663,7 +663,7 @@
                         </Button.Style>
                     </Button>
                     <Button Click="Button_CutPaste_Click"
-						x:Uid="Uid_Page_Main_Button_CutPaste"
+						x:Uid="Uid_PageMain_DragFileAndFolderToHere"
 						Margin="5,0" HorizontalAlignment="Center">
 						<Button.Style>
 							<Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">

@@ -54,7 +54,7 @@ namespace MetroExplorer.core
             itemList.Add(item);
         }
 
-        public async static void AddFileItem(this GroupInfoList<ExplorerItem> itemList, StorageFile retrievedItem)
+        public static void AddFileItem(this GroupInfoList<ExplorerItem> itemList, StorageFile retrievedItem)
         {
             ExplorerItem item = new ExplorerItem
             {

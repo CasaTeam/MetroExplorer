@@ -1,0 +1,150 @@
+﻿using MetroExplorer.core;
+using MetroExplorer.core.Objects;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Windows.Storage;
+using Windows.Storage.Pickers;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+
+namespace MetroExplorer
+{
+    public sealed partial class PageExplorer
+    {
+        private void PageExplorerCopyButtonClick(object sender, RoutedEventArgs e)
+        {
+            CopiedCuttedItems.GetInstance().Items.Clear();
+            if (itemGridView.SelectedItems != null && itemGridView.SelectedItems.Count > 0)
+            {
+                foreach (var item in itemGridView.SelectedItems)
+                {
+                    CopiedCuttedItems.GetInstance().Items.Add((item as ExplorerItem));
+                }
+                CopiedCuttedItems.GetInstance().CutOrCopy = CopyCutState.Copy;
+            } 
+        }
+
+        private void PageExplorerCutButtonClick(object sender, RoutedEventArgs e)
+        {
+            CopiedCuttedItems.GetInstance().Items.Clear();
+            if (itemGridView.SelectedItems != null && itemGridView.SelectedItems.Count > 0)
+            {
+                foreach (var item in itemGridView.SelectedItems)
+                {
+                    CopiedCuttedItems.GetInstance().Items.Add((item as ExplorerItem));
+                }
+                CopiedCuttedItems.GetInstance().CutOrCopy = CopyCutState.Cut;
+            } 
+        }
+
+        private async void PageExplorerPasteButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (CopiedCuttedItems.GetInstance().Items.Count > 0)
+            {
+
+                foreach (var item in CopiedCuttedItems.GetInstance().Items)
+                {
+                    if (item.Type == ExplorerItemType.File)
+                    {
+                        try
+                        {
+                            await item.StorageFile.CopyAsync(_dataSource.CurrentStorageFolder, item.Name, NameCollisionOption.GenerateUniqueName);
+                            if (CopiedCuttedItems.GetInstance().CutOrCopy == CopyCutState.Cut)
+                            {
+                                if (ExplorerGroups[1].Contains(item))
+                                    ExplorerGroups[1].Remove(item);
+                                await item.StorageFile.DeleteAsync(StorageDeleteOption.Default);
+                            }
+                        }
+                        catch
+                        { }
+                    }
+                }
+                RefreshAfterAddNewItem();
+            }
+        }
+
+
+        #region new mode
+        private void Button_CutPaste_Click(object sender, RoutedEventArgs e)
+        {
+            Popup_CopyCutPaste.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            Popup_CopyCutPaste.Margin = new Thickness(0, 0, 405, 183);
+            Popup_CopyCutPaste.IsOpen = true;
+        }
+
+        private async void ListBox_CopyCutPaste_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender == null) return;
+            Popup_CopyCutPaste.IsOpen = false;
+            Popup_CopyCutPaste.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            if (ListBox_CopyCutPaste.Items.IndexOf((sender as ListBox).SelectedItem) == 0)
+                await CopyFile();
+            else if (ListBox_CopyCutPaste.Items.IndexOf((sender as ListBox).SelectedItem) == 1)
+                await CutFile();
+            ListBox_CopyCutPaste.SelectedItem = null;
+            RefreshAfterAddNewItem();
+        }
+
+        private async void RefreshAfterAddNewItem()
+        {
+            LoadingProgressBar.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            await RefreshLocalFiles();
+            LoadingProgressBar.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+        }
+
+        private async Task CopyFile()
+        {
+            FileOpenPicker filePicker = new FileOpenPicker();
+            filePicker.ViewMode = PickerViewMode.List;
+            filePicker.FileTypeFilter.Add("*");
+            filePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+            var sf = await filePicker.PickMultipleFilesAsync();
+            for (int i = 0; i < sf.Count; i++)
+            {
+                await sf[i].CopyAsync(_dataSource.CurrentStorageFolder, sf[i].Name, NameCollisionOption.GenerateUniqueName);
+            }
+        }
+
+        private async Task CutFile()
+        {
+            FileOpenPicker filePicker = new FileOpenPicker();
+            filePicker.ViewMode = PickerViewMode.List;
+            filePicker.FileTypeFilter.Add("*");
+            filePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+            var sf = await filePicker.PickMultipleFilesAsync();
+            for (int i = 0; i < sf.Count; i++)
+            {
+                await sf[i].CopyAsync(_dataSource.CurrentStorageFolder, sf[i].Name, NameCollisionOption.GenerateUniqueName);
+                await sf[i].DeleteAsync(StorageDeleteOption.Default);
+            }
+            GC.Collect();
+        }
+        #endregion
+    }
+
+    public class CopiedCuttedItems
+    {
+        public List<ExplorerItem> Items = null;
+        public CopyCutState CutOrCopy;
+
+        private CopiedCuttedItems()
+        {
+            Items = new List<ExplorerItem>();
+        }
+
+        public static CopiedCuttedItems GetInstance()
+        {
+            return Singleton<CopiedCuttedItems>.Instance;
+        }
+    }
+
+    public enum CopyCutState
+    {
+        Copy,
+        Cut
+    }
+}

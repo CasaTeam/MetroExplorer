@@ -143,11 +143,13 @@
                         {
                             if (item is StorageFile)
                             {
-                                ExplorerGroups[1].AddFileItem(item as StorageFile);
+                                if (ExplorerGroups[1].All(p=>p.Name != item.Name))
+                                    ExplorerGroups[1].AddFileItem(item as StorageFile);
                             }
                             else if (item is StorageFolder)
                             {
-                                ExplorerGroups[0].AddStorageItem(item as StorageFolder);
+                                if (ExplorerGroups[0].All(p => p.Name != item.Name))
+                                    ExplorerGroups[0].AddStorageItem(item as StorageFolder);
                             }
                         }
                     }
@@ -157,7 +159,8 @@
                         _dataSource.FromSearch = false;
                         _dataSource.SearchedItems = null;
                     }
-                    //SortItems(PageExplorer.CurrentFileListSortType);
+                    _loadingFileSizeCount = 0;
+                    _loadingImageCount = 0;
                 }
                 catch
                 { }

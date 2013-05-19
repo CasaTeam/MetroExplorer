@@ -127,10 +127,10 @@
     <value>磁盘或文件夹</value>
   </data>
   <data name="MainPage_SystemFolderGroupTitle" xml:space="preserve">
-    <value>Shortcut Folders</value>
+    <value>快捷方式文件夹</value>
   </data>
   <data name="MainPage_UserFolderGroupTitle" xml:space="preserve">
-    <value>System Folders</value>
+    <value>系统磁盘及文件夹</value>
   </data>
   <data name="SettingCommand_ContactUs" xml:space="preserve">
     <value>联系我们</value>
@@ -142,13 +142,13 @@
     <value>隐私声明</value>
   </data>
   <data name="SettingCommand_SupportUs" xml:space="preserve">
-    <value>Support Us</value>
+    <value>支持我们</value>
   </data>
   <data name="SettingCommand_UserGuide" xml:space="preserve">
     <value>用户向导</value>
   </data>
   <data name="String_AddNewShortCutFolder" xml:space="preserve">
-    <value>New Shortcut Mode Folder</value>
+    <value>添加快捷文件夹</value>
   </data>
   <data name="String_NewFolder" xml:space="preserve">
     <value>新建文件夹</value>
@@ -174,11 +174,14 @@
   <data name="Uid_PageExplorerPasteButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
     <value>粘贴</value>
   </data>
+  <data name="Uid_PageMain_DragFileAndFolderToHere.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>抓取文件（夹）</value>
+  </data>
   <data name="Uid_PageMain_PageTitle.Text" xml:space="preserve">
     <value>Metro Explorer</value>
   </data>
   <data name="Uid_PageMain_SupportUsTile.Text" xml:space="preserve">
-    <value>Support Us</value>
+    <value>支持我们</value>
   </data>
   <data name="Uid_PagePhotoGallery_OpenPhotoButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
     <value>打开</value>
@@ -201,9 +204,6 @@
   <data name="Uid_Page_Main_Button_AddNewShortCutFolder.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
     <value>添加</value>
   </data>
-  <data name="Uid_Page_Main_Button_CutPaste.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>获取文件</value>
-  </data>
   <data name="Uid_Page_Main_Button_Detail.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
     <value>切换显示模式</value>
   </data>
@@ -217,16 +217,16 @@
     <value>按时间排序</value>
   </data>
   <data name="Uid_Popup_CopyCutPaste_ListItem_CopyFile.Content" xml:space="preserve">
-    <value>复制到此</value>
+    <value>备份文件</value>
   </data>
   <data name="Uid_Popup_CopyCutPaste_ListItem_CopyFolder.Content" xml:space="preserve">
-    <value>复制文件夹</value>
+    <value>备份文件夹</value>
   </data>
   <data name="Uid_Popup_CopyCutPaste_ListItem_CutFile.Content" xml:space="preserve">
-    <value>剪切到此</value>
+    <value>拖拽文件</value>
   </data>
   <data name="Uid_Popup_CopyCutPaste_ListItem_CutFolder.Content" xml:space="preserve">
-    <value>抓取文件夹</value>
+    <value>拖拽文件夹</value>
   </data>
   <data name="Uid_Popup_Sort_ListItem_DateDesc.Content" xml:space="preserve">
     <value>按时间 </value>
@@ -247,34 +247,34 @@
     <value>每点击一下您喜欢的广告，就是给我们0.02美元的支持 :)</value>
   </data>
   <data name="Uid_SupportUsLayout_TextBlock_Title.Text" xml:space="preserve">
-    <value>Support Us</value>
+    <value>支持我们</value>
   </data>
   <data name="Uid_SupportUs_Text.Text" xml:space="preserve">
     <value>For our future functionnalities and your future convinient. Please encourage us to continue to serve you my lords. Every time you click a advertissement intrested by you could give us a lot of inspiration, while feed us a little to eat.</value>
   </data>
   <data name="Uid_TextBlock_ContactUs.Text" xml:space="preserve">
-    <value>About Us</value>
+    <value>关于我们</value>
   </data>
   <data name="Uid_TextBlock_ContactUsByCasaTeam.Text" xml:space="preserve">
-    <value>By Casa Team</value>
+    <value>卡萨团队打造</value>
   </data>
   <data name="Uid_TextBlock_ContactUsFacebook.Text" xml:space="preserve">
-    <value>Restez informé en nous suivant sur Facebook:</value>
+    <value>访问我们的"非死不可"网页，给我们留下更多地信息</value>
   </data>
   <data name="Uid_TextBlock_ContactUsMail.Text" xml:space="preserve">
     <value>casapublic@hotmail.com</value>
   </data>
   <data name="Uid_TextBlock_ContactUsMailDeSupport.Text" xml:space="preserve">
-    <value>Mail de support</value>
+    <value>联系邮箱</value>
   </data>
   <data name="Uid_TextBlock_ContactUsMetroExplorer.Text" xml:space="preserve">
     <value>Metro Explorer</value>
   </data>
   <data name="Uid_TextBlock_ContactUsSuportus.Text" xml:space="preserve">
-    <value>Please click support us in the menu and click advertise within to support us</value>
+    <value>点击“支持我们”菜单选项，点击您所需要的广告来支持我们</value>
   </data>
   <data name="Uid_TextBlock_Policy.Text" xml:space="preserve">
-    <value>Politique de confitentialité</value>
+    <value>隐私声明</value>
   </data>
   <data name="Uid_TextBox_CreateNewFolder.Text" xml:space="preserve">
     <value>新建文件夹</value>
