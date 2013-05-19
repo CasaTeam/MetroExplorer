@@ -126,6 +126,7 @@
     <Compile Include="Common\TextFileAccess.cs" />
     <Compile Include="Common\FirstUsingRecord.cs" />
     <Compile Include="Common\UserPreferenceRecord.cs" />
+    <Compile Include="PageExplorerLoading.cs" />
     <Compile Include="PageExplorerSearch.cs" />
     <Compile Include="LayoutsBar\ContactUs.xaml.cs">
       <DependentUpon>ContactUs.xaml</DependentUpon>

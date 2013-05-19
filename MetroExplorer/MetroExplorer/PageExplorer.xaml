@@ -77,12 +77,12 @@
                     </Image>
                 </Grid>
                 <Grid  Visibility="{Binding Type, Converter={StaticResource FolderFace1Converter}}">
-					<Grid VerticalAlignment="Stretch" HorizontalAlignment="Left" Margin="75,0,5,0" Width="252">
-						<TextBlock Foreground="{StaticResource ItemTextForeground}" Text="{Binding Name}" VerticalAlignment="Top" Margin="5,5,0,0" HorizontalAlignment="Left" 
+					<Grid VerticalAlignment="Stretch" HorizontalAlignment="Left" Margin="65,0,5,0" Width="252">
+						<TextBlock Foreground="{StaticResource ItemTextForeground}" Text="{Binding Name}" VerticalAlignment="Top" Margin="0,5,0,0" HorizontalAlignment="Left" 
 							   FontSize="18" FontWeight="Light" Width="252" />
-						<TextBlock Foreground="{StaticResource ItemTextForeground}" Text="{Binding Size, Converter={StaticResource FileSizeFormatConverter}}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5,0,0,5"
+						<TextBlock Foreground="{StaticResource ItemTextForeground}" Text="{Binding Size, Converter={StaticResource FileSizeFormatConverter}}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,0,5"
 							   FontSize="16" FontWeight="Light" Opacity="0.7" />
-						<TextBlock Foreground="{StaticResource ItemTextForeground}" Text="{Binding ModifiedDateTime}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="5,0,5,5"
+						<TextBlock Foreground="{StaticResource ItemTextForeground}" Text="{Binding ModifiedDateTime}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,5,5"
 							   FontSize="16" FontWeight="Light" Opacity="0.7" />
 					</Grid>
 				</Grid>

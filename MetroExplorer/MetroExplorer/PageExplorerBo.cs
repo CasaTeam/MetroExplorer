@@ -33,102 +33,7 @@
             _imageChangingDispatcher.Start();
         }
 
-        int _loadingImageCount;
-        int _loadingFileSizeCount;
-        bool _imageDispatcherLock;
-        async void ImageChangingDispatcher_Tick(object sender, object e)
-        {
-            if (PageExplorer.BigSquareMode == false)
-            {
-                LoadingProgressBar.Visibility = Visibility.Collapsed;
-                if (_imageDispatcherLock == false && ExplorerGroups != null)
-                {
-                    _imageDispatcherLock = true;
-                    if (ExplorerGroups != null && ExplorerGroups[1] != null && _loadingImageCount < ExplorerGroups[1].Count)
-                    {
-                        for (int i = 1; i % 40 != 0 && ExplorerGroups != null && _loadingFileSizeCount < ExplorerGroups[1].Count; i++)
-                        {
-                            if (ExplorerGroups[1][_loadingFileSizeCount].Size == 0)
-                            {
-                                var file = ExplorerGroups[1][_loadingFileSizeCount].StorageFile;
-                                ExplorerGroups[1][_loadingFileSizeCount].Size = (await file.GetBasicPropertiesAsync()).Size;
-                                ExplorerGroups[1][_loadingFileSizeCount].ModifiedDateTime = (await file.GetBasicPropertiesAsync()).DateModified.DateTime;
-                            }
-                            _loadingFileSizeCount++;
-                        }
-                    }
-                    await ChangeFolderCover();
-                    _imageDispatcherLock = false;
-                }
-                return;
-            }
-            if (_imageDispatcherLock == false && ExplorerGroups != null)
-            {
-                _imageDispatcherLock = true;
-                if (ExplorerGroups != null && ExplorerGroups[1] != null && _loadingImageCount < ExplorerGroups[1].Count)
-                {
-                    for (int i = 1; i % 40 != 0 && ExplorerGroups != null && _loadingImageCount < ExplorerGroups[1].Count; i++)
-                    {
-                        var file = ExplorerGroups[1][_loadingImageCount].StorageFile;
-                        await ThumbnailPhoto(ExplorerGroups[1][_loadingImageCount], file, true);
-                        _loadingImageCount++;
-                    }
-                }
-                else
-                {
-                    _imageChangingDispatcher.Interval = new TimeSpan(0, 0, 0, 2);
-                }
-                await ChangeFolderCover();
-                _imageDispatcherLock = false;
-            }
-            LoadingProgressBar.Visibility = Visibility.Collapsed;
-        }
 
-        int _lastChangedFolder = 0;
-        private async Task ChangeFolderCover()
-        {
-            try
-            {
-                if (_lastChangedFolder == ExplorerGroups[0].Count)
-                    _lastChangedFolder = 0;
-                _lastChangedFolder++;
-                var exploreItem = ExplorerGroups[0][_lastChangedFolder];
-                if (exploreItem.StorageFolder == null) return;
-                var files = await exploreItem.StorageFolder.GetFilesAsync();
-                if (exploreItem.LastImageIndex == -2) return;
-                if (exploreItem.LastImageIndex == -1)
-                    foreach (var file in files)
-                    {
-                        exploreItem.LastImageIndex = -2;
-                        if (file.Name.ToUpper().EndsWith(".PNG") || file.Name.ToUpper().EndsWith(".JPG") || file.Name.ToUpper().EndsWith(".JPEG") ||
-                            file.Name.ToUpper().EndsWith(".BMP") || file.Name.ToUpper().EndsWith(".RMVB") || file.Name.ToUpper().EndsWith(".MP4") ||
-                            file.Name.ToUpper().EndsWith(".MKV") || file.Name.ToUpper().EndsWith(".PNG"))
-                        {
-                            exploreItem.LastImageName.Add(file.Name);
-                            exploreItem.LastImageIndex = 0;
-                        }
-                    }
-                if (exploreItem.LastImageIndex == exploreItem.LastImageName.Count - 1)
-                    exploreItem.LastImageIndex = 0;
-                await ThumbnailPhoto(exploreItem, files[exploreItem.LastImageIndex]);
-                exploreItem.LastImageIndex++;
-            }
-            catch
-            { }
-        }
-
-        private async Task ThumbnailPhoto(ExplorerItem item, StorageFile sf, bool file = false)
-        {
-            if (item == null && item.DefautImage != null) return;
-
-            StorageItemThumbnail fileThumbnail = await sf.GetThumbnailAsync(ThumbnailMode.SingleItem, 250);
-            BitmapImage bitmapImage = new BitmapImage();
-            bitmapImage.SetSource(fileThumbnail);
-            if (file == false)
-                item.Image = bitmapImage;
-            else
-                item.DefautImage = bitmapImage;
-        }
 
         private void ExplorerItemImage_Loaded(object sender, RoutedEventArgs e)
         {
@@ -331,12 +236,14 @@
             {
                 itemGridView.ItemTemplate = this.Resources["Standard300x180ItemTemplate"] as DataTemplate;
                 PageExplorer.BigSquareMode = true;
+                _loadingImageCount = 0;
                 UserPreferenceRecord.GetInstance().WriteUserPreferenceRecord("Square");
             }
             else
             {
                 itemGridView.ItemTemplate = this.Resources["Standard300x80ItemTemplate"] as DataTemplate;
                 PageExplorer.BigSquareMode = false;
+                _loadingFileSizeCount = 0;
                 UserPreferenceRecord.GetInstance().WriteUserPreferenceRecord("List");
             }
         }
