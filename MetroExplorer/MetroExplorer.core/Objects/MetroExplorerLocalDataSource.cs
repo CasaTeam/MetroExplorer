@@ -35,7 +35,7 @@ namespace MetroExplorer.core.Objects
 
         public string GetPath()
         {
-            return _navigatorStorageFolders.First().Path.Contains(":")
+            return _navigatorStorageFolders.First().FolderRelativeId.Split('\\')[0] == "0"
                 ? CurrentStorageFolder.Path :
                 _navigatorStorageFolders.Aggregate(string.Empty,
                 (current, next) =>
