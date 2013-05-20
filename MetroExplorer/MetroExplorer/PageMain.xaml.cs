@@ -55,16 +55,25 @@
             this.Loaded += PageMain_Loaded;
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            ChangeTheme(Theme.ThemeLibarary.CurrentTheme);
-        }
+        //protected override void OnNavigatedTo(NavigationEventArgs e)
+        //{
+        //    
+        //}
 
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        //protected override void OnNavigatedFrom(NavigationEventArgs e)
+        //{
+        //    
+        //}
+
+        protected override void SaveState(Dictionary<string, object> pageState)
         {
             _folderImageChangeDispatcher.Stop();
         }
 
+        protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
+        {
+            ChangeTheme(Theme.ThemeLibarary.CurrentTheme);
+        }
 
         async void PageMain_Loaded(object sender, RoutedEventArgs e)
         {
@@ -263,22 +272,6 @@
             return result;
         }
 
-        /// <summary>
-        /// Remplit la page à l'aide du contenu passé lors de la navigation. Tout état enregistré est également
-        /// fourni lorsqu'une page est recréée à partir d'une session antérieure.
-        /// </summary>
-        /// <param name="navigationParameter">Valeur de paramètre passée à
-        /// <see cref="Frame.Navigate(Type, Object)"/> lors de la requête initiale de cette page.
-        /// </param>
-        /// <param name="pageState">Dictionnaire d'état conservé par cette page durant une session
-        /// antérieure. Null lors de la première visite de la page.</param>
-        protected override void LoadState(
-            Object navigationParameter,
-            Dictionary<String, Object> pageState)
-        {
-            // TODO: assignez une collection de groupes pouvant être liés à this.DefaultViewModel["Groups"]
-        }
-
         private async System.Threading.Tasks.Task AddNewFolder()
         {
             StorageFolder storageFolder = await GetStorageFolderFromFolderPicker();
@@ -442,7 +435,7 @@
     /// <summary>
     /// Properties for change theme color
     /// </summary>
-    public sealed partial class PageMain : LayoutAwarePage, INotifyPropertyChanged
+    public sealed partial class PageMain : INotifyPropertyChanged
     {
         private string _backgroundColor = Theme.ThemeLibarary.BackgroundColor;
         public string BackgroundColor
@@ -569,19 +562,4 @@
             ItemBigBackground = Theme.ThemeLibarary.ItemBigBackground;
         }
     }
-
-
-    //public class ImageSourceConverter : IValueConverter
-    //{
-    //    public object Convert(object value, Type targetType, object parameter, string language)
-    //    {
-    //        //return value.ToString() == "Collapsed" ? "Visible" : "Collapsed";
-    //        return value;
-    //    }
-
-    //    public object ConvertBack(object value, Type targetType, object parameter, string language)
-    //    {
-    //        return null;
-    //    }
-    //}
 }

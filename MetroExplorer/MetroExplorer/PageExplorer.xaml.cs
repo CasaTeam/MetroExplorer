@@ -18,11 +18,13 @@
     using Windows.Storage.FileProperties;
     using Windows.UI.Xaml.Media.Imaging;
     using MetroExplorer.Common;
+    using Windows.ApplicationModel.DataTransfer;
+    using Windows.Storage.Streams;
 
     /// <summary>
     /// Page affichant une collection groupée d'éléments.
     /// </summary>
-    public sealed partial class PageExplorer : INotifyPropertyChanged
+    public sealed partial class PageExplorer : LayoutAwarePage, INotifyPropertyChanged
     {
         private readonly MetroExplorerLocalDataSource _dataSource;
         public static List<string> CurrentItems;
@@ -71,22 +73,6 @@
                 itemGridView.ItemTemplate = Resources["Standard300x80ItemTemplate"] as DataTemplate;
         }
 
-        protected override async void OnNavigatedFrom(NavigationEventArgs e)
-        {
-            _imageChangingDispatcher.Stop();
-            _imageChangingDispatcher.Tick -= ImageChangingDispatcher_Tick;
-            _imageChangingDispatcher = null;
-            var currentContent = Window.Current.Content;
-            var frame = currentContent as Frame;
-
-            if (e.SourcePageType == frame.CurrentSourcePageType)
-                App.LastQuery = App.CurrentQuery = string.Empty;
-
-            if (e != null && e.Parameter != null && e.Parameter is string)
-                await Search(e.Parameter as string);
-            GC.Collect();
-        }
-
         /// <summary>
         /// Remplit la page à l'aide du contenu passé lors de la navigation. Tout état enregistré est également
         /// fourni lorsqu'une page est recréée à partir d'une session antérieure.
@@ -96,13 +82,26 @@
         /// </param>
         /// <param name="pageState">Dictionnaire d'état conservé par cette page durant une session
         /// antérieure. Null lors de la première visite de la page.</param>
-        protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
+        protected async override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
+            string args = navigationParameter as string;
+            if (args != null)
+            {
+                _imageChangingDispatcher.Stop();
+                _imageChangingDispatcher.Tick -= ImageChangingDispatcher_Tick;
+                _imageChangingDispatcher = null;
+                var currentContent = Window.Current.Content;
+                var frame = currentContent as Frame;
 
-        }
+                App.LastQuery = App.CurrentQuery = string.Empty;
 
-        protected async override void OnNavigatedTo(NavigationEventArgs e)
-        {
+                if (args != null && args is string)
+                    await Search(args as string);
+                GC.Collect();
+            }
+            DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
+            dataTransferManager.DataRequested += PageExplorerDataRequested;
+
             EventLogger.onActionEvent(EventLogger.FOLDER_OPENED);
             ExplorerGroups = new ObservableCollection<GroupInfoList<ExplorerItem>>
                 {
@@ -115,8 +114,6 @@
                             Key = StringResources.ResourceLoader.GetString("MainExplorer_UserFileGroupTitle")
                         }
                 };
-            //_navigatorStorageFolders = (IList<StorageFolder>)e.Parameter;
-            //_currentStorageFolder = _navigatorStorageFolders.LastOrDefault();
 
             FolderNameTextBlock.Text = _dataSource.CurrentStorageFolder.Name;
             ChangeTheme(Theme.ThemeLibarary.CurrentTheme);
@@ -124,6 +121,42 @@
             GroupedItemsViewSource.Source = ExplorerGroups;
 
             InitializeChangingDispatcher();
+
+        }
+
+        protected override void SaveState(Dictionary<string, object> pageState)
+        {
+            base.SaveState(pageState);
+            DataTransferManager.GetForCurrentView().DataRequested -= PageExplorerDataRequested;
+        }
+
+        void PageExplorerDataRequested(DataTransferManager sender,
+            DataRequestedEventArgs args)
+        {
+            try
+            {
+                var request = args.Request;
+                foreach (ExplorerItem item in itemGridView.SelectedItems)
+                {
+                    if (item.Type == ExplorerItemType.File)
+                    {
+                        var reference = RandomAccessStreamReference.CreateFromUri(new Uri(item.Path));
+                        if (reference != null)
+                        {
+                            request.Data.Properties.Title = item.Name;
+                            request.Data.Properties.Thumbnail = reference;
+                        }
+                    }
+                }
+
+                var recipe = "\r\nTest\r\n";
+                recipe += ("\r\n\r\nTest\r\n");
+                request.Data.SetText(recipe);
+            }
+            catch (Exception)
+            {
+                DataTransferManager.GetForCurrentView().DataRequested -= PageExplorerDataRequested;
+            }
         }
 
         private async Task RefreshLocalFiles()
@@ -143,7 +176,7 @@
                         {
                             if (item is StorageFile)
                             {
-                                if (ExplorerGroups[1].All(p=>p.Name != item.Name))
+                                if (ExplorerGroups[1].All(p => p.Name != item.Name))
                                     ExplorerGroups[1].AddFileItem(item as StorageFile);
                             }
                             else if (item is StorageFolder)

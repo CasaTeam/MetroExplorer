@@ -112,7 +112,7 @@ namespace MetroExplorer
 
             SearchPane searchPane = SearchPane.GetForCurrentView();
             searchPane.SearchHistoryEnabled = false;
-            searchPane.ShowOnKeyboardInput = false;
+            searchPane.ShowOnKeyboardInput = true;
             searchPane.QueryChanged += searchPaneQueryChanged;
             searchPane.SuggestionsRequested += PageExplorerSuggestionsRequested;
 

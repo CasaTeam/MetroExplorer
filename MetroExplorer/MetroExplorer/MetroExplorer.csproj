@@ -120,7 +120,7 @@
     <Compile Include="Common\BooleanToVisibilityConverter.cs" />
     <Compile Include="Common\Filter.cs" />
     <Compile Include="Common\LayoutAwarePage.cs" />
-    <Compile Include="Common\ccc.cs" />
+    <Compile Include="Common\NotificationHelper.cs" />
     <Compile Include="Common\RichTextColumns.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="Common\TextFileAccess.cs" />
