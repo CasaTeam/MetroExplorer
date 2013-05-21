@@ -484,27 +484,43 @@
                 if (value is StorageFile)
                 {
                     if ((value as StorageFile).Name.ToUpper().EndsWith(".PNG") || (value as StorageFile).Name.ToUpper().EndsWith(".JPG") ||
-                       (value as StorageFile).Name.ToUpper().EndsWith(".JEPG") || (value as StorageFile).Name.ToUpper().EndsWith(".BMP") ||
-                       (value as StorageFile).Name.ToUpper().EndsWith(".GIF"))
-                        resultBitMap = new BitmapImage(new Uri(PageExplorer.BaseUriStatic, @"Assets/camera.png"));
+                       (value as StorageFile).Name.ToUpper().EndsWith(".JEPG") || (value as StorageFile).Name.ToUpper().EndsWith(".BMP"))
+                        resultBitMap = new BitmapImage(new Uri(PageExplorer.BaseUriStatic, @"Assets/FilesIcon/appbar.image.png"));
+                    else if ((value as StorageFile).Name.ToUpper().EndsWith(".MP3") || (value as StorageFile).Name.ToUpper().EndsWith(".WMA") ||
+                            (value as StorageFile).Name.ToUpper().EndsWith(".WAV") || (value as StorageFile).Name.ToUpper().EndsWith(".WM"))
+                        resultBitMap = new BitmapImage(new Uri(PageExplorer.BaseUriStatic, @"Assets/FilesIcon/appbar.music.png"));
+                    else if((value as StorageFile).Name.ToUpper().EndsWith(".GIF"))
+                        resultBitMap = new BitmapImage(new Uri(PageExplorer.BaseUriStatic, @"Assets/FilesIcon/appbar.page.gif.png"));
                     else if ((value as StorageFile).Name.ToUpper().EndsWith(".MP4") || (value as StorageFile).Name.ToUpper().EndsWith(".RMVB") ||
                        (value as StorageFile).Name.ToUpper().EndsWith(".MKV") || (value as StorageFile).Name.ToUpper().EndsWith(".BMP"))
-                        resultBitMap = new BitmapImage(new Uri(PageExplorer.BaseUriStatic, @"Assets/video.png"));
-                    else if ((value as StorageFile).Name.ToUpper().EndsWith(".xls") || (value as StorageFile).Name.ToUpper().EndsWith(".xlsx") ||
-                       (value as StorageFile).Name.ToUpper().EndsWith(".docx") || (value as StorageFile).Name.ToUpper().EndsWith(".doc") ||
-                        (value as StorageFile).Name.ToUpper().EndsWith(".ppt") || (value as StorageFile).Name.ToUpper().EndsWith(".pptx"))
-                        resultBitMap = new BitmapImage(new Uri(PageExplorer.BaseUriStatic, @"Assets/flag.png"));
+                        resultBitMap = new BitmapImage(new Uri(PageExplorer.BaseUriStatic, @"Assets/FilesIcon/appbar.film.png"));
+                    else if ((value as StorageFile).Name.ToUpper().EndsWith(".XLS") || (value as StorageFile).Name.ToUpper().EndsWith(".XLSX"))
+                        resultBitMap = new BitmapImage(new Uri(PageExplorer.BaseUriStatic, @"Assets/FilesIcon/appbar.page.excel.png"));
+                    else if ((value as StorageFile).Name.ToUpper().EndsWith(".PDF"))
+                        resultBitMap = new BitmapImage(new Uri(PageExplorer.BaseUriStatic, @"Assets/FilesIcon/appbar.page.pdf.text.png"));
+                    else if ((value as StorageFile).Name.ToUpper().EndsWith(".DOCX") || (value as StorageFile).Name.ToUpper().EndsWith(".DOC"))
+                        resultBitMap = new BitmapImage(new Uri(PageExplorer.BaseUriStatic, @"Assets/FilesIcon/appbar.page.word.png"));
+                    else if ((value as StorageFile).Name.ToUpper().EndsWith(".PPT") || (value as StorageFile).Name.ToUpper().EndsWith(".PPTX"))
+                        resultBitMap = new BitmapImage(new Uri(PageExplorer.BaseUriStatic, @"Assets/FilesIcon/appbar.page.powerpoint.png"));
+                    else if ((value as StorageFile).Name.ToUpper().EndsWith(".TXT"))
+                        resultBitMap = new BitmapImage(new Uri(PageExplorer.BaseUriStatic, @"Assets/FilesIcon/appbar.page.txt.png"));
+                    else if ((value as StorageFile).Name.ToUpper().EndsWith(".XML") || (value as StorageFile).Name.ToUpper().EndsWith(".HTML") ||
+                             (value as StorageFile).Name.ToUpper().EndsWith(".XAML"))
+                        resultBitMap = new BitmapImage(new Uri(PageExplorer.BaseUriStatic, @"Assets/FilesIcon/appbar.page.xml.png"));
+                    else if ((value as StorageFile).Name.ToUpper().EndsWith(".CS"))
+                        resultBitMap = new BitmapImage(new Uri(PageExplorer.BaseUriStatic, @"Assets/FilesIcon/appbar.language.csharp.png"));
+                    else if ((value as StorageFile).Name.ToUpper().EndsWith(".JAVA"))
+                        resultBitMap = new BitmapImage(new Uri(PageExplorer.BaseUriStatic, @"Assets/FilesIcon/appbar.language.java.text.png"));
+                    else if ((value as StorageFile).Name.ToUpper().EndsWith(".EXE"))
+                        resultBitMap = new BitmapImage(new Uri(PageExplorer.BaseUriStatic, @"Assets/FilesIcon/appbar.os.windows.8.png"));
+                    else if ((value as StorageFile).Name.ToUpper().EndsWith(".DLL"))
+                        resultBitMap = new BitmapImage(new Uri(PageExplorer.BaseUriStatic, @"Assets/FilesIcon/appbar.infinite.png"));
                     else
-                        resultBitMap = new BitmapImage(new Uri(PageExplorer.BaseUriStatic, @"Assets/favs.png"));
+                        resultBitMap = new BitmapImage(new Uri(PageExplorer.BaseUriStatic, @"Assets/FilesIcon/appbar.page.text.png"));
                     return resultBitMap;
                 }
-                else
-                {
-                    var result = new BitmapImage(new Uri(PageExplorer.BaseUriStatic, @"Assets/folder.png"));
-                    return result;
-                }
             }
-            var result2 = new BitmapImage(new Uri(PageExplorer.BaseUriStatic, @"Assets/FolderLogo2.png"));
+            var result2 = new BitmapImage(new Uri(PageExplorer.BaseUriStatic, @"Assets/FilesIcon/appbar.folder.png"));
             return result2;
         }
 
