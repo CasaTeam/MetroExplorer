@@ -52,6 +52,10 @@ namespace MetroExplorer
                 _imageDispatcherLock = false;
             }
             LoadingProgressBar.Visibility = Visibility.Collapsed;
+
+            _imageChangingDispatcher.Stop();
+            _imageChangingDispatcher.Tick -= ImageChangingDispatcher_Tick;
+            _imageChangingDispatcher = null;
         }
 
         int _lastChangedFolder = 0;

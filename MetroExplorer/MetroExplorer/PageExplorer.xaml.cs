@@ -73,23 +73,19 @@
                 itemGridView.ItemTemplate = Resources["Standard300x80ItemTemplate"] as DataTemplate;
         }
 
-        /// <summary>
-        /// Remplit la page à l'aide du contenu passé lors de la navigation. Tout état enregistré est également
-        /// fourni lorsqu'une page est recréée à partir d'une session antérieure.
-        /// </summary>
-        /// <param name="navigationParameter">Valeur de paramètre passée à
-        /// <see cref="Frame.Navigate(Type, Object)"/> lors de la requête initiale de cette page.
-        /// </param>
-        /// <param name="pageState">Dictionnaire d'état conservé par cette page durant une session
-        /// antérieure. Null lors de la première visite de la page.</param>
         protected async override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
-            string args = navigationParameter as string;
-            if (args != null)
+            if (_imageChangingDispatcher != null)
             {
                 _imageChangingDispatcher.Stop();
                 _imageChangingDispatcher.Tick -= ImageChangingDispatcher_Tick;
                 _imageChangingDispatcher = null;
+            }
+
+            string args = navigationParameter as string;
+            if (args != null)
+            {
+
                 var currentContent = Window.Current.Content;
                 var frame = currentContent as Frame;
 
@@ -99,8 +95,6 @@
                     await Search(args as string);
                 GC.Collect();
             }
-            DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
-            dataTransferManager.DataRequested += PageExplorerDataRequested;
 
             EventLogger.onActionEvent(EventLogger.FOLDER_OPENED);
             ExplorerGroups = new ObservableCollection<GroupInfoList<ExplorerItem>>
@@ -122,41 +116,35 @@
 
             InitializeChangingDispatcher();
 
+            DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
+            dataTransferManager.DataRequested += PageExplorerDataRequested;
         }
 
         protected override void SaveState(Dictionary<string, object> pageState)
         {
-            base.SaveState(pageState);
             DataTransferManager.GetForCurrentView().DataRequested -= PageExplorerDataRequested;
         }
 
         void PageExplorerDataRequested(DataTransferManager sender,
             DataRequestedEventArgs args)
         {
-            try
+            var request = args.Request;
+
+            foreach (ExplorerItem item in itemGridView.SelectedItems)
             {
-                var request = args.Request;
-                foreach (ExplorerItem item in itemGridView.SelectedItems)
+                if (item.Type == ExplorerItemType.File)
                 {
-                    if (item.Type == ExplorerItemType.File)
+                    var reference = RandomAccessStreamReference.CreateFromFile(item.StorageFile);
+                    if (reference != null)
                     {
-                        var reference = RandomAccessStreamReference.CreateFromUri(new Uri(item.Path));
-                        if (reference != null)
-                        {
-                            request.Data.Properties.Title = item.Name;
-                            request.Data.Properties.Thumbnail = reference;
-                        }
+                        request.Data.Properties.Title = item.Name;
+                        request.Data.Properties.Description = "";
+                        request.Data.Properties.Thumbnail = reference;
                     }
                 }
+            }
 
-                var recipe = "\r\nTest\r\n";
-                recipe += ("\r\n\r\nTest\r\n");
-                request.Data.SetText(recipe);
-            }
-            catch (Exception)
-            {
-                DataTransferManager.GetForCurrentView().DataRequested -= PageExplorerDataRequested;
-            }
+            request.Data.SetText("\n");
         }
 
         private async Task RefreshLocalFiles()
