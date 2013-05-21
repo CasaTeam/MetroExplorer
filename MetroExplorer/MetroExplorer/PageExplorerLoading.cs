@@ -51,11 +51,7 @@ namespace MetroExplorer
                 await ChangeFolderCover();
                 _imageDispatcherLock = false;
             }
-            LoadingProgressBar.Visibility = Visibility.Collapsed;
-
-            _imageChangingDispatcher.Stop();
-            _imageChangingDispatcher.Tick -= ImageChangingDispatcher_Tick;
-            _imageChangingDispatcher = null;
+            LoadingProgressBar.Visibility = Visibility.Collapsed;          
         }
 
         int _lastChangedFolder = 0;
@@ -85,7 +81,7 @@ namespace MetroExplorer
                 if (exploreItem.LastImageIndex == exploreItem.LastImageName.Count - 1)
                     exploreItem.LastImageIndex = 0;
                 await ThumbnailPhoto(exploreItem, files[exploreItem.LastImageIndex]);
-                exploreItem.LastImageIndex++;
+                if (exploreItem.LastImageIndex != 0) exploreItem.LastImageIndex++;
             }
             catch
             { }

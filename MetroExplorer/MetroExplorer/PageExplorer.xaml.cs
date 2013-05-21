@@ -75,12 +75,9 @@
 
         protected async override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
-            if (_imageChangingDispatcher != null)
-            {
-                _imageChangingDispatcher.Stop();
-                _imageChangingDispatcher.Tick -= ImageChangingDispatcher_Tick;
-                _imageChangingDispatcher = null;
-            }
+            _imageChangingDispatcher.Stop();
+            _imageChangingDispatcher.Tick -= ImageChangingDispatcher_Tick;
+            _imageChangingDispatcher = null;
 
             string args = navigationParameter as string;
             if (args != null)
