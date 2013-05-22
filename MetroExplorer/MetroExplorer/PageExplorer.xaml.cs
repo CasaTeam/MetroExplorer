@@ -75,10 +75,6 @@
 
         protected async override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
-            _imageChangingDispatcher.Stop();
-            _imageChangingDispatcher.Tick -= ImageChangingDispatcher_Tick;
-            _imageChangingDispatcher = null;
-
             string args = navigationParameter as string;
             if (args != null)
             {
@@ -209,8 +205,7 @@
             _dataSource.CutNavigatorFromIndex(e.Index);
             if (e.CommandType == NavigatorNodeCommandType.Reduce)
             {
-                if (_imageChangingDispatcher != null)
-                    _imageChangingDispatcher.Stop();
+                StopImageChangingDispatcher();
                 Frame.Navigate(typeof(PageExplorer), null);
             }
             else if (e.CommandType == NavigatorNodeCommandType.Change)
@@ -230,7 +225,7 @@
                         }
                     }
                 }
-                _imageChangingDispatcher.Stop();
+                StopImageChangingDispatcher();
                 Frame.Navigate(typeof(PageExplorer), null);
             }
         }
@@ -238,7 +233,7 @@
         private void ButtonMainPage_Click_1(object sender, RoutedEventArgs e)
         {
             _dataSource.NavigatorStorageFolders = new List<StorageFolder>();
-            _imageChangingDispatcher.Stop();
+            StopImageChangingDispatcher();
             CurrentItems = null;
             Frame.Navigate(typeof(PageMain));
         }

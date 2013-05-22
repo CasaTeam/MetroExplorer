@@ -35,6 +35,10 @@
 
 
         public List<string> LastImageName = new List<string>();
+        /// <summary>
+        /// exploreItem.LastImageIndex == -2 代表该文件夹下没有图片
+        /// exploreItem.LastImageIndex == -1 代表该文件夹还没有被发觉
+        /// </summary>
         public int LastImageIndex = -1;
 
         public string Name

@@ -23,18 +23,6 @@
     /// </summary>
     public sealed partial class PageExplorer
     {
-        DispatcherTimer _imageChangingDispatcher = new DispatcherTimer();
-
-        private void InitializeChangingDispatcher()
-        {
-            _imageChangingDispatcher = new DispatcherTimer();
-            _imageChangingDispatcher.Tick += ImageChangingDispatcher_Tick;
-            _imageChangingDispatcher.Interval = new TimeSpan(0, 0, 0, 0, 500);
-            _imageChangingDispatcher.Start();
-        }
-
-
-
         private void ExplorerItemImage_Loaded(object sender, RoutedEventArgs e)
         {
         }
