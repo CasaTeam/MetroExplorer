@@ -25,21 +25,9 @@
         [XmlIgnore]
         private BitmapImage _image;
         [XmlIgnore]
-        private BitmapImage _defautImage;
-        [XmlIgnore]
-        private string _renameBoxVisibility = "Collapsed";
-        [XmlIgnore]
-        private string _renamingName;
-        [XmlIgnore]
         private string _textWrap = "Wrap";
-
-
-        public List<string> LastImageName = new List<string>();
-        /// <summary>
-        /// exploreItem.LastImageIndex == -2 代表该文件夹下没有图片
-        /// exploreItem.LastImageIndex == -1 代表该文件夹还没有被发觉
-        /// </summary>
-        public int LastImageIndex = -1;
+        [XmlIgnore]
+        public string _imageStretch = "None";
 
         public string Name
         {
@@ -124,6 +112,7 @@
                 NotifyPropertyChanged("StorageFile");
             }
         }
+
         [XmlIgnore]
         public BitmapImage Image
         {
@@ -132,17 +121,6 @@
             {
                 _image = value;
                 NotifyPropertyChanged("Image");
-            }
-        }
-
-        [XmlIgnore]
-        public BitmapImage DefautImage
-        {
-            get { return _defautImage; }
-            set
-            {
-                _defautImage = value;
-                NotifyPropertyChanged("DefautImage");
             }
         }
 
@@ -156,6 +134,20 @@
                 NotifyPropertyChanged("TextWrap");
             }
         }
+
+        [XmlIgnore]
+        public string ImageStretch
+        {
+            get { return _imageStretch; }
+            set
+            {
+                _imageStretch = value;
+                NotifyPropertyChanged("ImageStretch");
+            }
+        }
+
+        public int LastImageIndex = -1;
+        public List<string> LastImageName = new List<string>();
 
         public void NotifyPropertyChanged(String changedPropertyName)
         {

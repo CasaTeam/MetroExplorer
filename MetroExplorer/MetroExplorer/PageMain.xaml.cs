@@ -143,7 +143,7 @@
             BitmapImage bitmapImage = new BitmapImage();
             bitmapImage.SetSource(fileThumbnail);
             item.Image = bitmapImage;
-            item.DefautImage = null;
+            item.Image = null;
         }
 
         private async System.Threading.Tasks.Task initializeUsersFolders()
@@ -210,7 +210,7 @@
                 Type = ExplorerItemType.Folder
             };
             if (item.Name.Contains(":\\"))
-                item.DefautImage = GetBitMapImageFromLocalSource("Assets/DiskLogo.png");
+                item.Image = GetBitMapImageFromLocalSource("Assets/DiskLogo.png");
             //else
             //    item.DefautImage = GetBitMapImageFromLocalSource("Assets/FolderLogo2.png");
             itemList.Add(item);
@@ -225,7 +225,7 @@
                 Path = KnownFolders.PicturesLibrary.Path,
                 StorageFolder = KnownFolders.PicturesLibrary,
                 Type = ExplorerItemType.Folder,
-                DefautImage = GetBitMapImageFromLocalSource("Assets/photos.png")
+                Image = GetBitMapImageFromLocalSource("Assets/photos.png")
             });
             ExplorerGroups[0].Add(new ExplorerItem()
             {
@@ -233,7 +233,7 @@
                 Path = KnownFolders.MusicLibrary.Path,
                 StorageFolder = KnownFolders.MusicLibrary,
                 Type = ExplorerItemType.Folder,
-                DefautImage = GetBitMapImageFromLocalSource("Assets/music.png")
+                Image = GetBitMapImageFromLocalSource("Assets/music.png")
             });
             //ExplorerGroups[0].Add(new ExplorerItem()
             //{
@@ -249,7 +249,7 @@
                 Path = KnownFolders.VideosLibrary.Path,
                 StorageFolder = KnownFolders.VideosLibrary,
                 Type = ExplorerItemType.Folder,
-                DefautImage = GetBitMapImageFromLocalSource("Assets/video.png")
+                Image = GetBitMapImageFromLocalSource("Assets/video.png")
             });
 
             ExplorerGroups[1].Add(new ExplorerItem()
@@ -258,16 +258,13 @@
                 Path = StringResources.ResourceLoader.GetString("String_AddNewShortCutFolder"),
                 StorageFolder = null,
                 Type = ExplorerItemType.Folder,
-                DefautImage = GetBitMapImageFromLocalSource("Assets/FolderLogo2.png")
+                Image = GetBitMapImageFromLocalSource("Assets/FolderLogo2.png")
             });
         }
 
         private BitmapImage GetBitMapImageFromLocalSource(string url)
         {
-
-
             var result = new BitmapImage(new Uri(this.BaseUri, @url));
-
             //result.UriSource = uri;
             return result;
         }

@@ -16,17 +16,7 @@ namespace MetroExplorer
         private async Task Search(string navigationParameter)
         {
             if (_dataSource == null || _dataSource.CurrentStorageFolder == null) return;
-            ObservableCollection<GroupInfoList<ExplorerItem>> explorerGroups = new ObservableCollection<GroupInfoList<ExplorerItem>>
-                {
-                    new GroupInfoList<ExplorerItem>
-                        {
-                            Key = StringResources.ResourceLoader.GetString("MainPage_UserFolderGroupTitle")
-                        },
-                    new GroupInfoList<ExplorerItem>
-                        {
-                            Key = StringResources.ResourceLoader.GetString("MainPage_SystemFolderGroupTitle")
-                        }
-                };
+            ObservableCollection<ExplorerItem> explorerGroups = new ObservableCollection<ExplorerItem>();
             var queryText = navigationParameter;
             var query = queryText.ToLower();
             var items = await _dataSource.CurrentStorageFolder.GetItemsAsync();
@@ -39,9 +29,9 @@ namespace MetroExplorer
             foreach (var item in itemsFilter)
             {
                 if (item.Item is StorageFolder)
-                    explorerGroups[0].AddItem(item.Item);
+                    explorerGroups.AddStorageItem(item.Item as StorageFolder);
                 else if (item.Item is StorageFile)
-                    explorerGroups[1].AddItem(item.Item);
+                    explorerGroups.AddFileItem(item.Item as StorageFile);
             }
 
             if (explorerGroups.Count > 0)

@@ -126,6 +126,10 @@
     <Compile Include="Common\TextFileAccess.cs" />
     <Compile Include="Common\FirstUsingRecord.cs" />
     <Compile Include="Common\UserPreferenceRecord.cs" />
+    <Compile Include="ItemsPage1.xaml.cs">
+      <DependentUpon>ItemsPage1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageExplorerFileTypes.cs" />
     <Compile Include="PageExplorerSort.cs" />
     <Compile Include="PageExplorerTimer.cs" />
     <Compile Include="PageExplorerSearch.cs" />
@@ -226,6 +230,10 @@
     <Page Include="Common\StandardStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ItemsPage1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="LayoutsBar\ContactUs.xaml">
       <SubType>Designer</SubType>

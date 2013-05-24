@@ -23,24 +23,20 @@
     /// </summary>
     public sealed partial class PageExplorer
     {
-        private void ExplorerItemImage_Loaded(object sender, RoutedEventArgs e)
-        {
-        }
-
         private async void Button_RemoveDiskFolder_Click(object sender, RoutedEventArgs e)
         {
             if (itemGridView.SelectedItems == null || itemGridView.SelectedItems.Count == 0) return;
             while (itemGridView.SelectedItems.Count > 0)
             {
-                if (ExplorerGroups[0].Contains(itemGridView.SelectedItems[0] as ExplorerItem))
+                if (ExplorerItems.Contains(itemGridView.SelectedItems[0] as ExplorerItem))
                 {
                     await (itemGridView.SelectedItems[0] as ExplorerItem).StorageFolder.DeleteAsync();
-                    ExplorerGroups[0].Remove(itemGridView.SelectedItems[0] as ExplorerItem);
+                    ExplorerItems.Remove(itemGridView.SelectedItems[0] as ExplorerItem);
                 }
-                else if (ExplorerGroups[1].Contains(itemGridView.SelectedItems[0] as ExplorerItem))
+                else if (ExplorerItems.Contains(itemGridView.SelectedItems[0] as ExplorerItem))
                 {
                     await (itemGridView.SelectedItems[0] as ExplorerItem).StorageFile.DeleteAsync();
-                    ExplorerGroups[1].Remove(itemGridView.SelectedItems[0] as ExplorerItem);
+                    ExplorerItems.Remove(itemGridView.SelectedItems[0] as ExplorerItem);
                 }
             }
             await InitializeNavigator();
@@ -66,7 +62,7 @@
             {
                 if (item.StorageFile != null && item.StorageFile.IsImageFile())
                 {
-                    var parameters = ExplorerGroups[1].Where(p => p.StorageFile.FileType.ToUpper().Equals(".JPG") ||
+                    var parameters = ExplorerItems.Where(p => p.StorageFile.FileType.ToUpper().Equals(".JPG") ||
                                                                  p.StorageFile.FileType.ToUpper().Equals(".JPEG") ||
                                                                  p.StorageFile.FileType.ToUpper().Equals(".PNG") ||
                                                                  p.StorageFile.FileType.ToUpper().Equals(".BMP")).ToList();
@@ -104,7 +100,7 @@
                 Type = ExplorerItemType.Folder,
                 StorageFolder = sf
             };
-            ExplorerGroups[0].Add(item);
+            ExplorerItems.Insert(0, item);
             itemGridView.SelectedItem = item;
             Popup_CreateNewFolder.IsOpen = false;
             Popup_CreateNewFolder.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
@@ -141,16 +137,6 @@
             Popup_RenameFolder.IsOpen = false;
             Popup_RenameFolder.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }
-
-        private Boolean IsImageFile(StorageFile file)
-        {
-            if (file.FileType.ToUpper().Equals(".JPG") ||
-                file.FileType.ToUpper().Equals(".JPEG") ||
-                file.FileType.ToUpper().Equals(".PNG") ||
-                file.FileType.ToUpper().Equals(".BMP"))
-                return true;
-            return false;
-        }
     }
 
     /// <summary>
@@ -164,16 +150,15 @@
             {
                 itemGridView.ItemTemplate = this.Resources["Standard300x180ItemTemplate"] as DataTemplate;
                 PageExplorer.BigSquareMode = true;
-                _loadingImageCount = 0;
                 UserPreferenceRecord.GetInstance().WriteUserPreferenceRecord("Square");
             }
             else
             {
                 itemGridView.ItemTemplate = this.Resources["Standard300x80ItemTemplate"] as DataTemplate;
                 PageExplorer.BigSquareMode = false;
-                _loadingFileSizeCount = 0;
                 UserPreferenceRecord.GetInstance().WriteUserPreferenceRecord("List");
             }
+            _counterForLoadUnloadedItems = 0;
         }
     }
 

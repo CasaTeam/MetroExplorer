@@ -29,17 +29,17 @@
         private readonly MetroExplorerLocalDataSource _dataSource;
         public static List<string> CurrentItems;
 
-        ObservableCollection<GroupInfoList<ExplorerItem>> _explorerGroups;
-        public ObservableCollection<GroupInfoList<ExplorerItem>> ExplorerGroups
+        ObservableCollection<ExplorerItem> _explorerItems;
+        public ObservableCollection<ExplorerItem> ExplorerItems
         {
             get
             {
-                return _explorerGroups;
+                return _explorerItems;
             }
             set
             {
-                _explorerGroups = value;
-                NotifyPropertyChanged("ExplorerGroups");
+                _explorerItems = value;
+                NotifyPropertyChanged("ExplorerItems");
             }
         }
 
@@ -90,22 +90,12 @@
             }
 
             EventLogger.onActionEvent(EventLogger.FOLDER_OPENED);
-            ExplorerGroups = new ObservableCollection<GroupInfoList<ExplorerItem>>
-                {
-                    new GroupInfoList<ExplorerItem>
-                        {
-                            Key = StringResources.ResourceLoader.GetString("MainExplorer_UserFolderGroupTitle")
-                        },
-                    new GroupInfoList<ExplorerItem>
-                        {
-                            Key = StringResources.ResourceLoader.GetString("MainExplorer_UserFileGroupTitle")
-                        }
-                };
+            ExplorerItems = new ObservableCollection<ExplorerItem>();
 
             FolderNameTextBlock.Text = _dataSource.CurrentStorageFolder.Name;
             ChangeTheme(Theme.ThemeLibarary.CurrentTheme);
             await RefreshLocalFiles();
-            GroupedItemsViewSource.Source = ExplorerGroups;
+            ItemsViewSource.Source = ExplorerItems;
 
             InitializeChangingDispatcher();
 
@@ -157,24 +147,22 @@
                         {
                             if (item is StorageFile)
                             {
-                                if (ExplorerGroups[1].All(p => p.Name != item.Name))
-                                    ExplorerGroups[1].AddFileItem(item as StorageFile);
+                                ExplorerItems.AddFileItem(item as StorageFile);
                             }
                             else if (item is StorageFolder)
                             {
-                                if (ExplorerGroups[0].All(p => p.Name != item.Name))
-                                    ExplorerGroups[0].AddStorageItem(item as StorageFolder);
+                                ExplorerItems.AddStorageItem(item as StorageFolder);
                             }
                         }
                     }
                     else
                     {
-                        ExplorerGroups = _dataSource.SearchedItems;
+                        ExplorerItems = _dataSource.SearchedItems;
                         _dataSource.FromSearch = false;
                         _dataSource.SearchedItems = null;
                     }
-                    _loadingFileSizeCount = 0;
-                    _loadingImageCount = 0;
+                    _counterForLoadUnloadedItems = 0;
+                    _counterForLoadUnloadedItems = 0; 
                 }
                 catch
                 { }

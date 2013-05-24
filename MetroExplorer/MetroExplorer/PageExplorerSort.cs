@@ -48,20 +48,19 @@ namespace MetroExplorer
         {
             IOrderedEnumerable<ExplorerItem> sortedSource = null;
             if (sortType == SortType.Date)
-                sortedSource = SortByDate(ExplorerGroups[1] as IEnumerable<ExplorerItem>);
+                sortedSource = SortByDate(ExplorerItems);
             else if (sortType == SortType.Name)
-                sortedSource = SortByName(ExplorerGroups[1] as IEnumerable<ExplorerItem>);
+                sortedSource = SortByName(ExplorerItems);
             else if (sortType == SortType.Size)
-                sortedSource = SortBySize(ExplorerGroups[1] as IEnumerable<ExplorerItem>);
+                sortedSource = SortBySize(ExplorerItems);
             else if (sortType == SortType.Type)
-                sortedSource = SortByType(ExplorerGroups[1] as IEnumerable<ExplorerItem>);
+                sortedSource = SortByType(ExplorerItems);
             else if (sortType == SortType.None)
                 return;
             if (sortedSource != null)
             {
                 RerangeDataSource(sortedSource);
-                _loadingFileSizeCount = 0;
-                _loadingImageCount = 0;
+                _counterForLoadUnloadedItems = 0;
             }
         }
 
@@ -169,16 +168,16 @@ namespace MetroExplorer
 
         private void RerangeDataSource(IOrderedEnumerable<ExplorerItem> sortedSource)
         {
-            if (ExplorerGroups == null || ExplorerGroups[1] == null) return;
+            if (ExplorerItems == null ) return;
             List<ExplorerItem> sortedItems = new List<ExplorerItem>();
             foreach (var item in sortedSource)
             {
                 sortedItems.Add(item);
             }
-            ExplorerGroups[1].Clear();
+            ExplorerItems.Clear();
             foreach (var item in sortedItems)
             {
-                ExplorerGroups[1].Add(item);
+                ExplorerItems.Add(item);
             }
         }
     }
