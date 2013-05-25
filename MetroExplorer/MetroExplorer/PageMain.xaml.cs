@@ -20,6 +20,7 @@
     using Windows.UI.Xaml.Media.Imaging;
     using Windows.Storage.FileProperties;
     using System.Threading.Tasks;
+    using System.Linq;
 
     /// <summary>
     /// Page affichant une collection groupée d'éléments.
@@ -48,7 +49,7 @@
         {
             this.InitializeComponent();
             DataContext = this;
-            //this.NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
+            this.NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
             ExplorerGroups = new ObservableCollection<GroupInfoList<HomeItem>>();
             ExplorerGroups.Add(new GroupInfoList<HomeItem>() { Key = StringResources.ResourceLoader.GetString("MainPage_UserFolderGroupTitle") });
             ExplorerGroups.Add(new GroupInfoList<HomeItem>() { Key = StringResources.ResourceLoader.GetString("MainPage_SystemFolderGroupTitle") });
@@ -85,11 +86,15 @@
 
         }
 
-        int _lastChangedFolder = 0;
-        void FolderImageChangeDispatcher_Tick(object sender, object e)
+        async void FolderImageChangeDispatcher_Tick(object sender, object e)
         {
             try
             {
+                if (ExplorerGroups != null && ExplorerGroups[1] != null && ExplorerGroups[1].Count > 0)
+                {
+                    var rad = new Random();
+                    await GetSubImage(ExplorerGroups[1].ElementAt(rad.Next(0, ExplorerGroups[1].Count)));
+                }  
             }
             catch
             { }
@@ -124,7 +129,7 @@
                             AddNewItem(ExplorerGroups[0], retrievedFolder, item.Token);
                         }
                         else
-                            AddAUserFolder(item, retrievedFolder);     
+                            await AddAUserFolder(item, retrievedFolder);     
                     }
                     catch  // 出现异常。可能是因为用户修改了某个文件夹的信息
                     {
@@ -136,30 +141,37 @@
             }
         }
 
-        private async void AddAUserFolder(AccessListEntry item, StorageFolder retrievedFolder)
+        private async Task AddAUserFolder(AccessListEntry item, StorageFolder retrievedFolder)
         {
             var folderItem = AddNewItem(ExplorerGroups[1], retrievedFolder, item.Token);
-            await GetSubImages(folderItem);
+            await GetSubImage(folderItem);
         }
 
-        private async Task GetSubImages(HomeItem folderItem)
+        private async Task GetSubImage(HomeItem folderItem)
         {
-            var files = await folderItem.StorageFolder.GetFilesAsync();
-            foreach (var file in files)
+            if (folderItem.StorageFolder == null) return;
+            var files = (await folderItem.StorageFolder.GetFilesAsync());
+            if (files != null && files.Count > 0)
             {
-                if (file.Name.ToUpper().EndsWith(".PNG") || file.Name.ToUpper().EndsWith(".JPG") ||
-                    file.Name.ToUpper().EndsWith(".JPEG") || file.Name.ToUpper().EndsWith(".BMP") ||
-                    file.Name.ToUpper().EndsWith(".RMVB") || file.Name.ToUpper().EndsWith(".MP4"))
+                if (files.Any(p => p.Name.ToUpper().EndsWith(".PNG") || p.Name.ToUpper().EndsWith(".JPG") ||
+                             p.Name.ToUpper().EndsWith(".JPEG") || p.Name.ToUpper().EndsWith(".BMP") ||
+                             p.Name.ToUpper().EndsWith(".RMVB") || p.Name.ToUpper().EndsWith(".MP4")))
                 {
-                    StorageItemThumbnail fileThumbnail = await file.GetThumbnailAsync(ThumbnailMode.SingleItem, 280);
-                    BitmapImage bitmapImage = new BitmapImage();
-                    bitmapImage.SetSource(fileThumbnail);
-                    folderItem.SubImages.Add(bitmapImage);
-                    if (folderItem.SubImages.Count > 4) break;
+                    var files2 = files.Where(p => (p.Name.ToUpper().EndsWith(".PNG") || p.Name.ToUpper().EndsWith(".JPG") ||
+                                     p.Name.ToUpper().EndsWith(".JPEG") || p.Name.ToUpper().EndsWith(".BMP") ||
+                                     p.Name.ToUpper().EndsWith(".RMVB") || p.Name.ToUpper().EndsWith(".MP4")) &&
+                                     p.Name != folderItem.SubImageName);
+                    if (files2 != null && files2.Count() > 0)
+                    {
+                        var file = files2.First();
+                        StorageItemThumbnail fileThumbnail = await file.GetThumbnailAsync(ThumbnailMode.SingleItem, 280);
+                        BitmapImage bitmapImage = new BitmapImage();
+                        bitmapImage.SetSource(fileThumbnail);
+                        folderItem.Image = bitmapImage;
+                        folderItem.SubImageName = file.Name;
+                    }
                 }
             }
-            if (folderItem.SubImages.Count > 0)
-                folderItem.Image = folderItem.SubImages[0];
         }
 
         private void AddDefaultDiskC()
@@ -254,7 +266,7 @@
             }
             foreach (var key in _dicItemToken.Keys)
             {
-                if (key.Name == storageFolder.Name)
+                if (key.Path == storageFolder.Path)
                     return;
             }
             AddNewFolder2(storageFolder);
@@ -276,7 +288,7 @@
             else
             {
                 var item = AddNewItem(ExplorerGroups[1], storageFolder, token);
-                await GetSubImages(item);
+                await GetSubImage(item);
             } 
         }
 

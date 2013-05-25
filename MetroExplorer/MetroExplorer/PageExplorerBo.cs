@@ -28,7 +28,7 @@
             if (itemGridView.SelectedItems == null || itemGridView.SelectedItems.Count == 0) return;
             while (itemGridView.SelectedItems.Count > 0)
             {
-                if (ExplorerItems.Contains(itemGridView.SelectedItems[0] as ExplorerItem))
+                if (ExplorerItems.Contains(itemGridView.SelectedItems[0] as ExplorerItem) && (itemGridView.SelectedItems[0] as ExplorerItem).StorageFolder != null)
                 {
                     await (itemGridView.SelectedItems[0] as ExplorerItem).StorageFolder.DeleteAsync();
                     ExplorerItems.Remove(itemGridView.SelectedItems[0] as ExplorerItem);

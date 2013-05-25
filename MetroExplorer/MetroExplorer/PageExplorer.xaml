@@ -79,7 +79,7 @@
 				</Grid>
 			</Grid>
 		</DataTemplate>
-
+  
 		<Style x:Key="ExplorerGridViewItemStyle" TargetType="GridViewItem">
 			<Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}"/>
 			<Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}"/>
@@ -713,7 +713,7 @@
                               AutomationProperties.Name="Items"
                               TabIndex="1"
                               Grid.RowSpan="2"
-                              Margin="0,52,0,0" Padding="116,0,40,100"
+                              Margin="0,65,0,0" Padding="116,0,40,100"
                               ItemsSource="{Binding Source={StaticResource ItemsViewSource}}"
 					          ItemTemplate="{StaticResource Standard300x180ItemTemplate}"
                               CanReorderItems="True"

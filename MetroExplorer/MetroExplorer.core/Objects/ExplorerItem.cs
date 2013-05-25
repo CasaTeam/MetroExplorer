@@ -192,8 +192,7 @@
             }
         }
 
-        public int LastImageIndex = -1;
-        public List<BitmapImage> SubImages = new List<BitmapImage>();
+        public string SubImageName = "";
 
         public void NotifyPropertyChanged(String changedPropertyName)
         {

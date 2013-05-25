@@ -59,12 +59,12 @@
 		
 		<DataTemplate x:Key="Standard300x180ItemTemplate">
 			<Grid HorizontalAlignment="Left" Width="280" Height="140" Margin="0" Background="{StaticResource ItemBigBackground}">
-                <Image x:Name="BackgroundImage"  Source="{Binding Path=Image}"
+                <Image x:Name="BackgroundImage" 
                        Height="140" Width="280" HorizontalAlignment="Center" VerticalAlignment="Center"
                        Stretch="{Binding ImageStretch}"  Margin="0" >
-                    <!--<bh:Interaction.Behaviors>
+                    <bh:Interaction.Behaviors>
                         <bh:ImageSourceChangedBehavior SSource="{Binding Path=Image}"/>
-                    </bh:Interaction.Behaviors>-->
+                    </bh:Interaction.Behaviors>
                 </Image>
                 <Rectangle Fill="{StaticResource ItemBigBackground}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="35"/>
                 <TextBlock Foreground="{StaticResource ItemTextForeground}" TextAlignment="Center" Text="{Binding Name}"
