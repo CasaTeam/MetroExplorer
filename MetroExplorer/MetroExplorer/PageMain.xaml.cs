@@ -359,12 +359,6 @@
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
 
-        private void ItemGridView_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
-        {
-            //if (itemGridView.SelectedItems.Count > 0)
-            //    BottomAppBar.IsOpen = true;
-        }
-
         private async void ItemGridView_ItemClick_1(object sender, ItemClickEventArgs e)
         {
             ExplorerItem item = e.ClickedItem as ExplorerItem;
