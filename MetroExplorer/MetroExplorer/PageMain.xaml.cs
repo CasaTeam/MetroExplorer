@@ -55,16 +55,6 @@
             this.Loaded += PageMain_Loaded;
         }
 
-        //protected override void OnNavigatedTo(NavigationEventArgs e)
-        //{
-        //    
-        //}
-
-        //protected override void OnNavigatedFrom(NavigationEventArgs e)
-        //{
-        //    
-        //}
-
         protected override void SaveState(Dictionary<string, object> pageState)
         {
             _folderImageChangeDispatcher.Stop();
@@ -160,16 +150,14 @@
                         if (retrievedItem is StorageFolder)
                         {
                             StorageFolder retrievedFolder = retrievedItem as StorageFolder;
-                            if (retrievedFolder.Name.Contains(":\\"))
+                            if (retrievedFolder.Name.Contains(":\\") || retrievedFolder.Name == "Documents")
                             {
                                 AddNewItem(ExplorerGroups[0], retrievedFolder, item.Token);
                                 if (retrievedFolder.Name == "C:\\")
                                     ifDiskCExist = true;
                             }
                             else
-                            {
                                 AddNewItem(ExplorerGroups[1], retrievedFolder, item.Token);
-                            }
                         }
                     }
                     catch
@@ -210,9 +198,19 @@
                 Type = ExplorerItemType.Folder
             };
             if (item.Name.Contains(":\\"))
-                item.Image = GetBitMapImageFromLocalSource("Assets/DiskLogo.png");
-            //else
-            //    item.DefautImage = GetBitMapImageFromLocalSource("Assets/FolderLogo2.png");
+            {
+                item.Image = GetBitMapImageFromLocalSource("Assets/flag.png");
+                item.ImageStretch = "None";
+            }
+            else if (item.Name == "Documents")
+            {
+                item.Image = GetBitMapImageFromLocalSource("Assets/document.png");
+                item.ImageStretch = "None";
+            }
+            else
+            {
+                item.ImageStretch = "UniformToFill";
+            }
             itemList.Add(item);
             _dicItemToken.Add(item, token);
         }
@@ -225,7 +223,8 @@
                 Path = KnownFolders.PicturesLibrary.Path,
                 StorageFolder = KnownFolders.PicturesLibrary,
                 Type = ExplorerItemType.Folder,
-                Image = GetBitMapImageFromLocalSource("Assets/photos.png")
+                Image = GetBitMapImageFromLocalSource("Assets/photos.png"),
+                ImageStretch = "None"
             });
             ExplorerGroups[0].Add(new ExplorerItem()
             {
@@ -233,32 +232,26 @@
                 Path = KnownFolders.MusicLibrary.Path,
                 StorageFolder = KnownFolders.MusicLibrary,
                 Type = ExplorerItemType.Folder,
-                Image = GetBitMapImageFromLocalSource("Assets/music.png")
+                Image = GetBitMapImageFromLocalSource("Assets/music.png"),
+                ImageStretch = "None"
             });
-            //ExplorerGroups[0].Add(new ExplorerItem()
-            //{
-            //    Name = KnownFolders.DocumentsLibrary.Name,
-            //    Path = KnownFolders.DocumentsLibrary.Path,
-            //    StorageFolder = KnownFolders.DocumentsLibrary,
-            //    Type = ExplorerItemType.Folder,
-            //    DefautImage = GetBitMapImageFromLocalSource("Assets/document.png")
-            //});
             ExplorerGroups[0].Add(new ExplorerItem()
             {
                 Name = KnownFolders.VideosLibrary.Name,
                 Path = KnownFolders.VideosLibrary.Path,
                 StorageFolder = KnownFolders.VideosLibrary,
                 Type = ExplorerItemType.Folder,
-                Image = GetBitMapImageFromLocalSource("Assets/video.png")
+                Image = GetBitMapImageFromLocalSource("Assets/video.png"),
+                ImageStretch = "None"
             });
-
             ExplorerGroups[1].Add(new ExplorerItem()
             {
                 Name = StringResources.ResourceLoader.GetString("String_AddNewShortCutFolder"),
                 Path = StringResources.ResourceLoader.GetString("String_AddNewShortCutFolder"),
                 StorageFolder = null,
                 Type = ExplorerItemType.Folder,
-                Image = GetBitMapImageFromLocalSource("Assets/FolderLogo2.png")
+                Image = GetBitMapImageFromLocalSource("Assets/FolderLogo2.png"),
+                ImageStretch = "None"
             });
         }
 
@@ -294,12 +287,14 @@
                     return;
             }
             string token = Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.Add(storageFolder, storageFolder.Name);
-            if (storageFolder.Name.Contains(":\\"))
+            if (storageFolder.Name.Contains(":\\") || storageFolder.Name == "Documents")
             {
                 AddNewItem(ExplorerGroups[0], storageFolder, token);
             }
             else
+            {
                 AddNewItem(ExplorerGroups[1], storageFolder, token);
+            } 
         }
 
         private static async System.Threading.Tasks.Task<StorageFolder> GetStorageFolderFromFolderPicker()
@@ -339,12 +334,15 @@
                 Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.Remove(_dicItemToken[(itemGridView.SelectedItems[0] as ExplorerItem)]);
                 if (ExplorerGroups[0].Contains(itemGridView.SelectedItems[0] as ExplorerItem))
                 {
+                    _dicItemToken.Remove(itemGridView.SelectedItems[0] as ExplorerItem);
                     ExplorerGroups[0].Remove(itemGridView.SelectedItems[0] as ExplorerItem);
                 }
                 else if (ExplorerGroups[1].Contains(itemGridView.SelectedItems[0] as ExplorerItem))
                 {
+                    _dicItemToken.Remove(itemGridView.SelectedItems[0] as ExplorerItem);
                     ExplorerGroups[1].Remove(itemGridView.SelectedItems[0] as ExplorerItem);
                 }
+                
             }
             BottomAppBar.IsOpen = false;
         }
@@ -363,8 +361,8 @@
 
         private void ItemGridView_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
-            if (itemGridView.SelectedItems.Count > 0)
-                BottomAppBar.IsOpen = true;
+            //if (itemGridView.SelectedItems.Count > 0)
+            //    BottomAppBar.IsOpen = true;
         }
 
         private async void ItemGridView_ItemClick_1(object sender, ItemClickEventArgs e)

@@ -44,7 +44,6 @@
 		<local:FolderFace1Converter x:Key="FolderFace1Converter" />
 		<local:FolderFace2Converter x:Key="FolderFace2Converter" />
 		<local:FileSizeFormatConverter x:Key="FileSizeFormatConverter" />
-        <local:StorageFileToConverter x:Key="StorageFileToConverter" />
 
 		<DataTemplate x:Name="ExplorerItemImageLoadingAnimationTemplate">
 			<Storyboard>
@@ -56,7 +55,7 @@
 		<DataTemplate x:Key="Standard300x180ItemTemplate">
 			<Grid HorizontalAlignment="Left" Width="280" Height="140" Margin="0" Background="{StaticResource ItemBigBackground}">
                 <Image Source="{Binding Image}" Stretch="{Binding ImageStretch}" 
-					   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,15" />
+					   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,24" />
 				<Grid VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="{StaticResource ItemBigBackground}">
 					<TextBlock Foreground="{StaticResource ItemTextForeground}" TextAlignment="Center" Text="{Binding Name}"  Visibility="{Binding RenameBoxVisibility, Converter={StaticResource RenameBoxVisibilityConverter}}"
 							FontSize="19" Margin="3,3,3,2" FontWeight="Light" MaxHeight="50"
@@ -71,8 +70,8 @@
 					   HorizontalAlignment="Left" VerticalAlignment="Center" Stretch="UniformToFill" >
                 </Image>
                 <Grid VerticalAlignment="Stretch" HorizontalAlignment="Left" Margin="75,5,5,5" Width="280">
-					<TextBlock Foreground="{StaticResource ItemTextForeground}" Text="{Binding Name}" VerticalAlignment="Top" Margin="0,0,0,30" HorizontalAlignment="Left" 
-							    FontSize="20" FontWeight="Light" Width="270" />
+					<TextBlock Foreground="{StaticResource ItemTextForeground}" Text="{Binding Name}" VerticalAlignment="Top" Margin="0,0,0,20" HorizontalAlignment="Left" 
+							    FontSize="18" FontWeight="Light" Width="270" />
 					<TextBlock Foreground="{StaticResource ItemTextForeground}" Text="{Binding Size, Converter={StaticResource FileSizeFormatConverter}}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,0,0"
 							FontSize="16" FontWeight="Light" Opacity="0.8" />
 					<TextBlock Foreground="{StaticResource ItemTextForeground}" Text="{Binding ModifiedDateTime}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,30,0"
