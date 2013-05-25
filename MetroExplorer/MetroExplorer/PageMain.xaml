@@ -59,12 +59,9 @@
 		
 		<DataTemplate x:Key="Standard300x180ItemTemplate">
 			<Grid HorizontalAlignment="Left" Width="280" Height="140" Margin="0" Background="{StaticResource ItemBigBackground}">
-                <Image x:Name="ExplorerItemImage" Source="{Binding DefautImage}" Height="80" Width="80"
-                       HorizontalAlignment="Center" VerticalAlignment="Top"
-                       Margin="20,20,20,20" />
-                <Image x:Name="BackgroundImage"  
+                <Image x:Name="BackgroundImage" 
                        Height="140" Width="280" HorizontalAlignment="Center" VerticalAlignment="Center"
-                       Stretch="UniformToFill"  Margin="0" >
+                       Stretch="{Binding ImageStretch}"  Margin="0" >
                     <bh:Interaction.Behaviors>
                         <bh:ImageSourceChangedBehavior SSource="{Binding Path=Image}"/>
                     </bh:Interaction.Behaviors>
@@ -398,7 +395,6 @@
 			    IsSwipeEnabled="True" IsItemClickEnabled="True"
 			    IsRightTapEnabled="True"
 			    IsHoldingEnabled="True" 
-			    SelectionChanged="ItemGridView_SelectionChanged_1"
 			    AllowDrop="True"
 			    IsTapEnabled="True"
 			    ItemClick="ItemGridView_ItemClick_1"
@@ -444,7 +440,6 @@
 			        Padding="10,0,0,60"
 			        ItemsSource="{Binding Source={StaticResource groupedItemsViewSource}}"
 			        ItemTemplate="{StaticResource Standard80ForExplorerItemTemplate}"
-                    SelectionChanged="ItemGridView_SelectionChanged_1"
                     ItemClick="ItemGridView_ItemClick_1"
                     CanReorderItems="True"
 					IsSwipeEnabled="False" IsItemClickEnabled="True"

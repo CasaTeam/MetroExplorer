@@ -7,6 +7,7 @@ namespace MetroExplorer.core
 {
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Media;
+    using System.Collections.ObjectModel;
 
     public static class Entensions
     {
@@ -42,7 +43,7 @@ namespace MetroExplorer.core
             }
         }
 
-        public static void AddStorageItem(this GroupInfoList<ExplorerItem> itemList, StorageFolder retrievedItem)
+        public static void AddStorageItem(this ObservableCollection<ExplorerItem> itemList, StorageFolder retrievedItem)
         {
             ExplorerItem item = new ExplorerItem
             {
@@ -51,10 +52,10 @@ namespace MetroExplorer.core
                 StorageFolder = retrievedItem as StorageFolder,
                 Type = ExplorerItemType.Folder
             };
-            itemList.Add(item);
+            itemList.Insert(0, item);
         }
 
-        public static void AddFileItem(this GroupInfoList<ExplorerItem> itemList, StorageFile retrievedItem)
+        public static void AddFileItem(this ObservableCollection<ExplorerItem> itemList, StorageFile retrievedItem)
         {
             ExplorerItem item = new ExplorerItem
             {

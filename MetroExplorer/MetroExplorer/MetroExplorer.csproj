@@ -126,8 +126,12 @@
     <Compile Include="Common\TextFileAccess.cs" />
     <Compile Include="Common\FirstUsingRecord.cs" />
     <Compile Include="Common\UserPreferenceRecord.cs" />
+    <Compile Include="ItemsPage1.xaml.cs">
+      <DependentUpon>ItemsPage1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageExplorerFileTypes.cs" />
     <Compile Include="PageExplorerSort.cs" />
-    <Compile Include="PageExplorerLoading.cs" />
+    <Compile Include="PageExplorerTimer.cs" />
     <Compile Include="PageExplorerSearch.cs" />
     <Compile Include="LayoutsBar\ContactUs.xaml.cs">
       <DependentUpon>ContactUs.xaml</DependentUpon>
@@ -178,6 +182,24 @@
     <Content Include="Assets\document.png" />
     <Content Include="Assets\facebook.png" />
     <Content Include="Assets\favs.png" />
+    <Content Include="Assets\FilesIcon\appbar.film.png" />
+    <Content Include="Assets\FilesIcon\appbar.folder.png" />
+    <Content Include="Assets\FilesIcon\appbar.ie.png" />
+    <Content Include="Assets\FilesIcon\appbar.image.png" />
+    <Content Include="Assets\FilesIcon\appbar.infinite.png" />
+    <Content Include="Assets\FilesIcon\appbar.language.csharp.png" />
+    <Content Include="Assets\FilesIcon\appbar.language.java.text.png" />
+    <Content Include="Assets\FilesIcon\appbar.music.png" />
+    <Content Include="Assets\FilesIcon\appbar.os.windows.8.png" />
+    <Content Include="Assets\FilesIcon\appbar.page.excel.png" />
+    <Content Include="Assets\FilesIcon\appbar.page.gif.png" />
+    <Content Include="Assets\FilesIcon\appbar.page.onenote.png" />
+    <Content Include="Assets\FilesIcon\appbar.page.pdf.text.png" />
+    <Content Include="Assets\FilesIcon\appbar.page.powerpoint.png" />
+    <Content Include="Assets\FilesIcon\appbar.page.text.png" />
+    <Content Include="Assets\FilesIcon\appbar.page.txt.png" />
+    <Content Include="Assets\FilesIcon\appbar.page.word.png" />
+    <Content Include="Assets\FilesIcon\appbar.page.xml.png" />
     <Content Include="Assets\flag.png" />
     <Content Include="Assets\folder.png" />
     <Content Include="Assets\FolderLogo.png" />
@@ -208,6 +230,10 @@
     <Page Include="Common\StandardStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ItemsPage1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="LayoutsBar\ContactUs.xaml">
       <SubType>Designer</SubType>

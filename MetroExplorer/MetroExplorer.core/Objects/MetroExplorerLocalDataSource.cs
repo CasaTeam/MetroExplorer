@@ -26,7 +26,7 @@ namespace MetroExplorer.core.Objects
 
         public bool FromSearch { get; set; }
 
-        public ObservableCollection<GroupInfoList<ExplorerItem>> SearchedItems { get; set; }
+        public ObservableCollection<ExplorerItem> SearchedItems { get; set; }
 
         private MetroExplorerLocalDataSource()
         {

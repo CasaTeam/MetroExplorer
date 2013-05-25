@@ -54,8 +54,8 @@ namespace MetroExplorer
                             await item.StorageFile.CopyAsync(_dataSource.CurrentStorageFolder, item.Name, NameCollisionOption.GenerateUniqueName);
                             if (CopiedCuttedItems.GetInstance().CutOrCopy == CopyCutState.Cut)
                             {
-                                if (ExplorerGroups[1].Contains(item))
-                                    ExplorerGroups[1].Remove(item);
+                                if (ExplorerItems.Contains(item))
+                                    ExplorerItems.Remove(item);
                                 await item.StorageFile.DeleteAsync(StorageDeleteOption.Default);
                             }
                         }

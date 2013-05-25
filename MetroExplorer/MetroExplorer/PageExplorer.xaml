@@ -19,14 +19,18 @@
 			Collection d'éléments groupés affichés par cette page, liée à un sous-ensemble
 			de la liste d'éléments complète, car les éléments de groupes ne peuvent pas être virtualisés
 		-->
-		<CollectionViewSource
+		<!--<CollectionViewSource
 			x:Name="GroupedItemsViewSource"
 			Source="{Binding ExplorerGroups}"
 			IsSourceGrouped="true"
 			>
-		</CollectionViewSource>
+		</CollectionViewSource>-->
+        <CollectionViewSource
+            x:Name="ItemsViewSource"
+            Source="{Binding ExplorerItems}"/>
 
-		<!-- TODO: supprimez cette ligne si la clé AppName est déclarée dans App.xaml -->
+
+        <!-- TODO: supprimez cette ligne si la clé AppName est déclarée dans App.xaml -->
 		<x:String x:Key="AppName">Mon application</x:String>
 
 		<SolidColorBrush x:Key="ItemBackground" Color="{Binding Path=ItemBackground}"/>
@@ -40,7 +44,6 @@
 		<local:FolderFace1Converter x:Key="FolderFace1Converter" />
 		<local:FolderFace2Converter x:Key="FolderFace2Converter" />
 		<local:FileSizeFormatConverter x:Key="FileSizeFormatConverter" />
-        <local:StorageFileToConverter x:Key="StorageFileToConverter" />
 
 		<DataTemplate x:Name="ExplorerItemImageLoadingAnimationTemplate">
 			<Storyboard>
@@ -51,15 +54,8 @@
 
 		<DataTemplate x:Key="Standard300x180ItemTemplate">
 			<Grid HorizontalAlignment="Left" Width="280" Height="140" Margin="0" Background="{StaticResource ItemBigBackground}">
-				<Image x:Name="ExplorerItemImage" Margin="0"
-					   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-					   Stretch="UniformToFill"  Loaded="ExplorerItemImage_Loaded">
-					<bh:Interaction.Behaviors>
-						<bh:ImageSourceChangedBehavior SSource="{Binding Path=Image}"/>
-					</bh:Interaction.Behaviors>
-				</Image>
-                <Image Source="{Binding DefautImage}" Margin="0" Stretch="UniformToFill" 
-					   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                <Image Source="{Binding Image}" Stretch="{Binding ImageStretch}" 
+					   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,24" />
 				<Grid VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="{StaticResource ItemBigBackground}">
 					<TextBlock Foreground="{StaticResource ItemTextForeground}" TextAlignment="Center" Text="{Binding Name}"  Visibility="{Binding RenameBoxVisibility, Converter={StaticResource RenameBoxVisibilityConverter}}"
 							FontSize="19" Margin="3,3,3,2" FontWeight="Light" MaxHeight="50"
@@ -70,31 +66,20 @@
 
 		<DataTemplate x:Key="Standard300x80ItemTemplate">
 			<Grid HorizontalAlignment="Left" Width="330" Height="65" Margin="0" Background="{StaticResource ItemBackground}">
-                <Grid Height="65" Width="65" Background="{StaticResource ItemSmallBackground}" HorizontalAlignment="Left" >
-                    <Image x:Name="ExplorerItemImage" Source="{Binding StorageFile, Converter={StaticResource StorageFileToConverter}}" Height="65" Width="65"
-					       HorizontalAlignment="Center" VerticalAlignment="Center" 
-					       Stretch="UniformToFill" Loaded="ExplorerItemImage_Loaded">
-                    </Image>
-                </Grid>
-                <Grid  Visibility="{Binding Type, Converter={StaticResource FolderFace1Converter}}">
-					<Grid VerticalAlignment="Stretch" HorizontalAlignment="Left" Margin="65,0,5,0" Width="252">
-						<TextBlock Foreground="{StaticResource ItemTextForeground}" Text="{Binding Name}" VerticalAlignment="Top" Margin="0,5,0,0" HorizontalAlignment="Left" 
-							   FontSize="18" FontWeight="Light" Width="252" />
-						<TextBlock Foreground="{StaticResource ItemTextForeground}" Text="{Binding Size, Converter={StaticResource FileSizeFormatConverter}}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,0,5"
-							   FontSize="16" FontWeight="Light" Opacity="0.7" />
-						<TextBlock Foreground="{StaticResource ItemTextForeground}" Text="{Binding ModifiedDateTime}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,5,5"
-							   FontSize="16" FontWeight="Light" Opacity="0.7" />
-					</Grid>
-				</Grid>
-				<Grid Visibility="{Binding Type, Converter={StaticResource FolderFace2Converter}}">
-					<Grid VerticalAlignment="Stretch" HorizontalAlignment="Left" Margin="75,0,5,0" >
-						<TextBlock Foreground="#FFFFFFFF" Text="{Binding Name}" VerticalAlignment="Center" Margin="5,0,0,5" HorizontalAlignment="Left"
-							   FontSize="18" FontWeight="Light" Width="252" />
-					</Grid>
+                <Image x:Name="ExplorerItemImage" Source="{Binding Image}" Height="65" Width="65"
+					   HorizontalAlignment="Left" VerticalAlignment="Center" Stretch="UniformToFill" >
+                </Image>
+                <Grid VerticalAlignment="Stretch" HorizontalAlignment="Left" Margin="75,5,5,5" Width="280">
+					<TextBlock Foreground="{StaticResource ItemTextForeground}" Text="{Binding Name}" VerticalAlignment="Top" Margin="0,0,0,20" HorizontalAlignment="Left" 
+							    FontSize="18" FontWeight="Light" Width="270" />
+					<TextBlock Foreground="{StaticResource ItemTextForeground}" Text="{Binding Size, Converter={StaticResource FileSizeFormatConverter}}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,0,0"
+							FontSize="16" FontWeight="Light" Opacity="0.8" />
+					<TextBlock Foreground="{StaticResource ItemTextForeground}" Text="{Binding ModifiedDateTime}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,30,0"
+							FontSize="16" FontWeight="Light" Opacity="0.8" />
 				</Grid>
 			</Grid>
 		</DataTemplate>
-
+  
 		<Style x:Key="ExplorerGridViewItemStyle" TargetType="GridViewItem">
 			<Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}"/>
 			<Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}"/>
@@ -721,95 +706,47 @@
                         <!--<Rectangle HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="1" Fill="White" Height="30" Margin="5,0,5,15" Grid.Column="1"  />-->
                         <navigator:Navigator x:Name="Navigator" Width="Auto" Height="Auto" NPathChanged="NavigatorPathChanged" Background="#FF1A6987" Margin="100,0,0,0" DropBackground="{x:Null}"/>
                     </Grid>
-                    
-                    <GridView
-					x:Name="itemGridView" 
-					AutomationProperties.AutomationId="ItemGridView"
-					AutomationProperties.Name="Grouped Items"
-					Grid.RowSpan="2"
-                    Margin="0,52,0,0"
-					Padding="116,0,40,100"
-					ItemsSource="{Binding Source={StaticResource GroupedItemsViewSource}}"
-					ItemTemplate="{StaticResource Standard300x180ItemTemplate}"
-					CanReorderItems="True"
-					IsSwipeEnabled="True" IsItemClickEnabled="True"
-					IsRightTapEnabled="True"
-					IsHoldingEnabled="True" 
-					SelectionChanged="ItemGridView_SelectionChanged_1"
-					AllowDrop="True"
-					IsTapEnabled="True"
-					ItemClick="ItemGridView_ItemClick_1"
-					SelectionMode="Multiple" ItemContainerStyle="{StaticResource ExplorerGridViewItemStyle}">
-                        <GridView.ItemsPanel>
+
+                    <!-- Horizontal scrolling grid used in most view states -->
+                    <GridView x:Name="itemGridView"
+                              AutomationProperties.AutomationId="ItemsGridView"
+                              AutomationProperties.Name="Items"
+                              TabIndex="1"
+                              Grid.RowSpan="2"
+                              Margin="0,65,0,0" Padding="116,0,40,100"
+                              ItemsSource="{Binding Source={StaticResource ItemsViewSource}}"
+					          ItemTemplate="{StaticResource Standard300x180ItemTemplate}"
+                              CanReorderItems="True"
+					          IsSwipeEnabled="True" IsItemClickEnabled="True"
+					          IsRightTapEnabled="True" IsHoldingEnabled="True" 
+					          SelectionChanged="ItemGridView_SelectionChanged_1"
+					          AllowDrop="True" IsTapEnabled="True"
+					          ItemClick="ItemGridView_ItemClick_1"
+                              SelectionMode="Multiple" 
+                              ItemContainerStyle="{StaticResource ExplorerGridViewItemStyle}">
+                        <!--<GridView.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <VirtualizingStackPanel VirtualizingStackPanel.VirtualizationMode="Recycling"  Orientation="Horizontal"/>
                             </ItemsPanelTemplate>
-                        </GridView.ItemsPanel>
-                        <GridView.GroupStyle>
-                            <GroupStyle>
-                                <GroupStyle.HeaderTemplate>
-                                    <DataTemplate>
-                                        <Grid Margin="1,0,0,6">
-                                            <Button AutomationProperties.Name="Group Title"
-												Style="{StaticResource TextPrimaryButtonStyle}">
-                                                <StackPanel Orientation="Horizontal">
-                                                    <TextBlock Text="{Binding Key}" Margin="3,-7,10,10" Style="{StaticResource GroupHeaderTextStyle}" Foreground="#FFFFFFFF" Visibility="Collapsed" />
-                                                    <Grid>
-                                                        <TextBlock Text="{StaticResource ChevronGlyph}" FontFamily="Segoe UI Symbol" Margin="0,-7,0,10" Style="{StaticResource GroupHeaderTextStyle}"
-													   Visibility="Collapsed"/>
-                                                    </Grid>
-                                                </StackPanel>
-                                            </Button>
-                                        </Grid>
-                                    </DataTemplate>
-                                </GroupStyle.HeaderTemplate>
-                                <GroupStyle.Panel>
-                                    <ItemsPanelTemplate>
-                                        <VariableSizedWrapGrid VirtualizingStackPanel.VirtualizationMode="Recycling" Orientation="Vertical" Margin="0,0,0,0"/>
-                                    </ItemsPanelTemplate>
-                                </GroupStyle.Panel>
-                            </GroupStyle>
-                        </GridView.GroupStyle>
+                        </GridView.ItemsPanel>-->
                     </GridView>
 
-                    <!-- Liste de défilement vertical utilisée uniquement lorsque l'état d'affichage a la valeur Snapped -->
-                    <ListView
-					x:Name="itemListView"
-					AutomationProperties.AutomationId="ItemListView"
-					AutomationProperties.Name="Grouped Items"
-				    Margin="0,-60,0,0"
-					Visibility="Collapsed"
-					Padding="10,0,0,60"
-                    SelectionChanged="ItemGridView_SelectionChanged_1"
-					CanReorderItems="True"
-					IsSwipeEnabled="False" IsItemClickEnabled="True"
-					IsRightTapEnabled="True"
-					IsHoldingEnabled="True" 
-                    IsTapEnabled="True"
-					ItemClick="ItemGridView_ItemClick_1"
-					ItemsSource="{Binding Source={StaticResource GroupedItemsViewSource}}"
-					ItemTemplate="{StaticResource Standard80ForExplorerItemTemplate}"
-					SelectionMode="None">
+                    <!-- Vertical scrolling list only used when snapped -->
+                    <ListView x:Name="itemListView"
+                              AutomationProperties.AutomationId="ItemsListView"
+                              AutomationProperties.Name="Items"
+                              TabIndex="1"
+                              Visibility="Collapsed"
+                              Margin="0,-60,0,0" Padding="10,0,0,60"
+					          SelectionChanged="ItemGridView_SelectionChanged_1"
+		                      CanReorderItems="True" IsRightTapEnabled="True"
+					          IsSwipeEnabled="False" IsItemClickEnabled="True"
+					          IsHoldingEnabled="True" IsTapEnabled="True"
+					          ItemClick="ItemGridView_ItemClick_1"
+                              ItemsSource="{Binding Source={StaticResource ItemsViewSource}}"
+                              ItemTemplate="{StaticResource Standard80ForExplorerItemTemplate}"
+                              SelectionMode="None"/>
 
-                        <ListView.GroupStyle>
-                            <GroupStyle>
-                                <GroupStyle.HeaderTemplate>
-                                    <DataTemplate>
-                                        <Grid Margin="7,7,0,0">
-                                            <Button
-									AutomationProperties.Name="Group Title"
-									Style="{StaticResource TextPrimaryButtonStyle}">
-                                                <StackPanel Orientation="Horizontal">
-                                                    <TextBlock Text="{Binding Key}" Margin="3,-7,10,10" Style="{StaticResource GroupHeaderTextStyle}" Foreground="{StaticResource TitleForeground}" />
-                                                    <TextBlock Text="{StaticResource ChevronGlyph}" FontFamily="Segoe UI Symbol" Margin="0,-7,0,10" Style="{StaticResource GroupHeaderTextStyle}"/>
-                                                </StackPanel>
-                                            </Button>
-                                        </Grid>
-                                    </DataTemplate>
-                                </GroupStyle.HeaderTemplate>
-                            </GroupStyle>
-                        </ListView.GroupStyle>
-                    </ListView>
                 </Grid>
 
 

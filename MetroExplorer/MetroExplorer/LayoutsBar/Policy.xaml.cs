@@ -42,5 +42,11 @@ namespace MetroExplorer.LayoutsBar
                 SettingsPane.Show();
             }
         }
+
+        private async void MoreInformation_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            var mailto = new Uri("http://www.comiscience.info/privacy/pushthemonmapsprivacypolicy.txt");
+            await Windows.System.Launcher.LaunchUriAsync(mailto);
+        }
     }
 }

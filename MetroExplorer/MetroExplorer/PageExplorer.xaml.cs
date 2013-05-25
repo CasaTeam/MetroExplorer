@@ -29,17 +29,17 @@
         private readonly MetroExplorerLocalDataSource _dataSource;
         public static List<string> CurrentItems;
 
-        ObservableCollection<GroupInfoList<ExplorerItem>> _explorerGroups;
-        public ObservableCollection<GroupInfoList<ExplorerItem>> ExplorerGroups
+        ObservableCollection<ExplorerItem> _explorerItems;
+        public ObservableCollection<ExplorerItem> ExplorerItems
         {
             get
             {
-                return _explorerGroups;
+                return _explorerItems;
             }
             set
             {
-                _explorerGroups = value;
-                NotifyPropertyChanged("ExplorerGroups");
+                _explorerItems = value;
+                NotifyPropertyChanged("ExplorerItems");
             }
         }
 
@@ -73,23 +73,12 @@
                 itemGridView.ItemTemplate = Resources["Standard300x80ItemTemplate"] as DataTemplate;
         }
 
-        /// <summary>
-        /// Remplit la page à l'aide du contenu passé lors de la navigation. Tout état enregistré est également
-        /// fourni lorsqu'une page est recréée à partir d'une session antérieure.
-        /// </summary>
-        /// <param name="navigationParameter">Valeur de paramètre passée à
-        /// <see cref="Frame.Navigate(Type, Object)"/> lors de la requête initiale de cette page.
-        /// </param>
-        /// <param name="pageState">Dictionnaire d'état conservé par cette page durant une session
-        /// antérieure. Null lors de la première visite de la page.</param>
         protected async override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
             string args = navigationParameter as string;
             if (args != null)
             {
-                _imageChangingDispatcher.Stop();
-                _imageChangingDispatcher.Tick -= ImageChangingDispatcher_Tick;
-                _imageChangingDispatcher = null;
+
                 var currentContent = Window.Current.Content;
                 var frame = currentContent as Frame;
 
@@ -99,64 +88,46 @@
                     await Search(args as string);
                 GC.Collect();
             }
-            DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
-            dataTransferManager.DataRequested += PageExplorerDataRequested;
 
             EventLogger.onActionEvent(EventLogger.FOLDER_OPENED);
-            ExplorerGroups = new ObservableCollection<GroupInfoList<ExplorerItem>>
-                {
-                    new GroupInfoList<ExplorerItem>
-                        {
-                            Key = StringResources.ResourceLoader.GetString("MainExplorer_UserFolderGroupTitle")
-                        },
-                    new GroupInfoList<ExplorerItem>
-                        {
-                            Key = StringResources.ResourceLoader.GetString("MainExplorer_UserFileGroupTitle")
-                        }
-                };
+            ExplorerItems = new ObservableCollection<ExplorerItem>();
 
             FolderNameTextBlock.Text = _dataSource.CurrentStorageFolder.Name;
             ChangeTheme(Theme.ThemeLibarary.CurrentTheme);
             await RefreshLocalFiles();
-            GroupedItemsViewSource.Source = ExplorerGroups;
+            ItemsViewSource.Source = ExplorerItems;
 
             InitializeChangingDispatcher();
 
+            DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
+            dataTransferManager.DataRequested += PageExplorerDataRequested;
         }
 
         protected override void SaveState(Dictionary<string, object> pageState)
         {
-            base.SaveState(pageState);
             DataTransferManager.GetForCurrentView().DataRequested -= PageExplorerDataRequested;
         }
 
         void PageExplorerDataRequested(DataTransferManager sender,
             DataRequestedEventArgs args)
         {
-            try
+            var request = args.Request;
+
+            foreach (ExplorerItem item in itemGridView.SelectedItems)
             {
-                var request = args.Request;
-                foreach (ExplorerItem item in itemGridView.SelectedItems)
+                if (item.Type == ExplorerItemType.File)
                 {
-                    if (item.Type == ExplorerItemType.File)
+                    var reference = RandomAccessStreamReference.CreateFromFile(item.StorageFile);
+                    if (reference != null)
                     {
-                        var reference = RandomAccessStreamReference.CreateFromUri(new Uri(item.Path));
-                        if (reference != null)
-                        {
-                            request.Data.Properties.Title = item.Name;
-                            request.Data.Properties.Thumbnail = reference;
-                        }
+                        request.Data.Properties.Title = item.Name;
+                        request.Data.Properties.Description = "";
+                        request.Data.Properties.Thumbnail = reference;
                     }
                 }
+            }
 
-                var recipe = "\r\nTest\r\n";
-                recipe += ("\r\n\r\nTest\r\n");
-                request.Data.SetText(recipe);
-            }
-            catch (Exception)
-            {
-                DataTransferManager.GetForCurrentView().DataRequested -= PageExplorerDataRequested;
-            }
+            request.Data.SetText("\n");
         }
 
         private async Task RefreshLocalFiles()
@@ -176,24 +147,22 @@
                         {
                             if (item is StorageFile)
                             {
-                                if (ExplorerGroups[1].All(p => p.Name != item.Name))
-                                    ExplorerGroups[1].AddFileItem(item as StorageFile);
+                                ExplorerItems.AddFileItem(item as StorageFile);
                             }
                             else if (item is StorageFolder)
                             {
-                                if (ExplorerGroups[0].All(p => p.Name != item.Name))
-                                    ExplorerGroups[0].AddStorageItem(item as StorageFolder);
+                                ExplorerItems.AddStorageItem(item as StorageFolder);
                             }
                         }
                     }
                     else
                     {
-                        ExplorerGroups = _dataSource.SearchedItems;
+                        ExplorerItems = _dataSource.SearchedItems;
                         _dataSource.FromSearch = false;
                         _dataSource.SearchedItems = null;
                     }
-                    _loadingFileSizeCount = 0;
-                    _loadingImageCount = 0;
+                    _counterForLoadUnloadedItems = 0;
+                    _counterForLoadUnloadedItems = 0; 
                 }
                 catch
                 { }
@@ -224,8 +193,7 @@
             _dataSource.CutNavigatorFromIndex(e.Index);
             if (e.CommandType == NavigatorNodeCommandType.Reduce)
             {
-                if (_imageChangingDispatcher != null)
-                    _imageChangingDispatcher.Stop();
+                StopImageChangingDispatcher();
                 Frame.Navigate(typeof(PageExplorer), null);
             }
             else if (e.CommandType == NavigatorNodeCommandType.Change)
@@ -245,7 +213,7 @@
                         }
                     }
                 }
-                _imageChangingDispatcher.Stop();
+                StopImageChangingDispatcher();
                 Frame.Navigate(typeof(PageExplorer), null);
             }
         }
@@ -253,7 +221,7 @@
         private void ButtonMainPage_Click_1(object sender, RoutedEventArgs e)
         {
             _dataSource.NavigatorStorageFolders = new List<StorageFolder>();
-            _imageChangingDispatcher.Stop();
+            StopImageChangingDispatcher();
             CurrentItems = null;
             Frame.Navigate(typeof(PageMain));
         }
@@ -466,51 +434,6 @@
                     return Math.Round(System.Convert.ToDouble(value) / (1024 * 1024 * 1024), 2).ToString() + " GB";
             }
             return "0 KB";
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            return null;
-        }
-    }
-
-    public class StorageFileToConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, string language)
-        {
-            BitmapImage resultBitMap = null;
-            if (value != null)
-            {
-                if (value is StorageFile)
-                {
-                    if ((value as StorageFile).Name.ToUpper().EndsWith(".PNG") || (value as StorageFile).Name.ToUpper().EndsWith(".JPG") ||
-                       (value as StorageFile).Name.ToUpper().EndsWith(".JEPG") || (value as StorageFile).Name.ToUpper().EndsWith(".BMP") ||
-                       (value as StorageFile).Name.ToUpper().EndsWith(".GIF"))
-                        resultBitMap = new BitmapImage(new Uri(PageExplorer.BaseUriStatic, @"Assets/camera.png"));
-                    else if ((value as StorageFile).Name.ToUpper().EndsWith(".MP4") || (value as StorageFile).Name.ToUpper().EndsWith(".RMVB") ||
-                       (value as StorageFile).Name.ToUpper().EndsWith(".MKV") || (value as StorageFile).Name.ToUpper().EndsWith(".BMP"))
-                        resultBitMap = new BitmapImage(new Uri(PageExplorer.BaseUriStatic, @"Assets/video.png"));
-                    else if ((value as StorageFile).Name.ToUpper().EndsWith(".xls") || (value as StorageFile).Name.ToUpper().EndsWith(".xlsx") ||
-                       (value as StorageFile).Name.ToUpper().EndsWith(".docx") || (value as StorageFile).Name.ToUpper().EndsWith(".doc") ||
-                        (value as StorageFile).Name.ToUpper().EndsWith(".ppt") || (value as StorageFile).Name.ToUpper().EndsWith(".pptx"))
-                        resultBitMap = new BitmapImage(new Uri(PageExplorer.BaseUriStatic, @"Assets/flag.png"));
-                    else
-                        resultBitMap = new BitmapImage(new Uri(PageExplorer.BaseUriStatic, @"Assets/favs.png"));
-                    return resultBitMap;
-                }
-                else
-                {
-                    var result = new BitmapImage(new Uri(PageExplorer.BaseUriStatic, @"Assets/folder.png"));
-                    return result;
-                }
-            }
-            var result2 = new BitmapImage(new Uri(PageExplorer.BaseUriStatic, @"Assets/FolderLogo2.png"));
-            return result2;
-        }
-
-        public async void GetStorageItemThumbnail(StorageFile sf, StorageItemThumbnail result)
-        {
-            result = await sf.GetThumbnailAsync(ThumbnailMode.SingleItem, 250);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

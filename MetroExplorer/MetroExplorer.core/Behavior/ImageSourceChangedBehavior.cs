@@ -36,7 +36,7 @@ namespace MetroExplorer.core.Behavior
             var image = (obj as ImageSourceChangedBehavior).AssociatedObject as Image;
             if (image == null) return;
             image.Source = e.NewValue as BitmapImage;
-            image.FadeInCustom(new TimeSpan(0, 0, 0, 1));
+            image.FadeInCustom(new TimeSpan(0, 0, 0, 0, 700));
         }
 
         protected override void OnAttached()
