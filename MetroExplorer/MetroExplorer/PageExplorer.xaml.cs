@@ -58,13 +58,6 @@
             _dataSource = Singleton<MetroExplorerLocalDataSource>.Instance;
             Loaded += PageExplorer_Loaded;
 
-            try
-            {
-                throw new Exception("asdf");
-            }
-            catch
-            { }
-
             BaseUriStatic = this.BaseUri;
         }
 

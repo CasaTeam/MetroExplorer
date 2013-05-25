@@ -7,14 +7,15 @@
     using Windows.Storage;
     using Windows.UI.Xaml.Media.Imaging;
 
+    /// <summary>
+    /// 这个类适用PageExplorer部分的数据结构
+    /// </summary>
     public class ExplorerItem : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
         private string _name;
         private string _path;
-        private double _width;
-        private double _height;
         private ExplorerItemType _type;
         private ulong _size;
         private DateTime _modifiedDateTime;
@@ -24,8 +25,6 @@
         private StorageFile _storageFile;
         [XmlIgnore]
         private BitmapImage _image;
-        [XmlIgnore]
-        private string _textWrap = "Wrap";
         [XmlIgnore]
         public string _imageStretch = "None";
 
@@ -47,24 +46,7 @@
                 NotifyPropertyChanged("ImagePath");
             }
         }
-        public double Width
-        {
-            get { return _width; }
-            set
-            {
-                _width = value;
-                NotifyPropertyChanged("Width");
-            }
-        }
-        public double Height
-        {
-            get { return _height; }
-            set
-            {
-                _height = value;
-                NotifyPropertyChanged("Height");
-            }
-        }
+
         public ExplorerItemType Type
         {
             get { return _type; }
@@ -125,13 +107,77 @@
         }
 
         [XmlIgnore]
-        public string TextWrap
+        public string ImageStretch
         {
-            get { return _textWrap; }
+            get { return _imageStretch; }
             set
             {
-                _textWrap = value;
-                NotifyPropertyChanged("TextWrap");
+                _imageStretch = value;
+                NotifyPropertyChanged("ImageStretch");
+            }
+        }
+
+        public void NotifyPropertyChanged(String changedPropertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(changedPropertyName));
+            }
+        }
+    }
+
+    public class HomeItem : INotifyPropertyChanged
+    {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private string _name;
+        private string _path;
+        [XmlIgnore]
+        private StorageFolder _storageFolder;
+        [XmlIgnore]
+        private BitmapImage _image;
+        [XmlIgnore]
+        public string _imageStretch = "None";
+
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                _name = value;
+                NotifyPropertyChanged("Name");
+            }
+        }
+
+        public string Path
+        {
+            get { return _path; }
+            set
+            {
+                _path = value;
+                NotifyPropertyChanged("ImagePath");
+            }
+        }
+
+        [XmlIgnore]
+        public StorageFolder StorageFolder
+        {
+            get { return _storageFolder; }
+            set
+            {
+                _storageFolder = value;
+                NotifyPropertyChanged("StorageFolder");
+            }
+        }
+
+        [XmlIgnore]
+        public BitmapImage Image
+        {
+            get { return _image; }
+            set
+            {
+                _image = value;
+                NotifyPropertyChanged("Image");
             }
         }
 
@@ -147,7 +193,7 @@
         }
 
         public int LastImageIndex = -1;
-        public List<string> LastImageName = new List<string>();
+        public List<BitmapImage> SubImages = new List<BitmapImage>();
 
         public void NotifyPropertyChanged(String changedPropertyName)
         {

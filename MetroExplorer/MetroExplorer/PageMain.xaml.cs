@@ -26,8 +26,8 @@
     /// </summary>
     public sealed partial class PageMain : LayoutAwarePage, INotifyPropertyChanged
     {
-        ObservableCollection<GroupInfoList<ExplorerItem>> explorerGroups;
-        public ObservableCollection<GroupInfoList<ExplorerItem>> ExplorerGroups
+        ObservableCollection<GroupInfoList<HomeItem>> explorerGroups;
+        public ObservableCollection<GroupInfoList<HomeItem>> ExplorerGroups
         {
             get
             {
@@ -40,7 +40,7 @@
             }
         }
 
-        Dictionary<ExplorerItem, string> _dicItemToken = new Dictionary<ExplorerItem, string>();
+        Dictionary<HomeItem, string> _dicItemToken = new Dictionary<HomeItem, string>();
 
         DispatcherTimer _folderImageChangeDispatcher;
 
@@ -49,9 +49,9 @@
             this.InitializeComponent();
             DataContext = this;
             //this.NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
-            ExplorerGroups = new ObservableCollection<GroupInfoList<ExplorerItem>>();
-            ExplorerGroups.Add(new GroupInfoList<ExplorerItem>() { Key = StringResources.ResourceLoader.GetString("MainPage_UserFolderGroupTitle") });
-            ExplorerGroups.Add(new GroupInfoList<ExplorerItem>() { Key = StringResources.ResourceLoader.GetString("MainPage_SystemFolderGroupTitle") });
+            ExplorerGroups = new ObservableCollection<GroupInfoList<HomeItem>>();
+            ExplorerGroups.Add(new GroupInfoList<HomeItem>() { Key = StringResources.ResourceLoader.GetString("MainPage_UserFolderGroupTitle") });
+            ExplorerGroups.Add(new GroupInfoList<HomeItem>() { Key = StringResources.ResourceLoader.GetString("MainPage_SystemFolderGroupTitle") });
             this.Loaded += PageMain_Loaded;
         }
 
@@ -73,7 +73,7 @@
                 return;
             }
             InitializeSystemFolders();
-            await initializeUsersFolders();
+            await InitializeUsersFolders();
 
             groupedItemsViewSource.Source = ExplorerGroups;
             BottomAppBar.IsOpen = true;
@@ -86,38 +86,10 @@
         }
 
         int _lastChangedFolder = 0;
-        async void FolderImageChangeDispatcher_Tick(object sender, object e)
+        void FolderImageChangeDispatcher_Tick(object sender, object e)
         {
             try
             {
-                if (ExplorerGroups == null || ExplorerGroups[1] == null || ExplorerGroups[1].Count == 0)
-                    return;
-                if (_lastChangedFolder == explorerGroups[1].Count)
-                    _lastChangedFolder = 0;
-                _lastChangedFolder++;
-                var exploreItem = explorerGroups[1][_lastChangedFolder];
-                if (exploreItem.StorageFolder == null) return;
-                var files = await exploreItem.StorageFolder.GetFilesAsync();
-
-                if (exploreItem.LastImageIndex == -2) return;
-                if (exploreItem.LastImageIndex == -1)
-                    foreach (var file in files)
-                    {
-                        exploreItem.LastImageIndex = -2;
-                        if (file.Name.ToUpper().EndsWith(".PNG") || file.Name.ToUpper().EndsWith(".JPG") || file.Name.ToUpper().EndsWith(".JPEG") ||
-                            file.Name.ToUpper().EndsWith(".BMP") || file.Name.ToUpper().EndsWith(".RMVB") || file.Name.ToUpper().EndsWith(".MP4") ||
-                            file.Name.ToUpper().EndsWith(".PNG"))
-                        {
-                            exploreItem.LastImageName.Add(file.Name);
-                            exploreItem.LastImageIndex = 0;
-                            exploreItem.TextWrap = "NoWrap";
-                        }
-                    }
-
-                if (exploreItem.LastImageIndex == exploreItem.LastImageName.Count - 1)
-                    exploreItem.LastImageIndex = 0;
-                await ThumbnailPhoto(exploreItem, files[exploreItem.LastImageIndex]);
-                exploreItem.LastImageIndex++;
             }
             catch
             { }
@@ -136,66 +108,79 @@
             item.Image = null;
         }
 
-        private async System.Threading.Tasks.Task initializeUsersFolders()
+        private async System.Threading.Tasks.Task InitializeUsersFolders()
         {
             if (Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList != null && Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.Entries.Count > 0)
             {
-                bool ifDiskCExist = false; // TODO: 确定是否C盘已经被添加
-                List<string> lostTokens = new List<string>(); // TODO: 避免有些已经不用的token仍然存在MostRecentlyUsedList中
+                var lostTokens = new List<string>(); // TODO: 避免有些已经不用的token仍然存在MostRecentlyUsedList中
                 foreach (var item in Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.Entries)
                 {
                     try
                     {
                         var retrievedItem = await StorageApplicationPermissions.FutureAccessList.GetItemAsync(item.Token);
-                        if (retrievedItem is StorageFolder)
+                        StorageFolder retrievedFolder = retrievedItem as StorageFolder;
+                        if (retrievedFolder.Name.Contains(":\\") || retrievedFolder.Name == "Documents")
                         {
-                            StorageFolder retrievedFolder = retrievedItem as StorageFolder;
-                            if (retrievedFolder.Name.Contains(":\\") || retrievedFolder.Name == "Documents")
-                            {
-                                AddNewItem(ExplorerGroups[0], retrievedFolder, item.Token);
-                                if (retrievedFolder.Name == "C:\\")
-                                    ifDiskCExist = true;
-                            }
-                            else
-                                AddNewItem(ExplorerGroups[1], retrievedFolder, item.Token);
+                            AddNewItem(ExplorerGroups[0], retrievedFolder, item.Token);
                         }
+                        else
+                            AddAUserFolder(item, retrievedFolder);     
                     }
-                    catch
+                    catch  // 出现异常。可能是因为用户修改了某个文件夹的信息
                     {
-                        // 出现异常。可能是因为用户修改了某个文件夹的信息
                         lostTokens.Add(item.Token);
                     }
-                }
-                if (!ifDiskCExist) // 如果c盘没有被加入过，则初始默认设置
-                {
-                    AddDefaultDiskC();
                 }
                 foreach (var token in lostTokens)
                     Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.Remove(token);
             }
         }
 
+        private async void AddAUserFolder(AccessListEntry item, StorageFolder retrievedFolder)
+        {
+            var folderItem = AddNewItem(ExplorerGroups[1], retrievedFolder, item.Token);
+            await GetSubImages(folderItem);
+        }
+
+        private async Task GetSubImages(HomeItem folderItem)
+        {
+            var files = await folderItem.StorageFolder.GetFilesAsync();
+            foreach (var file in files)
+            {
+                if (file.Name.ToUpper().EndsWith(".PNG") || file.Name.ToUpper().EndsWith(".JPG") ||
+                    file.Name.ToUpper().EndsWith(".JPEG") || file.Name.ToUpper().EndsWith(".BMP") ||
+                    file.Name.ToUpper().EndsWith(".RMVB") || file.Name.ToUpper().EndsWith(".MP4"))
+                {
+                    StorageItemThumbnail fileThumbnail = await file.GetThumbnailAsync(ThumbnailMode.SingleItem, 280);
+                    BitmapImage bitmapImage = new BitmapImage();
+                    bitmapImage.SetSource(fileThumbnail);
+                    folderItem.SubImages.Add(bitmapImage);
+                    if (folderItem.SubImages.Count > 4) break;
+                }
+            }
+            if (folderItem.SubImages.Count > 0)
+                folderItem.Image = folderItem.SubImages[0];
+        }
+
         private void AddDefaultDiskC()
         {
-            ExplorerItem diskC = new ExplorerItem()
+            HomeItem diskC = new HomeItem()
             {
                 Name = "C:\\",
                 Path = "",
                 StorageFolder = null,
-                Type = ExplorerItemType.Folder
             };
             ExplorerGroups[0].Add(diskC);
             _dicItemToken.Add(diskC, diskC.Name);
         }
 
-        private void AddNewItem(GroupInfoList<ExplorerItem> itemList, StorageFolder retrievedFolder, string token)
+        private HomeItem AddNewItem(GroupInfoList<HomeItem> itemList, StorageFolder retrievedFolder, string token)
         {
-            ExplorerItem item = new ExplorerItem()
+            HomeItem item = new HomeItem()
             {
                 Name = retrievedFolder.Name,
                 Path = retrievedFolder.Path,
                 StorageFolder = retrievedFolder,
-                Type = ExplorerItemType.Folder
             };
             if (item.Name.Contains(":\\"))
             {
@@ -213,43 +198,40 @@
             }
             itemList.Add(item);
             _dicItemToken.Add(item, token);
+            return item;
         }
 
         private void InitializeSystemFolders()
         {
-            ExplorerGroups[0].Add(new ExplorerItem()
+            ExplorerGroups[0].Add(new HomeItem()
             {
                 Name = KnownFolders.PicturesLibrary.Name,
                 Path = KnownFolders.PicturesLibrary.Path,
                 StorageFolder = KnownFolders.PicturesLibrary,
-                Type = ExplorerItemType.Folder,
                 Image = GetBitMapImageFromLocalSource("Assets/photos.png"),
                 ImageStretch = "None"
             });
-            ExplorerGroups[0].Add(new ExplorerItem()
+            ExplorerGroups[0].Add(new HomeItem()
             {
                 Name = KnownFolders.MusicLibrary.Name,
                 Path = KnownFolders.MusicLibrary.Path,
                 StorageFolder = KnownFolders.MusicLibrary,
-                Type = ExplorerItemType.Folder,
                 Image = GetBitMapImageFromLocalSource("Assets/music.png"),
                 ImageStretch = "None"
             });
-            ExplorerGroups[0].Add(new ExplorerItem()
+            ExplorerGroups[0].Add(new HomeItem()
             {
                 Name = KnownFolders.VideosLibrary.Name,
                 Path = KnownFolders.VideosLibrary.Path,
                 StorageFolder = KnownFolders.VideosLibrary,
-                Type = ExplorerItemType.Folder,
                 Image = GetBitMapImageFromLocalSource("Assets/video.png"),
                 ImageStretch = "None"
             });
-            ExplorerGroups[1].Add(new ExplorerItem()
+            ExplorerGroups[1].Add(new HomeItem()
             {
                 Name = StringResources.ResourceLoader.GetString("String_AddNewShortCutFolder"),
                 Path = StringResources.ResourceLoader.GetString("String_AddNewShortCutFolder"),
                 StorageFolder = null,
-                Type = ExplorerItemType.Folder,
                 Image = GetBitMapImageFromLocalSource("Assets/FolderLogo2.png"),
                 ImageStretch = "None"
             });
@@ -279,7 +261,7 @@
             EventLogger.onActionEvent(EventLogger.ADD_FOLDER_DONE, EventLogger.LABEL_HOME_PAGE);
         }
 
-        private void AddNewFolder2(StorageFolder storageFolder)
+        private async void AddNewFolder2(StorageFolder storageFolder)
         {
             foreach (var item in _dicItemToken)
             {
@@ -293,7 +275,8 @@
             }
             else
             {
-                AddNewItem(ExplorerGroups[1], storageFolder, token);
+                var item = AddNewItem(ExplorerGroups[1], storageFolder, token);
+                await GetSubImages(item);
             } 
         }
 
@@ -325,22 +308,22 @@
             if (itemGridView.SelectedItems == null || itemGridView.SelectedItems.Count == 0) return;
             while (itemGridView.SelectedItems.Count > 0)
             {
-                if (!_dicItemToken.ContainsKey((itemGridView.SelectedItems[0] as ExplorerItem)))
+                if (!_dicItemToken.ContainsKey((itemGridView.SelectedItems[0] as HomeItem)))
                 {
                     if (itemGridView.SelectedItems.Count == 1)
                         break;
                     continue;
                 }
-                Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.Remove(_dicItemToken[(itemGridView.SelectedItems[0] as ExplorerItem)]);
-                if (ExplorerGroups[0].Contains(itemGridView.SelectedItems[0] as ExplorerItem))
+                Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.Remove(_dicItemToken[(itemGridView.SelectedItems[0] as HomeItem)]);
+                if (ExplorerGroups[0].Contains(itemGridView.SelectedItems[0] as HomeItem))
                 {
-                    _dicItemToken.Remove(itemGridView.SelectedItems[0] as ExplorerItem);
-                    ExplorerGroups[0].Remove(itemGridView.SelectedItems[0] as ExplorerItem);
+                    _dicItemToken.Remove(itemGridView.SelectedItems[0] as HomeItem);
+                    ExplorerGroups[0].Remove(itemGridView.SelectedItems[0] as HomeItem);
                 }
-                else if (ExplorerGroups[1].Contains(itemGridView.SelectedItems[0] as ExplorerItem))
+                else if (ExplorerGroups[1].Contains(itemGridView.SelectedItems[0] as HomeItem))
                 {
-                    _dicItemToken.Remove(itemGridView.SelectedItems[0] as ExplorerItem);
-                    ExplorerGroups[1].Remove(itemGridView.SelectedItems[0] as ExplorerItem);
+                    _dicItemToken.Remove(itemGridView.SelectedItems[0] as HomeItem);
+                    ExplorerGroups[1].Remove(itemGridView.SelectedItems[0] as HomeItem);
                 }
                 
             }
@@ -361,7 +344,7 @@
 
         private async void ItemGridView_ItemClick_1(object sender, ItemClickEventArgs e)
         {
-            ExplorerItem item = e.ClickedItem as ExplorerItem;
+            HomeItem item = e.ClickedItem as HomeItem;
             if (item.StorageFolder != null)
             {
                 NavigateToExplorer(item);
@@ -380,7 +363,7 @@
             }
         }
 
-        private async System.Threading.Tasks.Task ClickedOnUndefinedDiskCItem(ExplorerItem item)
+        private async System.Threading.Tasks.Task ClickedOnUndefinedDiskCItem(HomeItem item)
         {
             var storageFolder = await GetStorageFolderFromFolderPicker();
             if (storageFolder != null && storageFolder.Name == item.Name)
@@ -396,7 +379,7 @@
             }
         }
 
-        private void NavigateToExplorer(ExplorerItem item)
+        private void NavigateToExplorer(HomeItem item)
         {
             Singleton<MetroExplorerLocalDataSource>.Instance.NavigatorStorageFolders =
                 new List<StorageFolder>
