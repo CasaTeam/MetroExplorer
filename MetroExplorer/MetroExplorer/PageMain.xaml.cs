@@ -63,6 +63,7 @@
 
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
+            LoadingProgressBar.Visibility = Windows.UI.Xaml.Visibility.Visible;
             ChangeTheme(Theme.ThemeLibarary.CurrentTheme);
         }
 
@@ -72,6 +73,7 @@
             {
                 RefreshExporerGroups1();
                 _folderImageChangeDispatcher.Start();
+                LoadingProgressBar.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
                 return;
             }
             InitializeSystemFolders();
@@ -84,7 +86,7 @@
             _folderImageChangeDispatcher.Tick += FolderImageChangeDispatcher_Tick;
             _folderImageChangeDispatcher.Interval = new TimeSpan(0, 0, 0, 1, 500);
             _folderImageChangeDispatcher.Start();
-
+            LoadingProgressBar.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }
 
         async void FolderImageChangeDispatcher_Tick(object sender, object e)
@@ -443,7 +445,6 @@
                 }
                 foreach (var token in lostTokens)
                     Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.Remove(token);
-
             }
             else return;
             // 检查主页已失效的文件夹，并将其从列表中删除
