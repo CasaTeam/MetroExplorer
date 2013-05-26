@@ -70,6 +70,7 @@
         {
             if(_folderImageChangeDispatcher != null)
             {
+                RefreshExporerGroups1();
                 _folderImageChangeDispatcher.Start();
                 return;
             }
@@ -412,6 +413,60 @@
         private void ExplorerItemImage_Loaded(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void Button_Refresh_Click(object sender, RoutedEventArgs e)
+        {
+            RefreshExporerGroups1();
+        }
+
+        private async void RefreshExporerGroups1()
+        {
+            var lostTokens = new List<string>(); // TODO: 避免有些已经不用的token仍然存在MostRecentlyUsedList中
+            var availableStorages = new Dictionary<StorageFolder, AccessListEntry>();
+            // 获取当前所有的可用快捷方式文件夹的信息
+            if (Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList != null && Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.Entries.Count > 0)
+            {
+                foreach (var item in Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.Entries)
+                {
+                    try
+                    {
+                        var retrievedItem = await StorageApplicationPermissions.FutureAccessList.GetItemAsync(item.Token);
+                        StorageFolder retrievedFolder = retrievedItem as StorageFolder;
+                        if (!(retrievedFolder.Name.Contains(":\\") || retrievedFolder.Name == "Documents"))
+                            availableStorages.Add(retrievedFolder, item);
+                    }
+                    catch  // 出现异常。可能是因为用户修改了某个文件夹的信息
+                    {
+                        lostTokens.Add(item.Token);
+                    }
+                }
+                foreach (var token in lostTokens)
+                    Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.Remove(token);
+
+            }
+            else return;
+            // 检查主页已失效的文件夹，并将其从列表中删除
+            if (ExplorerGroups[1].Count(p=> availableStorages.All(pp=> pp.Key.Path != p.Path)) > 0)
+            {
+                var notInAvailableListItems = new List<HomeItem>();
+                foreach (var item in ExplorerGroups[1].Where(p => availableStorages.All(pp => pp.Key.Path != p.Path)))
+                {
+                    _dicItemToken.Remove(item);
+                    notInAvailableListItems.Add(item);
+                }
+                foreach (var item in notInAvailableListItems)
+                    ExplorerGroups[1].Remove(item);
+            }
+            // 重新添加改变后的文件夹
+
+            if (availableStorages.Count(p => ExplorerGroups[1].All(pp => pp.Path != p.Key.Path)) > 0)
+            {
+                foreach (var item in availableStorages.Where(p => ExplorerGroups[1].All(pp => pp.Path != p.Key.Path)))
+                {
+                    await AddAUserFolder(item.Value, item.Key);    
+                }                    
+            }
         }
     }
 

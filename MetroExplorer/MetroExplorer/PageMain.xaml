@@ -15,27 +15,40 @@
 		<AppBar x:Name="AppBar_BottomAppBar" Opened="AppBar_BottomAppBar_Opened_1"
 				Background="{Binding Path=BottomBarBackground}" BorderBrush="{Binding Path=BottomBarBackground}">
 			<Grid Height="90" x:Name="Grid_BottomAppBar" HorizontalAlignment="Stretch">
-				<Button x:Name="Button_RemoveDiskFolder" Click="Button_RemoveDiskFolder_Click"
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <Button x:Name="Button_RemoveDiskFolder" Click="Button_RemoveDiskFolder_Click"
 						x:Uid="Uid_Page_Main_Button_RemoveFolder" FontWeight="ExtraLight"
 						Margin="10,0,0,0" HorizontalAlignment="Left">
-					<Button.Style>
-						<Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
-							<Setter Property="AutomationProperties.Name" Value=""/>
-							<Setter Property="Content" Value="&#xE107;"/>
-						</Style>
-					</Button.Style>
-				</Button>
-				<Button Click="Button_AddNewDiskFolder_Click" FontWeight="ExtraLight"
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
+                                <Setter Property="AutomationProperties.Name" Value=""/>
+                                <Setter Property="Content" Value="&#xE107;"/>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button Click="Button_AddNewDiskFolder_Click" FontWeight="ExtraLight"
 				x:Uid="Uid_Page_Main_Button_AddNewShortCutFolder"
+				Margin="10,0,0,0" HorizontalAlignment="Left" >
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
+                                <Setter Property="AutomationProperties.Name" Value=""/>
+                                <Setter Property="Content" Value="&#xE109;"/>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </StackPanel>
+
+                <Button Click="Button_Refresh_Click" FontWeight="ExtraLight"
+				x:Uid="Uid_PageMainRefreshButton"
 				Margin="0,0,10,0" HorizontalAlignment="Right" >
-					<Button.Style>
-						<Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
-							<Setter Property="AutomationProperties.Name" Value=""/>
-							<Setter Property="Content" Value="&#xE109;"/>
-						</Style>
-					</Button.Style>
-				</Button>
-			</Grid>
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
+                            <Setter Property="AutomationProperties.Name" Value=""/>
+                            <Setter Property="Content" Value="&#xE117;"/>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </Grid>
 		</AppBar>
 	</common:LayoutAwarePage.BottomAppBar>
 	
