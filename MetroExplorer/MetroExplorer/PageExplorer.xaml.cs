@@ -20,6 +20,7 @@
     using MetroExplorer.Common;
     using Windows.ApplicationModel.DataTransfer;
     using Windows.Storage.Streams;
+    using Windows.ApplicationModel;
 
     /// <summary>
     /// Page affichant une collection groupée d'éléments.
@@ -109,25 +110,38 @@
         }
 
         void PageExplorerDataRequested(DataTransferManager sender,
-            DataRequestedEventArgs args)
+           DataRequestedEventArgs args)
         {
-            var request = args.Request;
+            DataPackage data = args.Request.Data;
+            DataRequestDeferral waiter = args.Request.GetDeferral();
 
-            foreach (ExplorerItem item in itemGridView.SelectedItems)
+            try
             {
-                if (item.Type == ExplorerItemType.File)
+                List<IStorageItem> files = new List<IStorageItem>();
+                int index = 0;
+                foreach (var item in itemGridView.SelectedItems)
                 {
-                    var reference = RandomAccessStreamReference.CreateFromFile(item.StorageFile);
-                    if (reference != null)
+                    ExplorerItem explorerItem = (ExplorerItem)item;
+                    if (explorerItem != null)
                     {
-                        request.Data.Properties.Title = item.Name;
-                        request.Data.Properties.Description = "";
-                        request.Data.Properties.Thumbnail = reference;
+                        if (index == 0)
+                        {
+                            data.Properties.Title = explorerItem.Name;
+                            RandomAccessStreamReference image = RandomAccessStreamReference.CreateFromFile(explorerItem.StorageFile);
+                            data.Properties.Thumbnail = image;
+                            data.SetBitmap(image);
+                        }
+                        files.Add(explorerItem.StorageFile);
                     }
+                    index++;
                 }
+                data.SetStorageItems(files);
+                data.SetText("\n");
             }
-
-            request.Data.SetText("\n");
+            finally
+            {
+                waiter.Complete();
+            }
         }
 
         private async Task RefreshLocalFiles()
@@ -162,7 +176,7 @@
                         _dataSource.SearchedItems = null;
                     }
                     _counterForLoadUnloadedItems = 0;
-                    _counterForLoadUnloadedItems = 0; 
+                    _counterForLoadUnloadedItems = 0;
                 }
                 catch
                 { }
