@@ -174,6 +174,9 @@
   <data name="Uid_PageExplorerPasteButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
     <value>粘贴</value>
   </data>
+  <data name="Uid_PageMainRefreshButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>刷新</value>
+  </data>
   <data name="Uid_PageMain_DragFileAndFolderToHere.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
     <value>抓取文件（夹）</value>
   </data>

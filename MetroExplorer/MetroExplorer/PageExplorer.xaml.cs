@@ -440,7 +440,9 @@
         {
             if (value != null)
             {
-                if (System.Convert.ToDouble(value) < 1024 * 1024)
+                if (System.Convert.ToDouble(value) == 0)
+                    return "";
+                else if (System.Convert.ToDouble(value) < 1024 * 1024)
                     return Math.Round(System.Convert.ToDouble(value) / 1024, 2).ToString() + " KB";
                 else if (System.Convert.ToDouble(value) <= 1024 * 1024 * 1024)
                     return Math.Round(System.Convert.ToDouble(value) / (1024 * 1024), 2).ToString() + " MB";
