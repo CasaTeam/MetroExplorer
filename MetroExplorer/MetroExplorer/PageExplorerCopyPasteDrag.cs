@@ -24,7 +24,7 @@ namespace MetroExplorer
                     CopiedCuttedItems.GetInstance().Items.Add((item as ExplorerItem));
                 }
                 CopiedCuttedItems.GetInstance().CutOrCopy = CopyCutState.Copy;
-            } 
+            }
         }
 
         private void PageExplorerCutButtonClick(object sender, RoutedEventArgs e)
@@ -37,14 +37,13 @@ namespace MetroExplorer
                     CopiedCuttedItems.GetInstance().Items.Add((item as ExplorerItem));
                 }
                 CopiedCuttedItems.GetInstance().CutOrCopy = CopyCutState.Cut;
-            } 
+            }
         }
 
         private async void PageExplorerPasteButtonClick(object sender, RoutedEventArgs e)
         {
             if (CopiedCuttedItems.GetInstance().Items.Count > 0)
             {
-
                 foreach (var item in CopiedCuttedItems.GetInstance().Items)
                 {
                     if (item.Type == ExplorerItemType.File)
@@ -63,8 +62,20 @@ namespace MetroExplorer
                         { }
                     }
                 }
-                RefreshAfterAddNewItem();
             }
+            else if (_dataSource.ShareStorageItems.Count > 0)
+            {
+                foreach (IStorageItem item in _dataSource.ShareStorageItems)
+                    if (item is StorageFile)
+                        try
+                        {
+                            StorageFile file = (StorageFile)item;
+                            await file.CopyAsync(_dataSource.CurrentStorageFolder, item.Name, NameCollisionOption.GenerateUniqueName);
+                        }
+                        catch
+                        { }
+            }
+            RefreshAfterAddNewItem();
         }
 
 

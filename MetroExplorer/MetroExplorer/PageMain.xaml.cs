@@ -21,12 +21,15 @@
     using Windows.Storage.FileProperties;
     using System.Threading.Tasks;
     using System.Linq;
+    using Windows.ApplicationModel.DataTransfer.ShareTarget;
+    using Windows.ApplicationModel.DataTransfer;
 
     /// <summary>
     /// Page affichant une collection groupée d'éléments.
     /// </summary>
     public sealed partial class PageMain : LayoutAwarePage, INotifyPropertyChanged
     {
+        private readonly MetroExplorerLocalDataSource _dataSource;
         ObservableCollection<GroupInfoList<HomeItem>> explorerGroups;
         public ObservableCollection<GroupInfoList<HomeItem>> ExplorerGroups
         {
@@ -47,13 +50,14 @@
 
         public PageMain()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             DataContext = this;
-            this.NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
+            _dataSource = Singleton<MetroExplorerLocalDataSource>.Instance;
+            NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
             ExplorerGroups = new ObservableCollection<GroupInfoList<HomeItem>>();
             ExplorerGroups.Add(new GroupInfoList<HomeItem>() { Key = StringResources.ResourceLoader.GetString("MainPage_UserFolderGroupTitle") });
             ExplorerGroups.Add(new GroupInfoList<HomeItem>() { Key = StringResources.ResourceLoader.GetString("MainPage_SystemFolderGroupTitle") });
-            this.Loaded += PageMain_Loaded;
+            Loaded += PageMain_Loaded;
         }
 
         protected override void SaveState(Dictionary<string, object> pageState)
@@ -61,15 +65,22 @@
             _folderImageChangeDispatcher.Stop();
         }
 
-        protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
+        protected async override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
+            if (navigationParameter is ShareOperation)
+            {
+                ShareOperation shareOperation = (ShareOperation)navigationParameter;
+                if (shareOperation.Data.Contains(StandardDataFormats.StorageItems))
+                    _dataSource.ShareStorageItems = await shareOperation.Data.GetStorageItemsAsync();
+            }
+
             LoadingProgressBar.Visibility = Windows.UI.Xaml.Visibility.Visible;
             ChangeTheme(Theme.ThemeLibarary.CurrentTheme);
         }
 
         async void PageMain_Loaded(object sender, RoutedEventArgs e)
         {
-            if(_folderImageChangeDispatcher != null)
+            if (_folderImageChangeDispatcher != null)
             {
                 RefreshExporerGroups1();
                 _folderImageChangeDispatcher.Start();
@@ -97,7 +108,7 @@
                 {
                     var rad = new Random();
                     await GetSubImage(ExplorerGroups[1].ElementAt(rad.Next(0, ExplorerGroups[1].Count)));
-                }  
+                }
             }
             catch
             { }
@@ -116,7 +127,7 @@
             item.Image = null;
         }
 
-        private async System.Threading.Tasks.Task InitializeUsersFolders()
+        private async Task InitializeUsersFolders()
         {
             if (Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList != null && Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.Entries.Count > 0)
             {
@@ -132,7 +143,7 @@
                             AddNewItem(ExplorerGroups[0], retrievedFolder, item.Token);
                         }
                         else
-                            await AddAUserFolder(item, retrievedFolder);     
+                            await AddAUserFolder(item, retrievedFolder);
                     }
                     catch  // 出现异常。可能是因为用户修改了某个文件夹的信息
                     {
@@ -259,7 +270,7 @@
             return result;
         }
 
-        private async System.Threading.Tasks.Task AddNewFolder()
+        private async Task AddNewFolder()
         {
             StorageFolder storageFolder = await GetStorageFolderFromFolderPicker();
             if (storageFolder == null)
@@ -292,10 +303,10 @@
             {
                 var item = AddNewItem(ExplorerGroups[1], storageFolder, token);
                 await GetSubImage(item);
-            } 
+            }
         }
 
-        private static async System.Threading.Tasks.Task<StorageFolder> GetStorageFolderFromFolderPicker()
+        private static async Task<StorageFolder> GetStorageFolderFromFolderPicker()
         {
             FolderPicker folderPicker = new FolderPicker();
             folderPicker.ViewMode = PickerViewMode.List;
@@ -340,7 +351,7 @@
                     _dicItemToken.Remove(itemGridView.SelectedItems[0] as HomeItem);
                     ExplorerGroups[1].Remove(itemGridView.SelectedItems[0] as HomeItem);
                 }
-                
+
             }
             BottomAppBar.IsOpen = false;
         }
@@ -378,7 +389,7 @@
             }
         }
 
-        private async System.Threading.Tasks.Task ClickedOnUndefinedDiskCItem(HomeItem item)
+        private async Task ClickedOnUndefinedDiskCItem(HomeItem item)
         {
             var storageFolder = await GetStorageFolderFromFolderPicker();
             if (storageFolder != null && storageFolder.Name == item.Name)
@@ -448,7 +459,7 @@
             }
             else return;
             // 检查主页已失效的文件夹，并将其从列表中删除
-            if (ExplorerGroups[1].Count(p=> availableStorages.All(pp=> pp.Key.Path != p.Path)) > 0)
+            if (ExplorerGroups[1].Count(p => availableStorages.All(pp => pp.Key.Path != p.Path)) > 0)
             {
                 var notInAvailableListItems = new List<HomeItem>();
                 foreach (var item in ExplorerGroups[1].Where(p => availableStorages.All(pp => pp.Key.Path != p.Path)))
@@ -465,8 +476,8 @@
             {
                 foreach (var item in availableStorages.Where(p => ExplorerGroups[1].All(pp => pp.Path != p.Key.Path)))
                 {
-                    await AddAUserFolder(item.Value, item.Key);    
-                }                    
+                    await AddAUserFolder(item.Value, item.Key);
+                }
             }
         }
     }

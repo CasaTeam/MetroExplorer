@@ -1,14 +1,14 @@
-﻿using System.Collections.ObjectModel;
-
-namespace MetroExplorer.core.Objects
+﻿namespace MetroExplorer.core.Objects
 {
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq;
     using Windows.Storage;
 
     public class MetroExplorerLocalDataSource
     {
         private IList<StorageFolder> _navigatorStorageFolders;
+        private IReadOnlyList<IStorageItem> _shareStorageItems;
 
         public IList<StorageFolder> NavigatorStorageFolders
         {
@@ -17,6 +17,15 @@ namespace MetroExplorer.core.Objects
             {
                 _navigatorStorageFolders = value;
             }
+        }
+
+        public IReadOnlyList<IStorageItem> ShareStorageItems
+        {
+            get
+            {
+                return _shareStorageItems;
+            }
+            set { _shareStorageItems = value; }
         }
 
         public StorageFolder CurrentStorageFolder
@@ -31,6 +40,7 @@ namespace MetroExplorer.core.Objects
         private MetroExplorerLocalDataSource()
         {
             _navigatorStorageFolders = new List<StorageFolder>();
+            _shareStorageItems = new List<IStorageItem>();
         }
 
         public string GetPath()

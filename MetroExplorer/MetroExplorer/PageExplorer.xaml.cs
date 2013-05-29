@@ -102,6 +102,9 @@
 
             DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
             dataTransferManager.DataRequested += PageExplorerDataRequested;
+
+            if (_dataSource.ShareStorageItems.Count > 0)
+                AppBar_BottomAppBar.IsOpen = true;
         }
 
         protected override void SaveState(Dictionary<string, object> pageState)

@@ -207,6 +207,16 @@ namespace MetroExplorer
             // Vérifiez que la fenêtre actuelle est active
             Window.Current.Activate();
         }
+
+        protected override void OnShareTargetActivated(ShareTargetActivatedEventArgs args)
+        {
+            Frame rootFrame = Window.Current.Content as Frame;
+            if (rootFrame == null)
+                rootFrame = new Frame();
+            rootFrame.Navigate(typeof(PageMain), args.ShareOperation);
+            Window.Current.Content = rootFrame;
+            Window.Current.Activate();
+        }
     }
 
 

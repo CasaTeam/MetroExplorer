@@ -347,7 +347,6 @@ namespace MetroExplorer.Common
                     nextPageIndex++;
                     nextPageKey = "Page-" + nextPageIndex;
                 }
-
                 // Passe le paramètre de navigation à la nouvelle page
                 this.LoadState(e.Parameter, null);
             }
