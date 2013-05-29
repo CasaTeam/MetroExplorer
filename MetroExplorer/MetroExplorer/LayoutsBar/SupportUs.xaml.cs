@@ -16,10 +16,12 @@ using System.ComponentModel;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI;
 
+
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234237
 
 namespace MetroExplorer.LayoutsBar
-{
+{   
+    using core.Utils;
     /// <summary>
     /// A basic page that provides characteristics common to most applications.
     /// </summary>
@@ -42,6 +44,7 @@ namespace MetroExplorer.LayoutsBar
         void SupportUs_Loaded(object sender, RoutedEventArgs e)
         {
             dispatcherTimer.Start();
+            EventLogger.onActionEvent(EventLogger.SUPPORT_US);
         }
 
         void SupportUs_Unloaded(object sender, RoutedEventArgs e)

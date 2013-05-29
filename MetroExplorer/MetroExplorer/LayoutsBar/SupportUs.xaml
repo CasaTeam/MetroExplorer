@@ -152,9 +152,9 @@
 				<TextBlock x:Uid="Uid_SupportUs_Text" HorizontalAlignment="Left" FontSize="18" Margin="40,15,30,0" 
 						   TextWrapping="Wrap" Text="TextBlock" FontWeight="Light"
                            VerticalAlignment="Top"/>
-                <UI:AdControl x:Name="AdControl1" Opacity="0" ApplicationId="d55d5bbd-d9eb-424b-bd51-8355a100ece0" Visibility="Collapsed" 
-                              AdUnitId="127915" HorizontalAlignment="Left"
-                              Margin="40,15,30,0" Width="320" Height="200"/>
+                <UI:AdControl x:Name="AdControl1" Opacity="0" ApplicationId="49796220-0340-4a2b-8e51-2cbaac600e86" Visibility="Collapsed" 
+                              AdUnitId="128643" HorizontalAlignment="Left"
+                              Margin="40,15,30,0" Width="300" Height="250"/>
             </StackPanel>
 		</Grid>
 

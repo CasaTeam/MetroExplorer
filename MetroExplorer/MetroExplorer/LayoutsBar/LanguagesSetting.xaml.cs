@@ -20,6 +20,7 @@ using MetroExplorer.Common;
 
 namespace MetroExplorer.LayoutsBar
 {
+    using core.Utils;
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
@@ -73,6 +74,7 @@ namespace MetroExplorer.LayoutsBar
                 App.Current.Exit();
             }));
             dialog.Commands.Add(new UICommand("Later"));
+            EventLogger.onActionEvent(EventLogger.LANGUAGES_SETTINGS, EventLogger.PARAM_LANGUAGES_EN);
             await dialog.ShowAsync();
         }
 
@@ -86,6 +88,7 @@ namespace MetroExplorer.LayoutsBar
                 App.Current.Exit();
             }));
             dialog.Commands.Add(new UICommand("待会儿重启"));
+            EventLogger.onActionEvent(EventLogger.LANGUAGES_SETTINGS, EventLogger.PARAM_LANGUAGES_ZH);
             await dialog.ShowAsync();
         }
 
@@ -99,6 +102,7 @@ namespace MetroExplorer.LayoutsBar
                 App.Current.Exit();
             }));
             dialog.Commands.Add(new UICommand("Reporting"));
+            EventLogger.onActionEvent(EventLogger.LANGUAGES_SETTINGS, EventLogger.PARAM_LANGUAGES_FR);
             await dialog.ShowAsync();
         }
 
