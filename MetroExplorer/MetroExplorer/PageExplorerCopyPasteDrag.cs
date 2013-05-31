@@ -78,8 +78,8 @@ namespace MetroExplorer
             RefreshAfterAddNewItem();
         }
 
-
         #region new mode
+
         private void Button_CutPaste_Click(object sender, RoutedEventArgs e)
         {
             Popup_CopyCutPaste.Visibility = Windows.UI.Xaml.Visibility.Visible;
@@ -134,6 +134,7 @@ namespace MetroExplorer
             }
             GC.Collect();
         }
+
         #endregion
     }
 

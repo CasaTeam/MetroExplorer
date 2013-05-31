@@ -149,6 +149,7 @@
 
         private async Task RefreshLocalFiles()
         {
+            ExplorerItems.Clear();
             //if (_currentStorageFolder != null)
             if (_dataSource.CurrentStorageFolder != null)
             {
@@ -178,7 +179,6 @@
                         _dataSource.FromSearch = false;
                         _dataSource.SearchedItems = null;
                     }
-                    _counterForLoadUnloadedItems = 0;
                     _counterForLoadUnloadedItems = 0;
                 }
                 catch
