@@ -27,10 +27,10 @@
     /// </summary>
     public sealed partial class PageExplorer : LayoutAwarePage, INotifyPropertyChanged
     {
-        private readonly MetroExplorerLocalDataSource _dataSource;
         public static List<string> CurrentItems;
 
-        ObservableCollection<ExplorerItem> _explorerItems;
+        private ObservableCollection<ExplorerItem> _explorerItems;
+
         public ObservableCollection<ExplorerItem> ExplorerItems
         {
             get
@@ -54,12 +54,10 @@
         public PageExplorer()
         {
             InitializeComponent();
+            ExplorerItems = new ObservableCollection<ExplorerItem>();
             DataContext = this;
-            //this.NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
-            _dataSource = Singleton<MetroExplorerLocalDataSource>.Instance;
             Loaded += PageExplorer_Loaded;
-
-            BaseUriStatic = this.BaseUri;
+            BaseUriStatic = BaseUri;
         }
 
         async void PageExplorer_Loaded(object sender, RoutedEventArgs e)
@@ -74,93 +72,45 @@
                 itemGridView.ItemTemplate = Resources["Standard300x80ItemTemplate"] as DataTemplate;
         }
 
-        protected async override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
+        protected async override void LoadState(
+            Object navigationParameter,
+            Dictionary<String, Object> pageState)
         {
-            string args = navigationParameter as string;
-            if (args != null)
-            {
-
-                var currentContent = Window.Current.Content;
-                var frame = currentContent as Frame;
-
-                App.LastQuery = App.CurrentQuery = string.Empty;
-
-                if (args != null && args is string)
-                    await Search(args as string);
-                GC.Collect();
-            }
-
             EventLogger.onActionEvent(EventLogger.FOLDER_OPENED);
-            ExplorerItems = new ObservableCollection<ExplorerItem>();
 
-            FolderNameTextBlock.Text = _dataSource.CurrentStorageFolder.Name;
             ChangeTheme(Theme.ThemeLibarary.CurrentTheme);
+
+            await InitializeSearch(navigationParameter);
+            InitializeShare();
+
+            FolderNameTextBlock.Text = DataSource.CurrentStorageFolder.Name;
             await RefreshLocalFiles();
             ItemsViewSource.Source = ExplorerItems;
 
             InitializeChangingDispatcher();
-
-            DataTransferManager dataTransferManager = DataTransferManager.GetForCurrentView();
-            dataTransferManager.DataRequested += PageExplorerDataRequested;
-
-            if (_dataSource.ShareStorageItems.Count > 0)
-                AppBar_BottomAppBar.IsOpen = true;
+            GC.Collect();
         }
 
-        protected override void SaveState(Dictionary<string, object> pageState)
+        protected override void SaveState(
+            Dictionary<string, object> pageState)
         {
             DataTransferManager.GetForCurrentView().DataRequested -= PageExplorerDataRequested;
-        }
-
-        void PageExplorerDataRequested(DataTransferManager sender,
-           DataRequestedEventArgs args)
-        {
-            DataPackage data = args.Request.Data;
-            DataRequestDeferral waiter = args.Request.GetDeferral();
-
-            try
-            {
-                List<IStorageItem> files = new List<IStorageItem>();
-                int index = 0;
-                foreach (var item in itemGridView.SelectedItems)
-                {
-                    ExplorerItem explorerItem = (ExplorerItem)item;
-                    if (explorerItem != null)
-                    {
-                        if (index == 0)
-                        {
-                            data.Properties.Title = explorerItem.Name;
-                            RandomAccessStreamReference image = RandomAccessStreamReference.CreateFromFile(explorerItem.StorageFile);
-                            data.Properties.Thumbnail = image;
-                            data.SetBitmap(image);
-                        }
-                        files.Add(explorerItem.StorageFile);
-                    }
-                    index++;
-                }
-                data.SetStorageItems(files);
-                data.SetText("\n");
-            }
-            finally
-            {
-                waiter.Complete();
-            }
         }
 
         private async Task RefreshLocalFiles()
         {
             ExplorerItems.Clear();
             //if (_currentStorageFolder != null)
-            if (_dataSource.CurrentStorageFolder != null)
+            if (DataSource.CurrentStorageFolder != null)
             {
                 // TODO: 添加try catch是避免用户在加载过程中连续两次刷新页面造成的ExplorerGroups清零混乱
                 try
                 {
                     await InitializeNavigator();
                     //var listFiles = await _currentStorageFolder.GetItemsAsync();
-                    if (!_dataSource.FromSearch)
+                    if (!DataSource.FromSearch)
                     {
-                        var listFiles = await _dataSource.CurrentStorageFolder.GetItemsAsync();
+                        var listFiles = await DataSource.CurrentStorageFolder.GetItemsAsync();
                         foreach (var item in listFiles)
                         {
                             if (item is StorageFile)
@@ -175,9 +125,9 @@
                     }
                     else
                     {
-                        ExplorerItems = _dataSource.SearchedItems;
-                        _dataSource.FromSearch = false;
-                        _dataSource.SearchedItems = null;
+                        ExplorerItems = DataSource.SearchedItems;
+                        DataSource.FromSearch = false;
+                        DataSource.SearchedItems = null;
                     }
                     _counterForLoadUnloadedItems = 0;
                 }
@@ -189,7 +139,7 @@
         private async Task InitializeNavigator()
         {
             List<List<string>> itemListArray = new List<List<string>>();
-            foreach (StorageFolder storageFolder in _dataSource.NavigatorStorageFolders)
+            foreach (StorageFolder storageFolder in DataSource.NavigatorStorageFolders)
             {
                 var items = await storageFolder.GetItemsAsync();
                 List<string> folderNames = items.OfType<StorageFolder>().Select(item => item.Name).ToList();
@@ -197,17 +147,18 @@
                 itemListArray.Add(folderNames);
             }
             Navigator.ItemListArray = itemListArray.ToArray();
-            Navigator.Path = _dataSource.GetPath();
+            Navigator.Path = DataSource.GetPath();
 
-            var currentItems = await _dataSource.CurrentStorageFolder.GetItemsAsync();
+            var currentItems = await DataSource.CurrentStorageFolder.GetItemsAsync();
             CurrentItems = currentItems.Select(item => item.Name).ToList();
         }
 
-        private async void NavigatorPathChanged(object sender, NavigatorNodeCommandArgument e)
+        private async void NavigatorPathChanged(object sender,
+            NavigatorNodeCommandArgument e)
         {
             if (e.CommandType == NavigatorNodeCommandType.None) return;
 
-            _dataSource.CutNavigatorFromIndex(e.Index);
+            DataSource.CutNavigatorFromIndex(e.Index);
             if (e.CommandType == NavigatorNodeCommandType.Reduce)
             {
                 StopImageChangingDispatcher();
@@ -215,7 +166,7 @@
             }
             else if (e.CommandType == NavigatorNodeCommandType.Change)
             {
-                StorageFolder lastStorageFolder = _dataSource.CurrentStorageFolder;
+                StorageFolder lastStorageFolder = DataSource.CurrentStorageFolder;
                 if (lastStorageFolder != null)
                 {
                     var results = await lastStorageFolder.GetItemsAsync();
@@ -225,7 +176,7 @@
                         if (item is StorageFolder && item.Name == changedNode)
                         {
                             StorageFolder storageFolder = (StorageFolder)item;
-                            _dataSource.NavigatorStorageFolders.Add(storageFolder);
+                            DataSource.NavigatorStorageFolders.Add(storageFolder);
                             break;
                         }
                     }
@@ -237,13 +188,12 @@
 
         private void ButtonMainPage_Click_1(object sender, RoutedEventArgs e)
         {
-            _dataSource.NavigatorStorageFolders = new List<StorageFolder>();
+            DataSource.NavigatorStorageFolders = new List<StorageFolder>();
             StopImageChangingDispatcher();
             CurrentItems = null;
             Frame.Navigate(typeof(PageMain));
         }
 
-        #region propertychanged
         private void NotifyPropertyChanged(String changedPropertyName)
         {
             if (PropertyChanged != null)
@@ -253,7 +203,6 @@
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        #endregion
     }
 
 

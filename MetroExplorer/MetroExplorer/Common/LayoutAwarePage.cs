@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MetroExplorer.core;
+using MetroExplorer.core.Objects;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -42,6 +44,9 @@ namespace MetroExplorer.Common
         public static readonly DependencyProperty DefaultViewModelProperty =
             DependencyProperty.Register("DefaultViewModel", typeof(IObservableMap<String, Object>),
             typeof(LayoutAwarePage), null);
+        
+
+        protected  MetroExplorerLocalDataSource DataSource { get; set; }
 
         private List<Control> _layoutAwareControls;
 
@@ -50,6 +55,8 @@ namespace MetroExplorer.Common
         /// </summary>
         public LayoutAwarePage()
         {
+            DataSource = Singleton<MetroExplorerLocalDataSource>.Instance;
+
             if (Windows.ApplicationModel.DesignMode.DesignModeEnabled) return;
 
             // Crée un modèle d'affichage par défaut vide

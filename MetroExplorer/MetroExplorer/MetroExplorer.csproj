@@ -132,7 +132,7 @@
     <Compile Include="PageExplorerFileTypes.cs" />
     <Compile Include="PageExplorerSort.cs" />
     <Compile Include="PageExplorerTimer.cs" />
-    <Compile Include="PageExplorerSearch.cs" />
+    <Compile Include="PageExplorerSearchShare.cs" />
     <Compile Include="LayoutsBar\ContactUs.xaml.cs">
       <DependentUpon>ContactUs.xaml</DependentUpon>
     </Compile>

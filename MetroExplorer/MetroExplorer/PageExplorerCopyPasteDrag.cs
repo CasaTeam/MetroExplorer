@@ -50,7 +50,7 @@ namespace MetroExplorer
                     {
                         try
                         {
-                            await item.StorageFile.CopyAsync(_dataSource.CurrentStorageFolder, item.Name, NameCollisionOption.GenerateUniqueName);
+                            await item.StorageFile.CopyAsync(DataSource.CurrentStorageFolder, item.Name, NameCollisionOption.GenerateUniqueName);
                             if (CopiedCuttedItems.GetInstance().CutOrCopy == CopyCutState.Cut)
                             {
                                 if (ExplorerItems.Contains(item))
@@ -63,14 +63,14 @@ namespace MetroExplorer
                     }
                 }
             }
-            else if (_dataSource.ShareStorageItems.Count > 0)
+            else if (DataSource.ShareStorageItems.Count > 0)
             {
-                foreach (IStorageItem item in _dataSource.ShareStorageItems)
+                foreach (IStorageItem item in DataSource.ShareStorageItems)
                     if (item is StorageFile)
                         try
                         {
                             StorageFile file = (StorageFile)item;
-                            await file.CopyAsync(_dataSource.CurrentStorageFolder, item.Name, NameCollisionOption.GenerateUniqueName);
+                            await file.CopyAsync(DataSource.CurrentStorageFolder, item.Name, NameCollisionOption.GenerateUniqueName);
                         }
                         catch
                         { }
@@ -116,7 +116,7 @@ namespace MetroExplorer
             var sf = await filePicker.PickMultipleFilesAsync();
             for (int i = 0; i < sf.Count; i++)
             {
-                await sf[i].CopyAsync(_dataSource.CurrentStorageFolder, sf[i].Name, NameCollisionOption.GenerateUniqueName);
+                await sf[i].CopyAsync(DataSource.CurrentStorageFolder, sf[i].Name, NameCollisionOption.GenerateUniqueName);
             }
         }
 
@@ -129,7 +129,7 @@ namespace MetroExplorer
             var sf = await filePicker.PickMultipleFilesAsync();
             for (int i = 0; i < sf.Count; i++)
             {
-                await sf[i].CopyAsync(_dataSource.CurrentStorageFolder, sf[i].Name, NameCollisionOption.GenerateUniqueName);
+                await sf[i].CopyAsync(DataSource.CurrentStorageFolder, sf[i].Name, NameCollisionOption.GenerateUniqueName);
                 await sf[i].DeleteAsync(StorageDeleteOption.Default);
             }
             GC.Collect();
