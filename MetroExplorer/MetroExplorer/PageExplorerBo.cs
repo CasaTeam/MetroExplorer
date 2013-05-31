@@ -54,18 +54,18 @@
             ExplorerItem item = e.ClickedItem as ExplorerItem;
             if (item.Type == ExplorerItemType.Folder)
             {
-                //this.Frame.Navigate(typeof(PageExplorer), item.StorageFolder);
-                _dataSource.NavigatorStorageFolders.Add(item.StorageFolder);
+                DataSource.NavigatorStorageFolders.Add(item.StorageFolder);
                 Frame.Navigate(typeof(PageExplorer), null);
             }
             else if (item.Type == ExplorerItemType.File)
             {
                 if (item.StorageFile != null && item.StorageFile.IsImageFile())
                 {
-                    var parameters = ExplorerItems.Where(p => p.StorageFile.FileType.ToUpper().Equals(".JPG") ||
-                                                                 p.StorageFile.FileType.ToUpper().Equals(".JPEG") ||
-                                                                 p.StorageFile.FileType.ToUpper().Equals(".PNG") ||
-                                                                 p.StorageFile.FileType.ToUpper().Equals(".BMP")).ToList();
+                    var parameters = ExplorerItems.Where(p => p.StorageFile != null && 
+                                                             (p.StorageFile.FileType.ToUpper().Equals(".JPG") ||
+                                                              p.StorageFile.FileType.ToUpper().Equals(".JPEG") ||
+                                                              p.StorageFile.FileType.ToUpper().Equals(".PNG") ||
+                                                              p.StorageFile.FileType.ToUpper().Equals(".BMP"))).ToList();
                     parameters.Remove(item);
                     parameters.Insert(0, item);
                     Frame.Navigate(typeof(PhotoGallery), parameters);
@@ -92,7 +92,7 @@
         private async void Button_CreateNewFolder_Click(object sender, RoutedEventArgs e)
         {
             //StorageFolder sf = await _currentStorageFolder.CreateFolderAsync(StringResources.ResourceLoader.GetString("String_NewFolder"), CreationCollisionOption.GenerateUniqueName);
-            StorageFolder sf = await _dataSource.CurrentStorageFolder.CreateFolderAsync(TextBox_CreateNewFolder.Text, CreationCollisionOption.GenerateUniqueName);
+            StorageFolder sf = await DataSource.CurrentStorageFolder.CreateFolderAsync(TextBox_CreateNewFolder.Text, CreationCollisionOption.GenerateUniqueName);
             ExplorerItem item = new ExplorerItem()
             {
                 Name = sf.Name,

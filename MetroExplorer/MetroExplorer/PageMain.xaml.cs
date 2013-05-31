@@ -29,7 +29,6 @@
     /// </summary>
     public sealed partial class PageMain : LayoutAwarePage, INotifyPropertyChanged
     {
-        private readonly MetroExplorerLocalDataSource _dataSource;
         ObservableCollection<GroupInfoList<HomeItem>> explorerGroups;
         public ObservableCollection<GroupInfoList<HomeItem>> ExplorerGroups
         {
@@ -52,7 +51,6 @@
         {
             InitializeComponent();
             DataContext = this;
-            _dataSource = Singleton<MetroExplorerLocalDataSource>.Instance;
             NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
             ExplorerGroups = new ObservableCollection<GroupInfoList<HomeItem>>();
             ExplorerGroups.Add(new GroupInfoList<HomeItem>() { Key = StringResources.ResourceLoader.GetString("MainPage_UserFolderGroupTitle") });
@@ -71,7 +69,7 @@
             {
                 ShareOperation shareOperation = (ShareOperation)navigationParameter;
                 if (shareOperation.Data.Contains(StandardDataFormats.StorageItems))
-                    _dataSource.ShareStorageItems = await shareOperation.Data.GetStorageItemsAsync();
+                    DataSource.ShareStorageItems = await shareOperation.Data.GetStorageItemsAsync();
             }
 
             LoadingProgressBar.Visibility = Windows.UI.Xaml.Visibility.Visible;
