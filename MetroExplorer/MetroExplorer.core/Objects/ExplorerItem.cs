@@ -201,5 +201,27 @@
                 PropertyChanged(this, new PropertyChangedEventArgs(changedPropertyName));
             }
         }
+
+        private string _ifImageChanged = "Visible";
+        public string IfImageChanged
+        {
+            get { return _ifImageChanged; }
+            set
+            {
+                _ifImageChanged = value;
+                NotifyPropertyChanged("IfImageChanged");
+            }
+        }
+
+        private BitmapImage _defautImage;
+        public BitmapImage DefautImage
+        {
+            get { return _defautImage; }
+            set
+            {
+                _defautImage = value;
+                NotifyPropertyChanged("DefautImage");
+            }
+        }
     }
 }

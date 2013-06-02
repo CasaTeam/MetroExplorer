@@ -62,7 +62,7 @@ namespace MetroExplorer
                     else if(ExplorerItems[_counterForLoadUnloadedItems].StorageFolder != null)
                     {
                         var folder = ExplorerItems[_counterForLoadUnloadedItems].StorageFolder;
-                        ExplorerItems[_counterForLoadUnloadedItems].Image = GetBitMapImageFromLocalSource("Assets/FilesIcon/appbar.folder.png");
+                        ExplorerItems[_counterForLoadUnloadedItems].Image = GetBitMapImageFromLocalSource("Assets/Folder.png");
                         ExplorerItems[_counterForLoadUnloadedItems].ImageStretch = "None";
                         ExplorerItems[_counterForLoadUnloadedItems].Size = 0;
                         ExplorerItems[_counterForLoadUnloadedItems].ModifiedDateTime = (await folder.GetBasicPropertiesAsync()).DateModified.DateTime;

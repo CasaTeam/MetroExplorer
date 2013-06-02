@@ -177,11 +177,12 @@
     <None Include="MetroExplorer_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\AddNewFolder.png" />
     <Content Include="Assets\camera.png" />
     <Content Include="Assets\DiskLogo.png" />
-    <Content Include="Assets\document.png" />
     <Content Include="Assets\facebook.png" />
     <Content Include="Assets\favs.png" />
+    <Content Include="Assets\File.png" />
     <Content Include="Assets\FilesIcon\appbar.film.png" />
     <Content Include="Assets\FilesIcon\appbar.folder.png" />
     <Content Include="Assets\FilesIcon\appbar.ie.png" />
@@ -200,10 +201,9 @@
     <Content Include="Assets\FilesIcon\appbar.page.txt.png" />
     <Content Include="Assets\FilesIcon\appbar.page.word.png" />
     <Content Include="Assets\FilesIcon\appbar.page.xml.png" />
+    <Content Include="Assets\Disk.png" />
     <Content Include="Assets\flag.png" />
-    <Content Include="Assets\folder.png" />
-    <Content Include="Assets\FolderLogo.png" />
-    <Content Include="Assets\FolderLogo2.png" />
+    <Content Include="Assets\Folder.png" />
     <Content Include="Assets\Logo.png" />
     <Content Include="Assets\Logo1.scale-100.png" />
     <Content Include="Assets\Logo1.scale-140.png" />
@@ -211,13 +211,13 @@
     <Content Include="Assets\Logo1.scale-80.png" />
     <Content Include="Assets\Logo150150.png" />
     <Content Include="Assets\Logo620300.png" />
-    <Content Include="Assets\music.png" />
-    <Content Include="Assets\photos.png" />
+    <Content Include="Assets\Music.png" />
+    <Content Include="Assets\Photo.png" />
     <Content Include="Assets\SmallLogo.png" />
     <Content Include="Assets\SplashScreen.png" />
     <Content Include="Assets\SplashScreen.scale-100.png" />
     <Content Include="Assets\StoreLogo.png" />
-    <Content Include="Assets\video.png" />
+    <Content Include="Assets\Video.png" />
     <Content Include="Assets\WideLogo.scale-100.png" />
     <Content Include="Assets\WideLogo.scale-80.png" />
     <Content Include="Common\ReadMe.txt" />

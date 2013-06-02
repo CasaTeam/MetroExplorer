@@ -208,13 +208,15 @@
             };
             if (item.Name.Contains(":\\"))
             {
-                item.Image = GetBitMapImageFromLocalSource("Assets/flag.png");
+                item.DefautImage = GetBitMapImageFromLocalSource("Assets/Disk.png");
                 item.ImageStretch = "None";
+                item.IfImageChanged = "Collapsed";
             }
             else if (item.Name == "Documents")
             {
-                item.Image = GetBitMapImageFromLocalSource("Assets/document.png");
+                item.DefautImage = GetBitMapImageFromLocalSource("Assets/File.png");
                 item.ImageStretch = "None";
+                item.IfImageChanged = "Collapsed";
             }
             else
             {
@@ -232,33 +234,29 @@
                 Name = KnownFolders.PicturesLibrary.Name,
                 Path = KnownFolders.PicturesLibrary.Path,
                 StorageFolder = KnownFolders.PicturesLibrary,
-                Image = GetBitMapImageFromLocalSource("Assets/photos.png"),
-                ImageStretch = "None"
+                DefautImage = GetBitMapImageFromLocalSource("Assets/Photo.png"),
+                ImageStretch = "None",
+                IfImageChanged = "Collapsed"
             });
             ExplorerGroups[0].Add(new HomeItem()
             {
                 Name = KnownFolders.MusicLibrary.Name,
                 Path = KnownFolders.MusicLibrary.Path,
                 StorageFolder = KnownFolders.MusicLibrary,
-                Image = GetBitMapImageFromLocalSource("Assets/music.png"),
-                ImageStretch = "None"
+                DefautImage = GetBitMapImageFromLocalSource("Assets/Music.png"),
+                ImageStretch = "None",
+                IfImageChanged = "Collapsed"
             });
             ExplorerGroups[0].Add(new HomeItem()
             {
                 Name = KnownFolders.VideosLibrary.Name,
                 Path = KnownFolders.VideosLibrary.Path,
                 StorageFolder = KnownFolders.VideosLibrary,
-                Image = GetBitMapImageFromLocalSource("Assets/video.png"),
-                ImageStretch = "None"
+                DefautImage = GetBitMapImageFromLocalSource("Assets/Video.png"),
+                ImageStretch = "None",
+                IfImageChanged = "Collapsed"
             });
-            ExplorerGroups[1].Add(new HomeItem()
-            {
-                Name = StringResources.ResourceLoader.GetString("String_AddNewShortCutFolder"),
-                Path = StringResources.ResourceLoader.GetString("String_AddNewShortCutFolder"),
-                StorageFolder = null,
-                Image = GetBitMapImageFromLocalSource("Assets/FolderLogo2.png"),
-                ImageStretch = "None"
-            });
+            InitAddNewFolderItem();
         }
 
         private BitmapImage GetBitMapImageFromLocalSource(string url)
@@ -476,6 +474,25 @@
                 {
                     await AddAUserFolder(item.Value, item.Key);
                 }
+            }
+
+            InitAddNewFolderItem();
+
+        }
+
+        private void InitAddNewFolderItem()
+        {
+            if (ExplorerGroups[1].All(p => p.Path != StringResources.ResourceLoader.GetString("String_AddNewShortCutFolder")))
+            {
+                ExplorerGroups[1].Insert(0, new HomeItem()
+                {
+                    Name = StringResources.ResourceLoader.GetString("String_AddNewShortCutFolder"),
+                    Path = StringResources.ResourceLoader.GetString("String_AddNewShortCutFolder"),
+                    StorageFolder = null,
+                    DefautImage = GetBitMapImageFromLocalSource("Assets/AddNewFolder.png"),
+                    ImageStretch = "None",
+                    IfImageChanged = "Collapsed"
+                });
             }
         }
     }
