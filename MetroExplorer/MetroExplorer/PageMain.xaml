@@ -72,8 +72,8 @@
 		
 		<DataTemplate x:Key="Standard300x180ItemTemplate">
 			<Grid HorizontalAlignment="Left" Width="280" Height="140" Margin="0" Background="{StaticResource ItemBigBackground}">
-                <Image x:Name="DefautImage" Source="{Binding Path=DefautImage}" Margin="0,15,0,0"
-                       Height="75" Width="75" HorizontalAlignment="Center" VerticalAlignment="Top" />
+                <Image x:Name="DefautImage" Source="{Binding Path=DefautImage}" Margin="0,25,0,0"
+                       Height="65" Width="65" HorizontalAlignment="Center" VerticalAlignment="Top" />
                 <Image x:Name="BackgroundImage" Visibility="{Binding IfImageChanged}" 
                        Height="140" Width="280" HorizontalAlignment="Center" VerticalAlignment="Center"
                        Stretch="{Binding ImageStretch}"  Margin="0" >
