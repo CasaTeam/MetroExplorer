@@ -25,12 +25,12 @@
 			IsSourceGrouped="true"
 			>
 		</CollectionViewSource>-->
-        <CollectionViewSource
-            x:Name="ItemsViewSource"
-            Source="{Binding ExplorerItems}"/>
+		<CollectionViewSource
+			x:Name="ItemsViewSource"
+			Source="{Binding ExplorerItems}"/>
 
 
-        <!-- TODO: supprimez cette ligne si la clé AppName est déclarée dans App.xaml -->
+		<!-- TODO: supprimez cette ligne si la clé AppName est déclarée dans App.xaml -->
 		<x:String x:Key="AppName">Mon application</x:String>
 
 		<SolidColorBrush x:Key="ItemBackground" Color="{Binding Path=ItemBackground}"/>
@@ -54,7 +54,7 @@
 
 		<DataTemplate x:Key="Standard300x180ItemTemplate">
 			<Grid HorizontalAlignment="Left" Width="280" Height="140" Margin="0" Background="{StaticResource ItemBigBackground}">
-                <Image Source="{Binding Image}" Stretch="{Binding ImageStretch}" 
+				<Image Source="{Binding Image}" Stretch="{Binding ImageStretch}" 
 					   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,24" />
 				<Grid VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="{StaticResource ItemBigBackground}">
 					<TextBlock Foreground="{StaticResource ItemTextForeground}" TextAlignment="Center" Text="{Binding Name}"  Visibility="{Binding RenameBoxVisibility, Converter={StaticResource RenameBoxVisibilityConverter}}"
@@ -66,12 +66,12 @@
 
 		<DataTemplate x:Key="Standard300x80ItemTemplate">
 			<Grid HorizontalAlignment="Left" Width="330" Height="65" Margin="0" Background="{StaticResource ItemBackground}">
-                <Image x:Name="ExplorerItemImage" Source="{Binding Image}" Height="65" Width="65"
+				<Image x:Name="ExplorerItemImage" Source="{Binding Image}" Height="65" Width="65"
 					   HorizontalAlignment="Left" VerticalAlignment="Center" Stretch="UniformToFill" >
-                </Image>
-                <Grid VerticalAlignment="Stretch" HorizontalAlignment="Left" Margin="75,5,5,5" Width="280">
+				</Image>
+				<Grid VerticalAlignment="Stretch" HorizontalAlignment="Left" Margin="75,5,5,5" Width="280">
 					<TextBlock Foreground="{StaticResource ItemTextForeground}" Text="{Binding Name}" VerticalAlignment="Top" Margin="0,0,0,20" HorizontalAlignment="Left" 
-							    FontSize="18" FontWeight="Light" Width="270" />
+								FontSize="18" FontWeight="Light" Width="270" />
 					<TextBlock Foreground="{StaticResource ItemTextForeground}" Text="{Binding Size, Converter={StaticResource FileSizeFormatConverter}}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,0,0"
 							FontSize="16" FontWeight="Light" Opacity="0.8" />
 					<TextBlock Foreground="{StaticResource ItemTextForeground}" Text="{Binding ModifiedDateTime}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,30,0"
@@ -524,23 +524,23 @@
 									<VisualState x:Name="Normal"/>
 									<VisualState x:Name="PointerOver">
 										<Storyboard>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="#881e90cd"/>
-                                            </ObjectAnimationUsingKeyFrames>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="Border">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ButtonDisabledBorderThemeBrush}"/>
-                                            </ObjectAnimationUsingKeyFrames>
-                                        </Storyboard>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+												<DiscreteObjectKeyFrame KeyTime="0" Value="#881e90cd"/>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="Border">
+												<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ButtonDisabledBorderThemeBrush}"/>
+											</ObjectAnimationUsingKeyFrames>
+										</Storyboard>
 									</VisualState>
 									<VisualState x:Name="Pressed">
 										<Storyboard>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="#DD1e90cd"/>
-                                            </ObjectAnimationUsingKeyFrames>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="Border">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ButtonDisabledBorderThemeBrush}"/>
-                                            </ObjectAnimationUsingKeyFrames>
-                                        </Storyboard>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+												<DiscreteObjectKeyFrame KeyTime="0" Value="#DD1e90cd"/>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="Border">
+												<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ButtonDisabledBorderThemeBrush}"/>
+											</ObjectAnimationUsingKeyFrames>
+										</Storyboard>
 									</VisualState>
 									<VisualState x:Name="Disabled">
 										<Storyboard>
@@ -594,7 +594,7 @@
 							</Style>
 						</Button.Style>
 					</Button>
-                    <Button x:Name="Button_RenameDiskFolder" Click="RenameDiskFolderButtonClick"
+					<Button x:Name="Button_RenameDiskFolder" Click="RenameDiskFolderButtonClick"
 						x:Uid="Uid_Page_Main_Button_RenameDiskFolder"
 						Margin="5,0" HorizontalAlignment="Center">
 						<Button.Style>
@@ -616,38 +616,38 @@
 							</Style>
 						</Button.Style>
 					</Button>
-                    <Rectangle Width="2" VerticalAlignment="Stretch"  HorizontalAlignment="Center" Margin="15,30,15,30" Fill="White" />
-                    <Button Click="PageExplorerCopyButtonClick"
+					<Rectangle Width="2" VerticalAlignment="Stretch"  HorizontalAlignment="Center" Margin="15,30,15,30" Fill="White" />
+					<Button Click="PageExplorerCopyButtonClick"
 						x:Uid="Uid_PageExplorerCopyButton"
 						Margin="5,0" HorizontalAlignment="Center">
-                        <Button.Style>
-                            <Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
-                                <Setter Property="AutomationProperties.Name" Value=""/>
-                                <Setter Property="Content" Value="&#xE16F;"/>
-                            </Style>
-                        </Button.Style>
-                    </Button>
-                    <Button Click="PageExplorerCutButtonClick"
+						<Button.Style>
+							<Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
+								<Setter Property="AutomationProperties.Name" Value=""/>
+								<Setter Property="Content" Value="&#xE16F;"/>
+							</Style>
+						</Button.Style>
+					</Button>
+					<Button Click="PageExplorerCutButtonClick"
 						x:Uid="Uid_PageExplorerCutButton"
 						Margin="5,0" HorizontalAlignment="Center">
-                        <Button.Style>
-                            <Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
-                                <Setter Property="AutomationProperties.Name" Value=""/>
-                                <Setter Property="Content" Value="&#xE16B;"/>
-                            </Style>
-                        </Button.Style>
-                    </Button>
-                    <Button Click="PageExplorerPasteButtonClick"
+						<Button.Style>
+							<Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
+								<Setter Property="AutomationProperties.Name" Value=""/>
+								<Setter Property="Content" Value="&#xE16B;"/>
+							</Style>
+						</Button.Style>
+					</Button>
+					<Button Click="PageExplorerPasteButtonClick"
 						x:Uid="Uid_PageExplorerPasteButton"
 						Margin="5,0" HorizontalAlignment="Center">
-                        <Button.Style>
-                            <Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
-                                <Setter Property="AutomationProperties.Name" Value=""/>
-                                <Setter Property="Content" Value="&#xE16D;"/>
-                            </Style>
-                        </Button.Style>
-                    </Button>
-                    <Button Click="Button_CutPaste_Click"
+						<Button.Style>
+							<Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
+								<Setter Property="AutomationProperties.Name" Value=""/>
+								<Setter Property="Content" Value="&#xE16D;"/>
+							</Style>
+						</Button.Style>
+					</Button>
+					<Button Click="Button_CutPaste_Click"
 						x:Uid="Uid_PageMain_DragFileAndFolderToHere"
 						Margin="5,0" HorizontalAlignment="Center">
 						<Button.Style>
@@ -696,65 +696,65 @@
 					<RowDefinition Height="126"/>
 					<RowDefinition/>
 				</Grid.RowDefinitions>
-                
-                <Grid Grid.Row="1">
-                    <Grid Height="50" Margin="100,0,0,0" VerticalAlignment="Top" x:Name="Grid_Navigator">
-                        <!--<Button HorizontalAlignment="Left" VerticalAlignment="Stretch" Content="Home" Background="Transparent" BorderThickness="0"
+				
+				<Grid Grid.Row="1">
+					<Grid Height="50" Margin="100,0,0,0" VerticalAlignment="Top" x:Name="Grid_Navigator">
+						<!--<Button HorizontalAlignment="Left" VerticalAlignment="Stretch" Content="Home" Background="Transparent" BorderThickness="0"
 						FontSize="25" Click="ButtonMainPage_Click_1" FontWeight="Light" Width="95" />-->
-                        <TextBlock VerticalAlignment="Bottom" Text="Home" Foreground="{Binding TitleForeground}" HorizontalAlignment="Left"
+						<TextBlock VerticalAlignment="Bottom" Text="Home" Foreground="{Binding TitleForeground}" HorizontalAlignment="Left"
 						FontSize="26.667" PointerReleased="ButtonMainPage_Click_1" FontWeight="Light" Margin="20,0,0,8" />
-                        <!--<Rectangle HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="1" Fill="White" Height="30" Margin="5,0,5,15" Grid.Column="1"  />-->
-                        <navigator:Navigator x:Name="Navigator" Width="Auto" Height="Auto" NPathChanged="NavigatorPathChanged" Background="#FF1A6987" Margin="100,0,0,0" DropBackground="{x:Null}"/>
-                    </Grid>
+						<!--<Rectangle HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="1" Fill="White" Height="30" Margin="5,0,5,15" Grid.Column="1"  />-->
+						<navigator:Navigator x:Name="Navigator" Width="Auto" Height="Auto" NPathChanged="NavigatorPathChanged" Background="#FF1A6987" Margin="100,0,0,0" DropBackground="{x:Null}"/>
+					</Grid>
 
-                    <!-- Horizontal scrolling grid used in most view states -->
-                    <GridView x:Name="itemGridView"
-                              AutomationProperties.AutomationId="ItemsGridView"
-                              AutomationProperties.Name="Items"
-                              TabIndex="1"
-                              Grid.RowSpan="2"
-                              Margin="0,65,0,0" Padding="116,0,40,100"
-                              ItemsSource="{Binding Source={StaticResource ItemsViewSource}}"
-					          ItemTemplate="{StaticResource Standard300x180ItemTemplate}"
-                              CanReorderItems="True"
-					          IsSwipeEnabled="True" IsItemClickEnabled="True"
-					          IsRightTapEnabled="True" IsHoldingEnabled="True" 
-					          SelectionChanged="ItemGridView_SelectionChanged_1"
-					          AllowDrop="True" IsTapEnabled="True"
-					          ItemClick="ItemGridView_ItemClick_1"
-                              SelectionMode="Multiple" 
-                              ItemContainerStyle="{StaticResource ExplorerGridViewItemStyle}">
-                        <!--<GridView.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <VirtualizingStackPanel VirtualizingStackPanel.VirtualizationMode="Recycling"  Orientation="Horizontal"/>
-                            </ItemsPanelTemplate>
-                        </GridView.ItemsPanel>-->
-                    </GridView>
+					<!-- Horizontal scrolling grid used in most view states -->
+					<GridView x:Name="itemGridView"
+							  AutomationProperties.AutomationId="ItemsGridView"
+							  AutomationProperties.Name="Items"
+							  TabIndex="1"
+							  Grid.RowSpan="2"
+							  Margin="0,65,0,0" Padding="116,0,40,100"
+							  ItemsSource="{Binding Source={StaticResource ItemsViewSource}}"
+							  ItemTemplate="{StaticResource Standard300x180ItemTemplate}"
+							  CanReorderItems="True"
+							  IsSwipeEnabled="True" IsItemClickEnabled="True"
+							  IsRightTapEnabled="True" IsHoldingEnabled="True" 
+							  SelectionChanged="ItemGridView_SelectionChanged_1"
+							  AllowDrop="True" IsTapEnabled="True"
+							  ItemClick="ItemGridView_ItemClick_1"
+							  SelectionMode="Multiple" 
+							  ItemContainerStyle="{StaticResource ExplorerGridViewItemStyle}">
+						<!--<GridView.ItemsPanel>
+							<ItemsPanelTemplate>
+								<VirtualizingStackPanel VirtualizingStackPanel.VirtualizationMode="Recycling"  Orientation="Horizontal"/>
+							</ItemsPanelTemplate>
+						</GridView.ItemsPanel>-->
+					</GridView>
 
-                    <!-- Vertical scrolling list only used when snapped -->
-                    <ListView x:Name="itemListView"
-                              AutomationProperties.AutomationId="ItemsListView"
-                              AutomationProperties.Name="Items"
-                              TabIndex="1"
-                              Visibility="Collapsed"
-                              Margin="0,-60,0,0" Padding="10,0,0,60"
-					          SelectionChanged="ItemGridView_SelectionChanged_1"
-		                      CanReorderItems="True" IsRightTapEnabled="True"
-					          IsSwipeEnabled="False" IsItemClickEnabled="True"
-					          IsHoldingEnabled="True" IsTapEnabled="True"
-					          ItemClick="ItemGridView_ItemClick_1"
-                              ItemsSource="{Binding Source={StaticResource ItemsViewSource}}"
-                              ItemTemplate="{StaticResource Standard80ForExplorerItemTemplate}"
-                              SelectionMode="None"/>
+					<!-- Vertical scrolling list only used when snapped -->
+					<ListView x:Name="itemListView"
+							  AutomationProperties.AutomationId="ItemsListView"
+							  AutomationProperties.Name="Items"
+							  TabIndex="1"
+							  Visibility="Collapsed"
+							  Margin="0,-60,0,0" Padding="10,0,0,60"
+							  SelectionChanged="ItemGridView_SelectionChanged_1"
+							  CanReorderItems="True" IsRightTapEnabled="True"
+							  IsSwipeEnabled="False" IsItemClickEnabled="True"
+							  IsHoldingEnabled="True" IsTapEnabled="True"
+							  ItemClick="ItemGridView_ItemClick_1"
+							  ItemsSource="{Binding Source={StaticResource ItemsViewSource}}"
+							  ItemTemplate="{StaticResource Standard80ForExplorerItemTemplate}"
+							  SelectionMode="None"/>
 
-                </Grid>
+				</Grid>
 
 
-                <Grid Grid.Row="0">
+				<Grid Grid.Row="0">
 					<ProgressBar IsIndeterminate="True" Height="8" Margin="0,2,0,0" VerticalAlignment="Top" x:Name="LoadingProgressBar"/>
-                    <TextBlock x:Name="FolderNameTextBlock" Margin="20,20,0,0" VerticalAlignment="Top" Style="{StaticResource GroupHeaderTextStyle}"
+					<TextBlock x:Name="FolderNameTextBlock" Margin="20,20,0,0" VerticalAlignment="Top" Style="{StaticResource GroupHeaderTextStyle}"
 								Foreground="{Binding Path=TitleForeground}" Visibility="Collapsed"/>
-                    <Grid Height="140" x:Name="Grid_Title">
+					<Grid Height="140" x:Name="Grid_Title">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="Auto"/>
 							<ColumnDefinition Width="480"/>
@@ -798,7 +798,7 @@
 					</ListBox>
 				</Popup>
 				<Popup HorizontalAlignment="Right" VerticalAlignment="Bottom" IsLightDismissEnabled="True"
-				   Visibility="Collapsed" x:Name="Popup_CreateNewFolder" >
+				   Visibility="Collapsed" x:Name="Popup_CreateNewFolder" Closed="Popup_CreateNewFolder_Closed" Opened="Popup_CreateNewFolder_Opened" >
 					<Border BorderBrush="{Binding Path=TitleForeground}" BorderThickness="2">
 						<Grid Width="230" Height="123" Background="White">
 							<TextBox x:Name="TextBox_CreateNewFolder" BorderBrush="{Binding Path=TitleForeground}" FontSize="18" 
@@ -809,77 +809,77 @@
 						</Grid>
 					</Border>
 				</Popup>
-                <Popup HorizontalAlignment="Left" VerticalAlignment="Bottom" IsLightDismissEnabled="True"
-				   Visibility="Collapsed" x:Name="Popup_RenameFolder" >
-                    <Border BorderBrush="{Binding Path=TitleForeground}" BorderThickness="2">
-                        <Grid Width="230" Height="123" Background="White">
-                            <TextBox x:Name="TextBox_RenameFolder" BorderBrush="{Binding Path=TitleForeground}" FontSize="18"
+				<Popup HorizontalAlignment="Left" VerticalAlignment="Bottom" IsLightDismissEnabled="True"
+				   Visibility="Collapsed" x:Name="Popup_RenameFolder" Opened="Popup_RenameFolder_Opened" Closed="Popup_RenameFolder_Closed" >
+					<Border BorderBrush="{Binding Path=TitleForeground}" BorderThickness="2">
+						<Grid Width="230" Height="123" Background="White">
+							<TextBox x:Name="TextBox_RenameFolder" BorderBrush="{Binding Path=TitleForeground}" FontSize="18"
 									 HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="20,25,20,10" />
-                            <Button x:Uid="Uid_Button_RenameFolder" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5,70,15,0" Click="ConfirmRenameFolderButtonClick"
+							<Button x:Uid="Uid_Button_RenameFolder" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5,70,15,0" Click="ConfirmRenameFolderButtonClick"
 									Background="{Binding Path=BottomBarBackground}" Foreground="#DDFFFFFF" FontSize="16" 
 									Style="{StaticResource ButtonBlueStyle}"  >
-                            </Button>
-                        </Grid>
-                    </Border>
-                </Popup>
-            </Grid>
+							</Button>
+						</Grid>
+					</Border>
+				</Popup>
+			</Grid>
 		</Grid>
-        <VisualStateManager.VisualStateGroups>
-            <!-- Les états visuels reflètent l'état d'affichage de l'application -->
-            <VisualStateGroup x:Name="ApplicationViewStates">
-                <VisualState x:Name="FullScreenLandscape"/>
-                <VisualState x:Name="Filled"/>
+		<VisualStateManager.VisualStateGroups>
+			<!-- Les états visuels reflètent l'état d'affichage de l'application -->
+			<VisualStateGroup x:Name="ApplicationViewStates">
+				<VisualState x:Name="FullScreenLandscape"/>
+				<VisualState x:Name="Filled"/>
 
-                <!-- La totalité de la page respecte la convention de marge étroite de 100 pixels du mode Portrait -->
-                <VisualState x:Name="FullScreenPortrait">
-                    <!--<Storyboard>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="backButton" Storyboard.TargetProperty="Style">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PortraitBackButtonStyle}"/>
-                        </ObjectAnimationUsingKeyFrames>
+				<!-- La totalité de la page respecte la convention de marge étroite de 100 pixels du mode Portrait -->
+				<VisualState x:Name="FullScreenPortrait">
+					<!--<Storyboard>
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="backButton" Storyboard.TargetProperty="Style">
+							<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PortraitBackButtonStyle}"/>
+						</ObjectAnimationUsingKeyFrames>
 
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemGridView" Storyboard.TargetProperty="Padding">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="96,137,10,56"/>
-                        </ObjectAnimationUsingKeyFrames>
-                    </Storyboard>-->
-                </VisualState>
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemGridView" Storyboard.TargetProperty="Padding">
+							<DiscreteObjectKeyFrame KeyTime="0" Value="96,137,10,56"/>
+						</ObjectAnimationUsingKeyFrames>
+					</Storyboard>-->
+				</VisualState>
 
-                <!--
+				<!--
 					Le bouton Précédent et le titre ont un style différent lorsque l'état d'affichage a la valeur Snapped, et la représentation de liste est remplacée
 					par la grille affichée dans tous les autres affichages
 					-->
-                <VisualState x:Name="Snapped">
-                    <Storyboard>
-                        <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetName="backButton" Storyboard.TargetProperty="Style">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedBackButtonStyle}"/>
-                        </ObjectAnimationUsingKeyFrames>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="pageTitle" Storyboard.TargetProperty="Style">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedPageHeaderTextStyle}"/>
-                        </ObjectAnimationUsingKeyFrames>-->
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Grid_Title" Storyboard.TargetProperty="Visibility">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
-                        </ObjectAnimationUsingKeyFrames>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="AppBar_BottomAppBar" Storyboard.TargetProperty="Visibility">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
-                        </ObjectAnimationUsingKeyFrames>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Grid_Navigator" Storyboard.TargetProperty="Visibility">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
-                        </ObjectAnimationUsingKeyFrames>
+				<VisualState x:Name="Snapped">
+					<Storyboard>
+						<!--<ObjectAnimationUsingKeyFrames Storyboard.TargetName="backButton" Storyboard.TargetProperty="Style">
+							<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedBackButtonStyle}"/>
+						</ObjectAnimationUsingKeyFrames>
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="pageTitle" Storyboard.TargetProperty="Style">
+							<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedPageHeaderTextStyle}"/>
+						</ObjectAnimationUsingKeyFrames>-->
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="Grid_Title" Storyboard.TargetProperty="Visibility">
+							<DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+						</ObjectAnimationUsingKeyFrames>
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="AppBar_BottomAppBar" Storyboard.TargetProperty="Visibility">
+							<DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+						</ObjectAnimationUsingKeyFrames>
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="Grid_Navigator" Storyboard.TargetProperty="Visibility">
+							<DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+						</ObjectAnimationUsingKeyFrames>
 
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="FolderNameTextBlock" Storyboard.TargetProperty="Visibility">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
-                        </ObjectAnimationUsingKeyFrames>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="LoadingProgressBar" Storyboard.TargetProperty="Visibility">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
-                        </ObjectAnimationUsingKeyFrames>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemListView" Storyboard.TargetProperty="Visibility">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
-                        </ObjectAnimationUsingKeyFrames>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemGridView" Storyboard.TargetProperty="Visibility">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
-                        </ObjectAnimationUsingKeyFrames>
-                    </Storyboard>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
-    </Grid>
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="FolderNameTextBlock" Storyboard.TargetProperty="Visibility">
+							<DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+						</ObjectAnimationUsingKeyFrames>
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="LoadingProgressBar" Storyboard.TargetProperty="Visibility">
+							<DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+						</ObjectAnimationUsingKeyFrames>
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemListView" Storyboard.TargetProperty="Visibility">
+							<DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+						</ObjectAnimationUsingKeyFrames>
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemGridView" Storyboard.TargetProperty="Visibility">
+							<DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+						</ObjectAnimationUsingKeyFrames>
+					</Storyboard>
+				</VisualState>
+			</VisualStateGroup>
+		</VisualStateManager.VisualStateGroups>
+	</Grid>
 </common:LayoutAwarePage>

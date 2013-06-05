@@ -21,6 +21,7 @@
     using Windows.ApplicationModel.DataTransfer;
     using Windows.Storage.Streams;
     using Windows.ApplicationModel;
+    using Windows.ApplicationModel.Search;
 
     /// <summary>
     /// Page affichant une collection groupée d'éléments.
@@ -28,6 +29,8 @@
     public sealed partial class PageExplorer : LayoutAwarePage, INotifyPropertyChanged
     {
         public static List<string> CurrentItems;
+
+        private SearchPane _searchPane;
 
         private ObservableCollection<ExplorerItem> _explorerItems;
 
@@ -55,6 +58,7 @@
         {
             InitializeComponent();
             ExplorerItems = new ObservableCollection<ExplorerItem>();
+            _searchPane = SearchPane.GetForCurrentView();
             DataContext = this;
             Loaded += PageExplorer_Loaded;
             BaseUriStatic = BaseUri;
@@ -203,6 +207,7 @@
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
     }
 
 

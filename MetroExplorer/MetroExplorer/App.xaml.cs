@@ -13,7 +13,6 @@ using MetroExplorer.core.Utils;
 using Windows.ApplicationModel.Resources;
 using Windows.System.Threading;
 using System.Threading.Tasks;
-// The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=234227
 
 namespace MetroExplorer
 {

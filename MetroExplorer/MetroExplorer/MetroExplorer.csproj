@@ -130,6 +130,7 @@
       <DependentUpon>ItemsPage1.xaml</DependentUpon>
     </Compile>
     <Compile Include="PageExplorerFileTypes.cs" />
+    <Compile Include="PageExplorerFix.cs" />
     <Compile Include="PageExplorerSort.cs" />
     <Compile Include="PageExplorerTimer.cs" />
     <Compile Include="PageExplorerSearchShare.cs" />
