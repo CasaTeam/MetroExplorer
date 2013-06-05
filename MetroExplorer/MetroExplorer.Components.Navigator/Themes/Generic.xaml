@@ -25,7 +25,7 @@
 				<ControlTemplate TargetType="local:Navigator">
 					<Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" VerticalAlignment="Top" Clip="{Binding Clip, RelativeSource={RelativeSource Mode=TemplatedParent}}">
 						<Popup x:Name="PopupList" Width="220" HorizontalAlignment="Left" VerticalAlignment="Top" IsOpen="False" Margin="0" IsLightDismissEnabled="True" MaxHeight="340">
-							<ListBox x:Name="ListBoxDropDown" Width="{Binding ActualWidth, ElementName=PopupList}" Foreground="White" FontWeight="Bold" ItemContainerStyle="{StaticResource NavigatorListBoxItemStyle}" Background="{Binding DropBackground, RelativeSource={RelativeSource Mode=TemplatedParent}}" HorizontalContentAlignment="Right" MaxHeight="{Binding MaxHeight, ElementName=PopupList}">
+							<ListBox x:Name="ListBoxDropDown" Width="{Binding ActualWidth, ElementName=PopupList}" Foreground="White" FontWeight="Bold" ItemContainerStyle="{StaticResource NavigatorListBoxItemStyle}" Background="{Binding DropBackground, RelativeSource={RelativeSource Mode=TemplatedParent}}" HorizontalContentAlignment="Right" MaxHeight="{Binding MaxHeight, ElementName=PopupList}" Style="{StaticResource NavigatorListBoxStyle}">
 								<ListBox.ItemContainerTransitions>
 									<TransitionCollection>
 										<EntranceThemeTransition/>
