@@ -7,15 +7,22 @@
     using Windows.UI.Xaml.Controls;
     using Windows.UI.Xaml.Controls.Primitives;
     using Windows.UI.Xaml.Media;
+    using Windows.UI.Xaml.Media.Animation;
     using Objects;
 
     public sealed class Navigator : ItemsControl
     {
         #region Constants
 
+        private const string LayoutRootElement = "LayoutRoot";
+
         private const string PopupListElement = "PopupList";
 
         private const string ListBoxDropDownElement = "ListBoxDropDown";
+
+        private const string ShowListStoryboard = "StoryboardShowlist";
+
+        private const string HideListStoryboard = "StoryboardHidelist";
 
         #endregion
 
@@ -25,8 +32,12 @@
         private int _currentIndex;
         private NavigatorNodeCommandType _commandType;
 
+        private Grid _layoutRoot;
         private Popup _popupList;
         private ListBox _listBoxDropDown;
+
+        private Storyboard _showListStoryboard;
+        private Storyboard _hideListStoryboard;
 
         #endregion
 
@@ -80,7 +91,7 @@
                             break;
                         case NavigatorNodeCommandType.ShowList:
                             double positionX = args.PointerPositionX;
-                            if (_popupList != null)
+                            if (_popupList != null && ItemListArray[_currentIndex].Count > 0)
                             {
                                 _listBoxDropDown.ItemsSource = ItemListArray[_currentIndex];
                                 _popupList.Margin = new Thickness(positionX - _popupList.Width, ActualHeight + 5.0, 0, -342.0);
@@ -141,7 +152,18 @@
         protected override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
+            _layoutRoot = (Grid)GetTemplateChild(LayoutRootElement);
+            if (_layoutRoot != null)
+            {
+                _showListStoryboard = (Storyboard)_layoutRoot.Resources[ShowListStoryboard];
+                _hideListStoryboard = (Storyboard)_layoutRoot.Resources[HideListStoryboard];
+            }
             _popupList = (Popup)GetTemplateChild(PopupListElement);
+            if (_popupList != null)
+            {
+                _popupList.Opened += PopupListOpened;
+                _popupList.Closed += PopupListClosed;
+            }   
             _listBoxDropDown = (ListBox)GetTemplateChild(ListBoxDropDownElement);
             if (_listBoxDropDown == null) return;
             _listBoxDropDown.SelectionChanged += ListBoxDropDownSelectionChanged;
@@ -165,6 +187,18 @@
                 new NavigatorNodeCommandArgument(_currentIndex, newPath, _commandType);
             if (NPathChanged != null)
                 NPathChanged(this, argument);
+        }
+
+        private void PopupListClosed(object sender, object e)
+        {
+            if (_hideListStoryboard != null)
+                _hideListStoryboard.Begin();
+        }
+
+        private void PopupListOpened(object sender, object e)
+        {
+            if (_showListStoryboard != null)
+                _showListStoryboard.Begin(); 
         }
 
         #endregion

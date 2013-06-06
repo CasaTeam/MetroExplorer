@@ -23,15 +23,42 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="local:Navigator">
-					<Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" VerticalAlignment="Top" Clip="{Binding Clip, RelativeSource={RelativeSource Mode=TemplatedParent}}">
-						<Popup x:Name="PopupList" Width="220" HorizontalAlignment="Left" VerticalAlignment="Top" IsOpen="False" Margin="0" IsLightDismissEnabled="True" MaxHeight="340">
-							<ListBox x:Name="ListBoxDropDown" Width="{Binding ActualWidth, ElementName=PopupList}" Foreground="White" FontWeight="Bold" ItemContainerStyle="{StaticResource NavigatorListBoxItemStyle}" Background="{Binding DropBackground, RelativeSource={RelativeSource Mode=TemplatedParent}}" HorizontalContentAlignment="Right" MaxHeight="{Binding MaxHeight, ElementName=PopupList}" Style="{StaticResource NavigatorListBoxStyle}">
-								<ListBox.ItemContainerTransitions>
-									<TransitionCollection>
-										<EntranceThemeTransition/>
-									</TransitionCollection>
-								</ListBox.ItemContainerTransitions>
-							</ListBox>
+					<Grid x:Name="LayoutRoot" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" VerticalAlignment="Top" Clip="{Binding Clip, RelativeSource={RelativeSource Mode=TemplatedParent}}">
+						<Grid.Resources>
+							<Storyboard x:Name="StoryboardShowlist">
+								<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.RotationY)" Storyboard.TargetName="PopupList">
+									<EasingDoubleKeyFrame KeyTime="0" Value="96"/>
+									<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
+								</DoubleAnimationUsingKeyFrames>
+							</Storyboard>
+							<Storyboard x:Name="StoryboardHidelist">
+								<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.RotationY)" Storyboard.TargetName="PopupList">
+									<EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+									<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="96"/>
+								</DoubleAnimationUsingKeyFrames>
+							</Storyboard>
+						</Grid.Resources>
+						<Popup x:Name="PopupList" Width="220" HorizontalAlignment="Left" VerticalAlignment="Top" IsOpen="False" Margin="0" IsLightDismissEnabled="True" MaxHeight="340" RenderTransformOrigin="0.5,0.5">
+							<Popup.RenderTransform>
+								<CompositeTransform/>
+							</Popup.RenderTransform>
+							<Popup.Projection>
+								<PlaneProjection CenterOfRotationY="0" CenterOfRotationX="1"/>
+							</Popup.Projection>
+							<Grid>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="23*"/>
+									<RowDefinition Height="Auto"/>
+								</Grid.RowDefinitions>
+								<ListBox x:Name="ListBoxDropDown" Foreground="White" FontWeight="Bold" ItemContainerStyle="{StaticResource NavigatorListBoxItemStyle}" HorizontalContentAlignment="Right" MaxHeight="{Binding MaxHeight, ElementName=PopupList}" Style="{StaticResource NavigatorListBoxStyle}" Background="#FF1A6987" BorderBrush="#FF1A6987" Grid.Row="1" MaxWidth="220">
+									<ListBox.ItemContainerTransitions>
+										<TransitionCollection>
+											<EntranceThemeTransition/>
+										</TransitionCollection>
+									</ListBox.ItemContainerTransitions>
+								</ListBox>
+								<Path Stretch="Fill" Data="F1 M 832,544L 832,543.392L 1052,525.777L 1052,543.612" UseLayoutRounding="False" Fill="#FF1A6987"/>
+							</Grid>
 						</Popup>
 						<ScrollViewer x:Name="NavigatorScrollViewer" HorizontalAlignment="Left" Margin="0" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden" VerticalContentAlignment="Center" ZoomMode="Disabled" IsVerticalRailEnabled="False" VerticalScrollMode="Disabled" VerticalAlignment="Top">
 							<StackPanel x:Name="NavigatorItemStack" Orientation="Horizontal" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False">

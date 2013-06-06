@@ -45,7 +45,7 @@
 								<VisualState x:Name="PointerFocused"/>
 							</VisualStateGroup>
 						</VisualStateManager.VisualStateGroups>
-						<Border CornerRadius="2" Background="#FF1A6987">
+						<Border CornerRadius="2">
 							<Grid x:Name="InnerGrid" Height="35" Margin="5,0">
 								<Rectangle x:Name="PressedBackground" Fill="{StaticResource ListBoxItemPressedBackgroundThemeBrush}" Opacity="0"/>
 								<ContentPresenter x:Name="ContentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" Margin="2" VerticalAlignment="Center" HorizontalAlignment="Right" Foreground="{x:Null}" Visibility="Collapsed" d:IsLocked="True"/>
