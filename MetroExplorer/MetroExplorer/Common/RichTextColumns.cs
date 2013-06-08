@@ -6,6 +6,7 @@ using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
+using MetroExplorer.Common;
 using Windows.UI.Xaml.Documents;
 
 namespace MetroExplorer.Common

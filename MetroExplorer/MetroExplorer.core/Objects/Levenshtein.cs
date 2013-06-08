@@ -2,6 +2,9 @@
 {
     using System;
 
+    /// <summary>
+    /// 比较两个字符串接近程度
+    /// </summary>
     public static class Levenshtein
     {
         public static float Distance(string stra, string strb)

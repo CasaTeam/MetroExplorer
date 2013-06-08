@@ -5,6 +5,10 @@
     using System.Linq;
     using Windows.Storage;
 
+    /// <summary>
+    /// 用于保存Navigator, Share 和 Search状态的对象
+    /// 并且帮助页面切换更好地传值
+    /// </summary>
     public class MetroExplorerLocalDataSource
     {
         private IList<StorageFolder> _navigatorStorageFolders;

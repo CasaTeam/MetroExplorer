@@ -118,40 +118,38 @@
     <Compile Include="Common\BindableBase.cs" />
     <Compile Include="Common\BooleanNegationConverter.cs" />
     <Compile Include="Common\BooleanToVisibilityConverter.cs" />
-    <Compile Include="Common\Filter.cs" />
     <Compile Include="Common\LayoutAwarePage.cs" />
-    <Compile Include="Common\NotificationHelper.cs" />
+    <Compile Include="Helper\NotificationHelper.cs" />
     <Compile Include="Common\RichTextColumns.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
-    <Compile Include="Common\TextFileAccess.cs" />
-    <Compile Include="Common\FirstUsingRecord.cs" />
-    <Compile Include="Common\UserPreferenceRecord.cs" />
-    <Compile Include="ItemsPage1.xaml.cs">
-      <DependentUpon>ItemsPage1.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PageExplorerFileTypes.cs" />
-    <Compile Include="PageExplorerFix.cs" />
-    <Compile Include="PageExplorerSort.cs" />
-    <Compile Include="PageExplorerTimer.cs" />
-    <Compile Include="PageExplorerSearchShare.cs" />
-    <Compile Include="LayoutsBar\ContactUs.xaml.cs">
+    <Compile Include="Helper\StorageHelper.cs" />
+    <Compile Include="Helper\XmlSerializationHelper.cs" />
+    <Compile Include="Pages\PageExplorer\PageExplorerNavigator.cs" />
+    <Compile Include="UserPreferenceRecord\TextFileAccess.cs" />
+    <Compile Include="UserPreferenceRecord\FirstUsingRecord.cs" />
+    <Compile Include="UserPreferenceRecord\UserPreferenceRecord.cs" />
+    <Compile Include="Pages\PageExplorer\PageExplorerFix.cs" />
+    <Compile Include="Pages\PageExplorer\PageExplorerSort.cs" />
+    <Compile Include="Pages\PageExplorer\PageExplorerTimer.cs" />
+    <Compile Include="Pages\PageExplorer\PageExplorerSearchShare.cs" />
+    <Compile Include="RightMenuLayoutBars\ContactUs.xaml.cs">
       <DependentUpon>ContactUs.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LayoutsBar\Policy.xaml.cs">
+    <Compile Include="RightMenuLayoutBars\Policy.xaml.cs">
       <DependentUpon>Policy.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LayoutsBar\LanguagesSetting.xaml.cs">
+    <Compile Include="RightMenuLayoutBars\LanguagesSetting.xaml.cs">
       <DependentUpon>LanguagesSetting.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LayoutsBar\SupportUs.xaml.cs">
+    <Compile Include="RightMenuLayoutBars\SupportUs.xaml.cs">
       <DependentUpon>SupportUs.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PageExplorer.xaml.cs">
+    <Compile Include="Pages\PageExplorer\PageExplorer.xaml.cs">
       <DependentUpon>PageExplorer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PageExplorerBo.cs" />
-    <Compile Include="PageExplorerCopyPasteDrag.cs" />
-    <Compile Include="PageMain.xaml.cs">
+    <Compile Include="Pages\PageExplorer\PageExplorerSimpleEvents.cs" />
+    <Compile Include="Pages\PageExplorer\PageExplorerCopyPasteDrag.cs" />
+    <Compile Include="Pages\MainPage\PageMain.xaml.cs">
       <DependentUpon>PageMain.xaml</DependentUpon>
     </Compile>
     <Compile Include="PageUserGuilde\PageUserGuidePage3.xaml.cs">
@@ -179,48 +177,27 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\AddNewFolder.png" />
-    <Content Include="Assets\camera.png" />
-    <Content Include="Assets\DiskLogo.png" />
-    <Content Include="Assets\facebook.png" />
-    <Content Include="Assets\favs.png" />
+    <Content Include="Assets\Facebook.png" />
     <Content Include="Assets\File.png" />
-    <Content Include="Assets\FilesIcon\appbar.film.png" />
-    <Content Include="Assets\FilesIcon\appbar.folder.png" />
-    <Content Include="Assets\FilesIcon\appbar.ie.png" />
-    <Content Include="Assets\FilesIcon\appbar.image.png" />
-    <Content Include="Assets\FilesIcon\appbar.infinite.png" />
-    <Content Include="Assets\FilesIcon\appbar.language.csharp.png" />
-    <Content Include="Assets\FilesIcon\appbar.language.java.text.png" />
-    <Content Include="Assets\FilesIcon\appbar.music.png" />
-    <Content Include="Assets\FilesIcon\appbar.os.windows.8.png" />
-    <Content Include="Assets\FilesIcon\appbar.page.excel.png" />
-    <Content Include="Assets\FilesIcon\appbar.page.gif.png" />
-    <Content Include="Assets\FilesIcon\appbar.page.onenote.png" />
-    <Content Include="Assets\FilesIcon\appbar.page.pdf.text.png" />
-    <Content Include="Assets\FilesIcon\appbar.page.powerpoint.png" />
-    <Content Include="Assets\FilesIcon\appbar.page.text.png" />
-    <Content Include="Assets\FilesIcon\appbar.page.txt.png" />
-    <Content Include="Assets\FilesIcon\appbar.page.word.png" />
-    <Content Include="Assets\FilesIcon\appbar.page.xml.png" />
     <Content Include="Assets\Disk.png" />
-    <Content Include="Assets\flag.png" />
     <Content Include="Assets\Folder.png" />
-    <Content Include="Assets\Logo.png" />
     <Content Include="Assets\Logo1.scale-100.png" />
     <Content Include="Assets\Logo1.scale-140.png" />
     <Content Include="Assets\Logo1.scale-180.png" />
     <Content Include="Assets\Logo1.scale-80.png" />
-    <Content Include="Assets\Logo150150.png" />
-    <Content Include="Assets\Logo620300.png" />
+    <Content Include="Assets\Logos\Logo100.png" />
+    <Content Include="Assets\Logos\Logo140.png" />
+    <Content Include="Assets\Logos\Logo180.png" />
+    <Content Include="Assets\Logos\Logo180.scale-180.png" />
+    <Content Include="Assets\Logos\Logo80.png" />
+    <Content Include="Assets\Logos\Logo150.png" />
+    <Content Include="Assets\Logos\Logo620300.png" />
     <Content Include="Assets\Music.png" />
     <Content Include="Assets\Photo.png" />
-    <Content Include="Assets\SmallLogo.png" />
     <Content Include="Assets\SplashScreen.png" />
-    <Content Include="Assets\SplashScreen.scale-100.png" />
-    <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Video.png" />
-    <Content Include="Assets\WideLogo.scale-100.png" />
-    <Content Include="Assets\WideLogo.scale-80.png" />
+    <Content Include="Assets\WideLogo100.png" />
+    <Content Include="Assets\WideLogo80.png" />
     <Content Include="Common\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -232,31 +209,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ItemsPage1.xaml">
+    <Page Include="RightMenuLayoutBars\ContactUs.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="LayoutsBar\ContactUs.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="LayoutsBar\Policy.xaml">
+    <Page Include="RightMenuLayoutBars\Policy.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="LayoutsBar\LanguagesSetting.xaml">
+    <Page Include="RightMenuLayoutBars\LanguagesSetting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="LayoutsBar\SupportUs.xaml">
+    <Page Include="RightMenuLayoutBars\SupportUs.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PageExplorer.xaml">
+    <Page Include="Pages\PageExplorer\PageExplorer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PageMain.xaml">
+    <Page Include="Pages\MainPage\PageMain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -287,6 +260,7 @@
       <Name>Microsoft Advertising SDK for Windows 8 %28Xaml%29</Name>
     </SDKReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
   </PropertyGroup>

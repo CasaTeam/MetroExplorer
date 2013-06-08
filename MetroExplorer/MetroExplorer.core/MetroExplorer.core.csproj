@@ -102,7 +102,7 @@
     <Compile Include="Behavior\Behavior.cs" />
     <Compile Include="Behavior\ImageSourceChangedBehavior.cs" />
     <Compile Include="Behavior\Interaction.cs" />
-    <Compile Include="Entensions.cs" />
+    <Compile Include="Extension\Entensions.cs" />
     <Compile Include="Objects\GroupInfoList.cs" />
     <Compile Include="Objects\Enums.cs" />
     <Compile Include="Objects\ExplorerItem.cs" />
@@ -110,9 +110,9 @@
     <Compile Include="Objects\MetroExplorerLocalDataSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Singleton.cs" />
-    <Compile Include="StorageFileExtension.cs" />
+    <Compile Include="Extension\StorageFileExtension.cs" />
     <Compile Include="StringResources.cs" />
-    <Compile Include="UIElementAnimationExtensions.cs" />
+    <Compile Include="Extension\UIElementAnimationExtensions.cs" />
     <Compile Include="Utils\EventLogger.cs" />
     <Compile Include="VariableGridView.cs" />
   </ItemGroup>
