@@ -10,7 +10,7 @@
     d:DesignWidth="450">
 
     <Border BorderBrush="#DD000000" BorderThickness="1,0,0,0">
-        <Grid Background="#DD000000" VerticalAlignment="Stretch">
+        <Grid Background="White" VerticalAlignment="Stretch">
 
             <!-- Root grid definition -->
             <Grid.RowDefinitions>
@@ -19,12 +19,12 @@
             </Grid.RowDefinitions>
 
             <!-- Header area for panel -->
-            <Grid Grid.Row="0">
+            <Grid Grid.Row="0" Background="#FF1A6987">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="40, 32, 17, 13">
+                <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="40, 32, 17, 13" >
                     <StackPanel.Resources>
                         <Style x:Key="SettingsBackButtonStyle" TargetType="Button">
                             <Setter Property="MinWidth" Value="0"/>
@@ -133,29 +133,29 @@
                 <Grid Margin="40,10,30,39" VerticalAlignment="Top" Grid.RowSpan="3">
                     <StackPanel x:Name="FlyoutContent">
                         <TextBlock Text="Privacy Policy" FontWeight="Light" FontSize="20"
-                                   Foreground="White" TextWrapping="Wrap"
+                                   Foreground="Black" TextWrapping="Wrap"
                                    Margin="0,0,0,10"/>
 
                         <TextBlock Text="This Privacy Policy explains what happens to any personal data that you provide to us, or that we collect from you whilst you use this software. We do update this Policy from time to time so please do review this Policy regularly." 
                                    Margin="0,0,0,5" FontWeight="Light" FontSize="18"
-                                   Foreground="White" TextWrapping="Wrap"/>
+                                   Foreground="Black" TextWrapping="Wrap"/>
 
                         <TextBlock Text="Internet(Client)" FontWeight="Light" FontSize="20"
-                                   Foreground="White" TextWrapping="Wrap"
+                                   Foreground="Black" TextWrapping="Wrap"
                                    Margin="0,20,0,10"/>
 
                         <TextBlock Text="App collect its exceptions and errors data during the execution, these data will be sent automatically to the remote server once App is closed. This operation takes maximum 2KB network flow." 
                                    Margin="0,0,0,5" FontWeight="Light" FontSize="18"
-                                   Foreground="White" TextWrapping="Wrap"/>
+                                   Foreground="Black" TextWrapping="Wrap"/>
                         <TextBlock Text="Advertising in this app will also cost a little bit of your network flow." 
                                    Margin="0,0,0,5" FontWeight="Light" FontSize="18"
-                                   Foreground="White" TextWrapping="Wrap"/>
+                                   Foreground="Black" TextWrapping="Wrap"/>
                         <TextBlock Text="No Other User Personal data will be Collected by this application. Please note that Microsoft may collect additional usage data automatically as part of their platform components." 
                                    Margin="0,0,0,5" FontWeight="Light" FontSize="18"
-                                   Foreground="White" TextWrapping="Wrap"/>
+                                   Foreground="Black" TextWrapping="Wrap"/>
 
                         <TextBlock Text="More information" FontWeight="Light" FontSize="20"
-                                   Foreground="White" TextWrapping="Wrap" Tapped="MoreInformation_Tapped"
+                                   Foreground="Black" TextWrapping="Wrap" Tapped="MoreInformation_Tapped"
                                    Margin="0,20,0,10"/>
                     </StackPanel>
                 </Grid>

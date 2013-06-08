@@ -8,7 +8,7 @@
     mc:Ignorable="d">
 
     <Border BorderBrush="#DD000000" BorderThickness="1,0,0,0">
-        <Grid Background="#DD000000" VerticalAlignment="Stretch">
+        <Grid Background="White" VerticalAlignment="Stretch">
 
             <!-- Root grid definition -->
             <Grid.RowDefinitions>
@@ -17,7 +17,7 @@
             </Grid.RowDefinitions>
 
             <!-- Header area for panel -->
-            <Grid Grid.Row="0">
+            <Grid Grid.Row="0" Background="#FF1A6987">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
@@ -130,11 +130,11 @@
             <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1">
                 <Grid Margin="40,15,40,39" VerticalAlignment="Top" Grid.RowSpan="3">
                     <StackPanel x:Name="FlyoutContent">
-                        <TextBlock Text="English" FontSize="20" FontWeight="Light" Margin="0,0,0,15" Foreground="White"
+                        <TextBlock Text="English" FontSize="20" FontWeight="Light" Margin="0,0,0,15" Foreground="Black"
                                    Tapped="Button_English" />
-                        <TextBlock Text="中文" FontSize="20" Foreground="White" FontWeight="Light" Margin="0,0,0,15" 
+                        <TextBlock Text="中文" FontSize="20" Foreground="Black" FontWeight="Light" Margin="0,0,0,15" 
                                    Tapped="Button_Zhongwen" />
-                        <TextBlock Text="Français" FontSize="20"  Foreground="White" FontWeight="Light" Margin="0,0,0,5" 
+                        <TextBlock Text="Français" FontSize="20"  Foreground="Black" FontWeight="Light" Margin="0,0,0,5" 
                                    Tapped="Button_Francais" />
                         <!--<TextBlock Text="العربية" Opacity="0.3" FontSize="18" Foreground="White" FontWeight="Light" Margin="0,10"
                                    Tapped="Button_Arabe"/>

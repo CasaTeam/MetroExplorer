@@ -4,7 +4,7 @@
 	DataContext="{Binding DefaultViewModel, RelativeSource={RelativeSource Self}}"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:local="using:MetroExplorer.LayoutsBar"
+	xmlns:local="using:MetroExplorer.RightMenuLayoutBars"
 	xmlns:common="using:MetroExplorer.Common"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -24,7 +24,6 @@
 		<SolidColorBrush x:Key="ItemTextForeground" Color="{Binding Path=ItemTextForeground}"/>
 		<SolidColorBrush x:Key="ItemBigBackground" Color="{Binding Path=ItemBigBackground}"/>
 		<SolidColorBrush x:Key="TitleForeground" Color="{Binding Path=TitleForeground}"/>
-		<SolidColorBrush x:Key="BackgroundColor" Color="{Binding Path=BackgroundColor}"/>
  
 		<Style x:Key="SettingsBackButtonStyle" TargetType="Button">
 			<Setter Property="MinWidth" Value="0"/>
@@ -125,7 +124,7 @@
 	</common:LayoutAwarePage.Resources>
 
     <Border x:Name="MainBorder" BorderBrush="#DD000000" BorderThickness="1,0,0,0">
-        <Grid x:Name="MainGrid" Background="#DD000000"  VerticalAlignment="Stretch">
+        <Grid x:Name="MainGrid" Background="White"  VerticalAlignment="Stretch">
 
 			<!-- Root grid definition -->
 			<Grid.RowDefinitions>  
@@ -134,7 +133,7 @@
 			</Grid.RowDefinitions>
 
 			<!-- Header area for panel -->
-			<Grid Grid.Row="0">
+            <Grid Grid.Row="0" Background="#FF1A6987">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="*" />
 				</Grid.ColumnDefinitions>
@@ -150,7 +149,7 @@
 
 			<StackPanel x:Name="FlyoutContent" Grid.Row="1" Margin="0" VerticalAlignment="Stretch" >
 				<TextBlock x:Uid="Uid_SupportUs_Text" HorizontalAlignment="Left" FontSize="18" Margin="40,15,30,0" 
-						   TextWrapping="Wrap" Text="TextBlock" FontWeight="Light"
+						   TextWrapping="Wrap" Text="TextBlock" FontWeight="Light" Foreground="Black"
                            VerticalAlignment="Top"/>
                 <UI:AdControl x:Name="AdControl1" Opacity="0" ApplicationId="49796220-0340-4a2b-8e51-2cbaac600e86" Visibility="Collapsed" 
                               AdUnitId="128643" HorizontalAlignment="Left"
