@@ -160,10 +160,7 @@
             }
             _popupList = (Popup)GetTemplateChild(PopupListElement);
             if (_popupList != null)
-            {
                 _popupList.Opened += PopupListOpened;
-                _popupList.Closed += PopupListClosed;
-            }   
             _listBoxDropDown = (ListBox)GetTemplateChild(ListBoxDropDownElement);
             if (_listBoxDropDown == null) return;
             _listBoxDropDown.SelectionChanged += ListBoxDropDownSelectionChanged;
@@ -187,19 +184,6 @@
                 new NavigatorNodeCommandArgument(_currentIndex, newPath, _commandType);
             if (NPathChanged != null)
                 NPathChanged(this, argument);
-        }
-
-        private void PopupListClosed(object sender, object e)
-        {
-            if (_hideListStoryboard != null)
-                _hideListStoryboard.Begin();
-
-            _hideListStoryboard.Completed += _hideListStoryboard_Completed;
-        }
-
-        void _hideListStoryboard_Completed(object sender, object e)
-        {
-            _popupList.IsOpen = false;
         }
 
         private void PopupListOpened(object sender, object e)
