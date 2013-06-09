@@ -583,9 +583,9 @@
 		<AppBar x:Name="AppBar_BottomAppBar" Opened="AppBar_BottomAppBar_Opened_1"
 				Background="{Binding Path=BottomBarBackground}" BorderBrush="{Binding Path=BottomBarBackground}">
 			<Grid>
-				<StackPanel Orientation="Horizontal" Height="90" HorizontalAlignment="Left">
+                <StackPanel Orientation="Horizontal" Height="105" HorizontalAlignment="Left" VerticalAlignment="Stretch">
 					<Button x:Name="Button_RemoveDiskFolder" Click="Button_RemoveDiskFolder_Click"
-						x:Uid="Uid_Page_Main_Button_RemoveFolder"
+						x:Uid="Uid_Page_Main_Button_RemoveFolder" VerticalAlignment="Stretch"
 						Margin="5,0" HorizontalAlignment="Center">
 						<Button.Style>
 							<Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
@@ -595,7 +595,7 @@
 						</Button.Style>
 					</Button>
 					<Button x:Name="Button_RenameDiskFolder" Click="RenameDiskFolderButtonClick"
-						x:Uid="Uid_Page_Main_Button_RenameDiskFolder"
+						x:Uid="Uid_Page_Main_Button_RenameDiskFolder" VerticalAlignment="Stretch"
 						Margin="5,0" HorizontalAlignment="Center">
 						<Button.Style>
 							<Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
@@ -605,7 +605,7 @@
 						</Button.Style>
 					</Button>
 				</StackPanel>
-				<StackPanel Orientation="Horizontal" Height="90" HorizontalAlignment="Right">
+                <StackPanel Orientation="Horizontal" Height="105" HorizontalAlignment="Right" VerticalAlignment="Stretch">
 					<Button Click="Button_AddNewFolder_Click" 
 							x:Uid="Uid_Page_Explorer_Button_AddNewFolder"
 							HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="5,0">
@@ -618,7 +618,7 @@
 					</Button>
 					<Rectangle Width="2" VerticalAlignment="Stretch"  HorizontalAlignment="Center" Margin="15,30,15,30" Fill="White" />
 					<Button Click="PageExplorerCopyButtonClick"
-						x:Uid="Uid_PageExplorerCopyButton"
+						x:Uid="Uid_PageExplorerCopyButton" VerticalAlignment="Stretch"
 						Margin="5,0" HorizontalAlignment="Center">
 						<Button.Style>
 							<Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
@@ -628,7 +628,7 @@
 						</Button.Style>
 					</Button>
 					<Button Click="PageExplorerCutButtonClick"
-						x:Uid="Uid_PageExplorerCutButton"
+						x:Uid="Uid_PageExplorerCutButton" VerticalAlignment="Stretch"
 						Margin="5,0" HorizontalAlignment="Center">
 						<Button.Style>
 							<Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
@@ -638,7 +638,7 @@
 						</Button.Style>
 					</Button>
 					<Button Click="PageExplorerPasteButtonClick"
-						x:Uid="Uid_PageExplorerPasteButton"
+						x:Uid="Uid_PageExplorerPasteButton" VerticalAlignment="Stretch"
 						Margin="5,0" HorizontalAlignment="Center">
 						<Button.Style>
 							<Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
@@ -648,7 +648,7 @@
 						</Button.Style>
 					</Button>
 					<Button Click="Button_CutPaste_Click"
-						x:Uid="Uid_PageMain_DragFileAndFolderToHere"
+						x:Uid="Uid_PageMain_DragFileAndFolderToHere" VerticalAlignment="Stretch"
 						Margin="5,0" HorizontalAlignment="Center">
 						<Button.Style>
 							<Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
@@ -659,7 +659,7 @@
 					</Button>
 					<Rectangle Width="2" VerticalAlignment="Stretch"  HorizontalAlignment="Center" Margin="15,30,15,30" Fill="White" />
 					<Button x:Name="Button_Detail" Click="Button_Detail_Click"
-						x:Uid="Uid_Page_Main_Button_Detail"
+						x:Uid="Uid_Page_Main_Button_Detail" VerticalAlignment="Stretch"
 						Margin="5,0,5,0" HorizontalAlignment="Center">
 						<Button.Style>
 							<Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
@@ -669,7 +669,7 @@
 						</Button.Style>
 					</Button>
 					<Button x:Name="Button_Sort" Click="Button_Sort_Click"
-						x:Uid="Uid_Page_Main_Button_Sort"
+						x:Uid="Uid_Page_Main_Button_Sort" VerticalAlignment="Stretch"
 						Margin="5,0,10,0" HorizontalAlignment="Center">
 						<Button.Style>
 							<Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
@@ -681,7 +681,7 @@
 
                     <Rectangle Width="2" VerticalAlignment="Stretch"  HorizontalAlignment="Center" Margin="15,30,15,30" Fill="White" />
                     <Button Click="Button_Refresh_Click" FontWeight="ExtraLight"
-				            x:Uid="Uid_PageMainRefreshButton"
+				            x:Uid="Uid_PageMainRefreshButton" VerticalAlignment="Stretch"
 				            Margin="0,0,10,0" HorizontalAlignment="Right" >
                         <Button.Style>
                             <Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">

@@ -1,0 +1,285 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MainExplorer_UserFileGroupTitle" xml:space="preserve">
+    <value>Ficher</value>
+  </data>
+  <data name="MainExplorer_UserFolderGroupTitle" xml:space="preserve">
+    <value>Dossier</value>
+  </data>
+  <data name="MainPage_PopContextMenu_AddNewDiskOrFolder" xml:space="preserve">
+    <value>Disque et dossier</value>
+  </data>
+  <data name="MainPage_SystemFolderGroupTitle" xml:space="preserve">
+    <value>Dossier raccourci</value>
+  </data>
+  <data name="MainPage_UserFolderGroupTitle" xml:space="preserve">
+    <value>Dossier de système</value>
+  </data>
+  <data name="SettingCommand_ContactUs" xml:space="preserve">
+    <value>A propos de nous</value>
+  </data>
+  <data name="SettingCommand_LanguageSetting" xml:space="preserve">
+    <value>Langues</value>
+  </data>
+  <data name="SettingCommand_Policy" xml:space="preserve">
+    <value>Politique de confidentialité</value>
+  </data>
+  <data name="SettingCommand_SupportUs" xml:space="preserve">
+    <value>Nous soutenir</value>
+  </data>
+  <data name="SettingCommand_UserGuide" xml:space="preserve">
+    <value>Guide utilisateur</value>
+  </data>
+  <data name="String_AddNewShortCutFolder" xml:space="preserve">
+    <value>Créer un raccourci de dossier</value>
+  </data>
+  <data name="String_NewFolder" xml:space="preserve">
+    <value>Nouveau dossier</value>
+  </data>
+  <data name="Uid_Button_CreateNewFolder.Content" xml:space="preserve">
+    <value>Créer</value>
+  </data>
+  <data name="Uid_Button_RenameFolder.Content" xml:space="preserve">
+    <value>Confirmer</value>
+  </data>
+  <data name="Uid_Button_ToGuidPage2.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Suivant</value>
+  </data>
+  <data name="Uid_Button_ToMainPage.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>C'est parti</value>
+  </data>
+  <data name="Uid_PageExplorerCopyButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Copie</value>
+  </data>
+  <data name="Uid_PageExplorerCutButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Couper</value>
+  </data>
+  <data name="Uid_PageExplorerPasteButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Coller</value>
+  </data>
+  <data name="Uid_PageMainRefreshButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Actualiser</value>
+  </data>
+  <data name="Uid_PageMain_DragFileAndFolderToHere.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Obtenir</value>
+  </data>
+  <data name="Uid_PageMain_PageTitle.Text" xml:space="preserve">
+    <value>Metro Explorer</value>
+  </data>
+  <data name="Uid_PageMain_SupportUsTile.Text" xml:space="preserve">
+    <value>Nous soutenir</value>
+  </data>
+  <data name="Uid_PagePhotoGallery_OpenPhotoButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Ouvrir</value>
+  </data>
+  <data name="Uid_PagePhotoGallery_SliderModeButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Mode diaporama</value>
+  </data>
+  <data name="Uid_PagePhotoGallery_UnSliderModeButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Arrêter</value>
+  </data>
+  <data name="Uid_Page_Explorer_Button_AddNewFolder.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Nouveau dossier</value>
+  </data>
+  <data name="Uid_Page_Explorer_Button_CancelRename.Content" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="Uid_Page_Explorer_Button_RenameFolder.Content" xml:space="preserve">
+    <value>Confirmer</value>
+  </data>
+  <data name="Uid_Page_Main_Button_AddNewShortCutFolder.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Ajouter</value>
+  </data>
+  <data name="Uid_Page_Main_Button_Detail.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Mode d'affichage</value>
+  </data>
+  <data name="Uid_Page_Main_Button_RemoveFolder.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Supprimer</value>
+  </data>
+  <data name="Uid_Page_Main_Button_RenameDiskFolder.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Renommer</value>
+  </data>
+  <data name="Uid_Page_Main_Button_Sort.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Trier</value>
+  </data>
+  <data name="Uid_Popup_CopyCutPaste_ListItem_CopyFile.Content" xml:space="preserve">
+    <value>Copie ficher</value>
+  </data>
+  <data name="Uid_Popup_CopyCutPaste_ListItem_CopyFolder.Content" xml:space="preserve">
+    <value>Copie dossier</value>
+  </data>
+  <data name="Uid_Popup_CopyCutPaste_ListItem_CutFile.Content" xml:space="preserve">
+    <value>Obtenir fichier</value>
+  </data>
+  <data name="Uid_Popup_CopyCutPaste_ListItem_CutFolder.Content" xml:space="preserve">
+    <value>Obtenir dossier</value>
+  </data>
+  <data name="Uid_Popup_Sort_ListItem_DateDesc.Content" xml:space="preserve">
+    <value>Par l'horaire</value>
+  </data>
+  <data name="Uid_Popup_Sort_ListItem_Name.Content" xml:space="preserve">
+    <value>Par le nom</value>
+  </data>
+  <data name="Uid_Popup_Sort_ListItem_None.Content" xml:space="preserve">
+    <value>Annuler trier</value>
+  </data>
+  <data name="Uid_Popup_Sort_ListItem_Size.Content" xml:space="preserve">
+    <value>Par taille de ficher</value>
+  </data>
+  <data name="Uid_Popup_Sort_ListItem_Type.Content" xml:space="preserve">
+    <value>Par type de ficher</value>
+  </data>
+  <data name="Uid_PreferenceLayout_TextBlock_ThemeeColor.Text" xml:space="preserve">
+    <value>Cliquez vous sur les publicités pour nous contribuer 0.02 euros</value>
+  </data>
+  <data name="Uid_SupportUsLayout_TextBlock_Title.Text" xml:space="preserve">
+    <value>Nous soutenir</value>
+  </data>
+  <data name="Uid_SupportUs_Text.Text" xml:space="preserve">
+    <value>Cliquez vous sur les publicités dessous pour nous soutenir. Avec votre contribution, on sera beaucoup encouragé puis améliorer notre produit </value>
+  </data>
+  <data name="Uid_TextBlock_ContactUs.Text" xml:space="preserve">
+    <value>A propos de nous</value>
+  </data>
+  <data name="Uid_TextBlock_ContactUsByCasaTeam.Text" xml:space="preserve">
+    <value>Dévellopé par CasaParis</value>
+  </data>
+  <data name="Uid_TextBlock_ContactUsFacebook.Text" xml:space="preserve">
+    <value>Actualités et conseils sur facebook</value>
+  </data>
+  <data name="Uid_TextBlock_ContactUsMail.Text" xml:space="preserve">
+    <value>casapublic@hotmail.com</value>
+  </data>
+  <data name="Uid_TextBlock_ContactUsMailDeSupport.Text" xml:space="preserve">
+    <value>Notre mail</value>
+  </data>
+  <data name="Uid_TextBlock_ContactUsMetroExplorer.Text" xml:space="preserve">
+    <value>Metro Explorer</value>
+  </data>
+  <data name="Uid_TextBlock_ContactUsSuportus.Text" xml:space="preserve">
+    <value>Cliquez vous sur les publicités dessous pour nous soutenir. Avec votre contribution, on sera beaucoup encouragé puis améliorer notre produit</value>
+  </data>
+  <data name="Uid_TextBlock_Policy.Text" xml:space="preserve">
+    <value>Politique de confidentialité</value>
+  </data>
+  <data name="Uid_TextBox_CreateNewFolder.Text" xml:space="preserve">
+    <value>Nouveau fichier</value>
+  </data>
+</root>

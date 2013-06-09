@@ -72,7 +72,7 @@
         {
             Popup_CreateNewFolder.IsOpen = true;
             Popup_CreateNewFolder.Visibility = Windows.UI.Xaml.Visibility.Visible;
-            Popup_CreateNewFolder.Margin = new Thickness(0, 0, 910, 222);
+            Popup_CreateNewFolder.Margin = new Thickness(0, 0, 1055, 237);
             TextBox_CreateNewFolder.Focus(Windows.UI.Xaml.FocusState.Keyboard);
             TextBox_CreateNewFolder.SelectAll();
         }
@@ -105,12 +105,11 @@
     {
         private void RenameDiskFolderButtonClick(object sender, RoutedEventArgs e)
         {
-            if (itemGridView.SelectedItem != null && itemGridView.SelectedItems.Count == 1 &&
-                (itemGridView.SelectedItem as ExplorerItem).Type == ExplorerItemType.Folder)
+            if (itemGridView.SelectedItem != null && itemGridView.SelectedItems.Count == 1)
             {
                 Popup_RenameFolder.IsOpen = true;
                 Popup_RenameFolder.Visibility = Windows.UI.Xaml.Visibility.Visible;
-                Popup_RenameFolder.Margin = new Thickness(60, 0, 0, 222);
+                Popup_RenameFolder.Margin = new Thickness(60, 0, 0, 237);
                 TextBox_RenameFolder.Text = (itemGridView.SelectedItem as ExplorerItem).Name;
                 TextBox_RenameFolder.Focus(Windows.UI.Xaml.FocusState.Keyboard);
                 TextBox_RenameFolder.SelectAll();
@@ -122,7 +121,10 @@
             if ((itemGridView.SelectedItem as ExplorerItem).Name != TextBox_RenameFolder.Text)
             {
                 (itemGridView.SelectedItem as ExplorerItem).Name = TextBox_RenameFolder.Text;
-                await (itemGridView.SelectedItem as ExplorerItem).StorageFolder.RenameAsync(TextBox_RenameFolder.Text, NameCollisionOption.ReplaceExisting);
+                if ((itemGridView.SelectedItem as ExplorerItem).StorageFolder != null)
+                    await (itemGridView.SelectedItem as ExplorerItem).StorageFolder.RenameAsync(TextBox_RenameFolder.Text, NameCollisionOption.ReplaceExisting);
+                else if ((itemGridView.SelectedItem as ExplorerItem).StorageFile != null)
+                    await (itemGridView.SelectedItem as ExplorerItem).StorageFile.RenameAsync(TextBox_RenameFolder.Text, NameCollisionOption.ReplaceExisting);
                 await InitializeNavigator();
             }
             Popup_RenameFolder.IsOpen = false;

@@ -148,12 +148,12 @@
 			</Grid>
 
 			<StackPanel x:Name="FlyoutContent" Grid.Row="1" Margin="0" VerticalAlignment="Stretch" >
-				<TextBlock x:Uid="Uid_SupportUs_Text" HorizontalAlignment="Left" FontSize="18" Margin="40,15,30,0" 
+                <TextBlock x:Uid="Uid_SupportUs_Text" HorizontalAlignment="Left" FontSize="15" Margin="40,35,30,0" 
 						   TextWrapping="Wrap" Text="TextBlock" FontWeight="Light" Foreground="Black"
                            VerticalAlignment="Top"/>
                 <UI:AdControl x:Name="AdControl1" Opacity="0" ApplicationId="49796220-0340-4a2b-8e51-2cbaac600e86" Visibility="Collapsed" 
                               AdUnitId="128643" HorizontalAlignment="Left"
-                              Margin="40,15,30,0" Width="300" Height="250"/>
+                              Margin="40,25,30,0" Width="300" Height="250"/>
             </StackPanel>
 		</Grid>
 

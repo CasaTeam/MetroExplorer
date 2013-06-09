@@ -172,6 +172,7 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="packages.config" />
+    <PRIResource Include="strings\fr-FR\Resources.resw" />
     <PRIResource Include="strings\zh-CN\Resources.resw" />
     <None Include="MetroExplorer_TemporaryKey.pfx" />
   </ItemGroup>
