@@ -193,6 +193,13 @@
         {
             if (_hideListStoryboard != null)
                 _hideListStoryboard.Begin();
+
+            _hideListStoryboard.Completed += _hideListStoryboard_Completed;
+        }
+
+        void _hideListStoryboard_Completed(object sender, object e)
+        {
+            _popupList.IsOpen = false;
         }
 
         private void PopupListOpened(object sender, object e)
