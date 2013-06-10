@@ -118,168 +118,168 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="MainExplorer_UserFileGroupTitle" xml:space="preserve">
-    <value>Ficher</value>
+    <value>File</value>
   </data>
   <data name="MainExplorer_UserFolderGroupTitle" xml:space="preserve">
-    <value>Dossier</value>
+    <value>Folder</value>
   </data>
   <data name="MainPage_PopContextMenu_AddNewDiskOrFolder" xml:space="preserve">
-    <value>Disque et dossier</value>
+    <value>Disk and folder</value>
   </data>
   <data name="MainPage_SystemFolderGroupTitle" xml:space="preserve">
-    <value>Dossiers raccourcis</value>
+    <value>Shortcut folders</value>
   </data>
   <data name="MainPage_UserFolderGroupTitle" xml:space="preserve">
-    <value>Dossiers de système</value>
+    <value>System folders</value>
   </data>
   <data name="SettingCommand_ContactUs" xml:space="preserve">
-    <value>A propos de nous</value>
+    <value>About us</value>
   </data>
   <data name="SettingCommand_LanguageSetting" xml:space="preserve">
-    <value>Langues</value>
+    <value>Languages</value>
   </data>
   <data name="SettingCommand_Policy" xml:space="preserve">
-    <value>Politique de confidentialité</value>
+    <value>Privacy policy</value>
   </data>
   <data name="SettingCommand_SupportUs" xml:space="preserve">
-    <value>Nous soutenir</value>
+    <value>Support us, donation</value>
   </data>
   <data name="SettingCommand_UserGuide" xml:space="preserve">
-    <value>Guide utilisateur</value>
+    <value>User guilde</value>
   </data>
   <data name="String_AddNewShortCutFolder" xml:space="preserve">
-    <value>Créer un raccourci de dossier</value>
+    <value>Create a shortcut folder</value>
   </data>
   <data name="String_NewFolder" xml:space="preserve">
-    <value>Nouveau dossier</value>
+    <value>New folder</value>
   </data>
   <data name="Uid_Button_CreateNewFolder.Content" xml:space="preserve">
-    <value>Créer</value>
+    <value>Create</value>
   </data>
   <data name="Uid_Button_RenameFolder.Content" xml:space="preserve">
-    <value>Confirmer</value>
+    <value>Confirm</value>
   </data>
   <data name="Uid_Button_ToGuidPage2.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>Suivant</value>
+    <value>Next</value>
   </data>
   <data name="Uid_Button_ToMainPage.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>C'est parti</value>
+    <value>Start</value>
   </data>
   <data name="Uid_PageExplorerCopyButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>Copie</value>
+    <value>Copy</value>
   </data>
   <data name="Uid_PageExplorerCutButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>Couper</value>
+    <value>Cut</value>
   </data>
   <data name="Uid_PageExplorerPasteButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>Coller</value>
+    <value>Paste</value>
   </data>
   <data name="Uid_PageMainRefreshButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>Actualiser</value>
+    <value>Refresh</value>
   </data>
   <data name="Uid_PageMain_DragFileAndFolderToHere.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>Obtenir</value>
+    <value>Get files</value>
   </data>
   <data name="Uid_PageMain_PageTitle.Text" xml:space="preserve">
     <value>Metro Explorer</value>
   </data>
   <data name="Uid_PageMain_SupportUsTile.Text" xml:space="preserve">
-    <value>Nous soutenir</value>
+    <value>Support us</value>
   </data>
   <data name="Uid_PagePhotoGallery_OpenPhotoButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>Ouvrir</value>
+    <value>Open</value>
   </data>
   <data name="Uid_PagePhotoGallery_SliderModeButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>Mode diaporama</value>
+    <value>Slider mode</value>
   </data>
   <data name="Uid_PagePhotoGallery_UnSliderModeButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>Arrêter</value>
+    <value>Stop</value>
   </data>
   <data name="Uid_Page_Explorer_Button_AddNewFolder.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>Nouveau dossier</value>
+    <value>New folder</value>
   </data>
   <data name="Uid_Page_Explorer_Button_CancelRename.Content" xml:space="preserve">
     <value>Annuler</value>
   </data>
   <data name="Uid_Page_Explorer_Button_RenameFolder.Content" xml:space="preserve">
-    <value>Confirmer</value>
+    <value>Confrim</value>
   </data>
   <data name="Uid_Page_Main_Button_AddNewShortCutFolder.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>Ajouter</value>
+    <value>Add</value>
   </data>
   <data name="Uid_Page_Main_Button_Detail.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>Mode d'affichage</value>
+    <value>Display mode</value>
   </data>
   <data name="Uid_Page_Main_Button_RemoveFolder.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>Supprimer</value>
+    <value>Delete</value>
   </data>
   <data name="Uid_Page_Main_Button_RenameDiskFolder.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>Renommer</value>
+    <value>Rename</value>
   </data>
   <data name="Uid_Page_Main_Button_Sort.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>Trier</value>
+    <value>Sort</value>
   </data>
   <data name="Uid_Popup_CopyCutPaste_ListItem_CopyFile.Content" xml:space="preserve">
-    <value>Copie ficher</value>
+    <value>Copy files</value>
   </data>
   <data name="Uid_Popup_CopyCutPaste_ListItem_CopyFolder.Content" xml:space="preserve">
-    <value>Copie dossier</value>
+    <value>Copy folders</value>
   </data>
   <data name="Uid_Popup_CopyCutPaste_ListItem_CutFile.Content" xml:space="preserve">
-    <value>Obtenir fichier</value>
+    <value>Get files</value>
   </data>
   <data name="Uid_Popup_CopyCutPaste_ListItem_CutFolder.Content" xml:space="preserve">
-    <value>Obtenir dossier</value>
+    <value>Get folders</value>
   </data>
   <data name="Uid_Popup_Sort_ListItem_DateDesc.Content" xml:space="preserve">
-    <value>Par l'horaire</value>
+    <value>By date time</value>
   </data>
   <data name="Uid_Popup_Sort_ListItem_Name.Content" xml:space="preserve">
-    <value>Par le nom</value>
+    <value>By name</value>
   </data>
   <data name="Uid_Popup_Sort_ListItem_None.Content" xml:space="preserve">
-    <value>Annuler trier</value>
+    <value>Cancel sort</value>
   </data>
   <data name="Uid_Popup_Sort_ListItem_Size.Content" xml:space="preserve">
-    <value>Par taille de ficher</value>
+    <value>By size</value>
   </data>
   <data name="Uid_Popup_Sort_ListItem_Type.Content" xml:space="preserve">
-    <value>Par type de ficher</value>
+    <value>By file's type</value>
   </data>
   <data name="Uid_PreferenceLayout_TextBlock_ThemeeColor.Text" xml:space="preserve">
-    <value>Cliquez vous sur les publicités pour nous contribuer 0.02 euros</value>
+    <value>Give us your charity to let us have a better life, and make this application more wonderful</value>
   </data>
   <data name="Uid_SupportUsLayout_TextBlock_Title.Text" xml:space="preserve">
-    <value>Nous soutenir</value>
+    <value>Support us</value>
   </data>
   <data name="Uid_SupportUs_Text.Text" xml:space="preserve">
-    <value>Cliquez vous sur les publicités dessous pour nous soutenir. Avec votre contribution, on sera beaucoup encouragé puis améliorer notre produit </value>
+    <value>If advertis below interested you, please click it for your charity. Give us your charity to let us have a better life, and make this application more wonderful</value>
   </data>
   <data name="Uid_TextBlock_ContactUs.Text" xml:space="preserve">
-    <value>A propos de nous</value>
+    <value>About us</value>
   </data>
   <data name="Uid_TextBlock_ContactUsByCasaTeam.Text" xml:space="preserve">
-    <value>Dévellopé par CasaParis</value>
+    <value>Made by CasaParis</value>
   </data>
   <data name="Uid_TextBlock_ContactUsFacebook.Text" xml:space="preserve">
-    <value>Actualités et conseils sur facebook</value>
+    <value>News and suggestions on facebook</value>
   </data>
   <data name="Uid_TextBlock_ContactUsMail.Text" xml:space="preserve">
     <value>casapublic@hotmail.com</value>
   </data>
   <data name="Uid_TextBlock_ContactUsMailDeSupport.Text" xml:space="preserve">
-    <value>Notre mail</value>
+    <value>Our mail</value>
   </data>
   <data name="Uid_TextBlock_ContactUsMetroExplorer.Text" xml:space="preserve">
     <value>Metro Explorer</value>
   </data>
   <data name="Uid_TextBlock_ContactUsSuportus.Text" xml:space="preserve">
-    <value>Cliquez vous sur les publicités dessous pour nous soutenir. Avec votre contribution, on sera beaucoup encouragé puis améliorer notre produit</value>
+    <value>If advertis below interested you, please click it for your charity. Give us your charity to let us have a better life, and make this application more wonderful</value>
   </data>
   <data name="Uid_TextBlock_Policy.Text" xml:space="preserve">
-    <value>Politique de confidentialité</value>
+    <value>Privacy policy</value>
   </data>
   <data name="Uid_TextBox_CreateNewFolder.Text" xml:space="preserve">
-    <value>Nouveau fichier</value>
+    <value>New folder</value>
   </data>
 </root>
