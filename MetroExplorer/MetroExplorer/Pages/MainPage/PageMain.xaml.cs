@@ -219,6 +219,7 @@
             }
             else
             {
+                item.DefautImage = GetBitMapImageFromLocalSource("Assets/Folder.png");
                 item.ImageStretch = "UniformToFill";
             }
             itemList.Add(item);

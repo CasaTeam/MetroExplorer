@@ -129,6 +129,9 @@
     <Compile Include="Pages\GalleryPage\PhotoGallery.xaml.cs">
       <DependentUpon>PhotoGallery.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\PageExplorer\GroupDetailPage1.xaml.cs">
+      <DependentUpon>GroupDetailPage1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\PageExplorer\PageExplorerNavigator.cs" />
     <Compile Include="UserPreferenceRecord\TextFileAccess.cs" />
     <Compile Include="UserPreferenceRecord\FirstUsingRecord.cs" />
@@ -182,6 +185,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\AddNewFolder.png" />
+    <Content Include="Assets\appbar.arrow.left.png" />
+    <Content Include="Assets\appbar.base.png" />
+    <Content Include="Assets\appbar.home.png" />
     <Content Include="Assets\Facebook.png" />
     <Content Include="Assets\File.png" />
     <Content Include="Assets\Disk.png" />
@@ -220,6 +226,10 @@
     <Page Include="Pages\GalleryPage\PhotoGallery.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\PageExplorer\GroupDetailPage1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="RightMenuLayoutBars\ContactUs.xaml">
       <SubType>Designer</SubType>

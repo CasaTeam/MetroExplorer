@@ -171,7 +171,6 @@
             }
         }
 
-
         #region NotifyPropertyChanged
         private void NotifyPropertyChanged(String changedPropertyName)
         {

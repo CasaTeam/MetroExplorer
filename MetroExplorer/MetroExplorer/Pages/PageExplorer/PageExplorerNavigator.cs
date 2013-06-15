@@ -71,5 +71,11 @@ namespace MetroExplorer
                 Frame.Navigate(typeof(PageExplorer), null);
             }
         }
+
+        private void UpFolderButtonClicked(object sender, RoutedEventArgs e)
+        {
+            DataSource.ToPreviousFolder();
+            Frame.Navigate(typeof(PageExplorer), null);
+        }
     }
 }

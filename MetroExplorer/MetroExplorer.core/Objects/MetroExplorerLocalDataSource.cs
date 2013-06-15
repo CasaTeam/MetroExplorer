@@ -66,5 +66,13 @@
             _navigatorStorageFolders.Take(index + 1).ToList();
         }
 
+        public void ToPreviousFolder()
+        {
+            if (_navigatorStorageFolders.Count > 1)
+            {
+                _navigatorStorageFolders = _navigatorStorageFolders
+                    .Take(_navigatorStorageFolders.Count - 1).ToList<StorageFolder>();
+            }
+        }
     }
 }
