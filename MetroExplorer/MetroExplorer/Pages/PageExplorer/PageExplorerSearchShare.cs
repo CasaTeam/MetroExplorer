@@ -56,11 +56,9 @@ namespace MetroExplorer
                     explorerGroups.AddFileItem(item.Item as StorageFile);
             }
 
-            if (explorerGroups.Count > 0)
-            {
-                DataSource.FromSearch = true;
-                DataSource.SearchedItems = explorerGroups;
-            }
+
+            DataSource.FromSearch = true;
+            DataSource.SearchedItems = explorerGroups;
         }
 
         private void InitializeShare()
