@@ -189,7 +189,17 @@
         private void PopupListOpened(object sender, object e)
         {
             if (_showListStoryboard != null)
-                _showListStoryboard.Begin(); 
+            {
+                _popupList.Opened -= PopupListOpened;
+                _showListStoryboard.Begin();
+                _showListStoryboard.Completed += ShowListStoryboardCompleted;
+            }
+        }
+
+        private void ShowListStoryboardCompleted(object sender, object e)
+        {
+            _popupList.Opened += PopupListOpened;
+            _showListStoryboard.Completed -= ShowListStoryboardCompleted;
         }
 
         #endregion
