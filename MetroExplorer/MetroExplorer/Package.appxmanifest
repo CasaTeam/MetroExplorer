@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-  <Identity Name="075dcb47-665f-49de-8937-068336dd4f9a" Publisher="CN=Rue Cadet" Version="1.0.0.4" />
+  <Identity Name="075dcb47-665f-49de-8937-068336dd4f9a" Publisher="CN=Rue Cadet" Version="1.0.0.7" />
   <Properties>
     <DisplayName>MetroExplorer</DisplayName>
     <PublisherDisplayName>Rue Cadet</PublisherDisplayName>
