@@ -181,7 +181,7 @@
     <value>抓取文件（夹）</value>
   </data>
   <data name="Uid_PageMain_PageTitle.Text" xml:space="preserve">
-    <value>Metro Explorer</value>
+    <value>Link File</value>
   </data>
   <data name="Uid_PageMain_SupportUsTile.Text" xml:space="preserve">
     <value>支持我们</value>
@@ -271,7 +271,7 @@
     <value>联系邮箱</value>
   </data>
   <data name="Uid_TextBlock_ContactUsMetroExplorer.Text" xml:space="preserve">
-    <value>Metro Explorer</value>
+    <value>Link File</value>
   </data>
   <data name="Uid_TextBlock_ContactUsSuportus.Text" xml:space="preserve">
     <value>点击“支持我们”菜单选项，点击您所需要的广告来支持我们</value>

@@ -181,7 +181,7 @@
     <value>Get files</value>
   </data>
   <data name="Uid_PageMain_PageTitle.Text" xml:space="preserve">
-    <value>Metro Explorer</value>
+    <value>Link File</value>
   </data>
   <data name="Uid_PageMain_SupportUsTile.Text" xml:space="preserve">
     <value>Support us</value>
@@ -271,7 +271,7 @@
     <value>Our mail</value>
   </data>
   <data name="Uid_TextBlock_ContactUsMetroExplorer.Text" xml:space="preserve">
-    <value>Metro Explorer</value>
+    <value>Link File</value>
   </data>
   <data name="Uid_TextBlock_ContactUsSuportus.Text" xml:space="preserve">
     <value>If advertis below interested you, please click it for your charity. Give us your charity to let us have a better life, and make this application more wonderful</value>

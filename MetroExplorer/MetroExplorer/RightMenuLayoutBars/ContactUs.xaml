@@ -132,7 +132,7 @@
             <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1">
                 <Grid Margin="40,10,30,39" VerticalAlignment="Top" Grid.RowSpan="3">
                     <StackPanel x:Name="FlyoutContent">
-                        <TextBlock x:Uid="Uid_TextBlock_ContactUsMetroExplorer" Text="Metro Explorer" Margin="0,20,0,5" FontWeight="Light" FontSize="15"
+                        <TextBlock x:Uid="Uid_TextBlock_ContactUsMetroExplorer" Text="Link File" Margin="0,20,0,5" FontWeight="Light" FontSize="15"
                                    Foreground="Black"/>
                         <TextBlock x:Uid="Uid_TextBlock_ContactUsByCasaTeam"  Text="By Casa Team" Margin="0,0" FontWeight="Light" FontSize="15"
                                    Foreground="Black"/>

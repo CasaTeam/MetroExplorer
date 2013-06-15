@@ -181,7 +181,7 @@
     <value>Obtenir</value>
   </data>
   <data name="Uid_PageMain_PageTitle.Text" xml:space="preserve">
-    <value>Metro Explorer</value>
+    <value>Link File</value>
   </data>
   <data name="Uid_PageMain_SupportUsTile.Text" xml:space="preserve">
     <value>Nous soutenir</value>
@@ -271,7 +271,7 @@
     <value>Notre mail</value>
   </data>
   <data name="Uid_TextBlock_ContactUsMetroExplorer.Text" xml:space="preserve">
-    <value>Metro Explorer</value>
+    <value>Link File</value>
   </data>
   <data name="Uid_TextBlock_ContactUsSuportus.Text" xml:space="preserve">
     <value>Cliquez vous sur les publicités dessous pour nous soutenir. Avec votre contribution, on sera beaucoup encouragé puis améliorer notre produit</value>

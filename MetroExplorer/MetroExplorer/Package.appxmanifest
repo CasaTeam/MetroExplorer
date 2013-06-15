@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-  <Identity Name="075dcb47-665f-49de-8937-068336dd4f9a" Publisher="CN=Rue Cadet" Version="1.0.0.7" />
+  <Identity Name="41404comisciencebo.MetroExplorer" Publisher="CN=7CC2A853-0A94-4DFB-9120-4E6F1563BE8C" Version="1.0.0.8" />
   <Properties>
-    <DisplayName>MetroExplorer</DisplayName>
-    <PublisherDisplayName>Rue Cadet</PublisherDisplayName>
+    <DisplayName>Link File</DisplayName>
+    <PublisherDisplayName>Surface Knight</PublisherDisplayName>
     <Logo>Assets\UnitTestStoreLogo.png</Logo>
   </Properties>
   <Prerequisites>
@@ -15,8 +15,8 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="MetroExplorer.App">
-      <VisualElements DisplayName="MetroExplorer" Logo="Assets\Logo1.png" SmallLogo="Assets\UnitTestSmallLogo.png" Description="MetroExplorer" ForegroundText="light" BackgroundColor="#1e90cd">
-        <DefaultTile ShowName="allLogos" ShortName="Metro Explorer" WideLogo="Assets\WideLogo100.png" />
+      <VisualElements DisplayName="Link File" Logo="Assets\Logo1.png" SmallLogo="Assets\UnitTestSmallLogo.png" Description="Link File" ForegroundText="light" BackgroundColor="#1e90cd">
+        <DefaultTile ShowName="allLogos" ShortName="Link File" WideLogo="Assets\WideLogo100.png" />
         <SplashScreen Image="Assets\Logos\Logo620300.png" BackgroundColor="#1e90cd" />
       </VisualElements>
       <Extensions>

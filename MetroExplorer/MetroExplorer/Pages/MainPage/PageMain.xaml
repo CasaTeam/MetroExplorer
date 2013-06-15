@@ -384,7 +384,7 @@
 
 			<Grid Height="140" x:Name="Grid_Title">
 				<ProgressBar IsIndeterminate="True" Height="8" Margin="0,2,0,0" VerticalAlignment="Top" x:Name="LoadingProgressBar"/>
-				<Grid Height="140">
+				<Grid Height="140" Margin="0,-17,0,17">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="Auto"/>
 						<ColumnDefinition Width="*"/>

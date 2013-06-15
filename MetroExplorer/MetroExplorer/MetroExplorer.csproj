@@ -12,8 +12,9 @@
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>MetroExplorer_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>MetroExplorer_StoreKey.pfx</PackageCertificateKeyFile>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <PackageCertificateThumbprint>EE3FB65C59B37735A2F6370DFE5C5E31EDE76B4E</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -172,6 +173,7 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <None Include="MetroExplorer_StoreKey.pfx" />
     <None Include="packages.config" />
     <PRIResource Include="strings\en-US\Resources.resw" />
     <PRIResource Include="strings\fr-FR\Resources.resw" />
@@ -204,6 +206,7 @@
     <Content Include="Assets\WideLogo100.png" />
     <Content Include="Assets\WideLogo80.png" />
     <Content Include="Common\ReadMe.txt" />
+    <None Include="Package.StoreAssociation.xml" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
