@@ -201,6 +201,9 @@
   <data name="Uid_Page_Explorer_Button_CancelRename.Content" xml:space="preserve">
     <value>Annuler</value>
   </data>
+  <data name="Uid_Page_Explorer_Button_PlayFolder.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Diaporama</value>
+  </data>
   <data name="Uid_Page_Explorer_Button_RenameFolder.Content" xml:space="preserve">
     <value>Confirmer</value>
   </data>

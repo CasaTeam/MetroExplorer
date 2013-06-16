@@ -201,6 +201,9 @@
   <data name="Uid_Page_Explorer_Button_CancelRename.Content" xml:space="preserve">
     <value>取消</value>
   </data>
+  <data name="Uid_Page_Explorer_Button_PlayFolder.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>幻灯播放</value>
+  </data>
   <data name="Uid_Page_Explorer_Button_RenameFolder.Content" xml:space="preserve">
     <value>确定</value>
   </data>

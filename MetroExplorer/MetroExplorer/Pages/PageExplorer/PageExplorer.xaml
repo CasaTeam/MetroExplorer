@@ -701,7 +701,17 @@
 					</Button>
 				</StackPanel>
                 <StackPanel Orientation="Horizontal" Height="105" HorizontalAlignment="Right" VerticalAlignment="Stretch">
-					<Button Click="Button_AddNewFolder_Click" 
+                    <!--<Button Click="Button_PlayFolder_Click" 
+							x:Uid="Uid_Page_Explorer_Button_PlayFolder"
+							HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="5,0">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
+                                <Setter Property="AutomationProperties.Name" Value=""/>
+                                <Setter Property="Content" Value="&#xE102;"/>
+                            </Style>
+                        </Button.Style>
+                    </Button>-->
+                    <Button Click="Button_AddNewFolder_Click" 
 							x:Uid="Uid_Page_Explorer_Button_AddNewFolder"
 							HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="5,0">
 						<Button.Style>
@@ -807,12 +817,15 @@
 				<Grid Grid.Row="1">
 					<Grid Height="65" Margin="100,0,0,0" VerticalAlignment="Top" x:Name="Grid_Navigator">
 
-                        <Image Margin="20,0,0,15" Source="ms-appx:///Assets/appbar.base.png" 
+                        <Image x:Name="HomeCircleButtonImage" Margin="20,0,0,15" Source="ms-appx:///Assets/appbar.base.png" 
                                Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Center"
-                               PointerReleased="ButtonMainPage_Click_1"/>
-                        <Image Margin="20,0,0,15" Source="ms-appx:///Assets/appbar.home.png" 
-                               Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Center"
-                               PointerReleased="ButtonMainPage_Click_1"/>
+                               PointerReleased="HomeButtonImage_PointerReleased"/>
+                        <Ellipse x:Name="HomeCircleBackgroundEllipse"
+                        	Fill="#FF6E98CB" HorizontalAlignment="Left" Height="34" Margin="23,8,0,0" Stroke="Black" VerticalAlignment="Top" Width="34" StrokeThickness="0" Opacity="0"/>
+                        <Image x:Name="HomeButtonImage" Margin="20,0,0,15" Source="ms-appx:///Assets/appbar.home.png" 
+                               Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Center" PointerEntered="HomeButtonImage_PointerEntered"
+                               PointerExited="HomeButtonImage_PointerExited" PointerPressed="HomeButtonImage_PointerPressed"
+                               PointerReleased="HomeButtonImage_PointerReleased"/>
                         <!--<TextBlock VerticalAlignment="Bottom" Text="Home" Foreground="{Binding TitleForeground}" 
                                    HorizontalAlignment="Left" FontSize="26.667" 
                                    PointerReleased="ButtonMainPage_Click_1" FontWeight="Light" Margin="60,0,0,8" />-->
@@ -904,7 +917,7 @@
 				<Popup HorizontalAlignment="Right" VerticalAlignment="Bottom" IsLightDismissEnabled="True"
 				   Visibility="Collapsed" x:Name="Popup_Sort" >
 					<ListBox BorderBrush="{Binding TitleForeground}" Background="White" x:Name="ListBox_Sorte" SelectionMode="Single"
-						 Height="175" Width="150" Foreground="#DDFFFFFF" SelectionChanged="ListBox_Sorte_SelectionChanged_1" >
+						 Height="175" Width="180" Foreground="#DDFFFFFF" SelectionChanged="ListBox_Sorte_SelectionChanged_1" >
 						<ListBoxItem x:Uid="Uid_Popup_Sort_ListItem_DateDesc" FontSize="16" FontWeight="Light" Margin="0,5" Padding="20,5" Foreground="{Binding TitleForeground}"
 									 IsHoldingEnabled="False" Style="{StaticResource ListBoxItemStylePopupItem}" />
 						<ListBoxItem x:Uid="Uid_Popup_Sort_ListItem_Name" FontSize="16" FontWeight="Light" Margin="0,0,0,10" Padding="20,5" Foreground="{Binding TitleForeground}"

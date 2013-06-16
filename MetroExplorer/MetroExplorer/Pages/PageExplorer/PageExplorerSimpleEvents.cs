@@ -22,13 +22,37 @@
     /// </summary>
     public sealed partial class PageExplorer
     {
-        private void ButtonMainPage_Click_1(object sender, RoutedEventArgs e)
+        private void Button_PlayFolder_Click(object sender, RoutedEventArgs e)
         {
+            var parameters = DataSource.CurrentStorageFolder;
+            Frame.Navigate(typeof(PhotoGallery), parameters);
+        }
+
+        #region Home Button
+        private void HomeButtonImage_PointerEntered(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+            HomeCircleBackgroundEllipse.Opacity = 0.6;
+        }
+
+        private void HomeButtonImage_PointerExited(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+            HomeCircleBackgroundEllipse.Opacity = 0;
+        }
+
+        private void HomeButtonImage_PointerPressed(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+            HomeCircleBackgroundEllipse.Opacity = 1;
+        }
+
+        private void HomeButtonImage_PointerReleased(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+            HomeCircleBackgroundEllipse.Opacity = 0;
             DataSource.NavigatorStorageFolders = new List<StorageFolder>();
             StopImageChangingDispatcher();
             CurrentItems = null;
             Frame.Navigate(typeof(PageMain));
         }
+        #endregion
 
         private async void Button_RemoveDiskFolder_Click(object sender, RoutedEventArgs e)
         {
