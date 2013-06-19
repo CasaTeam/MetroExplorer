@@ -256,7 +256,7 @@
     <value>Nous soutenir</value>
   </data>
   <data name="Uid_SupportUs_Text.Text" xml:space="preserve">
-    <value>Cliquez vous sur les publicités dessous pour nous soutenir. Avec votre contribution, on sera beaucoup encouragé puis améliorer notre produit </value>
+    <value>Cliquez sur les publicités du dessous pour nous soutenir. Avec votre contribution, nous serons encouragé pour améliorer notre produit</value>
   </data>
   <data name="Uid_TextBlock_ContactUs.Text" xml:space="preserve">
     <value>A propos de nous</value>
@@ -277,7 +277,7 @@
     <value>Link File</value>
   </data>
   <data name="Uid_TextBlock_ContactUsSuportus.Text" xml:space="preserve">
-    <value>Cliquez vous sur les publicités dessous pour nous soutenir. Avec votre contribution, on sera beaucoup encouragé puis améliorer notre produit</value>
+    <value>Cliquez sur les publicités du dessous pour nous soutenir. Avec votre contribution, nous serons encouragé pour améliorer notre produit</value>
   </data>
   <data name="Uid_TextBlock_Policy.Text" xml:space="preserve">
     <value>Politique de confidentialité</value>
