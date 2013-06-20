@@ -66,9 +66,9 @@
 										</TransitionCollection>
 									</ListBox.ItemContainerTransitions>
 								</ListBox>
-								<Path Stretch="Fill" Data="F1 M 832,544L 832,543.392L 1052,525.777L 1052,543.612" UseLayoutRounding="False" Height="18" Width="220">
+								<Path Stretch="Fill" Data="F1 M 640,269.314L 776,243.814L 776,269.328" Height="18" UseLayoutRounding="False" Width="220">
 									<Path.Fill>
-										<SolidColorBrush Color="#FF1A5D76" Opacity="0.89999997615814209"/>
+										<SolidColorBrush Color="#FF1A5D76" Opacity="0.9"/>
 									</Path.Fill>
 								</Path>
 							</Grid>
@@ -152,7 +152,7 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="local:NavigatorButton">
-					<Border x:Name="border"
+					<Border x:Name="LayoutRoot"
 						BorderBrush="{TemplateBinding BorderBrush}"
 						BorderThickness="{TemplateBinding BorderThickness}">
 						<Border.Resources>
@@ -184,8 +184,8 @@
 								</VisualStateGroup.Transitions>
 								<VisualState x:Name="Pressed">
 									<Storyboard>
-										<DoubleAnimation Duration="0" To="18" Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.RotationX)" Storyboard.TargetName="border" d:IsOptimized="True"/>
-										<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.CenterOfRotationY)" Storyboard.TargetName="border" d:IsOptimized="True"/>
+										<DoubleAnimation Duration="0" To="18" Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.RotationX)" Storyboard.TargetName="LayoutRoot" d:IsOptimized="True"/>
+										<DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.CenterOfRotationY)" Storyboard.TargetName="LayoutRoot" d:IsOptimized="True"/>
 									</Storyboard>
 								</VisualState>
 								<VisualState x:Name="Released"/>
@@ -196,13 +196,13 @@
 								<ColumnDefinition Width="8"/>
 								<ColumnDefinition MinWidth="44.428"/>
 							</Grid.ColumnDefinitions>
+							<Path Stretch="Fill" Data="F1 M 671.992,384L 742.688,384C 745.449,384 747.688,381.761 747.688,379L 747.688,253C 747.688,250.239 745.449,248 742.688,248L 672.01,248" UseLayoutRounding="False" Grid.Column="1" Fill="{Binding Background}" HorizontalAlignment="Left" Width="30"/>
+							<Path Stretch="Fill" Data="F1 M 669.198,250.594L 643.68,250.594L 669.18,386.594" UseLayoutRounding="False" Margin="0" Fill="{Binding Background}" Width="8"/>
 							<Path x:Name="PathReleased" Stretch="Fill" Fill="White" Data="F1 M 23.9063,25L 25.9063,23L 32.9063,15.75L 32.9063,22.25L 23.9062,31.75L 14.9063,22.25L 14.9063,15.75L 21.9063,23L 23.9063,25 Z " UseLayoutRounding="False" Margin="8,20,24,20" Canvas.ZIndex="1" RenderTransformOrigin="0.5,0.5" Grid.Column="1">
 								<Path.RenderTransform>
 									<CompositeTransform/>
 								</Path.RenderTransform>
 							</Path>
-							<Path Stretch="Fill" Data="F1 M 671.992,384L 742.688,384C 745.449,384 747.688,381.761 747.688,379L 747.688,253C 747.688,250.239 745.449,248 742.688,248L 672.01,248" UseLayoutRounding="False" Grid.Column="1" Fill="{Binding Background}" HorizontalAlignment="Left" Width="30"/>
-							<Path Stretch="Fill" Data="F1 M 669.198,250.594L 643.68,250.594L 669.18,386.594" UseLayoutRounding="False" Margin="0" Fill="{Binding Background}" Width="8"/>
 						</Grid>
 					</Border>
 				</ControlTemplate>

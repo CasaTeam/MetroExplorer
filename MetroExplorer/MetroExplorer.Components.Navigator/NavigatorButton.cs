@@ -7,9 +7,30 @@
     using core;
     using System.Windows.Input;
     using Windows.UI.Xaml.Input;
+    using Windows.UI.Xaml.Media.Animation;
 
     public sealed class NavigatorButton : Control
     {
+        #region Constents
+
+        private const string LayoutRootElement = "LayoutRoot";
+
+        private const string ArrowTopToButtomStoryboard = "StoryboardArrowTopToButtom";
+
+        private const string ArrowButtomToTopStoryboard = "StoryboardArrowButtomToTop";
+
+        #endregion
+
+        #region Fields
+
+        private Border _layoutRoot;
+
+        private Storyboard _arrowTopToButtomStoryboard;
+
+        private Storyboard _arrowButtomToTopStoryboard;
+
+        #endregion
+
         #region Dependency Properties
 
         public static readonly DependencyProperty CommandProperty =
@@ -58,6 +79,13 @@
         protected override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
+            _layoutRoot = (Border)GetTemplateChild(LayoutRootElement);
+            if (_layoutRoot != null)
+            {
+                _arrowButtomToTopStoryboard = (Storyboard)_layoutRoot.Resources[ArrowButtomToTopStoryboard];
+                _arrowTopToButtomStoryboard = (Storyboard)_layoutRoot.Resources[ArrowTopToButtomStoryboard];
+            }
+
             PointerPressed += NavigatorButtonPointerPressed;
             PointerExited += NavigatorButtonPointerExited;
             PointerMoved += NavigatorButtonPointerMoved;
@@ -100,7 +128,8 @@
                 new NavigatorNodeCommandArgument(
                     Index, string.Empty,
                     NavigatorNodeCommandType.ShowList,
-                    e.GetCurrentPoint(parent).Position.X + ActualWidth - e.GetCurrentPoint(this).Position.X));
+                    e.GetCurrentPoint(parent).Position.X + ActualWidth - e.GetCurrentPoint(this).Position.X,
+                    this));
         }
 
         private void NavigatorButtonPointerCaptureLost(
@@ -108,6 +137,22 @@
             PointerRoutedEventArgs e)
         {
             VisualStateManager.GoToState(this, "Released", true);
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        public void BeginShowAnimation()
+        {
+            if (_arrowButtomToTopStoryboard != null)
+                _arrowButtomToTopStoryboard.Begin();
+        }
+
+        public void BeginHideAnimation()
+        {
+            if (_arrowTopToButtomStoryboard != null)
+                _arrowTopToButtomStoryboard.Begin();
         }
 
         #endregion

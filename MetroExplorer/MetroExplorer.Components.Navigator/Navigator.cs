@@ -39,6 +39,8 @@
         private Storyboard _showListStoryboard;
         private Storyboard _hideListStoryboard;
 
+        private NavigatorButton _droppedButton;
+
         #endregion
 
         #region EventHandlers
@@ -96,6 +98,8 @@
                                 _listBoxDropDown.ItemsSource = ItemListArray[_currentIndex];
                                 _popupList.Margin = new Thickness(positionX - _popupList.Width, ActualHeight + 5.0, 0, -342.0);
                                 _popupList.IsOpen = true;
+                                _droppedButton = args.Button;
+                                _droppedButton.BeginShowAnimation();
                             }
                             break;
                     }
@@ -160,7 +164,10 @@
             }
             _popupList = (Popup)GetTemplateChild(PopupListElement);
             if (_popupList != null)
+            {
                 _popupList.Opened += PopupListOpened;
+                _popupList.Closed += PopupListClosed;
+            }
             _listBoxDropDown = (ListBox)GetTemplateChild(ListBoxDropDownElement);
             if (_listBoxDropDown == null) return;
             _listBoxDropDown.SelectionChanged += ListBoxDropDownSelectionChanged;
@@ -193,6 +200,15 @@
                 _popupList.Opened -= PopupListOpened;
                 _showListStoryboard.Begin();
                 _showListStoryboard.Completed += ShowListStoryboardCompleted;
+            }
+        }
+
+        private void PopupListClosed(object sender, object e)
+        {
+            if (_droppedButton != null)
+            {
+                _droppedButton.BeginHideAnimation();
+                _droppedButton = null;
             }
         }
 

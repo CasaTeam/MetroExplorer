@@ -20,6 +20,8 @@
 
         public double PointerPositionX { get; private set; }
 
+        public NavigatorButton Button { get; private set; }
+
         public NavigatorNodeCommandArgument(
             int index,
             string path,
@@ -34,10 +36,12 @@
             int index,
             string path,
             NavigatorNodeCommandType commandType,
-            double positionX)
+            double positionX,
+            NavigatorButton button)
             : this(index, path, commandType)
         {
             PointerPositionX = positionX;
+            Button = button;
         }
     }
 }
