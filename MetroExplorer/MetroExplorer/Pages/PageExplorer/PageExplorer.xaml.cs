@@ -98,6 +98,7 @@
 
         private async Task RefreshLocalFiles()
         {
+            LoadingProgressBar.Visibility = Windows.UI.Xaml.Visibility.Visible;
             ExplorerItems.Clear();
             //if (_currentStorageFolder != null)
             if (DataSource.CurrentStorageFolder != null)
@@ -133,6 +134,7 @@
                 catch
                 { }
             }
+            LoadingProgressBar.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }
 
         /// <summary>

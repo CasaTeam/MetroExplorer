@@ -14,6 +14,11 @@ namespace MetroExplorer
 {
     public sealed partial class PageExplorer
     {
+        /// <summary>
+        /// 为了防止不能理解的第二次相应点击事件而设计的变量
+        /// </summary>
+        bool _isPasting = false;
+
         private void PageExplorerCopyButtonClick(object sender, RoutedEventArgs e)
         {
             CopiedCuttedItems.GetInstance().Items.Clear();
@@ -42,6 +47,9 @@ namespace MetroExplorer
 
         private async void PageExplorerPasteButtonClick(object sender, RoutedEventArgs e)
         {
+            if (_isPasting == true) return;
+            _isPasting = true;
+            LoadingProgressBar.Visibility = Windows.UI.Xaml.Visibility.Visible;
             if (CopiedCuttedItems.GetInstance().Items.Count > 0)
             {
                 foreach (var item in CopiedCuttedItems.GetInstance().Items)
@@ -62,6 +70,8 @@ namespace MetroExplorer
                         { }
                     }
                 }
+                if (CopiedCuttedItems.GetInstance().CutOrCopy == CopyCutState.Cut)
+                    CopiedCuttedItems.GetInstance().Items.Clear();
             }
             else if (DataSource.ShareStorageItems.Count > 0)
             {
@@ -76,6 +86,7 @@ namespace MetroExplorer
                         { }
             }
             RefreshAfterAddNewItem();
+            _isPasting = false;
         }
 
         #region new mode
@@ -89,7 +100,9 @@ namespace MetroExplorer
 
         private async void ListBox_CopyCutPaste_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
-            if (sender == null) return;
+            if (sender == null || _isPasting == true) return;
+            _isPasting = true;
+            LoadingProgressBar.Visibility = Windows.UI.Xaml.Visibility.Visible;
             Popup_CopyCutPaste.IsOpen = false;
             Popup_CopyCutPaste.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             if (ListBox_CopyCutPaste.Items.IndexOf((sender as ListBox).SelectedItem) == 0)
@@ -98,13 +111,12 @@ namespace MetroExplorer
                 await CutFile();
             ListBox_CopyCutPaste.SelectedItem = null;
             RefreshAfterAddNewItem();
+            _isPasting = false;
         }
 
         private async void RefreshAfterAddNewItem()
         {
-            LoadingProgressBar.Visibility = Windows.UI.Xaml.Visibility.Visible;
             await RefreshLocalFiles();
-            LoadingProgressBar.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }
 
         private async Task CopyFile()
