@@ -1,4 +1,4 @@
-﻿namespace MetroExplorer
+﻿namespace MetroExplorer.Pages.ExplorerPage
 {
     using System;
     using System.Collections.Generic;
@@ -17,9 +17,8 @@
     using core.Objects;
     using core.Utils;
     using UserPreferenceRecord;
-    /// <summary>
-    /// 
-    /// </summary>
+    using MainPage;
+
     public sealed partial class PageExplorer
     {
         private void Button_PlayFolder_Click(object sender, RoutedEventArgs e)
@@ -168,13 +167,13 @@
             {
                 itemGridView.ItemTemplate = this.Resources["Standard300x180ItemTemplate"] as DataTemplate;
                 PageExplorer.BigSquareMode = true;
-                UserPreferenceRecord.UserPreferenceRecord.GetInstance().WriteUserPreferenceRecord("Square");
+                UserPreferenceRecord.GetInstance().WriteUserPreferenceRecord("Square");
             }
             else
             {
                 itemGridView.ItemTemplate = this.Resources["Standard300x80ItemTemplate"] as DataTemplate;
                 PageExplorer.BigSquareMode = false;
-                UserPreferenceRecord.UserPreferenceRecord.GetInstance().WriteUserPreferenceRecord("List");
+                UserPreferenceRecord.GetInstance().WriteUserPreferenceRecord("List");
             }
             _counterForLoadUnloadedItems = 0;
         }

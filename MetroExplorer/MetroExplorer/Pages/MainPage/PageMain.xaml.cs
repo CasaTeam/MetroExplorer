@@ -1,32 +1,30 @@
-﻿namespace MetroExplorer
+﻿namespace MetroExplorer.Pages.MainPage
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.ComponentModel;
+    using System.Threading.Tasks;
+    using System.Linq;
+    using Windows.ApplicationModel.DataTransfer.ShareTarget;
+    using Windows.ApplicationModel.DataTransfer;
     using Windows.Foundation;
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Controls;
     using Windows.UI.Xaml.Input;
     using Windows.UI.Xaml.Media;
     using Windows.UI.Xaml.Navigation;
-    using System.ComponentModel;
+    using Windows.UI.Xaml.Media.Imaging;
     using Windows.Storage;
-    using Windows.Storage.Pickers;
     using Windows.Storage.AccessCache;
-    using System.Collections.ObjectModel;
-    using MetroExplorer.Common;
+    using Windows.Storage.FileProperties;
+    using Windows.Storage.Pickers;
+    using Common;
     using core;
     using core.Objects;
     using core.Utils;
-    using Windows.UI.Xaml.Media.Imaging;
-    using Windows.Storage.FileProperties;
-    using System.Threading.Tasks;
-    using System.Linq;
-    using Windows.ApplicationModel.DataTransfer.ShareTarget;
-    using Windows.ApplicationModel.DataTransfer;
+    using ExplorerPage;
 
-    /// <summary>
-    /// Page affichant une collection groupée d'éléments.
-    /// </summary>
     public sealed partial class PageMain : LayoutAwarePage, INotifyPropertyChanged
     {
         ObservableCollection<GroupInfoList<HomeItem>> explorerGroups;

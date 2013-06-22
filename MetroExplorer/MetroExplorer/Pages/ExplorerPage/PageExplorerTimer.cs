@@ -1,18 +1,18 @@
-﻿using MetroExplorer.core;
-using MetroExplorer.core.Objects;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.Storage;
-using Windows.Storage.FileProperties;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Media.Imaging;
-
-namespace MetroExplorer
+﻿namespace MetroExplorer.Pages.ExplorerPage
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Windows.Storage;
+    using Windows.Storage.FileProperties;
+    using Windows.UI.Xaml;
+    using Windows.UI.Xaml.Media.Imaging;
+    using core;
+    using core.Objects;
+
     public sealed partial class PageExplorer
     {
         /// <summary>
@@ -59,7 +59,7 @@ namespace MetroExplorer
                         await ThumbnailPhoto(ExplorerItems[_counterForLoadUnloadedItems], file, true);
                         SetImageStrech(ExplorerItems[_counterForLoadUnloadedItems]);
                     }
-                    else if(ExplorerItems[_counterForLoadUnloadedItems].StorageFolder != null)
+                    else if (ExplorerItems[_counterForLoadUnloadedItems].StorageFolder != null)
                     {
                         var folder = ExplorerItems[_counterForLoadUnloadedItems].StorageFolder;
                         ExplorerItems[_counterForLoadUnloadedItems].Image = GetBitMapImageFromLocalSource("Assets/Folder.png");
@@ -71,7 +71,7 @@ namespace MetroExplorer
                 }
                 _fileInfoLoadDispatcherLock = false;
             }
-            LoadingProgressBar.Visibility = Visibility.Collapsed;          
+            LoadingProgressBar.Visibility = Visibility.Collapsed;
         }
 
         private async Task ThumbnailPhoto(ExplorerItem item, StorageFile sf, bool file = false)

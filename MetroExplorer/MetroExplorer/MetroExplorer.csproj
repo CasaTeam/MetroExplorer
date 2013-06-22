@@ -126,17 +126,22 @@
     <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="Helper\StorageHelper.cs" />
     <Compile Include="Helper\XmlSerializationHelper.cs" />
+    <Compile Include="Pages\ExplorerPage\PageExplorer.xaml.cs">
+      <DependentUpon>PageExplorer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ExplorerPage\PageExplorerCopyPasteDrag.cs" />
+    <Compile Include="Pages\ExplorerPage\PageExplorerFix.cs" />
+    <Compile Include="Pages\ExplorerPage\PageExplorerNavigator.cs" />
+    <Compile Include="Pages\ExplorerPage\PageExplorerSearchShare.cs" />
+    <Compile Include="Pages\ExplorerPage\PageExplorerSimpleEvents.cs" />
+    <Compile Include="Pages\ExplorerPage\PageExplorerSort.cs" />
+    <Compile Include="Pages\ExplorerPage\PageExplorerTimer.cs" />
     <Compile Include="Pages\GalleryPage\PhotoGallery.xaml.cs">
       <DependentUpon>PhotoGallery.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\PageExplorer\PageExplorerNavigator.cs" />
     <Compile Include="UserPreferenceRecord\TextFileAccess.cs" />
     <Compile Include="UserPreferenceRecord\FirstUsingRecord.cs" />
     <Compile Include="UserPreferenceRecord\UserPreferenceRecord.cs" />
-    <Compile Include="Pages\PageExplorer\PageExplorerFix.cs" />
-    <Compile Include="Pages\PageExplorer\PageExplorerSort.cs" />
-    <Compile Include="Pages\PageExplorer\PageExplorerTimer.cs" />
-    <Compile Include="Pages\PageExplorer\PageExplorerSearchShare.cs" />
     <Compile Include="RightMenuLayoutBars\ContactUs.xaml.cs">
       <DependentUpon>ContactUs.xaml</DependentUpon>
     </Compile>
@@ -149,21 +154,16 @@
     <Compile Include="RightMenuLayoutBars\SupportUs.xaml.cs">
       <DependentUpon>SupportUs.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\PageExplorer\PageExplorer.xaml.cs">
-      <DependentUpon>PageExplorer.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\PageExplorer\PageExplorerSimpleEvents.cs" />
-    <Compile Include="Pages\PageExplorer\PageExplorerCopyPasteDrag.cs" />
     <Compile Include="Pages\MainPage\PageMain.xaml.cs">
       <DependentUpon>PageMain.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PageUserGuilde\PageUserGuidePage3.xaml.cs">
+    <Compile Include="Pages\GuidePage\PageUserGuidePage3.xaml.cs">
       <DependentUpon>PageUserGuidePage3.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PageUserGuilde\PageUserGuidePage2.xaml.cs">
+    <Compile Include="Pages\GuidePage\PageUserGuidePage2.xaml.cs">
       <DependentUpon>PageUserGuidePage2.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PageUserGuilde\PageUserGuide.xaml.cs">
+    <Compile Include="Pages\GuidePage\PageUserGuide.xaml.cs">
       <DependentUpon>PageUserGuide.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -220,6 +220,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Pages\ExplorerPage\PageExplorer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Pages\GalleryPage\PhotoGallery.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -240,23 +244,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\PageExplorer\PageExplorer.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Pages\MainPage\PageMain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PageUserGuilde\PageUserGuidePage3.xaml">
+    <Page Include="Pages\GuidePage\PageUserGuidePage3.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="PageUserGuilde\PageUserGuidePage2.xaml">
+    <Page Include="Pages\GuidePage\PageUserGuidePage2.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="PageUserGuilde\PageUserGuide.xaml">
+    <Page Include="Pages\GuidePage\PageUserGuide.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

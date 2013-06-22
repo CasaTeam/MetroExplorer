@@ -1,17 +1,17 @@
-﻿using MetroExplorer.core;
-using MetroExplorer.core.Objects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.Storage;
-using Windows.Storage.Pickers;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-
-namespace MetroExplorer
+﻿namespace MetroExplorer.Pages.ExplorerPage
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Windows.Storage;
+    using Windows.Storage.Pickers;
+    using Windows.UI.Xaml;
+    using Windows.UI.Xaml.Controls;
+    using core;
+    using core.Objects;
+
     public sealed partial class PageExplorer
     {
         private void PageExplorerCopyButtonClick(object sender, RoutedEventArgs e)
