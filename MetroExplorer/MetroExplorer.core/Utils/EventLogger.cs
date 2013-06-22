@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
-using Windows.Storage;
-using Windows.UI.Xaml.Media.Imaging;
-using MetroExplorer.core.Objects;
-
-namespace MetroExplorer.core.Utils
+﻿namespace MetroExplorer.Core.Utils
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using System.Xml.Serialization;
+    using Windows.Storage;
+    using Windows.UI.Xaml.Media.Imaging;
+    using Objects;
+
     public class EventLogger
     {
         private static readonly String UMENG_APP_KEY = "5151b11f56240bba2a002fbd";

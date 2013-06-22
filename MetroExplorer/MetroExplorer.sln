@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroExplorer", "MetroExplorer\MetroExplorer.csproj", "{68121672-25A8-4A15-A449-A75133CDA6EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroExplorer.core", "MetroExplorer.core\MetroExplorer.core.csproj", "{EFFF2BC1-84E8-4343-9E49-07CC4D0C8F7B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroExplorer.Core", "MetroExplorer.core\MetroExplorer.Core.csproj", "{EFFF2BC1-84E8-4343-9E49-07CC4D0C8F7B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Components", "Components", "{A54D228B-4CF2-4CC0-AE45-C1D2392DBE6A}"
 EndProject

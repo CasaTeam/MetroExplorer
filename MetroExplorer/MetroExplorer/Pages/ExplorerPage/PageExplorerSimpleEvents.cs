@@ -13,9 +13,9 @@
     using Windows.UI.Xaml.Controls;
     using Windows.UI.Xaml.Input;
     using Windows.UI.Xaml.Media.Imaging;
-    using core;
-    using core.Objects;
-    using core.Utils;
+    using Core;
+    using Core.Objects;
+    using Core.Utils;
     using UserPreferenceRecord;
     using MainPage;
 

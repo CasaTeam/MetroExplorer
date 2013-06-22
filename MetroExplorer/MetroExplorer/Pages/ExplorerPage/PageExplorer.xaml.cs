@@ -20,9 +20,9 @@
     using Windows.System;
     using Common;
     using Components.Navigator.Objects;
-    using core;
-    using core.Objects;
-    using core.Utils;
+    using Core;
+    using Core.Objects;
+    using Core.Utils;
     using UserPreferenceRecord;
 
     /// <summary>

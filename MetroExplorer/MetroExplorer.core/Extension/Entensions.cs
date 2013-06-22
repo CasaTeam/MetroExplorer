@@ -1,13 +1,12 @@
-﻿using System;
-using System.Linq;
-using MetroExplorer.core.Objects;
-using Windows.Storage;
-
-namespace MetroExplorer.core
+﻿namespace MetroExplorer.Core
 {
+    using System;
+    using System.Collections.ObjectModel;
+    using System.Linq;
+    using Windows.Storage;
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Media;
-    using System.Collections.ObjectModel;
+    using Objects;
 
     /// <summary>
     /// 各种帮助工程的extension

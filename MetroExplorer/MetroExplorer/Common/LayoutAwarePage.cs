@@ -13,8 +13,8 @@
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Controls;
     using Windows.UI.Xaml.Navigation;
-    using core;
-    using core.Objects;
+    using Core;
+    using Core.Objects;
 
     [WebHostHidden]
     public class LayoutAwarePage : Page

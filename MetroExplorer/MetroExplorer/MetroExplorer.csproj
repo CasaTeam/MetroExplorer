@@ -108,9 +108,9 @@
       <Project>{d7f662d5-755f-4a66-ae24-c07654af3b04}</Project>
       <Name>MetroExplorer.Components.Navigator</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MetroExplorer.core\MetroExplorer.core.csproj">
+    <ProjectReference Include="..\MetroExplorer.core\MetroExplorer.Core.csproj">
       <Project>{efff2bc1-84e8-4343-9e49-07cc4d0c8f7b}</Project>
-      <Name>MetroExplorer.core</Name>
+      <Name>MetroExplorer.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

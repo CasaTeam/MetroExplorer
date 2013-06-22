@@ -7,7 +7,7 @@
 	xmlns:common="using:MetroExplorer.Common"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:bh="using:MetroExplorer.core.Behavior"
+	xmlns:bh="using:MetroExplorer.Core.Behavior"
 	mc:Ignorable="d">
 
 	<common:LayoutAwarePage.BottomAppBar>

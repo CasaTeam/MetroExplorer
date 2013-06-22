@@ -20,9 +20,9 @@
     using Windows.Storage.FileProperties;
     using Windows.Storage.Pickers;
     using Common;
-    using core;
-    using core.Objects;
-    using core.Utils;
+    using Core;
+    using Core.Objects;
+    using Core.Utils;
     using ExplorerPage;
 
     public sealed partial class PageMain : LayoutAwarePage, INotifyPropertyChanged

@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using MetroExplorer.core.Objects;
-using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-
-namespace MetroExplorer.Test
+﻿namespace MetroExplorer.Test
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using MetroExplorer.Core.Objects;
+    using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+
     [TestClass]
     public class UnitTest1
     {

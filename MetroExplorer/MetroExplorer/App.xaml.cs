@@ -17,7 +17,7 @@
     using Pages.ExplorerPage;
     using Pages.MainPage;
     using Pages.GuidePage;
-    using core.Utils;
+    using Core.Utils;
 
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.

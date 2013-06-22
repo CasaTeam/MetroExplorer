@@ -1,22 +1,22 @@
 ﻿namespace MetroExplorer
 {
     using System;
+    using System.Collections.ObjectModel;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.Linq;
+    using Windows.UI.Xaml;
+    using Windows.System;
     using Windows.UI.Xaml.Controls;
     using Windows.UI.Xaml.Navigation;
     using Windows.Storage;
     using Windows.UI.Xaml.Media.Imaging;
     using Windows.Storage.FileProperties;
-    using UserPreferenceRecord;
+    using Core;
+    using Core.Objects;
+    using Core.Utils;
     using Common;
-    using core;
-    using core.Objects;
-    using core.Utils;
-    using System.ComponentModel;
-    using System.Collections.ObjectModel;
-    using Windows.UI.Xaml;
-    using Windows.System;
+    using UserPreferenceRecord;
 
     /// <summary>
     /// Page affichant une collection groupée d'éléments.
@@ -27,7 +27,8 @@
         ObservableCollection<ExplorerItem> _photos = new ObservableCollection<ExplorerItem>();
         public ObservableCollection<ExplorerItem> Photos
         {
-            get {
+            get
+            {
                 return _photos;
             }
             set
@@ -150,7 +151,7 @@
                 await (ImageFlipVIew.SelectedItem as ExplorerItem).StorageFile.OpenAsync(FileAccessMode.Read);
                 await Launcher.LaunchFileAsync((ImageFlipVIew.SelectedItem as ExplorerItem).StorageFile, new LauncherOptions { DisplayApplicationPicker = true });
             }
-            catch(Exception exp)
+            catch (Exception exp)
             {
                 //EventLogger.onActionEvent(EventLogger.);
             }

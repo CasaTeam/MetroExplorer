@@ -11,8 +11,8 @@
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Controls;
     using Windows.UI.Xaml.Media.Imaging;
-    using core;
-    using core.Objects;
+    using Core;
+    using Core.Objects;
 
     public sealed partial class PageExplorer
     {

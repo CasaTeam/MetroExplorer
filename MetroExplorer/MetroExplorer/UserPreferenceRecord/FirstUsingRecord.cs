@@ -1,12 +1,12 @@
-﻿using MetroExplorer.core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MetroExplorer
+﻿namespace MetroExplorer
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Core;
+
     /// <summary>
     /// 这个文件操作了一个存在应用自己目录下的一个txt文件
     /// 这个文件用来记录用户是否是第一次使用这个应用
@@ -16,8 +16,8 @@ namespace MetroExplorer
         private readonly string GuidePageFileRecordName = "GuidePageFileRecord.txt";
 
         private FirstUsingRecord()
-        { 
-        
+        {
+
         }
 
         public async Task<bool> IsFirstUsing()
