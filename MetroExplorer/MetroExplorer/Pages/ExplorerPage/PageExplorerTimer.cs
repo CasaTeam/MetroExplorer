@@ -46,32 +46,36 @@
             if (_fileInfoLoadDispatcherLock == false && ExplorerItems != null)
             {
                 _fileInfoLoadDispatcherLock = true;
-                for (int i = 1; i % 40 != 0 && ExplorerItems != null && _counterForLoadUnloadedItems < ExplorerItems.Count; i++)
+                try
                 {
-                    if (ExplorerItems[_counterForLoadUnloadedItems].StorageFile != null)
+                    for (int i = 1; i % 40 != 0 && ExplorerItems != null && _counterForLoadUnloadedItems < ExplorerItems.Count; i++)
                     {
-                        var file = ExplorerItems[_counterForLoadUnloadedItems].StorageFile;
-                        if (ExplorerItems[_counterForLoadUnloadedItems].Size == 0)
+                        if (ExplorerItems[_counterForLoadUnloadedItems].StorageFile != null)
                         {
-                            ExplorerItems[_counterForLoadUnloadedItems].Size = (await file.GetBasicPropertiesAsync()).Size;
-                            ExplorerItems[_counterForLoadUnloadedItems].ModifiedDateTime = (await file.GetBasicPropertiesAsync()).DateModified.DateTime;
+                            var file = ExplorerItems[_counterForLoadUnloadedItems].StorageFile;
+                            if (ExplorerItems[_counterForLoadUnloadedItems].Size == 0)
+                            {
+                                ExplorerItems[_counterForLoadUnloadedItems].Size = (await file.GetBasicPropertiesAsync()).Size;
+                                ExplorerItems[_counterForLoadUnloadedItems].ModifiedDateTime = (await file.GetBasicPropertiesAsync()).DateModified.DateTime;
+                            }
+                            await ThumbnailPhoto(ExplorerItems[_counterForLoadUnloadedItems], file, true);
+                            SetImageStrech(ExplorerItems[_counterForLoadUnloadedItems]);
                         }
-                        await ThumbnailPhoto(ExplorerItems[_counterForLoadUnloadedItems], file, true);
-                        SetImageStrech(ExplorerItems[_counterForLoadUnloadedItems]);
+                        else if (ExplorerItems[_counterForLoadUnloadedItems].StorageFolder != null)
+                        {
+                            var folder = ExplorerItems[_counterForLoadUnloadedItems].StorageFolder;
+                            ExplorerItems[_counterForLoadUnloadedItems].Image = GetBitMapImageFromLocalSource("Assets/Folder.png");
+                            ExplorerItems[_counterForLoadUnloadedItems].ImageStretch = "None";
+                            ExplorerItems[_counterForLoadUnloadedItems].Size = 0;
+                            ExplorerItems[_counterForLoadUnloadedItems].ModifiedDateTime = (await folder.GetBasicPropertiesAsync()).DateModified.DateTime;
+                        }
+                        _counterForLoadUnloadedItems++;
                     }
-                    else if (ExplorerItems[_counterForLoadUnloadedItems].StorageFolder != null)
-                    {
-                        var folder = ExplorerItems[_counterForLoadUnloadedItems].StorageFolder;
-                        ExplorerItems[_counterForLoadUnloadedItems].Image = GetBitMapImageFromLocalSource("Assets/Folder.png");
-                        ExplorerItems[_counterForLoadUnloadedItems].ImageStretch = "None";
-                        ExplorerItems[_counterForLoadUnloadedItems].Size = 0;
-                        ExplorerItems[_counterForLoadUnloadedItems].ModifiedDateTime = (await folder.GetBasicPropertiesAsync()).DateModified.DateTime;
-                    }
-                    _counterForLoadUnloadedItems++;
                 }
+                catch
+                { }
                 _fileInfoLoadDispatcherLock = false;
-            }
-            LoadingProgressBar.Visibility = Visibility.Collapsed;
+            }        
         }
 
         private async Task ThumbnailPhoto(ExplorerItem item, StorageFile sf, bool file = false)
