@@ -11,10 +11,9 @@
     using Windows.Foundation;
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Controls;
-    using Windows.UI.Xaml.Input;
     using Windows.UI.Xaml.Media;
-    using Windows.UI.Xaml.Navigation;
     using Windows.UI.Xaml.Media.Imaging;
+    using Windows.UI.Xaml.Navigation;
     using Windows.Storage;
     using Windows.Storage.AccessCache;
     using Windows.Storage.FileProperties;
@@ -27,33 +26,35 @@
 
     public sealed partial class PageMain : LayoutAwarePage, INotifyPropertyChanged
     {
-        ObservableCollection<GroupInfoList<HomeItem>> explorerGroups;
+        private Dictionary<HomeItem, string> _dicItemToken;
+        private DispatcherTimer _folderImageChangeDispatcher;
+        private ObservableCollection<GroupInfoList<HomeItem>> _explorerGroups;
+
         public ObservableCollection<GroupInfoList<HomeItem>> ExplorerGroups
         {
             get
             {
-                return explorerGroups;
+                return _explorerGroups;
             }
             set
             {
-                explorerGroups = value;
+                _explorerGroups = value;
                 NotifyPropertyChanged("ExplorerGroups");
             }
         }
-
-        Dictionary<HomeItem, string> _dicItemToken = new Dictionary<HomeItem, string>();
-
-        DispatcherTimer _folderImageChangeDispatcher;
 
         public PageMain()
         {
             InitializeComponent();
             DataContext = this;
-            NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
-            ExplorerGroups = new ObservableCollection<GroupInfoList<HomeItem>>();
-            ExplorerGroups.Add(new GroupInfoList<HomeItem>() { Key = StringResources.ResourceLoader.GetString("MainPage_UserFolderGroupTitle") });
-            ExplorerGroups.Add(new GroupInfoList<HomeItem>() { Key = StringResources.ResourceLoader.GetString("MainPage_SystemFolderGroupTitle") });
-            Loaded += PageMain_Loaded;
+            _dicItemToken = new Dictionary<HomeItem, string>();
+            NavigationCacheMode = NavigationCacheMode.Enabled;
+            _explorerGroups = new ObservableCollection<GroupInfoList<HomeItem>> 
+            { 
+                new GroupInfoList<HomeItem>() { Key = StringResources.ResourceLoader.GetString("MainPage_UserFolderGroupTitle") },
+                new GroupInfoList<HomeItem>() { Key = StringResources.ResourceLoader.GetString("MainPage_SystemFolderGroupTitle") }
+            };
+            Loaded += PageMainLoaded;
         }
 
         protected override void SaveState(Dictionary<string, object> pageState)
@@ -72,7 +73,7 @@
             LoadingProgressBar.Visibility = Windows.UI.Xaml.Visibility.Visible;
         }
 
-        async void PageMain_Loaded(object sender, RoutedEventArgs e)
+        private async void PageMainLoaded(object sender, RoutedEventArgs e)
         {
             InitTheme();
             if (_folderImageChangeDispatcher != null)
@@ -95,7 +96,7 @@
             LoadingProgressBar.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }
 
-        async void FolderImageChangeDispatcher_Tick(object sender, object e)
+        private async void FolderImageChangeDispatcher_Tick(object sender, object e)
         {
             try
             {
@@ -310,7 +311,7 @@
             return storageFolder;
         }
 
-        private async void Button_AddNewDiskFolder_Click(object sender, RoutedEventArgs e)
+        private async void ButtonAddNewDiskFolderClick(object sender, RoutedEventArgs e)
         {
             EventLogger.onActionEvent(EventLogger.ADD_FOLDER_CLICK, EventLogger.LABEL_HOME_PAGE);
             await AddNewFolder();
@@ -323,34 +324,33 @@
             return new Rect(point, new Size(element.ActualWidth, element.ActualHeight));
         }
 
-        private void Button_RemoveDiskFolder_Click(object sender, RoutedEventArgs e)
+        private void ButtonRemoveDiskFolderClick(object sender, RoutedEventArgs e)
         {
-            if (itemGridView.SelectedItems == null || itemGridView.SelectedItems.Count == 0) return;
-            while (itemGridView.SelectedItems.Count > 0)
+            if (GridViewItem.SelectedItems == null || GridViewItem.SelectedItems.Count == 0) return;
+            while (GridViewItem.SelectedItems.Count > 0)
             {
-                if (!_dicItemToken.ContainsKey((itemGridView.SelectedItems[0] as HomeItem)))
+                if (!_dicItemToken.ContainsKey((GridViewItem.SelectedItems[0] as HomeItem)))
                 {
-                    if (itemGridView.SelectedItems.Count == 1)
+                    if (GridViewItem.SelectedItems.Count == 1)
                         break;
                     continue;
                 }
-                Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.Remove(_dicItemToken[(itemGridView.SelectedItems[0] as HomeItem)]);
-                if (ExplorerGroups[0].Contains(itemGridView.SelectedItems[0] as HomeItem))
+                Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.Remove(_dicItemToken[(GridViewItem.SelectedItems[0] as HomeItem)]);
+                if (ExplorerGroups[0].Contains(GridViewItem.SelectedItems[0] as HomeItem))
                 {
-                    _dicItemToken.Remove(itemGridView.SelectedItems[0] as HomeItem);
-                    ExplorerGroups[0].Remove(itemGridView.SelectedItems[0] as HomeItem);
+                    _dicItemToken.Remove(GridViewItem.SelectedItems[0] as HomeItem);
+                    ExplorerGroups[0].Remove(GridViewItem.SelectedItems[0] as HomeItem);
                 }
-                else if (ExplorerGroups[1].Contains(itemGridView.SelectedItems[0] as HomeItem))
+                else if (ExplorerGroups[1].Contains(GridViewItem.SelectedItems[0] as HomeItem))
                 {
-                    _dicItemToken.Remove(itemGridView.SelectedItems[0] as HomeItem);
-                    ExplorerGroups[1].Remove(itemGridView.SelectedItems[0] as HomeItem);
+                    _dicItemToken.Remove(GridViewItem.SelectedItems[0] as HomeItem);
+                    ExplorerGroups[1].Remove(GridViewItem.SelectedItems[0] as HomeItem);
                 }
 
             }
             BottomAppBar.IsOpen = false;
         }
 
-        #region propertychanged
         private void NotifyPropertyChanged(String changedPropertyName)
         {
             if (PropertyChanged != null)
@@ -360,9 +360,8 @@
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        #endregion
 
-        private async void ItemGridView_ItemClick_1(object sender, ItemClickEventArgs e)
+        private async void GridViewItemItemClick(object sender, ItemClickEventArgs e)
         {
             HomeItem item = e.ClickedItem as HomeItem;
             if (item.StorageFolder != null)
@@ -409,9 +408,9 @@
             Frame.Navigate(typeof(PageExplorer), null);
         }
 
-        private void AppBar_BottomAppBar_Opened_1(object sender, object e)
+        private void AppBarBottomAppBarOpened(object sender, object e)
         {
-            if (itemGridView.SelectedItems.Count > 0)
+            if (GridViewItem.SelectedItems.Count > 0)
                 Button_RemoveDiskFolder.Visibility = Windows.UI.Xaml.Visibility.Visible;
             else
                 Button_RemoveDiskFolder.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
@@ -422,7 +421,7 @@
 
         }
 
-        private void Button_Refresh_Click(object sender, RoutedEventArgs e)
+        private void ButtonRefreshClick(object sender, RoutedEventArgs e)
         {
             RefreshExporerGroups1();
         }

@@ -11,11 +11,11 @@
 	mc:Ignorable="d">
 
 	<common:LayoutAwarePage.BottomAppBar>
-		<AppBar x:Name="AppBar_BottomAppBar" Opened="AppBar_BottomAppBar_Opened_1"
+		<AppBar x:Name="AppBarBottomAppBar" Opened="AppBarBottomAppBarOpened"
 				Background="{Binding Path=BottomBarBackground}" BorderBrush="{Binding Path=BottomBarBackground}">
 			<Grid Height="90" x:Name="Grid_BottomAppBar" HorizontalAlignment="Stretch">
 				<StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-					<Button x:Name="Button_RemoveDiskFolder" Click="Button_RemoveDiskFolder_Click"
+					<Button x:Name="Button_RemoveDiskFolder" Click="ButtonRemoveDiskFolderClick"
 						x:Uid="Uid_Page_Main_Button_RemoveFolder" FontWeight="ExtraLight"
 						Margin="10,0,0,0" HorizontalAlignment="Left">
 						<Button.Style>
@@ -25,7 +25,7 @@
 							</Style>
 						</Button.Style>
 					</Button>
-					<Button Click="Button_AddNewDiskFolder_Click" FontWeight="ExtraLight"
+					<Button Click="ButtonAddNewDiskFolderClick" FontWeight="ExtraLight"
 				x:Uid="Uid_Page_Main_Button_AddNewShortCutFolder"
 				Margin="10,0,0,0" HorizontalAlignment="Left" >
 						<Button.Style>
@@ -37,7 +37,7 @@
 					</Button>
 				</StackPanel>
 
-				<Button Click="Button_Refresh_Click" FontWeight="ExtraLight"
+				<Button Click="ButtonRefreshClick" FontWeight="ExtraLight"
 				x:Uid="Uid_PageMainRefreshButton"
 				Margin="0,0,10,0" HorizontalAlignment="Right" >
 					<Button.Style>
@@ -379,7 +379,7 @@
 				<RowDefinition Height="*"/>
 			</Grid.RowDefinitions>
 
-			<Grid Height="140" x:Name="Grid_Title">
+			<Grid Height="140" x:Name="GridTitle">
 				<ProgressBar IsIndeterminate="True" Height="8" Margin="0,2,0,0" VerticalAlignment="Top" x:Name="LoadingProgressBar"/>
 				<Grid Height="140" Margin="0,-17,0,17">
 					<Grid.ColumnDefinitions>
@@ -392,9 +392,9 @@
 				</Grid>
 			</Grid>
 
-			<Grid Grid.Row="1" x:Name="Grid_Content">
+			<Grid Grid.Row="1" x:Name="GridContent">
 				<GridView
-				x:Name="itemGridView"
+				x:Name="GridViewItem"
 				AutomationProperties.AutomationId="ItemGridView"
 				AutomationProperties.Name="Grouped Items"
 				Grid.RowSpan="2"
@@ -408,7 +408,7 @@
 				IsHoldingEnabled="True" 
 				AllowDrop="True"
 				IsTapEnabled="True"
-				ItemClick="ItemGridView_ItemClick_1"
+				ItemClick="GridViewItemItemClick"
 				SelectionMode="Multiple">
 					<GridView.ItemsPanel>
 						<ItemsPanelTemplate>
@@ -442,7 +442,7 @@
 
 				<!-- Liste de défilement vertical utilisée uniquement lorsque l'état d'affichage a la valeur Snapped -->
 				<ListView
-					x:Name="itemListView"
+					x:Name="ListViewItem"
 					AutomationProperties.AutomationId="ItemListView"
 					AutomationProperties.Name="Grouped Items"
 					Grid.Row="1"
@@ -451,7 +451,7 @@
 					Padding="10,0,0,60"
 					ItemsSource="{Binding Source={StaticResource groupedItemsViewSource}}"
 					ItemTemplate="{StaticResource Standard80ForExplorerItemTemplate}"
-					ItemClick="ItemGridView_ItemClick_1"
+					ItemClick="GridViewItemItemClick"
 					CanReorderItems="True"
 					IsSwipeEnabled="False" IsItemClickEnabled="True"
 					IsRightTapEnabled="True"
@@ -510,17 +510,17 @@
 						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="pageTitle" Storyboard.TargetProperty="Style">
 							<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedPageHeaderTextStyle}"/>
 						</ObjectAnimationUsingKeyFrames>-->
-						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="Grid_Title" Storyboard.TargetProperty="Visibility">
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="GridTitle" Storyboard.TargetProperty="Visibility">
 							<DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
 						</ObjectAnimationUsingKeyFrames>
 						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="AppBar_BottomAppBar" Storyboard.TargetProperty="Visibility">
 							<DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
 						</ObjectAnimationUsingKeyFrames>
 						
-						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemListView" Storyboard.TargetProperty="Visibility">
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="ListViewItem" Storyboard.TargetProperty="Visibility">
 							<DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
 						</ObjectAnimationUsingKeyFrames>
-						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemGridView" Storyboard.TargetProperty="Visibility">
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="GridViewItem" Storyboard.TargetProperty="Visibility">
 							<DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
 						</ObjectAnimationUsingKeyFrames>
 					</Storyboard>
