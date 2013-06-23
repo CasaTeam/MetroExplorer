@@ -8,12 +8,12 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:bh="using:MetroExplorer.Core.Behavior"
-	mc:Ignorable="d">
+	mc:Ignorable="d" NavigationCacheMode="Enabled">
 
 	<common:LayoutAwarePage.BottomAppBar>
 		<AppBar x:Name="AppBarBottomAppBar" Opened="AppBarBottomAppBarOpened"
 				Background="{Binding Path=BottomBarBackground}" BorderBrush="{Binding Path=BottomBarBackground}">
-			<Grid Height="90" x:Name="Grid_BottomAppBar" HorizontalAlignment="Stretch">
+			<Grid Height="90" x:Name="GridBottomAppBar" HorizontalAlignment="Stretch">
 				<StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
 					<Button x:Name="Button_RemoveDiskFolder" Click="ButtonRemoveDiskFolderClick"
 						x:Uid="Uid_Page_Main_Button_RemoveFolder" FontWeight="ExtraLight"
@@ -513,7 +513,7 @@
 						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="GridTitle" Storyboard.TargetProperty="Visibility">
 							<DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
 						</ObjectAnimationUsingKeyFrames>
-						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="AppBar_BottomAppBar" Storyboard.TargetProperty="Visibility">
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="AppBarBottomAppBar" Storyboard.TargetProperty="Visibility">
 							<DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
 						</ObjectAnimationUsingKeyFrames>
 						

@@ -48,7 +48,6 @@
             InitializeComponent();
             DataContext = this;
             _dicItemToken = new Dictionary<HomeItem, string>();
-            NavigationCacheMode = NavigationCacheMode.Enabled;
             _explorerGroups = new ObservableCollection<GroupInfoList<HomeItem>> 
             { 
                 new GroupInfoList<HomeItem>() { Key = StringResources.ResourceLoader.GetString("MainPage_UserFolderGroupTitle") },
