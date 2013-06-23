@@ -17,6 +17,7 @@
     using core.Objects;
     using core.Utils;
     using UserPreferenceRecord;
+    using Windows.UI.Popups;
     /// <summary>
     /// 
     /// </summary>
@@ -56,22 +57,33 @@
 
         private async void Button_RemoveDiskFolder_Click(object sender, RoutedEventArgs e)
         {
-            if (itemGridView.SelectedItems == null || itemGridView.SelectedItems.Count == 0) return;
-            while (itemGridView.SelectedItems.Count > 0)
+            MessageDialog msg = null;
+            try
             {
-                if (ExplorerItems.Contains(itemGridView.SelectedItems[0] as ExplorerItem) && (itemGridView.SelectedItems[0] as ExplorerItem).StorageFolder != null)
+                if (itemGridView.SelectedItems == null || itemGridView.SelectedItems.Count == 0) return;
+                while (itemGridView.SelectedItems.Count > 0)
                 {
-                    await (itemGridView.SelectedItems[0] as ExplorerItem).StorageFolder.DeleteAsync();
-                    ExplorerItems.Remove(itemGridView.SelectedItems[0] as ExplorerItem);
+                    if (ExplorerItems.Contains(itemGridView.SelectedItems[0] as ExplorerItem) && (itemGridView.SelectedItems[0] as ExplorerItem).StorageFolder != null)
+                    {
+                        await (itemGridView.SelectedItems[0] as ExplorerItem).StorageFolder.DeleteAsync();
+                        ExplorerItems.Remove(itemGridView.SelectedItems[0] as ExplorerItem);
+                    }
+                    else if (ExplorerItems.Contains(itemGridView.SelectedItems[0] as ExplorerItem))
+                    {
+                        await (itemGridView.SelectedItems[0] as ExplorerItem).StorageFile.DeleteAsync();
+                        ExplorerItems.Remove(itemGridView.SelectedItems[0] as ExplorerItem);
+                    }
                 }
-                else if (ExplorerItems.Contains(itemGridView.SelectedItems[0] as ExplorerItem))
-                {
-                    await (itemGridView.SelectedItems[0] as ExplorerItem).StorageFile.DeleteAsync();
-                    ExplorerItems.Remove(itemGridView.SelectedItems[0] as ExplorerItem);
-                }
+                await InitializeNavigator();
+                BottomAppBar.IsOpen = false;
             }
-            await InitializeNavigator();
-            BottomAppBar.IsOpen = false;
+            catch (Exception exp)
+            {
+                msg = new MessageDialog(exp.Message + " ; " + (exp.InnerException == null ? "" : exp.InnerException.Message)
+                                         + " ; " + (exp.InnerException.InnerException == null ? "" : exp.InnerException.InnerException.Message), "Remove denied");
+            }
+            if (msg != null)
+                await msg.ShowAsync();
         }
 
         private void AppBar_BottomAppBar_Opened_1(object sender, object e)
