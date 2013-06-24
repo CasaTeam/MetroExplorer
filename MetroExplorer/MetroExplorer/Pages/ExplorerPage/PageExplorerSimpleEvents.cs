@@ -55,22 +55,39 @@
 
         private async void Button_RemoveDiskFolder_Click(object sender, RoutedEventArgs e)
         {
-            if (itemGridView.SelectedItems == null || itemGridView.SelectedItems.Count == 0) return;
-            while (itemGridView.SelectedItems.Count > 0)
+            MessageDialog confrimMsg = new MessageDialog(StringResources.ResourceLoader.GetString("RemoveFolderConfirmationContentString"), StringResources.ResourceLoader.GetString("RemoveFolderConfirmationTitleString"));
+            confrimMsg.Commands.Add(new UICommand(StringResources.ResourceLoader.GetString("RemoveFolderConfirmationYesButtonString"), async(UICommandInvokedHandler) =>
             {
-                if (ExplorerItems.Contains(itemGridView.SelectedItems[0] as ExplorerItem) && (itemGridView.SelectedItems[0] as ExplorerItem).StorageFolder != null)
+                MessageDialog msg = null;
+                try
                 {
-                    await (itemGridView.SelectedItems[0] as ExplorerItem).StorageFolder.DeleteAsync();
-                    ExplorerItems.Remove(itemGridView.SelectedItems[0] as ExplorerItem);
+                    if (itemGridView.SelectedItems == null || itemGridView.SelectedItems.Count == 0) return;
+                    while (itemGridView.SelectedItems.Count > 0)
+                    {
+                        if (ExplorerItems.Contains(itemGridView.SelectedItems[0] as ExplorerItem) && (itemGridView.SelectedItems[0] as ExplorerItem).StorageFolder != null)
+                        {
+                            await(itemGridView.SelectedItems[0] as ExplorerItem).StorageFolder.DeleteAsync();
+                            ExplorerItems.Remove(itemGridView.SelectedItems[0] as ExplorerItem);
+                        }
+                        else if (ExplorerItems.Contains(itemGridView.SelectedItems[0] as ExplorerItem))
+                        {
+                            await(itemGridView.SelectedItems[0] as ExplorerItem).StorageFile.DeleteAsync();
+                            ExplorerItems.Remove(itemGridView.SelectedItems[0] as ExplorerItem);
+                        }
+                    }
+                    await InitializeNavigator();
+                    BottomAppBar.IsOpen = false;
                 }
-                else if (ExplorerItems.Contains(itemGridView.SelectedItems[0] as ExplorerItem))
+                catch (Exception exp)
                 {
-                    await (itemGridView.SelectedItems[0] as ExplorerItem).StorageFile.DeleteAsync();
-                    ExplorerItems.Remove(itemGridView.SelectedItems[0] as ExplorerItem);
+                    msg = new MessageDialog(exp.Message + " ; " + (exp.InnerException == null ? "" : exp.InnerException.Message)
+                                             + " ; " + (exp.InnerException.InnerException == null ? "" : exp.InnerException.InnerException.Message), "Remove denied");
                 }
-            }
-            await InitializeNavigator();
-            BottomAppBar.IsOpen = false;
+                if (msg != null)
+                    await msg.ShowAsync();
+            }));
+            confrimMsg.Commands.Add(new UICommand(StringResources.ResourceLoader.GetString("RemoveFolderConfirmationNoButtonString")));
+            await confrimMsg.ShowAsync();
         }
 
         private void AppBar_BottomAppBar_Opened_1(object sender, object e)

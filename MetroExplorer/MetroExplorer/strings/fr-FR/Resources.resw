@@ -132,6 +132,18 @@
   <data name="MainPage_UserFolderGroupTitle" xml:space="preserve">
     <value>Dossiers de système</value>
   </data>
+  <data name="RemoveFolderConfirmationContentString" xml:space="preserve">
+    <value>Etes-vous sûr de vouloir supprimer ceux-ci vous sélectionnez?</value>
+  </data>
+  <data name="RemoveFolderConfirmationNoButtonString" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="RemoveFolderConfirmationTitleString" xml:space="preserve">
+    <value>Supprimer?</value>
+  </data>
+  <data name="RemoveFolderConfirmationYesButtonString" xml:space="preserve">
+    <value>Confirmer</value>
+  </data>
   <data name="SettingCommand_ContactUs" xml:space="preserve">
     <value>A propos de nous</value>
   </data>
