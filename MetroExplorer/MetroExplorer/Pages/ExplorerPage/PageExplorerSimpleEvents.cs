@@ -9,6 +9,7 @@
     using Windows.Storage.FileProperties;
     using Windows.Storage.Pickers;
     using Windows.System;
+    using Windows.UI.Popups;
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Controls;
     using Windows.UI.Xaml.Input;
@@ -56,7 +57,7 @@
         private async void Button_RemoveDiskFolder_Click(object sender, RoutedEventArgs e)
         {
             MessageDialog confrimMsg = new MessageDialog(StringResources.ResourceLoader.GetString("RemoveFolderConfirmationContentString"), StringResources.ResourceLoader.GetString("RemoveFolderConfirmationTitleString"));
-            confrimMsg.Commands.Add(new UICommand(StringResources.ResourceLoader.GetString("RemoveFolderConfirmationYesButtonString"), async(UICommandInvokedHandler) =>
+            confrimMsg.Commands.Add(new UICommand(StringResources.ResourceLoader.GetString("RemoveFolderConfirmationYesButtonString"), async (UICommandInvokedHandler) =>
             {
                 MessageDialog msg = null;
                 try
@@ -66,12 +67,12 @@
                     {
                         if (ExplorerItems.Contains(itemGridView.SelectedItems[0] as ExplorerItem) && (itemGridView.SelectedItems[0] as ExplorerItem).StorageFolder != null)
                         {
-                            await(itemGridView.SelectedItems[0] as ExplorerItem).StorageFolder.DeleteAsync();
+                            await (itemGridView.SelectedItems[0] as ExplorerItem).StorageFolder.DeleteAsync();
                             ExplorerItems.Remove(itemGridView.SelectedItems[0] as ExplorerItem);
                         }
                         else if (ExplorerItems.Contains(itemGridView.SelectedItems[0] as ExplorerItem))
                         {
-                            await(itemGridView.SelectedItems[0] as ExplorerItem).StorageFile.DeleteAsync();
+                            await (itemGridView.SelectedItems[0] as ExplorerItem).StorageFile.DeleteAsync();
                             ExplorerItems.Remove(itemGridView.SelectedItems[0] as ExplorerItem);
                         }
                     }

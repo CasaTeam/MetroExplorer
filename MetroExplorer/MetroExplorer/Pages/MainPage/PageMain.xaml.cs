@@ -56,11 +56,6 @@
             Loaded += PageMainLoaded;
         }
 
-        protected override void SaveState(Dictionary<string, object> pageState)
-        {
-            _folderImageChangeDispatcher.Stop();
-        }
-
         protected async override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
             if (navigationParameter is ShareOperation)
@@ -69,17 +64,23 @@
                 if (shareOperation.Data.Contains(StandardDataFormats.StorageItems))
                     DataSource.ShareStorageItems = await shareOperation.Data.GetStorageItemsAsync();
             }
-            LoadingProgressBar.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            LoadingProgressBar.Visibility = Visibility.Visible;
+        }
+
+        protected override void SaveState(Dictionary<string, object> pageState)
+        {
+            _folderImageChangeDispatcher.Stop();
         }
 
         private async void PageMainLoaded(object sender, RoutedEventArgs e)
         {
             InitTheme();
+
             if (_folderImageChangeDispatcher != null)
             {
-                RefreshExporerGroups1();
+                RefreshExporerGroups();
                 _folderImageChangeDispatcher.Start();
-                LoadingProgressBar.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                LoadingProgressBar.Visibility = Visibility.Collapsed;
                 return;
             }
             InitializeSystemFolders();
@@ -89,13 +90,13 @@
             BottomAppBar.IsOpen = true;
 
             _folderImageChangeDispatcher = new DispatcherTimer();
-            _folderImageChangeDispatcher.Tick += FolderImageChangeDispatcher_Tick;
+            _folderImageChangeDispatcher.Tick += FolderImageChangeDispatcherTick;
             _folderImageChangeDispatcher.Interval = new TimeSpan(0, 0, 0, 1, 500);
             _folderImageChangeDispatcher.Start();
-            LoadingProgressBar.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            LoadingProgressBar.Visibility = Visibility.Collapsed;
         }
 
-        private async void FolderImageChangeDispatcher_Tick(object sender, object e)
+        private async void FolderImageChangeDispatcherTick(object sender, object e)
         {
             try
             {
@@ -107,19 +108,6 @@
             }
             catch
             { }
-        }
-
-        private async Task ThumbnailPhoto(ExplorerItem item, StorageFile sf)
-        {
-            if (item == null) return;
-            if (!sf.Name.ToUpper().EndsWith(".PNG") && !sf.Name.ToUpper().EndsWith(".JPG") && !sf.Name.ToUpper().EndsWith(".JPEG") &&
-               !sf.Name.ToUpper().EndsWith(".BMP") && !sf.Name.ToUpper().EndsWith(".RMVB") && !sf.Name.ToUpper().EndsWith(".MP4") &&
-               !sf.Name.ToUpper().EndsWith(".PNG")) return;
-            StorageItemThumbnail fileThumbnail = await sf.GetThumbnailAsync(ThumbnailMode.SingleItem, 280);
-            BitmapImage bitmapImage = new BitmapImage();
-            bitmapImage.SetSource(fileThumbnail);
-            item.Image = bitmapImage;
-            item.Image = null;
         }
 
         private async Task InitializeUsersFolders()
@@ -162,14 +150,9 @@
             var files = (await folderItem.StorageFolder.GetFilesAsync());
             if (files != null && files.Count > 0)
             {
-                if (files.Any(p => p.Name.ToUpper().EndsWith(".PNG") || p.Name.ToUpper().EndsWith(".JPG") ||
-                             p.Name.ToUpper().EndsWith(".JPEG") || p.Name.ToUpper().EndsWith(".BMP") ||
-                             p.Name.ToUpper().EndsWith(".RMVB") || p.Name.ToUpper().EndsWith(".MP4")))
+                if (files.Any(p => p.IsMediaFile()))
                 {
-                    var files2 = files.Where(p => (p.Name.ToUpper().EndsWith(".PNG") || p.Name.ToUpper().EndsWith(".JPG") ||
-                                     p.Name.ToUpper().EndsWith(".JPEG") || p.Name.ToUpper().EndsWith(".BMP") ||
-                                     p.Name.ToUpper().EndsWith(".RMVB") || p.Name.ToUpper().EndsWith(".MP4")) &&
-                                     p.Name != folderItem.SubImageName);
+                    var files2 = files.Where(p => p.IsMediaFile() && p.Name != folderItem.SubImageName);
                     if (files2 != null && files2.Count() > 0)
                     {
                         var file = files2.First();
@@ -422,10 +405,10 @@
 
         private void ButtonRefreshClick(object sender, RoutedEventArgs e)
         {
-            RefreshExporerGroups1();
+            RefreshExporerGroups();
         }
 
-        private async void RefreshExporerGroups1()
+        private async void RefreshExporerGroups()
         {
             var lostTokens = new List<string>(); // TODO: 避免有些已经不用的token仍然存在MostRecentlyUsedList中
             var availableStorages = new Dictionary<StorageFolder, AccessListEntry>();

@@ -14,19 +14,6 @@
     /// </summary>
     public static class Entensions
     {
-        public static DependencyObject GetParentByName(this DependencyObject obj, string name)
-        {
-            DependencyObject objFind = VisualTreeHelper.GetParent(obj);
-            if (((FrameworkElement)objFind).Name == name)
-                return objFind;
-            return objFind.GetParentByName(name);
-        }
-
-        public static void AddFakeItem(this GroupInfoList<ExplorerItem> itemList)
-        {
-            itemList.Add(new ExplorerItem());
-        }
-
         public async static void AffactItem(this ExplorerItem item, IStorageItem realItem)
         {
             item.Name = realItem.Name;
@@ -44,6 +31,29 @@
                 item.Size = (await item.StorageFile.GetBasicPropertiesAsync()).Size;
                 item.ModifiedDateTime = (await item.StorageFile.GetBasicPropertiesAsync()).DateModified.DateTime;
             }
+        }
+
+        public async static void AddItem(this GroupInfoList<ExplorerItem> itemList, IStorageItem retrievedItem)
+        {
+            ExplorerItem item = new ExplorerItem
+                {
+                    Name = retrievedItem.Name,
+                    Path = retrievedItem.Path
+                };
+            if (retrievedItem is StorageFolder)
+            {
+                item.StorageFolder = retrievedItem as StorageFolder;
+                item.Type = ExplorerItemType.Folder;
+            }
+            else if (retrievedItem is StorageFile)
+            {
+                item.StorageFile = retrievedItem as StorageFile;
+                item.Type = ExplorerItemType.File;
+                item.Size = (await item.StorageFile.GetBasicPropertiesAsync()).Size;
+                item.ModifiedDateTime = (await item.StorageFile.GetBasicPropertiesAsync()).DateModified.DateTime;
+            }
+            if (itemList.All(p => p.Name != item.Name))
+                itemList.Add(item);
         }
 
         public static void AddStorageItem(this ObservableCollection<ExplorerItem> itemList, StorageFolder retrievedItem)
@@ -70,28 +80,17 @@
             itemList.Add(item);
         }
 
-        public async static void AddItem(this GroupInfoList<ExplorerItem> itemList,
-            IStorageItem retrievedItem)
+        public static DependencyObject GetParentByName(this DependencyObject obj, string name)
         {
-            ExplorerItem item = new ExplorerItem
-                {
-                    Name = retrievedItem.Name,
-                    Path = retrievedItem.Path
-                };
-            if (retrievedItem is StorageFolder)
-            {
-                item.StorageFolder = retrievedItem as StorageFolder;
-                item.Type = ExplorerItemType.Folder;
-            }
-            else if (retrievedItem is StorageFile)
-            {
-                item.StorageFile = retrievedItem as StorageFile;
-                item.Type = ExplorerItemType.File;
-                item.Size = (await item.StorageFile.GetBasicPropertiesAsync()).Size;
-                item.ModifiedDateTime = (await item.StorageFile.GetBasicPropertiesAsync()).DateModified.DateTime;
-            }
-            if (itemList.All(p => p.Name != item.Name))
-                itemList.Add(item);
+            DependencyObject objFind = VisualTreeHelper.GetParent(obj);
+            if (((FrameworkElement)objFind).Name == name)
+                return objFind;
+            return objFind.GetParentByName(name);
+        }
+
+        public static void AddFakeItem(this GroupInfoList<ExplorerItem> itemList)
+        {
+            itemList.Add(new ExplorerItem());
         }
     }
 }
