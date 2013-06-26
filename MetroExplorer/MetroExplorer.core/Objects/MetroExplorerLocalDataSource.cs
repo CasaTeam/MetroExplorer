@@ -1,4 +1,4 @@
-﻿namespace MetroExplorer.core.Objects
+﻿namespace MetroExplorer.Core.Objects
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;

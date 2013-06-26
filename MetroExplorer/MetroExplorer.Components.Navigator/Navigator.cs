@@ -96,7 +96,7 @@
                             if (_popupList != null && ItemListArray[_currentIndex].Count > 0)
                             {
                                 _listBoxDropDown.ItemsSource = ItemListArray[_currentIndex];
-                                _popupList.Margin = new Thickness(positionX - _popupList.Width, ActualHeight + 5.0, 0, -342.0);
+                                _popupList.Margin = new Thickness(positionX - _popupList.Width, ActualHeight, 0, -342.0);
                                 _popupList.IsOpen = true;
                                 _droppedButton = args.Button;
                                 _droppedButton.BeginShowAnimation();

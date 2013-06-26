@@ -1,17 +1,17 @@
 ﻿<common:LayoutAwarePage
 	x:Name="PageRoot"
-	x:Class="MetroExplorer.PageExplorer"
+	x:Class="MetroExplorer.Pages.ExplorerPage.PageExplorer"
 	DataContext="{Binding DefaultViewModel, RelativeSource={RelativeSource Self}}"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:local="using:MetroExplorer"
+	xmlns:local="using:MetroExplorer.Pages.ExplorerPage"
 	xmlns:common="using:MetroExplorer.Common"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:navigator="using:MetroExplorer.Components.Navigator"
 	xmlns:bh="using:MetroExplorer.core.Behavior"
-	mc:Ignorable="d"
-	d:ExtensionType="Search">
+	d:ExtensionType="Search"
+	mc:Ignorable="d">
 
 	<common:LayoutAwarePage.Resources>
 
@@ -80,103 +80,103 @@
 			</Grid>
 		</DataTemplate>
 
-        <Style x:Key="SettingsBackButtonStyle" TargetType="Button">
-            <Setter Property="MinWidth" Value="0"/>
-            <Setter Property="FontFamily" Value="Segoe UI Symbol"/>
-            <Setter Property="FontWeight" Value="Normal"/>
-            <Setter Property="FontSize" Value="26.66667"/>
-            <Setter Property="AutomationProperties.AutomationId" Value="BackButton"/>
-            <Setter Property="AutomationProperties.Name" Value="Back"/>
-            <Setter Property="AutomationProperties.ItemType" Value="Navigation Button"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Grid x:Name="RootGrid" Width="30" Height="30">
-                            <Grid Margin="-6,-6,0,0">
-                                <TextBlock x:Name="BackgroundGlyph" Text="&#xE0D4;" Foreground="Transparent"/>
-                                <TextBlock x:Name="NormalGlyph" Text="{StaticResource BackButtonSnappedGlyph}" Foreground="Black"/>
-                                <TextBlock x:Name="ArrowGlyph" Text="&#xE0C4;" Foreground="#00b2f0" Opacity="0"/>
-                            </Grid>
-                            <Rectangle
-                                x:Name="FocusVisualWhite"
-                                IsHitTestVisible="False"
-                                Stroke="{StaticResource FocusVisualWhiteStrokeThemeBrush}" 
-                                StrokeEndLineCap="Square"
-                                StrokeDashArray="1,1"
-                                Opacity="0"
-                                StrokeDashOffset="1.5"
-                                />
+		<Style x:Key="SettingsBackButtonStyle" TargetType="Button">
+			<Setter Property="MinWidth" Value="0"/>
+			<Setter Property="FontFamily" Value="Segoe UI Symbol"/>
+			<Setter Property="FontWeight" Value="Normal"/>
+			<Setter Property="FontSize" Value="26.66667"/>
+			<Setter Property="AutomationProperties.AutomationId" Value="BackButton"/>
+			<Setter Property="AutomationProperties.Name" Value="Back"/>
+			<Setter Property="AutomationProperties.ItemType" Value="Navigation Button"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="Button">
+						<Grid x:Name="RootGrid" Width="30" Height="30">
+							<Grid Margin="-6,-6,0,0">
+								<TextBlock x:Name="BackgroundGlyph" Text="&#xE0D4;" Foreground="Transparent"/>
+								<TextBlock x:Name="NormalGlyph" Text="{StaticResource BackButtonSnappedGlyph}" Foreground="Black"/>
+								<TextBlock x:Name="ArrowGlyph" Text="&#xE0C4;" Foreground="#00b2f0" Opacity="0"/>
+							</Grid>
+							<Rectangle
+								x:Name="FocusVisualWhite"
+								IsHitTestVisible="False"
+								Stroke="{StaticResource FocusVisualWhiteStrokeThemeBrush}" 
+								StrokeEndLineCap="Square"
+								StrokeDashArray="1,1"
+								Opacity="0"
+								StrokeDashOffset="1.5"
+								/>
 
-                            <Rectangle
-                                x:Name="FocusVisualBlack"
-                                IsHitTestVisible="False"
-                                Stroke="{StaticResource FocusVisualBlackStrokeThemeBrush}" 
-                                StrokeEndLineCap="Square"
-                                StrokeDashArray="1,1"
-                                Opacity="0"
-                                StrokeDashOffset="0.5"
-                                />
+							<Rectangle
+								x:Name="FocusVisualBlack"
+								IsHitTestVisible="False"
+								Stroke="{StaticResource FocusVisualBlackStrokeThemeBrush}" 
+								StrokeEndLineCap="Square"
+								StrokeDashArray="1,1"
+								Opacity="0"
+								StrokeDashOffset="0.5"
+								/>
 
-                            <VisualStateManager.VisualStateGroups>
-                                <VisualStateGroup x:Name="CommonStates">
-                                    <VisualState x:Name="Normal" />
-                                    <VisualState x:Name="PointerOver">
-                                        <Storyboard>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundGlyph" Storyboard.TargetProperty="Foreground">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource BackButtonPointerOverBackgroundThemeBrush}"/>
-                                            </ObjectAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="Pressed">
-                                        <Storyboard>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundGlyph" Storyboard.TargetProperty="Foreground">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="Black"/>
-                                            </ObjectAnimationUsingKeyFrames>
-                                            <DoubleAnimation
-                                            Storyboard.TargetName="ArrowGlyph"
-                                            Storyboard.TargetProperty="Opacity"
-                                            To="1"
-                                            Duration="0"/>
-                                            <DoubleAnimation
-                                            Storyboard.TargetName="NormalGlyph"
-                                            Storyboard.TargetProperty="Opacity"
-                                            To="0"
-                                            Duration="0"/>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="Disabled">
-                                        <Storyboard>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RootGrid" Storyboard.TargetProperty="Visibility">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
-                                            </ObjectAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </VisualState>
-                                </VisualStateGroup>
-                                <VisualStateGroup x:Name="FocusStates">
-                                    <VisualState x:Name="Focused">
-                                        <Storyboard>
-                                            <DoubleAnimation
-                                            Storyboard.TargetName="FocusVisualWhite"
-                                            Storyboard.TargetProperty="Opacity"
-                                            To="1"
-                                            Duration="0"/>
-                                            <DoubleAnimation
-                                            Storyboard.TargetName="FocusVisualBlack"
-                                            Storyboard.TargetProperty="Opacity"
-                                            To="1"
-                                            Duration="0"/>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="Unfocused" />
-                                    <VisualState x:Name="PointerFocused" />
-                                </VisualStateGroup>
-                            </VisualStateManager.VisualStateGroups>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style x:Key="ExplorerGridViewItemStyle" TargetType="GridViewItem">
+							<VisualStateManager.VisualStateGroups>
+								<VisualStateGroup x:Name="CommonStates">
+									<VisualState x:Name="Normal" />
+									<VisualState x:Name="PointerOver">
+										<Storyboard>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundGlyph" Storyboard.TargetProperty="Foreground">
+												<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource BackButtonPointerOverBackgroundThemeBrush}"/>
+											</ObjectAnimationUsingKeyFrames>
+										</Storyboard>
+									</VisualState>
+									<VisualState x:Name="Pressed">
+										<Storyboard>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundGlyph" Storyboard.TargetProperty="Foreground">
+												<DiscreteObjectKeyFrame KeyTime="0" Value="Black"/>
+											</ObjectAnimationUsingKeyFrames>
+											<DoubleAnimation
+											Storyboard.TargetName="ArrowGlyph"
+											Storyboard.TargetProperty="Opacity"
+											To="1"
+											Duration="0"/>
+											<DoubleAnimation
+											Storyboard.TargetName="NormalGlyph"
+											Storyboard.TargetProperty="Opacity"
+											To="0"
+											Duration="0"/>
+										</Storyboard>
+									</VisualState>
+									<VisualState x:Name="Disabled">
+										<Storyboard>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetName="RootGrid" Storyboard.TargetProperty="Visibility">
+												<DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+											</ObjectAnimationUsingKeyFrames>
+										</Storyboard>
+									</VisualState>
+								</VisualStateGroup>
+								<VisualStateGroup x:Name="FocusStates">
+									<VisualState x:Name="Focused">
+										<Storyboard>
+											<DoubleAnimation
+											Storyboard.TargetName="FocusVisualWhite"
+											Storyboard.TargetProperty="Opacity"
+											To="1"
+											Duration="0"/>
+											<DoubleAnimation
+											Storyboard.TargetName="FocusVisualBlack"
+											Storyboard.TargetProperty="Opacity"
+											To="1"
+											Duration="0"/>
+										</Storyboard>
+									</VisualState>
+									<VisualState x:Name="Unfocused" />
+									<VisualState x:Name="PointerFocused" />
+								</VisualStateGroup>
+							</VisualStateManager.VisualStateGroups>
+						</Grid>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+		<Style x:Key="ExplorerGridViewItemStyle" TargetType="GridViewItem">
 			<Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}"/>
 			<Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}"/>
 			<Setter Property="Background" Value="Transparent"/>
@@ -678,7 +678,7 @@
 		<AppBar x:Name="AppBar_BottomAppBar" Opened="AppBar_BottomAppBar_Opened_1"
 				Background="{Binding Path=BottomBarBackground}" BorderBrush="{Binding Path=BottomBarBackground}">
 			<Grid>
-                <StackPanel Orientation="Horizontal" Height="105" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+				<StackPanel Orientation="Horizontal" Height="105" HorizontalAlignment="Left" VerticalAlignment="Stretch">
 					<Button x:Name="Button_RemoveDiskFolder" Click="Button_RemoveDiskFolder_Click"
 						x:Uid="Uid_Page_Main_Button_RemoveFolder" VerticalAlignment="Stretch"
 						Margin="5,0" HorizontalAlignment="Center">
@@ -700,18 +700,18 @@
 						</Button.Style>
 					</Button>
 				</StackPanel>
-                <StackPanel Orientation="Horizontal" Height="105" HorizontalAlignment="Right" VerticalAlignment="Stretch">
-                    <!--<Button Click="Button_PlayFolder_Click" 
+				<StackPanel Orientation="Horizontal" Height="105" HorizontalAlignment="Right" VerticalAlignment="Stretch">
+					<!--<Button Click="Button_PlayFolder_Click" 
 							x:Uid="Uid_Page_Explorer_Button_PlayFolder"
 							HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="5,0">
-                        <Button.Style>
-                            <Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
-                                <Setter Property="AutomationProperties.Name" Value=""/>
-                                <Setter Property="Content" Value="&#xE102;"/>
-                            </Style>
-                        </Button.Style>
-                    </Button>-->
-                    <Button Click="Button_AddNewFolder_Click" 
+						<Button.Style>
+							<Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
+								<Setter Property="AutomationProperties.Name" Value=""/>
+								<Setter Property="Content" Value="&#xE102;"/>
+							</Style>
+						</Button.Style>
+					</Button>-->
+					<Button Click="Button_AddNewFolder_Click" 
 							x:Uid="Uid_Page_Explorer_Button_AddNewFolder"
 							HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="5,0">
 						<Button.Style>
@@ -784,18 +784,18 @@
 						</Button.Style>
 					</Button>
 
-                    <Rectangle Width="2" VerticalAlignment="Stretch"  HorizontalAlignment="Center" Margin="15,30,15,30" Fill="White" />
-                    <Button Click="Button_Refresh_Click" FontWeight="ExtraLight"
-				            x:Uid="Uid_PageMainRefreshButton" VerticalAlignment="Stretch"
-				            Margin="0,0,10,0" HorizontalAlignment="Right" >
-                        <Button.Style>
-                            <Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
-                                <Setter Property="AutomationProperties.Name" Value=""/>
-                                <Setter Property="Content" Value="&#xE117;"/>
-                            </Style>
-                        </Button.Style>
-                    </Button>
-                </StackPanel>
+					<Rectangle Width="2" VerticalAlignment="Stretch"  HorizontalAlignment="Center" Margin="15,30,15,30" Fill="White" />
+					<Button Click="Button_Refresh_Click" FontWeight="ExtraLight"
+							x:Uid="Uid_PageMainRefreshButton" VerticalAlignment="Stretch"
+							Margin="0,0,10,0" HorizontalAlignment="Right" >
+						<Button.Style>
+							<Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
+								<Setter Property="AutomationProperties.Name" Value=""/>
+								<Setter Property="Content" Value="&#xE117;"/>
+							</Style>
+						</Button.Style>
+					</Button>
+				</StackPanel>
 			</Grid>
 		</AppBar>
 	</common:LayoutAwarePage.BottomAppBar>
@@ -813,26 +813,26 @@
 					<RowDefinition Height="126"/>
 					<RowDefinition/>
 				</Grid.RowDefinitions>
-				
+
 				<Grid Grid.Row="1">
 					<Grid Height="65" Margin="100,0,0,0" VerticalAlignment="Top" x:Name="Grid_Navigator">
 
-                        <Image x:Name="HomeCircleButtonImage" Margin="20,0,0,15" Source="ms-appx:///Assets/appbar.base.png" 
-                               Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Center"
-                               PointerReleased="HomeButtonImage_PointerReleased"/>
-                        <Ellipse x:Name="HomeCircleBackgroundEllipse"
-                        	Fill="#FF6E98CB" HorizontalAlignment="Left" Height="34" Margin="23,8,0,0" Stroke="Black" VerticalAlignment="Top" Width="34" StrokeThickness="0" Opacity="0"/>
-                        <Image x:Name="HomeButtonImage" Margin="20,0,0,15" Source="ms-appx:///Assets/appbar.home.png" 
-                               Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Center" PointerEntered="HomeButtonImage_PointerEntered"
-                               PointerExited="HomeButtonImage_PointerExited" PointerPressed="HomeButtonImage_PointerPressed"
-                               PointerReleased="HomeButtonImage_PointerReleased"/>
-                        <!--<TextBlock VerticalAlignment="Bottom" Text="Home" Foreground="{Binding TitleForeground}" 
-                                   HorizontalAlignment="Left" FontSize="26.667" 
-                                   PointerReleased="ButtonMainPage_Click_1" FontWeight="Light" Margin="60,0,0,8" />-->
+						<Image x:Name="HomeCircleButtonImage" Margin="20,0,0,15" Source="ms-appx:///Assets/appbar.base.png" 
+							   Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Center"
+							   PointerReleased="HomeButtonImage_PointerReleased"/>
+						<Ellipse x:Name="HomeCircleBackgroundEllipse"
+							Fill="#FF6E98CB" HorizontalAlignment="Left" Height="34" Margin="23,8,0,0" Stroke="Black" VerticalAlignment="Top" Width="34" StrokeThickness="0" Opacity="0"/>
+						<Image x:Name="HomeButtonImage" Margin="20,0,0,15" Source="ms-appx:///Assets/appbar.home.png" 
+							   Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Center" PointerEntered="HomeButtonImage_PointerEntered"
+							   PointerExited="HomeButtonImage_PointerExited" PointerPressed="HomeButtonImage_PointerPressed"
+							   PointerReleased="HomeButtonImage_PointerReleased"/>
+						<!--<TextBlock VerticalAlignment="Bottom" Text="Home" Foreground="{Binding TitleForeground}" 
+								   HorizontalAlignment="Left" FontSize="26.667" 
+								   PointerReleased="ButtonMainPage_Click_1" FontWeight="Light" Margin="60,0,0,8" />-->
 						<navigator:Navigator x:Name="Navigator" Width="Auto" Height="Auto" 
-                                             NPathChanged="NavigatorPathChanged" Background="#FF1A6987" 
-                                             Margin="80,0,0,0" DropBackground="{x:Null}"/>
-                    </Grid>
+											 NPathChanged="NavigatorPathChanged" Background="#FF1A6987" 
+											 Margin="80,0,0,0" DropBackground="{x:Null}"/>
+					</Grid>
 
 					<!-- Horizontal scrolling grid used in most view states -->
 					<GridView x:Name="itemGridView"
@@ -878,14 +878,14 @@
 				<Grid Grid.Row="0">
 					<ProgressBar IsIndeterminate="True" Height="15" Margin="0,8,0,0" VerticalAlignment="Top" x:Name="LoadingProgressBar"/>
 
-                    <StackPanel x:Name="SnappedModeTitleStackPanel" Orientation="Horizontal" Visibility="Collapsed">
-                        <Button x:Name="UpFolderButton" Click="UpFolderButtonClicked" Margin="22,25,0,0" VerticalAlignment="Top"  
-                                Style="{StaticResource SettingsBackButtonStyle}" />
-                        <TextBlock x:Name="FolderNameTextBlock" Margin="5,20,0,0" VerticalAlignment="Top" Style="{StaticResource GroupHeaderTextStyle}"
+					<StackPanel x:Name="SnappedModeTitleStackPanel" Orientation="Horizontal" Visibility="Collapsed">
+						<Button x:Name="UpFolderButton" Click="UpFolderButtonClicked" Margin="22,25,0,0" VerticalAlignment="Top"  
+								Style="{StaticResource SettingsBackButtonStyle}" />
+						<TextBlock x:Name="FolderNameTextBlock" Margin="5,20,0,0" VerticalAlignment="Top" Style="{StaticResource GroupHeaderTextStyle}"
 								Foreground="{Binding Path=TitleForeground}" />
-                    </StackPanel>
-                    
-                    
+					</StackPanel>
+
+
 					<Grid Height="140" x:Name="Grid_Title">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="Auto"/>
@@ -897,7 +897,7 @@
 								   Foreground="{Binding Path=TitleForeground}"/>
 					</Grid>
 				</Grid>
-				
+
 
 			</Grid>
 			<Grid>
@@ -954,7 +954,7 @@
 						</Grid>
 					</Border>
 				</Popup>
-            </Grid>
+			</Grid>
 		</Grid>
 		<VisualStateManager.VisualStateGroups>
 			<!-- Les états visuels reflètent l'état d'affichage de l'application -->
@@ -997,7 +997,7 @@
 							<DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
 						</ObjectAnimationUsingKeyFrames>
 
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="SnappedModeTitleStackPanel" Storyboard.TargetProperty="Visibility">
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="SnappedModeTitleStackPanel" Storyboard.TargetProperty="Visibility">
 							<DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
 						</ObjectAnimationUsingKeyFrames>
 						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="LoadingProgressBar" Storyboard.TargetProperty="Visibility">

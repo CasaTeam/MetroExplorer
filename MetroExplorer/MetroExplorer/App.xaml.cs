@@ -1,21 +1,24 @@
-﻿using System;
-using Windows.ApplicationModel;
-using Windows.ApplicationModel.Activation;
-using Windows.ApplicationModel.Search;
-using Windows.Foundation;
-using Windows.UI.ApplicationSettings;
-using Windows.UI.Popups;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Media.Animation;
-using MetroExplorer.core.Utils;
-using Windows.ApplicationModel.Resources;
-using Windows.System.Threading;
-using System.Threading.Tasks;
-
-namespace MetroExplorer
+﻿namespace MetroExplorer
 {
+    using System;
+    using System.Threading.Tasks;
+    using Windows.ApplicationModel;
+    using Windows.ApplicationModel.Activation;
+    using Windows.ApplicationModel.Search;
+    using Windows.Foundation;
+    using Windows.UI.ApplicationSettings;
+    using Windows.UI.Popups;
+    using Windows.UI.Xaml;
+    using Windows.UI.Xaml.Controls;
+    using Windows.UI.Xaml.Controls.Primitives;
+    using Windows.UI.Xaml.Media.Animation;
+    using Windows.ApplicationModel.Resources;
+    using Windows.System.Threading;
+    using Pages.ExplorerPage;
+    using Pages.MainPage;
+    using Pages.GuidePage;
+    using Core.Utils;
+
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
@@ -81,7 +84,7 @@ namespace MetroExplorer
             EventLogger.onLaunch();
         }
 
-        
+
 
         /// <summary>
         /// Invoked when application execution is being suspended.  Application state is saved

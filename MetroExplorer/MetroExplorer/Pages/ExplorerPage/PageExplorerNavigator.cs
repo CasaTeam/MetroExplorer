@@ -1,25 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
-using Windows.Storage;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Navigation;
-using Windows.Storage.FileProperties;
-using Windows.UI.Xaml.Media.Imaging;
-using MetroExplorer.Common;
-using Windows.ApplicationModel.DataTransfer;
-using Windows.Storage.Streams;
-using Windows.ApplicationModel;
-using Windows.ApplicationModel.Search;
-using MetroExplorer.Components.Navigator.Objects;
-
-namespace MetroExplorer
+﻿namespace MetroExplorer.Pages.ExplorerPage
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.ComponentModel;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Windows.Storage;
+    using Windows.UI.Xaml;
+    using Windows.UI.Xaml.Controls;
+    using Windows.UI.Xaml.Data;
+    using Windows.UI.Xaml.Navigation;
+    using Windows.Storage.FileProperties;
+    using Windows.UI.Xaml.Media.Imaging;
+    using Windows.ApplicationModel.DataTransfer;
+    using Windows.Storage.Streams;
+    using Windows.ApplicationModel;
+    using Windows.ApplicationModel.Search;
+    using Common;
+    using Components.Navigator.Objects;
+
     public sealed partial class PageExplorer : LayoutAwarePage, INotifyPropertyChanged
     {
         private async Task InitializeNavigator()

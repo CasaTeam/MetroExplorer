@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Media;
-using System;
-
-namespace MetroExplorer.core.Behavior
+﻿namespace MetroExplorer.Core.Behavior
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Windows.UI.Xaml;
+    using Windows.UI.Xaml.Data;
+    using Windows.UI.Xaml.Media;
+
     /// http://winrtbehaviors.codeplex.com/SourceControl/changeset/view/19567#261274
     public abstract class Behavior : FrameworkElement
     {

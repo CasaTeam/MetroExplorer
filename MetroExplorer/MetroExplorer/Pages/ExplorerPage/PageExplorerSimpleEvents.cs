@@ -1,4 +1,4 @@
-﻿namespace MetroExplorer
+﻿namespace MetroExplorer.Pages.ExplorerPage
 {
     using System;
     using System.Collections.Generic;
@@ -13,12 +13,14 @@
     using Windows.UI.Xaml.Controls;
     using Windows.UI.Xaml.Input;
     using Windows.UI.Xaml.Media.Imaging;
-    using core;
-    using core.Objects;
-    using core.Utils;
+    using Core;
+    using Core.Objects;
+    using Core.Utils;
     using UserPreferenceRecord;
+
     using Windows.UI.Popups;
     using Windows.ApplicationModel.Resources;
+    using MetroExplorer.Pages.MainPage;
     /// <summary>
     /// 
     /// </summary>
@@ -187,13 +189,13 @@
             {
                 itemGridView.ItemTemplate = this.Resources["Standard300x180ItemTemplate"] as DataTemplate;
                 PageExplorer.BigSquareMode = true;
-                UserPreferenceRecord.UserPreferenceRecord.GetInstance().WriteUserPreferenceRecord("Square");
+                UserPreferenceRecord.GetInstance().WriteUserPreferenceRecord("Square");
             }
             else
             {
                 itemGridView.ItemTemplate = this.Resources["Standard300x80ItemTemplate"] as DataTemplate;
                 PageExplorer.BigSquareMode = false;
-                UserPreferenceRecord.UserPreferenceRecord.GetInstance().WriteUserPreferenceRecord("List");
+                UserPreferenceRecord.GetInstance().WriteUserPreferenceRecord("List");
             }
             _counterForLoadUnloadedItems = 0;
         }

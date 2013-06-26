@@ -1,4 +1,4 @@
-﻿using MetroExplorer.core;
+﻿using MetroExplorer.Core;
 using System;
 using System.Collections.Generic;
 using System.IO;

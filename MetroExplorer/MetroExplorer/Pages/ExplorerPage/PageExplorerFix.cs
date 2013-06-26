@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MetroExplorer
+﻿namespace MetroExplorer.Pages.ExplorerPage
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// This partial Class is used for fixing the conflict between Search Event and other keyboard typing Events.
     /// ToDo: We should think a better way to manage when should the ShowOnKeyboardInput disabled.

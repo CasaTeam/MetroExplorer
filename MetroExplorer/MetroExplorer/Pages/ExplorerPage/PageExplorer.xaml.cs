@@ -1,4 +1,4 @@
-﻿namespace MetroExplorer
+﻿namespace MetroExplorer.Pages.ExplorerPage
 {
     using System;
     using System.Collections.Generic;
@@ -11,19 +11,19 @@
     using Windows.UI.Xaml.Controls;
     using Windows.UI.Xaml.Data;
     using Windows.UI.Xaml.Navigation;
-    using Components.Navigator.Objects;
-    using core;
-    using core.Objects;
-    using core.Utils;
     using Windows.Storage.FileProperties;
     using Windows.UI.Xaml.Media.Imaging;
-    using MetroExplorer.Common;
     using Windows.ApplicationModel.DataTransfer;
     using Windows.Storage.Streams;
-    using UserPreferenceRecord;
     using Windows.ApplicationModel;
     using Windows.ApplicationModel.Search;
     using Windows.System;
+    using Common;
+    using Components.Navigator.Objects;
+    using Core;
+    using Core.Objects;
+    using Core.Utils;
+    using UserPreferenceRecord;
 
     /// <summary>
     /// Page affichant une collection groupée d'éléments.
@@ -63,7 +63,7 @@
 
         async void PageExplorer_Loaded(object sender, RoutedEventArgs e)
         {
-            if (await UserPreferenceRecord.UserPreferenceRecord.GetInstance().IfListMode())
+            if (await UserPreferenceRecord.GetInstance().IfListMode())
                 BigSquareMode = false;
             else
                 BigSquareMode = true;
@@ -165,10 +165,10 @@
                 //}
                 //else
                 //{
-                    var file = await StorageFile.GetFileFromPathAsync(item.Path);
-                    await file.OpenAsync(FileAccessMode.Read);
-                    EventLogger.onActionEvent(EventLogger.FILE_OPENED);
-                    await Launcher.LaunchFileAsync(file, new LauncherOptions { DisplayApplicationPicker = true });
+                var file = await StorageFile.GetFileFromPathAsync(item.Path);
+                await file.OpenAsync(FileAccessMode.Read);
+                EventLogger.onActionEvent(EventLogger.FILE_OPENED);
+                await Launcher.LaunchFileAsync(file, new LauncherOptions { DisplayApplicationPicker = true });
                 //}
             }
         }
@@ -186,7 +186,6 @@
         #endregion
 
     }
-
 
     /// <summary>
     /// Properties for change theme color
@@ -318,7 +317,6 @@
             ItemBigBackground = Theme.ThemeLibarary.ItemBigBackground;
         }
     }
-
 
     #region value converter
     public class RenameBoxVisibilityConverter : IValueConverter

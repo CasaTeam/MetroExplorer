@@ -1,41 +1,22 @@
-﻿using MetroExplorer.core;
-using MetroExplorer.core.Objects;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.System;
-using Windows.UI.Core;
-using Windows.UI.ViewManagement;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
-
-namespace MetroExplorer.Common
+﻿namespace MetroExplorer.Common
 {
-    /// <summary>
-    /// Implémentation standard de page qui offre plusieurs avantages importants :
-    /// <list type="bullet">
-    /// <item>
-    /// <description>Mappage de l'état de l'application à l'état visuel</description>
-    /// </item>
-    /// <item>
-    /// <description>Gestionnaires d'événements GoBack, GoForward et GoHome</description>
-    /// </item>
-    /// <item>
-    /// <description>Raccourcis souris et clavier pour la navigation</description>
-    /// </item>
-    /// <item>
-    /// <description>Gestion d'état pour la navigation et gestion de la durée de vie des processus</description>
-    /// </item>
-    /// <item>
-    /// <description>Modèle d'affichage par défaut</description>
-    /// </item>
-    /// </list>
-    /// </summary>
-    [Windows.Foundation.Metadata.WebHostHidden]
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Linq;
+    using Windows.Foundation;
+    using Windows.Foundation.Collections;
+    using Windows.Foundation.Metadata;
+    using Windows.System;
+    using Windows.UI.Core;
+    using Windows.UI.ViewManagement;
+    using Windows.UI.Xaml;
+    using Windows.UI.Xaml.Controls;
+    using Windows.UI.Xaml.Navigation;
+    using Core;
+    using Core.Objects;
+
+    [WebHostHidden]
     public class LayoutAwarePage : Page
     {
         /// <summary>
@@ -44,9 +25,8 @@ namespace MetroExplorer.Common
         public static readonly DependencyProperty DefaultViewModelProperty =
             DependencyProperty.Register("DefaultViewModel", typeof(IObservableMap<String, Object>),
             typeof(LayoutAwarePage), null);
-        
 
-        protected  MetroExplorerLocalDataSource DataSource { get; set; }
+        protected MetroExplorerLocalDataSource DataSource { get; set; }
 
         private List<Control> _layoutAwareControls;
 

@@ -1,4 +1,4 @@
-﻿namespace MetroExplorer.core
+﻿namespace MetroExplorer.Core
 {
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Controls;

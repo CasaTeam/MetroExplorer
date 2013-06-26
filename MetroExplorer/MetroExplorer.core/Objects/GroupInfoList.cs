@@ -1,8 +1,8 @@
-﻿namespace MetroExplorer.core.Objects
+﻿namespace MetroExplorer.Core.Objects
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-using Windows.UI.Xaml;
+    using Windows.UI.Xaml;
 
     public class GroupInfoList<T> : ObservableCollection<T>
     {

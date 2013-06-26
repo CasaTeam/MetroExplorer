@@ -1,20 +1,20 @@
-﻿using MetroExplorer.core;
-using MetroExplorer.core.Objects;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.ApplicationModel.DataTransfer;
-using Windows.ApplicationModel.Search;
-using Windows.Storage;
-using Windows.Storage.Streams;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-
-namespace MetroExplorer
+﻿namespace MetroExplorer.Pages.ExplorerPage
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Windows.ApplicationModel.DataTransfer;
+    using Windows.ApplicationModel.Search;
+    using Windows.Storage;
+    using Windows.Storage.Streams;
+    using Windows.UI.Xaml;
+    using Windows.UI.Xaml.Controls;
+    using Core;
+    using Core.Objects;
+
     public sealed partial class PageExplorer
     {
         private SearchPane _searchPane;

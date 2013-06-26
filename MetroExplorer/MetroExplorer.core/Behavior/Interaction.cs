@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using Windows.ApplicationModel;
-using Windows.UI.Xaml;
-
-namespace MetroExplorer.core.Behavior
+﻿namespace MetroExplorer.Core.Behavior
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Collections.Specialized;
+    using System.ComponentModel;
+    using Windows.ApplicationModel;
+    using Windows.UI.Xaml;
+
     /// <summary>
     /// Attached dependency property storing 'behaviors'
     /// </summary>

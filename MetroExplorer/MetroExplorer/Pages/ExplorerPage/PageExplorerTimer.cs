@@ -1,18 +1,18 @@
-﻿using MetroExplorer.core;
-using MetroExplorer.core.Objects;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.Storage;
-using Windows.Storage.FileProperties;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Media.Imaging;
-
-namespace MetroExplorer
+﻿namespace MetroExplorer.Pages.ExplorerPage
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Windows.Storage;
+    using Windows.Storage.FileProperties;
+    using Windows.UI.Xaml;
+    using Windows.UI.Xaml.Media.Imaging;
+    using Core;
+    using Core.Objects;
+
     public sealed partial class PageExplorer
     {
         /// <summary>
