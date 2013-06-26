@@ -189,6 +189,9 @@
     <Content Include="Assets\File.png" />
     <Content Include="Assets\Disk.png" />
     <Content Include="Assets\Folder.png" />
+    <Content Include="Assets\Logo.scale-100.png" />
+    <Content Include="Assets\Logo.scale-140.png" />
+    <Content Include="Assets\Logo.scale-180.png" />
     <Content Include="Assets\Logo1.scale-100.png" />
     <Content Include="Assets\Logo1.scale-140.png" />
     <Content Include="Assets\Logo1.scale-180.png" />
@@ -202,8 +205,10 @@
     <Content Include="Assets\Logos\Logo620300.png" />
     <Content Include="Assets\Music.png" />
     <Content Include="Assets\Photo.png" />
+    <Content Include="Assets\SmallLogo.scale-100.png" />
     <Content Include="Assets\SplashScreen.png" />
     <Content Include="Assets\UnitTestSmallLogo.png" />
+    <Content Include="Assets\UnitTestSmallLogo.scale-100.png" />
     <Content Include="Assets\UnitTestStoreLogo.png" />
     <Content Include="Assets\Video.png" />
     <Content Include="Assets\WideLogo100.png" />
