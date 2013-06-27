@@ -211,7 +211,9 @@
     <Content Include="Assets\UnitTestSmallLogo.scale-100.png" />
     <Content Include="Assets\UnitTestStoreLogo.png" />
     <Content Include="Assets\Video.png" />
+    <Content Include="Assets\WideLogo.scale-100.png" />
     <Content Include="Assets\WideLogo100.png" />
+    <Content Include="Assets\WideLogo100.scale-100.png" />
     <Content Include="Assets\WideLogo80.png" />
     <Content Include="Common\ReadMe.txt" />
     <None Include="Package.StoreAssociation.xml" />
