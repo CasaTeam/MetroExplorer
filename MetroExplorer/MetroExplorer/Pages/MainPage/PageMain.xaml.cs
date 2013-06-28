@@ -50,8 +50,8 @@
             _dicItemToken = new Dictionary<HomeItem, string>();
             _explorerGroups = new ObservableCollection<GroupInfoList<HomeItem>> 
             { 
-                new GroupInfoList<HomeItem>() { Key = StringResources.ResourceLoader.GetString("MainPage_UserFolderGroupTitle") },
-                new GroupInfoList<HomeItem>() { Key = StringResources.ResourceLoader.GetString("MainPage_SystemFolderGroupTitle") }
+                new GroupInfoList<HomeItem>{ Key = StringResources.ResourceLoader.GetString("MainPage_UserFolderGroupTitle") },
+                new GroupInfoList<HomeItem>{ Key = StringResources.ResourceLoader.GetString("MainPage_SystemFolderGroupTitle") }
             };
             Loaded += PageMainLoaded;
         }
@@ -89,9 +89,8 @@
             groupedItemsViewSource.Source = ExplorerGroups;
             BottomAppBar.IsOpen = true;
 
-            _folderImageChangeDispatcher = new DispatcherTimer();
-            _folderImageChangeDispatcher.Tick += FolderImageChangeDispatcherTick;
             _folderImageChangeDispatcher.Interval = new TimeSpan(0, 0, 0, 1, 500);
+            _folderImageChangeDispatcher.Tick += FolderImageChangeDispatcherTick;
             _folderImageChangeDispatcher.Start();
             LoadingProgressBar.Visibility = Visibility.Collapsed;
         }
@@ -112,10 +111,10 @@
 
         private async Task InitializeUsersFolders()
         {
-            if (Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList != null && Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.Entries.Count > 0)
+            if (StorageApplicationPermissions.FutureAccessList != null && StorageApplicationPermissions.FutureAccessList.Entries.Count > 0)
             {
                 var lostTokens = new List<string>(); // TODO: 避免有些已经不用的token仍然存在MostRecentlyUsedList中
-                foreach (var item in Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.Entries)
+                foreach (var item in StorageApplicationPermissions.FutureAccessList.Entries)
                 {
                     try
                     {
@@ -134,7 +133,7 @@
                     }
                 }
                 foreach (var token in lostTokens)
-                    Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.Remove(token);
+                    StorageApplicationPermissions.FutureAccessList.Remove(token);
             }
         }
 
@@ -317,7 +316,7 @@
                         break;
                     continue;
                 }
-                Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.Remove(_dicItemToken[(GridViewItem.SelectedItems[0] as HomeItem)]);
+                StorageApplicationPermissions.FutureAccessList.Remove(_dicItemToken[(GridViewItem.SelectedItems[0] as HomeItem)]);
                 if (ExplorerGroups[0].Contains(GridViewItem.SelectedItems[0] as HomeItem))
                 {
                     _dicItemToken.Remove(GridViewItem.SelectedItems[0] as HomeItem);
@@ -371,7 +370,7 @@
             {
                 item.Path = storageFolder.Path;
                 item.StorageFolder = storageFolder;
-                Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.Add(item.StorageFolder, item.Name);
+                StorageApplicationPermissions.FutureAccessList.Add(item.StorageFolder, item.Name);
                 NavigateToExplorer(item);
             }
             else if (storageFolder != null)
@@ -413,9 +412,9 @@
             var lostTokens = new List<string>(); // TODO: 避免有些已经不用的token仍然存在MostRecentlyUsedList中
             var availableStorages = new Dictionary<StorageFolder, AccessListEntry>();
             // 获取当前所有的可用快捷方式文件夹的信息
-            if (Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList != null && Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.Entries.Count > 0)
+            if (StorageApplicationPermissions.FutureAccessList != null && StorageApplicationPermissions.FutureAccessList.Entries.Count > 0)
             {
-                foreach (var item in Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.Entries)
+                foreach (var item in StorageApplicationPermissions.FutureAccessList.Entries)
                 {
                     try
                     {
@@ -430,7 +429,7 @@
                     }
                 }
                 foreach (var token in lostTokens)
-                    Windows.Storage.AccessCache.StorageApplicationPermissions.FutureAccessList.Remove(token);
+                    StorageApplicationPermissions.FutureAccessList.Remove(token);
             }
             else return;
             // 检查主页已失效的文件夹，并将其从列表中删除
