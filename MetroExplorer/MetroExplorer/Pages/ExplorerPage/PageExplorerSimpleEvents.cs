@@ -5,6 +5,7 @@
     using System.ComponentModel;
     using System.Linq;
     using System.Threading.Tasks;
+    using Windows.ApplicationModel.Resources;
     using Windows.Storage;
     using Windows.Storage.FileProperties;
     using Windows.Storage.Pickers;
@@ -18,18 +19,8 @@
     using Core.Objects;
     using Core.Utils;
     using UserPreferenceRecord;
-<<<<<<< HEAD
     using MainPage;
 
-=======
-
-    using Windows.UI.Popups;
-    using Windows.ApplicationModel.Resources;
-    using MetroExplorer.Pages.MainPage;
-    /// <summary>
-    /// 
-    /// </summary>
->>>>>>> master
     public sealed partial class PageExplorer
     {
         private void Button_PlayFolder_Click(object sender, RoutedEventArgs e)
