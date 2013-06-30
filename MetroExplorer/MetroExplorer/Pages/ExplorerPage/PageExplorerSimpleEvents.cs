@@ -20,7 +20,6 @@
     using Core.Utils;
     using UserPreferenceRecord;
     using MainPage;
-
     public sealed partial class PageExplorer
     {
         private void Button_PlayFolder_Click(object sender, RoutedEventArgs e)

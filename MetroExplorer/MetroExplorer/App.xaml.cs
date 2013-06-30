@@ -63,17 +63,17 @@
             if (rootFrame.Content == null)
             {
                 SettingsPane.GetForCurrentView().CommandsRequested += OnCommandsRequested; // 初始化右侧菜单命令
-                if (await FirstUsingRecord.GetInstance().IsFirstUsing())   // 如果第一次打开应用，跳转到用户向导页面，如不是，直接进入主页
-                {
-                    FirstUsingRecord.GetInstance().WriteRecordGuidePageFile();
+                //if (await FirstUsingRecord.GetInstance().IsFirstUsing())   // 如果第一次打开应用，跳转到用户向导页面，如不是，直接进入主页
+                //{
+                    //FirstUsingRecord.GetInstance().WriteRecordGuidePageFile();
                     // When the navigation stack isn't restored navigate to the first page,
                     // configuring the new page by passing required information as a navigation
                     // parameter
-                    if (!rootFrame.Navigate(typeof(PageUserGuide), args.Arguments))
+                    if (!rootFrame.Navigate(typeof(PageMain), args.Arguments))
                         throw new Exception("Failed to create initial page");
-                }
-                else if (!rootFrame.Navigate(typeof(PageMain), args.Arguments))
-                    throw new Exception("Failed to create initial page");
+                //}
+                //else if (!rootFrame.Navigate(typeof(PageMain), args.Arguments))
+                //    throw new Exception("Failed to create initial page");
             }
 
             InitSearchPanel();
@@ -251,8 +251,8 @@
             SettingsCommand policyCommand = new SettingsCommand("PrivacyPolicy", (new ResourceLoader()).GetString("SettingCommand_Policy"), handler);
             eventArgs.Request.ApplicationCommands.Add(policyCommand);
 
-            SettingsCommand userGuideCommand = new SettingsCommand("UserGuide", (new ResourceLoader()).GetString("SettingCommand_UserGuide"), handler);
-            eventArgs.Request.ApplicationCommands.Add(userGuideCommand);
+            //SettingsCommand userGuideCommand = new SettingsCommand("UserGuide", (new ResourceLoader()).GetString("SettingCommand_UserGuide"), handler);
+            //eventArgs.Request.ApplicationCommands.Add(userGuideCommand);
         }
 
         void OnSettingsCommand(IUICommand command)

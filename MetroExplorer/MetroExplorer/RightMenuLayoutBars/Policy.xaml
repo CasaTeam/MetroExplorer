@@ -144,13 +144,13 @@
                                    Foreground="Black" TextWrapping="Wrap"
                                    Margin="0,20,0,5"/>
 
-                        <TextBlock Text="App collect its exceptions and errors data during the execution, these data will be sent automatically to the remote server once App is closed. This operation takes maximum 2KB network flow." 
+                        <TextBlock Text="App collects run time exceptions and errors, which will be sent automatically to the remote server once App is closed. This operation takes maximum 2KB network flow." 
                                    Margin="0,0,0,5" FontWeight="Light" FontSize="15"
                                    Foreground="Black" TextWrapping="Wrap"/>
                         <TextBlock Text="Advertising in this app will also cost a little bit of your network flow." 
                                    Margin="0,0,0,5" FontWeight="Light" FontSize="15"
                                    Foreground="Black" TextWrapping="Wrap"/>
-                        <TextBlock Text="No Other User Personal data will be Collected by this application. Please note that Microsoft may collect additional usage data automatically as part of their platform components." 
+                        <TextBlock Text="No User Personal data will be collected by this application. Please note that Microsoft may collect additional usage data automatically as part of their platform components." 
                                    Margin="0,0,0,5" FontWeight="Light" FontSize="15"
                                    Foreground="Black" TextWrapping="Wrap"/>
 
