@@ -45,7 +45,7 @@ namespace MetroExplorer.RightMenuLayoutBars
 
         private async void MoreInformation_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            var mailto = new Uri("http://www.comiscience.info/privacy/pushthemonmapsprivacypolicy.txt");
+            var mailto = new Uri("http://www.comiscience.info/privacy/linkfileprivacypolicy.txt");
             await Windows.System.Launcher.LaunchUriAsync(mailto);
         }
     }
