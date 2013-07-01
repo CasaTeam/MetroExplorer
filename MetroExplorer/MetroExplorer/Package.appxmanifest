@@ -17,7 +17,7 @@
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="MetroExplorer.App">
       <VisualElements DisplayName="Link File" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="Link File" ForegroundText="light" BackgroundColor="#1e90cd">
         <DefaultTile ShowName="allLogos" ShortName="Link File" WideLogo="Assets\WideLogo.png" />
-        <SplashScreen Image="Assets\Logos\Logo620300.png" BackgroundColor="#1e90cd" />
+        <SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#1e90cd" />
       </VisualElements>
       <Extensions>
         <Extension Category="windows.fileTypeAssociation">
