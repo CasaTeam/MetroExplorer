@@ -26,17 +26,19 @@
         <AppBar x:Name="AppBar_BottomAppBar"
 				Background="{Binding Path=BottomBarBackground}" BorderBrush="{Binding Path=BottomBarBackground}">
             <Grid Height="90" x:Name="Grid_BottomAppBar" HorizontalAlignment="Stretch">
-                <Grid>
-                    <Button Click="OpenPhotoButton_Click" FontWeight="ExtraLight"
-				x:Uid="Uid_PagePhotoGallery_OpenPhotoButton" x:Name="OpenPhotoButton"
-				Margin="0,0,130,0" HorizontalAlignment="Right" >
+                <Grid HorizontalAlignment="Left">
+                    <Button FontWeight="ExtraLight"
+				x:Uid="Uid_PagePhotoGallery_SliderSettingButton" x:Name="SliderSettingButton"
+				Margin="0,0,10,0" HorizontalAlignment="Right" >
                         <Button.Style>
                             <Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
                                 <Setter Property="AutomationProperties.Name" Value=""/>
-                                <Setter Property="Content" Value="&#xE11D;"/>
+                                <Setter Property="Content" Value="&#xE115;"/>
                             </Style>
                         </Button.Style>
                     </Button>
+                </Grid>
+                <Grid>
                     <Button Click="SliderModeButton_Click" FontWeight="ExtraLight"
 				x:Uid="Uid_PagePhotoGallery_SliderModeButton" x:Name="SliderModeButton"
 				Margin="0,0,10,0" HorizontalAlignment="Right" >
@@ -65,13 +67,8 @@
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
 
         <ProgressBar IsIndeterminate="True" Height="8" Margin="0,0,0,0" VerticalAlignment="Top" x:Name="LoadingProgressBar"/>
-        <!-- ItemContainerStyle="{StaticResource FlipViewContainerItemTemplate}"
- Style="{StaticResource FlipViewStyle}" 
-                <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" VerticalAlignment="Center" Style="{StaticResource BackButtonStyle}" Margin="10,19,0,8" ManipulationMode="RotateInertia"/>
-
-        -->
         <FlipView x:Name="ImageFlipVIew" SelectionChanged="flipView_SelectionChanged" Grid.Row="1" ItemTemplate="{StaticResource FlipViewItemTemplate}" />
-        <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" VerticalAlignment="Top" Style="{StaticResource BackButtonStyle}" Margin="10,19,0,8" ManipulationMode="RotateInertia" VerticalContentAlignment="Top" HorizontalAlignment="Left" HorizontalContentAlignment="Left"/>
+        <Button x:Name="backButton" Click="GoBack2" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" VerticalAlignment="Top" Style="{StaticResource BackButtonStyle}" Margin="10,19,0,8" ManipulationMode="RotateInertia" VerticalContentAlignment="Top" HorizontalAlignment="Left" HorizontalContentAlignment="Left"/>
 
     </Grid>
 </common:LayoutAwarePage>

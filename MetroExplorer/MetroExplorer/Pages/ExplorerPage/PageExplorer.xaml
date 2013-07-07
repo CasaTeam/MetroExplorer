@@ -701,7 +701,7 @@
 					</Button>
 				</StackPanel>
 				<StackPanel Orientation="Horizontal" Height="105" HorizontalAlignment="Right" VerticalAlignment="Stretch">
-					<!--<Button Click="Button_PlayFolder_Click" 
+					<Button Click="Button_PlayFolder_Click" 
 							x:Uid="Uid_Page_Explorer_Button_PlayFolder"
 							HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="5,0">
 						<Button.Style>
@@ -710,7 +710,7 @@
 								<Setter Property="Content" Value="&#xE102;"/>
 							</Style>
 						</Button.Style>
-					</Button>-->
+					</Button>
 					<Button Click="Button_AddNewFolder_Click" 
 							x:Uid="Uid_Page_Explorer_Button_AddNewFolder"
 							HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="5,0">

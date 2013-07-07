@@ -17,6 +17,7 @@
     using Core.Utils;
     using Common;
     using UserPreferenceRecord;
+    using MetroExplorer.Pages.ExplorerPage;
 
     /// <summary>
     /// Page affichant une collection groupée d'éléments.
@@ -24,21 +25,22 @@
 
     public sealed partial class PhotoGallery : LayoutAwarePage, INotifyPropertyChanged
     {
-        ObservableCollection<ExplorerItem> _photos = new ObservableCollection<ExplorerItem>();
-        public ObservableCollection<ExplorerItem> Photos
+        public static double ActualScreenHeight = 0;
+        List<ExplorerItem> _expoloreItems = new List<ExplorerItem>();
+
+        ObservableCollection<ExplorerItem> _galleryItems = new ObservableCollection<ExplorerItem>();
+        public ObservableCollection<ExplorerItem> GalleryItems
         {
             get
             {
-                return _photos;
+                return _galleryItems;
             }
             set
             {
-                _photos = value;
-                NotifyPropertyChanged("Photos");
+                _galleryItems = value;
+                NotifyPropertyChanged("GalleryItems");
             }
         }
-
-        private List<ExplorerItem> _potentialPhotos;
 
         private readonly MetroExplorerLocalDataSource _dataSource;
 
@@ -57,21 +59,9 @@
         {
         }
 
-        async void PhotoGallery_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        void PhotoGallery_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            ImageFlipVIew.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-
-            await PhotoThumbnail(_potentialPhotos[0]);
-            Photos.Add(_potentialPhotos[0]);
-
-            if (_potentialPhotos.Count > 1)
-            {
-                await PhotoThumbnail(_potentialPhotos[1]);
-                Photos.Add(_potentialPhotos[1]);
-            }
-
-            ImageFlipVIew.Visibility = Windows.UI.Xaml.Visibility.Visible;
-            LoadingProgressBar.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            LoadingProgressBar.Visibility = Windows.UI.Xaml.Visibility.Visible;
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -81,33 +71,52 @@
             GC.Collect();
         }
 
-        private async void flipView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void flipView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            FlipView flipview = (FlipView)sender;
-            ExplorerItem selected = (ExplorerItem)flipview.SelectedItem;
-            if (Photos.Count < _potentialPhotos.Count)
+            //FlipView flipview = (FlipView)sender;
+            //ExplorerItem selected = (ExplorerItem)flipview.SelectedItem;
+            //if (Photos.Count < _potentialPhotos.Count)
+            //{
+            //    if (Photos.Contains(_potentialPhotos[Photos.Count])) return;
+            //    await PhotoThumbnail(_potentialPhotos[Photos.Count]);
+            //    Photos.Add(_potentialPhotos[Photos.Count]);
+            //}
+        }
+
+        protected async override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
+        {
+            EventLogger.onActionEvent(EventLogger.FOLDER_OPENED);
+            LoadingProgressBar.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            _expoloreItems = navigationParameter as List<ExplorerItem>;
+            ImageFlipVIew.ItemsSource = GalleryItems;
+            foreach (ExplorerItem item in _expoloreItems)
             {
-                if (Photos.Contains(_potentialPhotos[Photos.Count])) return;
-                await PhotoThumbnail(_potentialPhotos[Photos.Count]);
-                Photos.Add(_potentialPhotos[Photos.Count]);
+                if (await PhotoThumbnail(item))
+                    GalleryItems.Add(item);
+            }
+            LoadingProgressBar.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+        }
+
+        private async System.Threading.Tasks.Task<bool> PhotoThumbnail(ExplorerItem photo)
+        {
+            if (photo.StorageFile == null || !photo.StorageFile.IsImageFile()) return false;
+            try
+            {
+                StorageItemThumbnail fileThumbnail = await photo.StorageFile.GetThumbnailAsync(ThumbnailMode.SingleItem, (uint)ActualScreenHeight, ThumbnailOptions.UseCurrentScale);
+                BitmapImage bitmapImage = new BitmapImage();
+                bitmapImage.SetSource(fileThumbnail);
+                photo.Image = bitmapImage;
+                return true;
+            }
+            catch
+            {
+                return false;
             }
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        private void GoBack2(object sender, RoutedEventArgs e)
         {
-            ImageFlipVIew.ItemsSource = Photos;
-
-            _potentialPhotos = e.Parameter as List<ExplorerItem>;
-
-            EventLogger.onActionEvent(EventLogger.PHOTO_VIEWED);
-        }
-
-        private async System.Threading.Tasks.Task PhotoThumbnail(ExplorerItem photo)
-        {
-            StorageItemThumbnail fileThumbnail = await photo.StorageFile.GetThumbnailAsync(ThumbnailMode.SingleItem, (uint)this.ActualHeight, ThumbnailOptions.UseCurrentScale);
-            BitmapImage bitmapImage = new BitmapImage();
-            bitmapImage.SetSource(fileThumbnail);
-            photo.Image = bitmapImage;
+            Frame.Navigate(typeof(PageExplorer));            
         }
 
         private void SliderModeButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
@@ -116,23 +125,16 @@
             UnSliderModeButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
 
             _sliderDispatcher.Tick += SliderDispatcher_Tick;
-            _sliderDispatcher.Interval = new TimeSpan(0, 0, 0, 3);
+            _sliderDispatcher.Interval = new TimeSpan(0, 0, 0, 1,500);
             _sliderDispatcher.Start();
         }
 
-        async void SliderDispatcher_Tick(object sender, object e)
+        void SliderDispatcher_Tick(object sender, object e)
         {
-            if (Photos.Count == _potentialPhotos.Count && ImageFlipVIew.SelectedIndex == Photos.Count - 1)
-            {
+            if (ImageFlipVIew.Items.Count - 1 == ImageFlipVIew.SelectedIndex)
                 ImageFlipVIew.SelectedIndex = 0;
-                return;
-            }
-            else if (Photos.Count < _potentialPhotos.Count)
-            {
-                await PhotoThumbnail(_potentialPhotos[Photos.Count]);
-                Photos.Add(_potentialPhotos[Photos.Count]);
-            }
-            ImageFlipVIew.SelectedIndex++;
+            else
+                ImageFlipVIew.SelectedIndex++;
         }
 
         private void UnSliderModeButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
@@ -143,19 +145,19 @@
             _sliderDispatcher = null;
         }
 
-        private async void OpenPhotoButton_Click(object sender, RoutedEventArgs e)
-        {
-            if ((ImageFlipVIew.SelectedItem as ExplorerItem).StorageFile == null) return;
-            try
-            {
-                await (ImageFlipVIew.SelectedItem as ExplorerItem).StorageFile.OpenAsync(FileAccessMode.Read);
-                await Launcher.LaunchFileAsync((ImageFlipVIew.SelectedItem as ExplorerItem).StorageFile, new LauncherOptions { DisplayApplicationPicker = true });
-            }
-            catch (Exception exp)
-            {
-                //EventLogger.onActionEvent(EventLogger.);
-            }
-        }
+        //private async void OpenPhotoButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if ((ImageFlipVIew.SelectedItem as ExplorerItem).StorageFile == null) return;
+        //    try
+        //    {
+        //        await (ImageFlipVIew.SelectedItem as ExplorerItem).StorageFile.OpenAsync(FileAccessMode.Read);
+        //        await Launcher.LaunchFileAsync((ImageFlipVIew.SelectedItem as ExplorerItem).StorageFile, new LauncherOptions { DisplayApplicationPicker = true });
+        //    }
+        //    catch (Exception exp)
+        //    {
+        //        //EventLogger.onActionEvent(EventLogger.);
+        //    }
+        //}
     }
 
     /// <summary>
