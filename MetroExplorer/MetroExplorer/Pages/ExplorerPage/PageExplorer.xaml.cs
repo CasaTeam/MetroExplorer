@@ -184,7 +184,6 @@
 
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
-
     }
 
     /// <summary>

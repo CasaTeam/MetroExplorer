@@ -25,11 +25,11 @@
     <common:LayoutAwarePage.BottomAppBar>
         <AppBar x:Name="AppBar_BottomAppBar"
 				Background="{Binding Path=BottomBarBackground}" BorderBrush="{Binding Path=BottomBarBackground}">
-            <Grid Height="90" x:Name="Grid_BottomAppBar" HorizontalAlignment="Stretch">
+            <Grid Height="100" x:Name="Grid_BottomAppBar" HorizontalAlignment="Stretch">
                 <Grid HorizontalAlignment="Left">
-                    <Button FontWeight="ExtraLight"
+                    <Button FontWeight="ExtraLight" Click="SliderSettingButton_Click"
 				x:Uid="Uid_PagePhotoGallery_SliderSettingButton" x:Name="SliderSettingButton"
-				Margin="0,0,10,0" HorizontalAlignment="Right" >
+				Margin="10,0,10,0" HorizontalAlignment="Right" >
                         <Button.Style>
                             <Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
                                 <Setter Property="AutomationProperties.Name" Value=""/>
@@ -70,5 +70,17 @@
         <FlipView x:Name="ImageFlipVIew" SelectionChanged="flipView_SelectionChanged" Grid.Row="1" ItemTemplate="{StaticResource FlipViewItemTemplate}" />
         <Button x:Name="backButton" Click="GoBack2" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" VerticalAlignment="Top" Style="{StaticResource BackButtonStyle}" Margin="10,19,0,8" ManipulationMode="RotateInertia" VerticalContentAlignment="Top" HorizontalAlignment="Left" HorizontalContentAlignment="Left"/>
 
+        <Popup HorizontalAlignment="Left" VerticalAlignment="Bottom" IsLightDismissEnabled="True"
+				   Visibility="Collapsed" x:Name="Popup_SetInterval">
+            <Border BorderBrush="{Binding Path=TitleForeground}" BorderThickness="2">
+                <Grid Width="230" Height="123" Background="White">
+                    <TextBox x:Name="TextBox_SetInterval" BorderBrush="{Binding Path=TitleForeground}" FontSize="18" 
+									 x:Uid="Uid_TextBox_CreateNewFolder" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="20,25,20,10" />
+                    <Button x:Uid="Uid_Button_SetInterval" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5,70,15,0" Click="Button_SetInterval_Click"
+									Foreground="#DDFFFFFF" FontSize="16" 
+									Style="{StaticResource ButtonBlueStyle}" />
+                </Grid>
+            </Border>
+        </Popup>
     </Grid>
 </common:LayoutAwarePage>

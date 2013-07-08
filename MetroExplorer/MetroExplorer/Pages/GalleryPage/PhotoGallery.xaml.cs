@@ -50,7 +50,6 @@
         {
             InitializeComponent();
             DataContext = this;
-            _dataSource = Singleton<MetroExplorerLocalDataSource>.Instance;
             this.Loaded += PhotoGallery_Loaded;
             this.Unloaded += PhotoGallery_Unloaded;
         }
@@ -143,6 +142,18 @@
             SliderModeButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
             _sliderDispatcher.Stop();
             _sliderDispatcher = null;
+        }
+
+        private void Button_SetInterval_Click(object sender, object e)
+        {
+
+        }
+
+        private void SliderSettingButton_Click(object sender, RoutedEventArgs e)
+        {
+            Popup_SetInterval.IsOpen = true;
+            Popup_SetInterval.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            Popup_SetInterval.Margin = new Thickness(0, 0, 0, 232);
         }
 
         //private async void OpenPhotoButton_Click(object sender, RoutedEventArgs e)
