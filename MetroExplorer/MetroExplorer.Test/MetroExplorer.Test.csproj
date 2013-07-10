@@ -109,7 +109,8 @@
     <SDKReference Include="TestPlatform, Version=11.0" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="DataSourceMapTest.cs" />
+    <Compile Include="LevenshteinTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -136,6 +137,10 @@
     <ProjectReference Include="..\MetroExplorer.core\MetroExplorer.Core.csproj">
       <Project>{efff2bc1-84e8-4343-9e49-07cc4d0c8f7b}</Project>
       <Name>MetroExplorer.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MetroExplorer.DataSource\MetroExplorer.DataSource.csproj">
+      <Project>{4d3eecf8-7c0a-4f21-bdbc-4e36d6c7d304}</Project>
+      <Name>MetroExplorer.DataSource</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">

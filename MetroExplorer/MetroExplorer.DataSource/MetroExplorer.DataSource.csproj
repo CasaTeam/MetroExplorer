@@ -6,11 +6,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{E075FA51-C48A-4143-BBB7-E60D13015797}</ProjectGuid>
-    <OutputType>winmdobj</OutputType>
+    <ProjectGuid>{4D3EECF8-7C0A-4F21-BDBC-4E36D6C7D304}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MetroExplorer.Components.CopyCutPanel</RootNamespace>
-    <AssemblyName>MetroExplorer.Components.CopyCutPanel</AssemblyName>
+    <RootNamespace>MetroExplorer.DataSource</RootNamespace>
+    <AssemblyName>MetroExplorer.DataSource</AssemblyName>
     <DefaultLanguage>fr-FR</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -99,20 +99,20 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <Page Include="CopyCutPanel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="CopyCutPanel.xaml.cs">
-      <DependentUpon>CopyCutPanel.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="DataAccess.cs" />
+    <Compile Include="DataControllers\MapController.cs" />
+    <Compile Include="DataModels\MapModel.cs" />
+    <Compile Include="DataServices\IMapService.cs" />
+    <Compile Include="DataServices\MapServiceDesign.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Themes\" />
+    <Reference Include="Microsoft.Practices.Unity.NetCore">
+      <HintPath>..\packages\Unity.3.0.1304.0\lib\NetCore45\Microsoft.Practices.Unity.NetCore.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

@@ -119,12 +119,10 @@
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Practices.Unity.NetCore">
-      <HintPath>..\packages\Unity.3.0.1304.0\lib\NetCore45\Microsoft.Practices.Unity.NetCore.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\MetroExplorer.DataSource\MetroExplorer.DataSource.csproj">
+      <Project>{4d3eecf8-7c0a-4f21-bdbc-4e36d6c7d304}</Project>
+      <Name>MetroExplorer.DataSource</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

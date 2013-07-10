@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:MetroExplorer.Components.Maps" xmlns:Maps="using:Bing.Maps">
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="using:MetroExplorer.Components.Maps" xmlns:Maps="using:Bing.Maps">
 
 	<Style TargetType="local:MapList">
 		<Setter Property="Template">
@@ -10,7 +10,9 @@
 					<Border
 						Background="{TemplateBinding Background}"
 						BorderBrush="{TemplateBinding BorderBrush}"
-						BorderThickness="{TemplateBinding BorderThickness}"/>
+						BorderThickness="{TemplateBinding BorderThickness}">
+						<GridView x:Name="GridViewMapList"/>
+					</Border>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>

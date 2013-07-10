@@ -8,10 +8,10 @@
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 
     [TestClass]
-    public class UnitTest1
+    public class LevenshteinTest
     {
         [TestMethod]
-        public void TestMethod1()
+        public void LevenshteinDistance()
         {
             float distance = Levenshtein.Distance("birthday Cake.bmp", "cake bmp");
             distance = Levenshtein.Distance("vomax", "volmax");
