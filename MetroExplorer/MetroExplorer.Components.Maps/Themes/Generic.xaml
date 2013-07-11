@@ -2,6 +2,25 @@
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:local="using:MetroExplorer.Components.Maps" xmlns:Maps="using:Bing.Maps">
+	<Style x:Key="MapGridViewItemStyle" TargetType="GridViewItem">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="GridViewItem">
+					<Grid Height="155" Width="112" Background="Black">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="116*"/>
+							<RowDefinition Height="39*"/>
+						</Grid.RowDefinitions>
+						<Image Margin="5" Source="{Binding ThumbnailSource}"/>
+						<TextBlock TextWrapping="Wrap" Text="{Binding Name}" Grid.Row="1" Margin="5"/>
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<ItemsPanelTemplate x:Key="MapItemsPanelTemplate">
+		<WrapGrid Orientation="Horizontal" />
+	</ItemsPanelTemplate>
 
 	<Style TargetType="local:MapList">
 		<Setter Property="Template">
@@ -11,7 +30,7 @@
 						Background="{TemplateBinding Background}"
 						BorderBrush="{TemplateBinding BorderBrush}"
 						BorderThickness="{TemplateBinding BorderThickness}">
-						<GridView x:Name="GridViewMapList"/>
+						<GridView x:Name="GridViewMapList" ItemContainerStyle="{StaticResource MapGridViewItemStyle}" ItemsPanel="{StaticResource MapItemsPanelTemplate}"/>
 					</Border>
 				</ControlTemplate>
 			</Setter.Value>

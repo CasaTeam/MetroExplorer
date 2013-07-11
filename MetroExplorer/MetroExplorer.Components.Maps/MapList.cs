@@ -13,13 +13,22 @@
     using DataSource.Maps.DataControllers;
     using DataSource.Maps.DataModels;
 
+    [TemplatePart(Name=GridViewMapListElement, Type=typeof(GridView))]
     public sealed class MapList : Control
     {
+        #region Contents
+
+        internal const string GridViewMapListElement = "GridViewMapList";
+
+        #endregion
+
         #region Fields
 
         private MapController _mapController;
 
         private IEnumerable<MapModel> _dataSource;
+
+        private GridView _gridViewMapList;
 
         #endregion
 
@@ -30,6 +39,19 @@
             this.DefaultStyleKey = typeof(MapList);
             _mapController = DataAccess.GetMapController();
             _dataSource = _mapController.GetSources("MapServiceDesign");
+        }
+
+        #endregion
+
+        #region Override Methods
+
+        protected override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+
+            _gridViewMapList = (GridView)GetTemplateChild(GridViewMapListElement);
+            if (_gridViewMapList != null)
+                _gridViewMapList.ItemsSource = _dataSource;
         }
 
         #endregion
