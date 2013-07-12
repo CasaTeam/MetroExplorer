@@ -6,16 +6,38 @@
     using System.Text;
     using System.Threading.Tasks;
     using DataModels;
+    using Windows.UI.Xaml.Media.Imaging;
+    using Windows.Storage;
+    using Windows.Storage.FileProperties;
 
     public class MapServiceDesign : IMapService
     {
         public IEnumerable<MapModel> GenerateMapModels()
         {
+            string thumbnailPath = @"ms-appx:///MetroExplorer.Components.Maps/DesignAssets/MapBackground.bmp";
+
             return new List<MapModel>{
-                new MapModel(Guid.NewGuid(),"Map1",@"C:\Users\Sawyer\Pictures\(1).bmp"),
-                new MapModel(Guid.NewGuid(),"Map2",@"C:\Users\Sawyer\Pictures\(8).jpg"),
-                new MapModel(Guid.NewGuid(),"Map3",@"C:\Users\Sawyer\Pictures\(9).jpg")
+                new MapModel(Guid.NewGuid(),"Map1",thumbnailPath, GenerateThumbnail(thumbnailPath))
+                ,new MapModel(Guid.NewGuid(),"Map2",thumbnailPath, GenerateThumbnail(thumbnailPath))
+                ,new MapModel(Guid.NewGuid(),"Map3",thumbnailPath, GenerateThumbnail(thumbnailPath))
             };
+        }
+
+        private BitmapImage GenerateThumbnail(string uri)
+        {
+            try
+            {
+                //BitmapImage bitmapImage = new BitmapImage(new Uri("ms-appx:/" + url));
+                //StorageFile storageFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri(uri));
+                //StorageItemThumbnail fileThumbnail = await storageFile.GetThumbnailAsync(ThumbnailMode.SingleItem, 800);
+                BitmapImage bitmapImage = new BitmapImage(new Uri(uri));
+                //bitmapImage.SetSource(fileThumbnail);
+                return bitmapImage;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

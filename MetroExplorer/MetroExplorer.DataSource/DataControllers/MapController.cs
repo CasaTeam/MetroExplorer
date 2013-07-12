@@ -8,17 +8,19 @@
     using Microsoft.Practices.Unity;
     using DataModels;
     using DataServices;
+    using DataSource.DataControllers;
+    using DataSource.DataConfigurations;
 
-    public class MapController
+    public class MapController : IController<MapModel>
     {
         [Dependency("MapServiceDesign")]
         public IMapService MapServiceDesign { get; set; }
 
-        public IEnumerable<MapModel> GetSources(string serviceName)
+        public IEnumerable<MapModel> GetSources(DataSourceType serviceName)
         {
             switch (serviceName)
             {
-                case "MapServiceDesign":
+                case DataSourceType.Design:
                     return MapServiceDesign.GenerateMapModels();
                 default:
                     return null;

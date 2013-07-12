@@ -11,8 +11,8 @@
 							<RowDefinition Height="116*"/>
 							<RowDefinition Height="39*"/>
 						</Grid.RowDefinitions>
-						<Image Margin="5" Source="{Binding ThumbnailSource}"/>
 						<TextBlock TextWrapping="Wrap" Text="{Binding Name}" Grid.Row="1" Margin="5"/>
+						<Image Margin="5" Source="{Binding Thumbnail}"/>
 					</Grid>
 				</ControlTemplate>
 			</Setter.Value>

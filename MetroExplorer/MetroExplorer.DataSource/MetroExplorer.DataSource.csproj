@@ -100,6 +100,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="DataAccess.cs" />
+    <Compile Include="DataConfigurations\Enums.cs" />
+    <Compile Include="DataControllers\IController.cs" />
     <Compile Include="DataControllers\MapController.cs" />
     <Compile Include="DataModels\MapModel.cs" />
     <Compile Include="DataServices\IMapService.cs" />
@@ -114,6 +116,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
   </PropertyGroup>
