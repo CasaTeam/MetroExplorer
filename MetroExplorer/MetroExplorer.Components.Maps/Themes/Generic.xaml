@@ -2,38 +2,52 @@
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:local="using:MetroExplorer.Components.Maps" xmlns:Maps="using:Bing.Maps">
-	<Style x:Key="MapGridViewItemStyle" TargetType="GridViewItem">
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="GridViewItem">
-					<Grid Height="155" Width="112" Background="Black">
-						<Grid.RowDefinitions>
-							<RowDefinition Height="116*"/>
-							<RowDefinition Height="39*"/>
-						</Grid.RowDefinitions>
-						<TextBlock TextWrapping="Wrap" Text="{Binding Name}" Grid.Row="1" Margin="5"/>
-						<Image Margin="5" Source="{Binding Thumbnail}"/>
-					</Grid>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
-	<ItemsPanelTemplate x:Key="MapItemsPanelTemplate">
-		<WrapGrid Orientation="Horizontal" />
-	</ItemsPanelTemplate>
 
 	<Style TargetType="local:MapList">
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="local:MapList">
-					<Border
-						Background="{TemplateBinding Background}"
-						BorderBrush="{TemplateBinding BorderBrush}"
-						BorderThickness="{TemplateBinding BorderThickness}">
-						<GridView x:Name="GridViewMapList" ItemContainerStyle="{StaticResource MapGridViewItemStyle}" ItemsPanel="{StaticResource MapItemsPanelTemplate}"/>
-					</Border>
+					<Grid
+						Background="{TemplateBinding Background}">
+						<GridView x:Name="GridViewMapList" ItemsPanel="{StaticResource MapItemsPanelTemplate}" ItemTemplate="{StaticResource MapDataTemplate}"/>
+					</Grid>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
 	</Style>
+
+    <Style TargetType="local:MapPanel">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:MapPanel">
+                    <Grid
+                		Background="{TemplateBinding Background}">
+                    	<Border Padding="20,10">
+                    		<Border.Background>
+                    			<SolidColorBrush Color="Black" Opacity="0.5"/>
+                    		</Border.Background>
+                    		<Grid Background="#FF9B3434">
+                    			<local:MapList/>
+                    		</Grid>
+                    	</Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Background" Value="White"/>
+    </Style>
+
+    <Style TargetType="local:MapView">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:MapView">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

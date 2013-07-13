@@ -20,6 +20,15 @@
                 new MapModel(Guid.NewGuid(),"Map1",thumbnailPath, GenerateThumbnail(thumbnailPath))
                 ,new MapModel(Guid.NewGuid(),"Map2",thumbnailPath, GenerateThumbnail(thumbnailPath))
                 ,new MapModel(Guid.NewGuid(),"Map3",thumbnailPath, GenerateThumbnail(thumbnailPath))
+                ,new MapModel(Guid.NewGuid(),"Map4",thumbnailPath, GenerateThumbnail(thumbnailPath))
+                ,new MapModel(Guid.NewGuid(),"Map5",thumbnailPath, GenerateThumbnail(thumbnailPath))
+                ,new MapModel(Guid.NewGuid(),"Map6",thumbnailPath, GenerateThumbnail(thumbnailPath))
+                ,new MapModel(Guid.NewGuid(),"Map7",thumbnailPath, GenerateThumbnail(thumbnailPath))
+                ,new MapModel(Guid.NewGuid(),"Map8",thumbnailPath, GenerateThumbnail(thumbnailPath))
+                ,new MapModel(Guid.NewGuid(),"Map9",thumbnailPath, GenerateThumbnail(thumbnailPath))
+                ,new MapModel(Guid.NewGuid(),"Map10",thumbnailPath, GenerateThumbnail(thumbnailPath))
+                ,new MapModel(Guid.NewGuid(),"Map11",thumbnailPath, GenerateThumbnail(thumbnailPath))
+                ,new MapModel(Guid.NewGuid(),"Map12",thumbnailPath, GenerateThumbnail(thumbnailPath))
             };
         }
 

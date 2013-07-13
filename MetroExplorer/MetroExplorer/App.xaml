@@ -9,6 +9,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Common/StandardStyles.xaml"/>
                 <ResourceDictionary Source="ms-appx:///MetroExplorer.Components.Navigator/Themes/NavigatorLinkedStyles.xaml"/>
+                <ResourceDictionary Source="ms-appx:///MetroExplorer.Components.Maps/Themes/MapLinkedStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
         </ResourceDictionary>

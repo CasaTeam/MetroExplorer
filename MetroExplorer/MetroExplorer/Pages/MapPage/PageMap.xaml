@@ -9,8 +9,6 @@
     mc:Ignorable="d">
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
-
-        <Maps:MapList HorizontalAlignment="Left" Height="100" Margin="293,191,0,0" VerticalAlignment="Top" Width="100"/>
-
+    	<Maps:MapPanel HorizontalAlignment="Left" VerticalAlignment="Top" Height="141"/>
     </Grid>
 </Page>

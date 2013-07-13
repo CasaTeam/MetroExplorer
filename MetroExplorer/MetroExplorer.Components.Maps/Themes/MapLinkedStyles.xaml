@@ -1,0 +1,19 @@
+﻿<ResourceDictionary
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="using:MetroExplorer.Components.Maps.Themes" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
+	<ItemsPanelTemplate x:Key="MapItemsPanelTemplate">
+		<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+	</ItemsPanelTemplate>
+	<DataTemplate x:Key="MapDataTemplate">
+		<Grid ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="7*"/>
+				<RowDefinition Height="3*"/>
+			</Grid.RowDefinitions>
+			<TextBlock Margin="5" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Name}" FontSize="21.333" FontWeight="Bold"/>
+			<Image Margin="5" Source="{Binding Thumbnail}"/>
+		</Grid>
+	</DataTemplate>
+	
+</ResourceDictionary>
