@@ -26,7 +26,6 @@
     public sealed partial class PhotoGallery : LayoutAwarePage, INotifyPropertyChanged
     {
         public static double ActualScreenHeight = 0;
-        List<ExplorerItem> _expoloreItems = new List<ExplorerItem>();
 
         ObservableCollection<ExplorerItem> _galleryItems = new ObservableCollection<ExplorerItem>();
         public ObservableCollection<ExplorerItem> GalleryItems
@@ -63,37 +62,42 @@
             LoadingProgressBar.Visibility = Windows.UI.Xaml.Visibility.Visible;
         }
 
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-        {
-            _sliderDispatcher.Stop();
-            _sliderDispatcher = null;
-            GC.Collect();
-        }
-
-        private void flipView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //FlipView flipview = (FlipView)sender;
-            //ExplorerItem selected = (ExplorerItem)flipview.SelectedItem;
-            //if (Photos.Count < _potentialPhotos.Count)
-            //{
-            //    if (Photos.Contains(_potentialPhotos[Photos.Count])) return;
-            //    await PhotoThumbnail(_potentialPhotos[Photos.Count]);
-            //    Photos.Add(_potentialPhotos[Photos.Count]);
-            //}
-        }
-
         protected async override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
             EventLogger.onActionEvent(EventLogger.FOLDER_OPENED);
             LoadingProgressBar.Visibility = Windows.UI.Xaml.Visibility.Visible;
-            _expoloreItems = navigationParameter as List<ExplorerItem>;
-            ImageFlipVIew.ItemsSource = GalleryItems;
+            var _expoloreItems = navigationParameter as List<ExplorerItem>;
+            int photoCount = 0;
             foreach (ExplorerItem item in _expoloreItems)
             {
+                if (photoCount > 50)
+                    break;
                 if (await PhotoThumbnail(item))
+                {
                     GalleryItems.Add(item);
+                    photoCount++;
+                }
             }
+            MyVariableGridView.ItemsSource = GalleryItems;
             LoadingProgressBar.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+        }
+
+        protected override void SaveState(Dictionary<String, Object> pageState)
+        {
+            foreach(var item in GalleryItems)
+            {
+                item.Image = null;
+            }
+            GalleryItems.Clear();
+            GalleryItems = null;
+            MyVariableGridView.ItemsSource = null;
+            ImageFlipVIew.ItemsSource = null;
+            if (_sliderDispatcher != null)
+            {
+                _sliderDispatcher.Stop();
+                _sliderDispatcher = null;
+            }
+            GC.Collect();
         }
 
         private async System.Threading.Tasks.Task<bool> PhotoThumbnail(ExplorerItem photo)
@@ -105,6 +109,13 @@
                 BitmapImage bitmapImage = new BitmapImage();
                 bitmapImage.SetSource(fileThumbnail);
                 photo.Image = bitmapImage;
+                photo.Width = (bitmapImage.PixelHeight / bitmapImage.PixelWidth == 1) ? 1 : 2;
+                photo.Height = (bitmapImage.PixelWidth / bitmapImage.PixelHeight == 1) ? 1 : 2;
+                if (photo.Width == 1 && photo.Height == 1 && bitmapImage.PixelWidth > 600 && bitmapImage.PixelHeight > 600)
+                {
+                    photo.Width = 2;
+                    photo.Height = 2;
+                }
                 return true;
             }
             catch
@@ -115,7 +126,15 @@
 
         private void GoBack2(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(PageExplorer));            
+            if (MyVariableGridView.Visibility == Windows.UI.Xaml.Visibility.Collapsed)
+            {
+                MyVariableGridView.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                ImageFlipVIew.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            }
+            else
+            {
+                Frame.Navigate(typeof(PageExplorer));
+            }
         }
 
         private void SliderModeButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
@@ -123,9 +142,14 @@
             SliderModeButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             UnSliderModeButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
 
+            MyVariableGridView.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            ImageFlipVIew.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            StartFlipView(MyVariableGridView.SelectedIndex);
+
             _sliderDispatcher.Tick += SliderDispatcher_Tick;
-            _sliderDispatcher.Interval = new TimeSpan(0, 0, 0, 1,500);
+            _sliderDispatcher.Interval = new TimeSpan(0, 0, 0, 3);
             _sliderDispatcher.Start();
+            BottomAppBar.IsOpen = false;
         }
 
         void SliderDispatcher_Tick(object sender, object e)
@@ -156,19 +180,24 @@
             Popup_SetInterval.Margin = new Thickness(0, 0, 0, 232);
         }
 
-        //private async void OpenPhotoButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if ((ImageFlipVIew.SelectedItem as ExplorerItem).StorageFile == null) return;
-        //    try
-        //    {
-        //        await (ImageFlipVIew.SelectedItem as ExplorerItem).StorageFile.OpenAsync(FileAccessMode.Read);
-        //        await Launcher.LaunchFileAsync((ImageFlipVIew.SelectedItem as ExplorerItem).StorageFile, new LauncherOptions { DisplayApplicationPicker = true });
-        //    }
-        //    catch (Exception exp)
-        //    {
-        //        //EventLogger.onActionEvent(EventLogger.);
-        //    }
-        //}
+        private void MyVariableGridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            MyVariableGridView.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            ImageFlipVIew.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            StartFlipView(MyVariableGridView.SelectedIndex);
+        }
+
+        private void StartFlipView(int startPosition = 0)
+        {
+            if(ImageFlipVIew.ItemsSource == null)
+                ImageFlipVIew.ItemsSource = GalleryItems;
+            ImageFlipVIew.SelectedIndex = startPosition;
+        }
+
+        private void SliderModeButton_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 
     /// <summary>
