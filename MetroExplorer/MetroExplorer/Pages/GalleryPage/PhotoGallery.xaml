@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:common="using:MetroExplorer.Common"
+    xmlns:core="using:MetroExplorer.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     DataContext="{Binding DefaultViewModel, RelativeSource={RelativeSource Self}}"
@@ -13,33 +14,50 @@
         <DataTemplate x:Key="FlipViewItemTemplate">
             <Grid>
                 <Image Source="{Binding Image}" Width="Auto" Height="Auto" Stretch="Uniform" Opacity="1"/>
-                <Border Background="#A5000000" Height="70" VerticalAlignment="Bottom">
+                <!--<Border Background="#A5000000" Height="70" VerticalAlignment="Bottom">
                     <TextBlock Text="{Binding Name}" FontFamily="Segoe UI" FontSize="26.667" 
                                        Foreground="#CCFFFFFF" Padding="15,20"/>
-                </Border>
+                </Border>-->
             </Grid>
         </DataTemplate>
 
     </Page.Resources>
 
+    <common:LayoutAwarePage.TopAppBar>
+        <AppBar x:Name="AppBar_TopAppBar" Background="{x:Null}" BorderBrush="{x:Null}" >
+            <Grid Height="100" HorizontalAlignment="Left" Width="150" Margin="-10,0,0,0">
+            	<Grid.Background>
+            		<LinearGradientBrush EndPoint="0.343,0.861" StartPoint="0.045,-0.009">
+            			<GradientStop Color="#7F1E90CD"/>
+            			<GradientStop Color="Transparent" Offset="1"/>
+            		</LinearGradientBrush>
+            	</Grid.Background>
+                <Button x:Name="backButton" Click="GoBack2" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" 
+				VerticalAlignment="Center" Style="{StaticResource BackButtonStyle}" Margin="30,8,0,8" ManipulationMode="RotateInertia" 
+				VerticalContentAlignment="Top" HorizontalAlignment="Left" HorizontalContentAlignment="Left"/>
+            </Grid>
+        </AppBar>
+    </common:LayoutAwarePage.TopAppBar>
     <common:LayoutAwarePage.BottomAppBar>
         <AppBar x:Name="AppBar_BottomAppBar"
 				Background="{Binding Path=BottomBarBackground}" BorderBrush="{Binding Path=BottomBarBackground}">
-            <Grid Height="90" x:Name="Grid_BottomAppBar" HorizontalAlignment="Stretch">
-                <Grid>
-                    <Button Click="OpenPhotoButton_Click" FontWeight="ExtraLight"
-				x:Uid="Uid_PagePhotoGallery_OpenPhotoButton" x:Name="OpenPhotoButton"
-				Margin="0,0,130,0" HorizontalAlignment="Right" >
+            <Grid Height="100" x:Name="Grid_BottomAppBar" HorizontalAlignment="Stretch">
+                <Grid HorizontalAlignment="Left">
+                    <!--<Button FontWeight="ExtraLight" Click="SliderSettingButton_Click"
+				x:Uid="Uid_PagePhotoGallery_SliderSettingButton" x:Name="SliderSettingButton"
+				Margin="10,0,10,0" HorizontalAlignment="Right" >
                         <Button.Style>
                             <Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
                                 <Setter Property="AutomationProperties.Name" Value=""/>
-                                <Setter Property="Content" Value="&#xE11D;"/>
+                                <Setter Property="Content" Value="&#xE115;"/>
                             </Style>
                         </Button.Style>
-                    </Button>
+                    </Button>-->
+                </Grid>
+                <Grid>
                     <Button Click="SliderModeButton_Click" FontWeight="ExtraLight"
 				x:Uid="Uid_PagePhotoGallery_SliderModeButton" x:Name="SliderModeButton"
-				Margin="0,0,10,0" HorizontalAlignment="Right" >
+				Margin="0,0,10,0" HorizontalAlignment="Right"  >
                         <Button.Style>
                             <Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
                                 <Setter Property="AutomationProperties.Name" Value=""/>
@@ -62,16 +80,55 @@
         </AppBar>
     </common:LayoutAwarePage.BottomAppBar>
 
-    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
-
+    <Grid Background="{StaticResource AppBarBackgroundThemeBrush}">
+        
         <ProgressBar IsIndeterminate="True" Height="8" Margin="0,0,0,0" VerticalAlignment="Top" x:Name="LoadingProgressBar"/>
-        <!-- ItemContainerStyle="{StaticResource FlipViewContainerItemTemplate}"
- Style="{StaticResource FlipViewStyle}" 
-                <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" VerticalAlignment="Center" Style="{StaticResource BackButtonStyle}" Margin="10,19,0,8" ManipulationMode="RotateInertia"/>
+        <FlipView x:Name="ImageFlipVIew" Grid.Row="1" ItemTemplate="{StaticResource FlipViewItemTemplate}"
+                  Visibility="Collapsed"/>
+        
+        <core:VariableGridView x:Name="MyVariableGridView"
+                               Padding="116,70,116,46" SelectionChanged="MyVariableGridView_SelectionChanged">
+            <core:VariableGridView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0" VariableSizedWrapGrid.ColumnSpan="{Binding Width}">
+                        <Image Source="{Binding Image}"
+                               Stretch="UniformToFill"
+                               VerticalAlignment="Stretch"
+                               HorizontalAlignment="Stretch" />
+                        <!--<StackPanel Margin="2" Background="#AA000000"
+                                    VerticalAlignment="Bottom"
+                                    HorizontalAlignment="Left">
+                            <TextBlock Text="{Binding Name}"
+                                       HorizontalAlignment="Center"
+                                       Foreground="White"
+                                       FontSize="16"
+                                       Margin="6" />
+                        </StackPanel>-->
+                    </Grid>
+                </DataTemplate>
+            </core:VariableGridView.ItemTemplate>
+            <core:VariableGridView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VariableSizedWrapGrid VerticalAlignment="Center"
+                                           ItemHeight="150"
+                                           ItemWidth="150"
+                                           MaximumRowsOrColumns="7" />
+                </ItemsPanelTemplate>
+            </core:VariableGridView.ItemsPanel>
+        </core:VariableGridView>
 
-        -->
-        <FlipView x:Name="ImageFlipVIew" SelectionChanged="flipView_SelectionChanged" Grid.Row="1" ItemTemplate="{StaticResource FlipViewItemTemplate}" />
-        <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" VerticalAlignment="Top" Style="{StaticResource BackButtonStyle}" Margin="10,19,0,8" ManipulationMode="RotateInertia" VerticalContentAlignment="Top" HorizontalAlignment="Left" HorizontalContentAlignment="Left"/>
-
+        
+        <Popup HorizontalAlignment="Left" VerticalAlignment="Bottom" IsLightDismissEnabled="True"
+			   Visibility="Collapsed" x:Name="Popup_SetInterval">
+            <Border BorderBrush="{Binding Path=TitleForeground}" BorderThickness="2">
+                <Grid Width="230" Height="123" Background="White">
+                    <TextBox x:Name="TextBox_SetInterval" BorderBrush="{Binding Path=TitleForeground}" FontSize="18" 
+									 x:Uid="Uid_TextBox_CreateNewFolder" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="20,25,20,10" />
+                    <Button x:Uid="Uid_Button_SetInterval" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5,70,15,0" Click="Button_SetInterval_Click"
+									Foreground="#DDFFFFFF" FontSize="16" 
+									Style="{StaticResource ButtonBlueStyle}" />
+                </Grid>
+            </Border>
+        </Popup>
     </Grid>
 </common:LayoutAwarePage>

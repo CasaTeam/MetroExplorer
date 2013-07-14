@@ -202,7 +202,10 @@
     <value>Ouvrir</value>
   </data>
   <data name="Uid_PagePhotoGallery_SliderModeButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>Mode diaporama</value>
+    <value>Diaporama</value>
+  </data>
+  <data name="Uid_PagePhotoGallery_SliderSettingButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Changer intervalle</value>
   </data>
   <data name="Uid_PagePhotoGallery_UnSliderModeButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
     <value>Arrêter</value>

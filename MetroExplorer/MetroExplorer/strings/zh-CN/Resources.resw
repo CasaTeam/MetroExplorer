@@ -204,6 +204,9 @@
   <data name="Uid_PagePhotoGallery_SliderModeButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
     <value>幻灯片播放</value>
   </data>
+  <data name="Uid_PagePhotoGallery_SliderSettingButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>改变频率</value>
+  </data>
   <data name="Uid_PagePhotoGallery_UnSliderModeButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
     <value>暂停播放</value>
   </data>
@@ -214,7 +217,7 @@
     <value>取消</value>
   </data>
   <data name="Uid_Page_Explorer_Button_PlayFolder.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>幻灯播放</value>
+    <value>电子相册</value>
   </data>
   <data name="Uid_Page_Explorer_Button_RenameFolder.Content" xml:space="preserve">
     <value>确定</value>
