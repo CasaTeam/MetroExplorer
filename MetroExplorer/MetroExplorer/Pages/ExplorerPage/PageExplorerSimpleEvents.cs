@@ -24,8 +24,8 @@
     {
         private void Button_PlayFolder_Click(object sender, RoutedEventArgs e)
         {
-            var parameters = DataSource.CurrentStorageFolder;
-            Frame.Navigate(typeof(PhotoGallery), parameters);
+            PhotoGallery.ActualScreenHeight = this.ActualHeight;
+            Frame.Navigate(typeof(PhotoGallery), ExplorerItems.ToList());
         }
 
         #region Home Button
@@ -101,6 +101,7 @@
         {
             Frame.Navigate(typeof(PageExplorer), null);
         }
+
     }
 
 
