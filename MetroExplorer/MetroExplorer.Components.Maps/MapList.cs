@@ -40,6 +40,12 @@
 
         #endregion
 
+        #region EventHandlers
+
+        public event SelectionChangedEventHandler SelectionChanged; 
+
+        #endregion
+
         #region Override Methods
 
         protected override void OnApplyTemplate()
@@ -51,7 +57,16 @@
 
             _gridViewMapList = (GridView)GetTemplateChild(GridViewMapListElement);
             if (_gridViewMapList != null)
+            {
                 _gridViewMapList.ItemsSource = _dataSource;
+                _gridViewMapList.SelectionChanged += GridViewMapListSelectionChanged;
+            }
+        }
+
+        void GridViewMapListSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (SelectionChanged != null)
+                SelectionChanged(this, e);
         }
 
         #endregion

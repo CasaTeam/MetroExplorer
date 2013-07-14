@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:local="using:MetroExplorer.Components.Maps" xmlns:Maps="using:Bing.Maps">
+	xmlns:local="using:MetroExplorer.Components.Maps" xmlns:Maps="using:Bing.Maps" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
 
 	<Style TargetType="local:MapList">
 		<Setter Property="Template">
@@ -16,38 +16,52 @@
 		</Setter>
 	</Style>
 
-    <Style TargetType="local:MapPanel">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="local:MapPanel">
-                    <Grid
-                		Background="{TemplateBinding Background}">
-                    	<Border Padding="20,10">
-                    		<Border.Background>
-                    			<SolidColorBrush Color="Black" Opacity="0.5"/>
-                    		</Border.Background>
-                    		<Grid Background="#FF9B3434">
-                    			<local:MapList/>
-                    		</Grid>
-                    	</Border>
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-        <Setter Property="Background" Value="White"/>
-    </Style>
+	<Style TargetType="local:MapPanel">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="local:MapPanel">
+					<Grid x:Name="grid"
+						Background="{TemplateBinding Background}" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+						<VisualStateManager.VisualStateGroups>
+							<VisualStateGroup x:Name="Common">
+								<VisualState x:Name="ShowMap">
+									<Storyboard>
+										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="map">
+											<DiscreteObjectKeyFrame KeyTime="0">
+												<DiscreteObjectKeyFrame.Value>
+													<Visibility>Visible</Visibility>
+												</DiscreteObjectKeyFrame.Value>
+											</DiscreteObjectKeyFrame>
+										</ObjectAnimationUsingKeyFrames>
+										<DoubleAnimation Duration="0" To="0.8" Storyboard.TargetProperty="(Border.Background).(Brush.Opacity)" Storyboard.TargetName="border" d:IsOptimized="True"/>
+									</Storyboard>
+								</VisualState>
+								<VisualState x:Name="HideMap"/>
+							</VisualStateGroup>
+						</VisualStateManager.VisualStateGroups>
+						<Maps:Map x:Name="map" Credentials="Avs9-NFwIrWEbtFgLLePRSktqWRMX8X5Kmz5NiZyxgzL0JCG-S0K65VltPBX3uV1" Visibility="Collapsed"/>
+						<Border x:Name="border" Padding="20,10" Background="Black" VerticalAlignment="Top" Height="{Binding Height, ElementName=grid}">
+							<Grid ScrollViewer.VerticalScrollBarVisibility="Disabled">
+								<local:MapList x:Name="MapList"/>
+							</Grid>
+						</Border>
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+		<Setter Property="Background" Value="White"/>
+	</Style>
 
-    <Style TargetType="local:MapView">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="local:MapView">
-                    <Border
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}">
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
+	<Style TargetType="local:MapView">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="local:MapView">
+					<Border
+						Background="{TemplateBinding Background}"
+						BorderBrush="{TemplateBinding BorderBrush}"
+						BorderThickness="{TemplateBinding BorderThickness}"/>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
 </ResourceDictionary>
