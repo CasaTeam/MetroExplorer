@@ -10,7 +10,7 @@
     /// <summary>
     /// 这个类适用PageExplorer部分的数据结构
     /// </summary>
-    public class ExplorerItem : INotifyPropertyChanged
+    public class ExplorerItem : INotifyPropertyChanged, IResizable
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -116,6 +116,9 @@
                 NotifyPropertyChanged("ImageStretch");
             }
         }
+
+        public int Width { get; set; }
+        public int Height { get; set; }
 
         public void NotifyPropertyChanged(String changedPropertyName)
         {

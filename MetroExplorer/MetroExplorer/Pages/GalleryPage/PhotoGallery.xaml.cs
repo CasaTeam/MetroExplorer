@@ -17,6 +17,7 @@
     using Core.Utils;
     using Common;
     using UserPreferenceRecord;
+    using MetroExplorer.Pages.ExplorerPage;
 
     /// <summary>
     /// Page affichant une collection groupée d'éléments.
@@ -24,21 +25,21 @@
 
     public sealed partial class PhotoGallery : LayoutAwarePage, INotifyPropertyChanged
     {
-        ObservableCollection<ExplorerItem> _photos = new ObservableCollection<ExplorerItem>();
-        public ObservableCollection<ExplorerItem> Photos
+        public static double ActualScreenHeight = 0;
+
+        ObservableCollection<ExplorerItem> _galleryItems = new ObservableCollection<ExplorerItem>();
+        public ObservableCollection<ExplorerItem> GalleryItems
         {
             get
             {
-                return _photos;
+                return _galleryItems;
             }
             set
             {
-                _photos = value;
-                NotifyPropertyChanged("Photos");
+                _galleryItems = value;
+                NotifyPropertyChanged("GalleryItems");
             }
         }
-
-        private List<ExplorerItem> _potentialPhotos;
 
         private readonly MetroExplorerLocalDataSource _dataSource;
 
@@ -48,7 +49,6 @@
         {
             InitializeComponent();
             DataContext = this;
-            _dataSource = Singleton<MetroExplorerLocalDataSource>.Instance;
             this.Loaded += PhotoGallery_Loaded;
             this.Unloaded += PhotoGallery_Unloaded;
         }
@@ -57,57 +57,84 @@
         {
         }
 
-        async void PhotoGallery_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        void PhotoGallery_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            ImageFlipVIew.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            LoadingProgressBar.Visibility = Windows.UI.Xaml.Visibility.Visible;
+        }
 
-            await PhotoThumbnail(_potentialPhotos[0]);
-            Photos.Add(_potentialPhotos[0]);
-
-            if (_potentialPhotos.Count > 1)
+        protected async override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
+        {
+            EventLogger.onActionEvent(EventLogger.FOLDER_OPENED);
+            LoadingProgressBar.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            var _expoloreItems = navigationParameter as List<ExplorerItem>;
+            int photoCount = 0;
+            foreach (ExplorerItem item in _expoloreItems)
             {
-                await PhotoThumbnail(_potentialPhotos[1]);
-                Photos.Add(_potentialPhotos[1]);
+                if (photoCount > 50)
+                    break;
+                if (await PhotoThumbnail(item))
+                {
+                    GalleryItems.Add(item);
+                    photoCount++;
+                }
             }
-
-            ImageFlipVIew.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            MyVariableGridView.ItemsSource = GalleryItems;
             LoadingProgressBar.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }
 
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        protected override void SaveState(Dictionary<String, Object> pageState)
         {
-            _sliderDispatcher.Stop();
-            _sliderDispatcher = null;
+            foreach(var item in GalleryItems)
+            {
+                item.Image = null;
+            }
+            GalleryItems.Clear();
+            GalleryItems = null;
+            MyVariableGridView.ItemsSource = null;
+            ImageFlipVIew.ItemsSource = null;
+            if (_sliderDispatcher != null)
+            {
+                _sliderDispatcher.Stop();
+                _sliderDispatcher = null;
+            }
             GC.Collect();
         }
 
-        private async void flipView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async System.Threading.Tasks.Task<bool> PhotoThumbnail(ExplorerItem photo)
         {
-            FlipView flipview = (FlipView)sender;
-            ExplorerItem selected = (ExplorerItem)flipview.SelectedItem;
-            if (Photos.Count < _potentialPhotos.Count)
+            if (photo.StorageFile == null || !photo.StorageFile.IsImageFile()) return false;
+            try
             {
-                if (Photos.Contains(_potentialPhotos[Photos.Count])) return;
-                await PhotoThumbnail(_potentialPhotos[Photos.Count]);
-                Photos.Add(_potentialPhotos[Photos.Count]);
+                StorageItemThumbnail fileThumbnail = await photo.StorageFile.GetThumbnailAsync(ThumbnailMode.SingleItem, (uint)ActualScreenHeight, ThumbnailOptions.UseCurrentScale);
+                BitmapImage bitmapImage = new BitmapImage();
+                bitmapImage.SetSource(fileThumbnail);
+                photo.Image = bitmapImage;
+                photo.Width = (bitmapImage.PixelHeight / bitmapImage.PixelWidth == 1) ? 1 : 2;
+                photo.Height = (bitmapImage.PixelWidth / bitmapImage.PixelHeight == 1) ? 1 : 2;
+                if (photo.Width == 1 && photo.Height == 1 && bitmapImage.PixelWidth > 600 && bitmapImage.PixelHeight > 600)
+                {
+                    photo.Width = 2;
+                    photo.Height = 2;
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
             }
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        private void GoBack2(object sender, RoutedEventArgs e)
         {
-            ImageFlipVIew.ItemsSource = Photos;
-
-            _potentialPhotos = e.Parameter as List<ExplorerItem>;
-
-            EventLogger.onActionEvent(EventLogger.PHOTO_VIEWED);
-        }
-
-        private async System.Threading.Tasks.Task PhotoThumbnail(ExplorerItem photo)
-        {
-            StorageItemThumbnail fileThumbnail = await photo.StorageFile.GetThumbnailAsync(ThumbnailMode.SingleItem, (uint)this.ActualHeight, ThumbnailOptions.UseCurrentScale);
-            BitmapImage bitmapImage = new BitmapImage();
-            bitmapImage.SetSource(fileThumbnail);
-            photo.Image = bitmapImage;
+            if (MyVariableGridView.Visibility == Windows.UI.Xaml.Visibility.Collapsed)
+            {
+                MyVariableGridView.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                ImageFlipVIew.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            }
+            else
+            {
+                Frame.Navigate(typeof(PageExplorer));
+            }
         }
 
         private void SliderModeButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
@@ -115,24 +142,22 @@
             SliderModeButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             UnSliderModeButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
 
+            MyVariableGridView.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            ImageFlipVIew.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            StartFlipView(MyVariableGridView.SelectedIndex);
+
             _sliderDispatcher.Tick += SliderDispatcher_Tick;
             _sliderDispatcher.Interval = new TimeSpan(0, 0, 0, 3);
             _sliderDispatcher.Start();
+            BottomAppBar.IsOpen = false;
         }
 
-        async void SliderDispatcher_Tick(object sender, object e)
+        void SliderDispatcher_Tick(object sender, object e)
         {
-            if (Photos.Count == _potentialPhotos.Count && ImageFlipVIew.SelectedIndex == Photos.Count - 1)
-            {
+            if (ImageFlipVIew.Items.Count - 1 == ImageFlipVIew.SelectedIndex)
                 ImageFlipVIew.SelectedIndex = 0;
-                return;
-            }
-            else if (Photos.Count < _potentialPhotos.Count)
-            {
-                await PhotoThumbnail(_potentialPhotos[Photos.Count]);
-                Photos.Add(_potentialPhotos[Photos.Count]);
-            }
-            ImageFlipVIew.SelectedIndex++;
+            else
+                ImageFlipVIew.SelectedIndex++;
         }
 
         private void UnSliderModeButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
@@ -143,18 +168,35 @@
             _sliderDispatcher = null;
         }
 
-        private async void OpenPhotoButton_Click(object sender, RoutedEventArgs e)
+        private void Button_SetInterval_Click(object sender, object e)
         {
-            if ((ImageFlipVIew.SelectedItem as ExplorerItem).StorageFile == null) return;
-            try
-            {
-                await (ImageFlipVIew.SelectedItem as ExplorerItem).StorageFile.OpenAsync(FileAccessMode.Read);
-                await Launcher.LaunchFileAsync((ImageFlipVIew.SelectedItem as ExplorerItem).StorageFile, new LauncherOptions { DisplayApplicationPicker = true });
-            }
-            catch (Exception exp)
-            {
-                //EventLogger.onActionEvent(EventLogger.);
-            }
+
+        }
+
+        private void SliderSettingButton_Click(object sender, RoutedEventArgs e)
+        {
+            Popup_SetInterval.IsOpen = true;
+            Popup_SetInterval.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            Popup_SetInterval.Margin = new Thickness(0, 0, 0, 232);
+        }
+
+        private void MyVariableGridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            MyVariableGridView.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            ImageFlipVIew.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            StartFlipView(MyVariableGridView.SelectedIndex);
+        }
+
+        private void StartFlipView(int startPosition = 0)
+        {
+            if(ImageFlipVIew.ItemsSource == null)
+                ImageFlipVIew.ItemsSource = GalleryItems;
+            ImageFlipVIew.SelectedIndex = startPosition;
+        }
+
+        private void SliderModeButton_Click_1(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 
