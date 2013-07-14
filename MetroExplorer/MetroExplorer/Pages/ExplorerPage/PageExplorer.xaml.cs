@@ -93,7 +93,19 @@
         protected override void SaveState(
             Dictionary<string, object> pageState)
         {
+            if (ExplorerItems != null && ExplorerItems.Count > 0)
+            {
+                foreach (var item in ExplorerItems)
+                {
+                    item.Image = null;
+                }
+                ExplorerItems.Clear();
+                ExplorerItems = null;
+                itemGridView.ItemsSource = null;
+                itemListView.ItemsSource = null;
+            }
             DataTransferManager.GetForCurrentView().DataRequested -= PageExplorerDataRequested;
+            GC.Collect();
         }
 
         private async Task RefreshLocalFiles()
@@ -184,7 +196,6 @@
 
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
-
     }
 
     /// <summary>

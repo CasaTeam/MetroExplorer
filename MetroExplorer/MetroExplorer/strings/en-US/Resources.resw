@@ -202,7 +202,10 @@
     <value>Open</value>
   </data>
   <data name="Uid_PagePhotoGallery_SliderModeButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>Slider mode</value>
+    <value>Slide show</value>
+  </data>
+  <data name="Uid_PagePhotoGallery_SliderSettingButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Set interval</value>
   </data>
   <data name="Uid_PagePhotoGallery_UnSliderModeButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
     <value>Stop</value>
@@ -214,7 +217,7 @@
     <value>Annuler</value>
   </data>
   <data name="Uid_Page_Explorer_Button_PlayFolder.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
-    <value>Slider</value>
+    <value>Slide show</value>
   </data>
   <data name="Uid_Page_Explorer_Button_RenameFolder.Content" xml:space="preserve">
     <value>Confrim</value>
