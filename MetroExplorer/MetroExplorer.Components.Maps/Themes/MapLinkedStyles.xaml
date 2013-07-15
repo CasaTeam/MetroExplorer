@@ -9,9 +9,9 @@
 		<Grid ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Auto">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="7*"/>
-				<RowDefinition Height="3*"/>
+				<RowDefinition Height="0*"/>
 			</Grid.RowDefinitions>
-			<TextBlock Margin="5" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Name}" FontSize="21.333" FontWeight="Bold"/>
+			<TextBlock Margin="5" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Name}" FontSize="21.333" FontWeight="Bold" Visibility="Collapsed"/>
 			<Image Margin="5" Source="{Binding Thumbnail}"/>
 		</Grid>
 	</DataTemplate>
