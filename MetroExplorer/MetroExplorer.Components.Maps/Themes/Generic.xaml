@@ -53,8 +53,8 @@
 									<ColumnDefinition Width="0*"/>
 									<ColumnDefinition Width="1000"/>
 								</Grid.ColumnDefinitions>
-								<Border/>
 								<local:MapList x:Name="MapList" Grid.Column="1" HorizontalAlignment="Right"/>
+								<Border/>
 							</Grid>
 						</Border>
 					</Grid>

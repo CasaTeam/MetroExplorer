@@ -1,18 +1,18 @@
-﻿namespace MetroExplorer.DataSource.Maps.DataServices
+﻿namespace MetroExplorer.DataSource.DataServices
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-    using DataModels;
     using Windows.UI.Xaml.Media.Imaging;
     using Windows.Storage;
     using Windows.Storage.FileProperties;
+    using DataModels;
 
     public class MapServiceDesign : IMapService
     {
-        public IEnumerable<MapModel> GenerateMapModels()
+        public IEnumerable<MapModel> Load()
         {
             string thumbnailPath = @"ms-appx:///MetroExplorer.Components.Maps/DesignAssets/MapBackground.bmp";
 

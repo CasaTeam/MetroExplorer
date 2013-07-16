@@ -5,8 +5,8 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
-    using Maps.DataModels;
-    using DataSource.DataConfigurations;
+    using DataModels;
+    using DataConfigurations;
 
     public interface IController<T>
     {

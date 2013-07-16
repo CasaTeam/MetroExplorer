@@ -6,11 +6,10 @@
     using System.Text;
     using System.Threading.Tasks;
     using Microsoft.Practices.Unity;
-    using Maps.DataControllers;
-    using Maps.DataModels;
-    using Maps.DataServices;
     using DataControllers;
-    using DataSource.DataConfigurations;
+    using DataModels;
+    using DataServices;
+    using DataConfigurations;
 
     public class DataAccess<T>
     {
@@ -22,7 +21,8 @@
             container = new UnityContainer();
             if (typeof(T) == typeof(MapModel))
             {
-                container.RegisterType<IMapService, MapServiceDesign>(typeof(MapServiceDesign).Name);
+                container.RegisterType<IMapService, MapServiceDesign>(typeof(MapServiceDesign).Name)
+                         .RegisterType<IMapService, MapServiceSQLite>(typeof(MapServiceSQLite).Name);
                 _controller = (IController<T>)container.Resolve<MapController>();
             }
         }

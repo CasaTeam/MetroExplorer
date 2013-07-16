@@ -1,5 +1,6 @@
-﻿namespace MetroExplorer.DataSource.Maps.DataModels
+﻿namespace MetroExplorer.DataSource.DataModels
 {
+    using SQLite;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -8,10 +9,12 @@
     using Windows.Storage;
     using Windows.UI.Xaml.Media.Imaging;
 
+    [Table("Maps")]
     public class MapModel : IEquatable<MapModel>
     {
         #region Properties
 
+        [PrimaryKey]
         public Guid ID { get; private set; }
 
         public string Name { get; private set; }

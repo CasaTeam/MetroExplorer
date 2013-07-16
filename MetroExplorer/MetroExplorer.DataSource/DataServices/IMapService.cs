@@ -1,4 +1,4 @@
-﻿namespace MetroExplorer.DataSource.Maps.DataServices
+﻿namespace MetroExplorer.DataSource.DataServices
 {
     using System;
     using System.Collections.Generic;
@@ -9,6 +9,6 @@
 
     public interface IMapService
     {
-        IEnumerable<MapModel> GenerateMapModels();
+        IEnumerable<MapModel> Load();
     }
 }

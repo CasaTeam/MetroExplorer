@@ -13,6 +13,7 @@
     using DataSource.Maps.DataControllers;
     using DataSource.Maps.DataModels;
     using DataSource.DataConfigurations;
+    using Windows.ApplicationModel;
 
     [TemplatePart(Name = GridViewMapListElement, Type = typeof(GridView))]
     public sealed class MapList : Control
@@ -42,7 +43,7 @@
 
         #region EventHandlers
 
-        public event SelectionChangedEventHandler SelectionChanged; 
+        public event SelectionChangedEventHandler SelectionChanged;
 
         #endregion
 
@@ -53,7 +54,9 @@
             base.OnApplyTemplate();
 
             DataAccess<MapModel> dataAccess = new DataAccess<MapModel>();
-            _dataSource = dataAccess.GetSources(DataSourceType.Design);
+
+            _dataSource = dataAccess.GetSources(
+                DesignMode.DesignModeEnabled ? DataSourceType.Design : DataSourceType.Sqlite);
 
             _gridViewMapList = (GridView)GetTemplateChild(GridViewMapListElement);
             if (_gridViewMapList != null)
