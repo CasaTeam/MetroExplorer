@@ -20,7 +20,7 @@
     using UserPreferenceRecord;
     using MainPage;
     using Windows.ApplicationModel.Resources;
-    using MetroExplorer.Pages.MainPage;
+    using Windows.Storage.Streams;
 
     /// <summary>
     /// 
@@ -119,7 +119,7 @@
         {
             Popup_CreateNewFolder.IsOpen = true;
             Popup_CreateNewFolder.Visibility = Windows.UI.Xaml.Visibility.Visible;
-            Popup_CreateNewFolder.Margin = new Thickness(0, 0, 1055, 237);
+            Popup_CreateNewFolder.Margin = new Thickness(0, 0, 920, 237);
             TextBox_CreateNewFolder.Focus(Windows.UI.Xaml.FocusState.Keyboard);
             TextBox_CreateNewFolder.SelectAll();
         }
@@ -156,7 +156,7 @@
             {
                 Popup_RenameFolder.IsOpen = true;
                 Popup_RenameFolder.Visibility = Windows.UI.Xaml.Visibility.Visible;
-                Popup_RenameFolder.Margin = new Thickness(60, 0, 0, 237);
+                Popup_RenameFolder.Margin = new Thickness(45, 0, 0, 237);
                 TextBox_RenameFolder.Text = (itemGridView.SelectedItem as ExplorerItem).Name;
                 TextBox_RenameFolder.Focus(Windows.UI.Xaml.FocusState.Keyboard);
                 TextBox_RenameFolder.SelectAll();
@@ -202,4 +202,14 @@
             _counterForLoadUnloadedItems = 0;
         }
     }
+
+
+    /// <summary>
+    /// Rotate photo
+    /// </summary>
+    public sealed partial class PageExplorer
+    {
+        
+    }
+
 }
