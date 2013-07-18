@@ -234,6 +234,9 @@
   <data name="Uid_Page_Main_Button_RenameDiskFolder.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
     <value>Renommer</value>
   </data>
+  <data name="Uid_Page_Main_Button_RotatePhoto.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Faire pivoter</value>
+  </data>
   <data name="Uid_Page_Main_Button_Sort.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
     <value>Trier</value>
   </data>

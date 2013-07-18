@@ -21,7 +21,7 @@
         private void Button_Sort_Click(object sender, RoutedEventArgs e)
         {
             Popup_Sort.Visibility = Windows.UI.Xaml.Visibility.Visible;
-            Popup_Sort.Margin = new Thickness(0, 0, 303, 285);
+            Popup_Sort.Margin = new Thickness(0, 0, 268, 285);
             Popup_Sort.IsOpen = true;
         }
 
