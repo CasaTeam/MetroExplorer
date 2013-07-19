@@ -94,7 +94,7 @@
         private void Button_CutPaste_Click(object sender, RoutedEventArgs e)
         {
             Popup_CopyCutPaste.Visibility = Windows.UI.Xaml.Visibility.Visible;
-            Popup_CopyCutPaste.Margin = new Thickness(0, 0, 540, 198);
+            Popup_CopyCutPaste.Margin = new Thickness(0, 0, 470, 198);
             Popup_CopyCutPaste.IsOpen = true;
         }
 

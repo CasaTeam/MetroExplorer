@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-  <Identity Name="41404comisciencebo.MetroExplorer" Publisher="CN=7CC2A853-0A94-4DFB-9120-4E6F1563BE8C" Version="1.8.0.13" />
+  <Identity Name="41404comisciencebo.MetroExplorer" Publisher="CN=7CC2A853-0A94-4DFB-9120-4E6F1563BE8C" Version="1.8.0.16" />
   <Properties>
     <DisplayName>Link File</DisplayName>
     <PublisherDisplayName>Surface Knight</PublisherDisplayName>
-    <Logo>Assets\UnitTestStoreLogo.png</Logo>
+    <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Prerequisites>
     <OSMinVersion>6.2.1</OSMinVersion>

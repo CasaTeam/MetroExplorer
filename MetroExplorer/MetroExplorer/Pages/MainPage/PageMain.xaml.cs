@@ -29,6 +29,7 @@
         private Dictionary<HomeItem, string> _dicItemToken;
         private DispatcherTimer _folderImageChangeDispatcher;
         private ObservableCollection<GroupInfoList<HomeItem>> _explorerGroups;
+        private VisualState _currentVisualState;
 
         public ObservableCollection<GroupInfoList<HomeItem>> ExplorerGroups
         {
@@ -47,6 +48,7 @@
         {
             InitializeComponent();
             DataContext = this;
+            ApplicationViewStates.CurrentStateChanged += ApplicationViewStates_CurrentStateChanged;
             _dicItemToken = new Dictionary<HomeItem, string>();
             _explorerGroups = new ObservableCollection<GroupInfoList<HomeItem>> 
             { 
@@ -54,6 +56,11 @@
                 new GroupInfoList<HomeItem>{ Key = StringResources.ResourceLoader.GetString("MainPage_SystemFolderGroupTitle") }
             };
             Loaded += PageMainLoaded;
+        }
+
+        void ApplicationViewStates_CurrentStateChanged(object sender, VisualStateChangedEventArgs e)
+        {
+            _currentVisualState = e.NewState;
         }
 
         protected async override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
@@ -249,6 +256,7 @@
 
         private async Task AddNewFolder()
         {
+            //if(this.si)
             StorageFolder storageFolder = await GetStorageFolderFromFolderPicker();
             if (storageFolder == null)
             {
@@ -295,6 +303,7 @@
 
         private async void ButtonAddNewDiskFolderClick(object sender, RoutedEventArgs e)
         {
+            if (_currentVisualState != null && _currentVisualState.Name != null && _currentVisualState.Name.ToString() == "Snapped") return;
             EventLogger.onActionEvent(EventLogger.ADD_FOLDER_CLICK, EventLogger.LABEL_HOME_PAGE);
             await AddNewFolder();
         }
@@ -352,6 +361,7 @@
             }
             else
             {
+                if (_currentVisualState != null && _currentVisualState.Name != null && _currentVisualState.Name.ToString() == "Snapped") return;
                 if (item.Path == StringResources.ResourceLoader.GetString("String_NewFolder") && item.Name == StringResources.ResourceLoader.GetString("String_NewFolder"))
                 {
                     // TODO: 添加新快捷方式文件夹

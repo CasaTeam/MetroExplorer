@@ -217,6 +217,9 @@
     <Content Include="Assets\SplashScreen.scale-100.png" />
     <Content Include="Assets\SplashScreen.scale-140.png" />
     <Content Include="Assets\SplashScreen.scale-180.png" />
+    <Content Include="Assets\StoreLogo.scale-100.png" />
+    <Content Include="Assets\StoreLogo.scale-140.png" />
+    <Content Include="Assets\StoreLogo.scale-180.png" />
     <Content Include="Assets\UnitTestSmallLogo.png" />
     <Content Include="Assets\UnitTestSmallLogo.scale-100.png" />
     <Content Include="Assets\UnitTestStoreLogo.png" />

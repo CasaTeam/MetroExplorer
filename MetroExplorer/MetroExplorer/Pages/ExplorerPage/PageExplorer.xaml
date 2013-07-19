@@ -609,7 +609,7 @@
 				<StackPanel Orientation="Horizontal" Height="105" HorizontalAlignment="Left" VerticalAlignment="Stretch">
 					<Button x:Name="Button_RemoveDiskFolder" Click="Button_RemoveDiskFolder_Click"
 						x:Uid="Uid_Page_Main_Button_RemoveFolder" VerticalAlignment="Stretch"
-						Margin="5,0" HorizontalAlignment="Center">
+						Margin="5,0,0,0" HorizontalAlignment="Center">
 						<Button.Style>
 							<Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
 								<Setter Property="AutomationProperties.Name" Value=""/>
@@ -619,7 +619,7 @@
 					</Button>
 					<Button x:Name="Button_RenameDiskFolder" Click="RenameDiskFolderButtonClick"
 						x:Uid="Uid_Page_Main_Button_RenameDiskFolder" VerticalAlignment="Stretch"
-						Margin="5,0" HorizontalAlignment="Center">
+						Margin="0,0" HorizontalAlignment="Center">
 						<Button.Style>
 							<Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
 								<Setter Property="AutomationProperties.Name" Value=""/>
@@ -627,11 +627,21 @@
 							</Style>
 						</Button.Style>
 					</Button>
-				</StackPanel>
+                    <!--<Button x:Name="Button_RotatePhoto" Click="RotatePhotoButtonClick"
+						x:Uid="Uid_Page_Main_Button_RotatePhoto" VerticalAlignment="Stretch"
+						Margin="0,0" HorizontalAlignment="Center">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
+                                <Setter Property="AutomationProperties.Name" Value=""/>
+                                <Setter Property="Content" Value="&#xE124;"/>
+                            </Style>
+                        </Button.Style>
+                    </Button>-->
+                </StackPanel>
 				<StackPanel Orientation="Horizontal" Height="105" HorizontalAlignment="Right" VerticalAlignment="Stretch">
 					<Button Click="Button_PlayFolder_Click" 
 							x:Uid="Uid_Page_Explorer_Button_PlayFolder"
-							HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="5,0">
+							HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="0,0">
 						<Button.Style>
 							<Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
 								<Setter Property="AutomationProperties.Name" Value=""/>
@@ -641,7 +651,7 @@
 					</Button>
 					<Button Click="Button_AddNewFolder_Click" 
 							x:Uid="Uid_Page_Explorer_Button_AddNewFolder"
-							HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="5,0">
+							HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="0,0">
 						<Button.Style>
 							<Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
 								<Setter Property="AutomationProperties.Name" Value=""/>
@@ -649,7 +659,7 @@
 							</Style>
 						</Button.Style>
 					</Button>
-					<Rectangle Width="2" VerticalAlignment="Stretch"  HorizontalAlignment="Center" Margin="15,30,15,30" Fill="White" />
+					<Rectangle Width="2" VerticalAlignment="Stretch"  HorizontalAlignment="Center" Margin="0,30,0,30" Fill="White" />
 					<Button Click="PageExplorerCopyButtonClick"
 						x:Uid="Uid_PageExplorerCopyButton" VerticalAlignment="Stretch"
 						Margin="5,0" HorizontalAlignment="Center">
@@ -662,7 +672,7 @@
 					</Button>
 					<Button Click="PageExplorerCutButtonClick"
 						x:Uid="Uid_PageExplorerCutButton" VerticalAlignment="Stretch"
-						Margin="5,0" HorizontalAlignment="Center">
+						Margin="0,0" HorizontalAlignment="Center">
 						<Button.Style>
 							<Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
 								<Setter Property="AutomationProperties.Name" Value=""/>
@@ -672,7 +682,7 @@
 					</Button>
 					<Button Click="PageExplorerPasteButtonClick"
 						x:Uid="Uid_PageExplorerPasteButton" VerticalAlignment="Stretch"
-						Margin="5,0" HorizontalAlignment="Center">
+						Margin="0,0" HorizontalAlignment="Center">
 						<Button.Style>
 							<Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
 								<Setter Property="AutomationProperties.Name" Value=""/>
@@ -682,7 +692,7 @@
 					</Button>
 					<Button Click="Button_CutPaste_Click"
 						x:Uid="Uid_PageMain_DragFileAndFolderToHere" VerticalAlignment="Stretch"
-						Margin="5,0" HorizontalAlignment="Center">
+						Margin="0,0" HorizontalAlignment="Center">
 						<Button.Style>
 							<Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
 								<Setter Property="AutomationProperties.Name" Value=""/>
@@ -690,10 +700,10 @@
 							</Style>
 						</Button.Style>
 					</Button>
-					<Rectangle Width="2" VerticalAlignment="Stretch"  HorizontalAlignment="Center" Margin="15,30,15,30" Fill="White" />
+					<Rectangle Width="2" VerticalAlignment="Stretch"  HorizontalAlignment="Center" Margin="5,30,5,30" Fill="White" />
 					<Button x:Name="Button_Detail" Click="Button_Detail_Click"
 						x:Uid="Uid_Page_Main_Button_Detail" VerticalAlignment="Stretch"
-						Margin="5,0,5,0" HorizontalAlignment="Center">
+						Margin="0,0" HorizontalAlignment="Center">
 						<Button.Style>
 							<Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
 								<Setter Property="AutomationProperties.Name" Value=""/>
@@ -703,7 +713,7 @@
 					</Button>
 					<Button x:Name="Button_Sort" Click="Button_Sort_Click"
 						x:Uid="Uid_Page_Main_Button_Sort" VerticalAlignment="Stretch"
-						Margin="5,0,10,0" HorizontalAlignment="Center">
+						Margin="0,0" HorizontalAlignment="Center">
 						<Button.Style>
 							<Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
 								<Setter Property="AutomationProperties.Name" Value=""/>
@@ -712,10 +722,10 @@
 						</Button.Style>
 					</Button>
 
-					<Rectangle Width="2" VerticalAlignment="Stretch"  HorizontalAlignment="Center" Margin="15,30,15,30" Fill="White" />
+					<Rectangle Width="2" VerticalAlignment="Stretch"  HorizontalAlignment="Center" Margin="5,30,5,30" Fill="White" />
 					<Button Click="Button_Refresh_Click" FontWeight="ExtraLight"
 							x:Uid="Uid_PageMainRefreshButton" VerticalAlignment="Stretch"
-							Margin="0,0,10,0" HorizontalAlignment="Right" >
+							Margin="0,0,5,0" HorizontalAlignment="Right" >
 						<Button.Style>
 							<Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
 								<Setter Property="AutomationProperties.Name" Value=""/>
@@ -928,9 +938,9 @@
 						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="SnappedModeTitleStackPanel" Storyboard.TargetProperty="Visibility">
 							<DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
 						</ObjectAnimationUsingKeyFrames>
-						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="LoadingProgressBar" Storyboard.TargetProperty="Visibility">
+						<!--<ObjectAnimationUsingKeyFrames Storyboard.TargetName="LoadingProgressBar" Storyboard.TargetProperty="Visibility">
 							<DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
-						</ObjectAnimationUsingKeyFrames>
+						</ObjectAnimationUsingKeyFrames>-->
 						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemListView" Storyboard.TargetProperty="Visibility">
 							<DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
 						</ObjectAnimationUsingKeyFrames>

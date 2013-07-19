@@ -164,24 +164,10 @@
             }
             else if (item.Type == ExplorerItemType.File)
             {
-                //if (item.StorageFile != null && item.StorageFile.IsImageFile())
-                //{
-                //    var parameters = ExplorerItems.Where(p => p.StorageFile != null &&
-                //                                             (p.StorageFile.FileType.ToUpper().Equals(".JPG") ||
-                //                                              p.StorageFile.FileType.ToUpper().Equals(".JPEG") ||
-                //                                              p.StorageFile.FileType.ToUpper().Equals(".PNG") ||
-                //                                              p.StorageFile.FileType.ToUpper().Equals(".BMP"))).ToList();
-                //    parameters.Remove(item);
-                //    parameters.Insert(0, item);
-                //    Frame.Navigate(typeof(PhotoGallery), parameters);
-                //}
-                //else
-                //{
                 var file = await StorageFile.GetFileFromPathAsync(item.Path);
                 await file.OpenAsync(FileAccessMode.Read);
                 EventLogger.onActionEvent(EventLogger.FILE_OPENED);
                 await Launcher.LaunchFileAsync(file, new LauncherOptions { DisplayApplicationPicker = true });
-                //}
             }
         }
 
