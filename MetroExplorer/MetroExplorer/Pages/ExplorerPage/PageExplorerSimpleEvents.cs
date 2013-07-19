@@ -5,6 +5,7 @@
     using System.ComponentModel;
     using System.Linq;
     using System.Threading.Tasks;
+    using Windows.ApplicationModel.Resources;
     using Windows.Storage;
     using Windows.Storage.FileProperties;
     using Windows.Storage.Pickers;
@@ -19,12 +20,15 @@
     using Core.Utils;
     using UserPreferenceRecord;
     using MainPage;
+<<<<<<< HEAD
+=======
     using Windows.ApplicationModel.Resources;
     using Windows.Storage.Streams;
 
     /// <summary>
     /// 
     /// </summary>
+>>>>>>> 8ad5b13e0c5e824ae8b55d93b58a0d6db6e801db
     public sealed partial class PageExplorer
     {
         private void Button_PlayFolder_Click(object sender, RoutedEventArgs e)

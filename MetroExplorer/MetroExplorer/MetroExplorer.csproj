@@ -229,7 +229,6 @@
     <Content Include="Assets\WideLogo.scale-180.png" />
     <Content Include="Assets\WideLogo.scale-80.png" />
     <Content Include="Assets\WideLogo100.png" />
-    <Content Include="Assets\WideLogo100.scale-100.png" />
     <Content Include="Assets\WideLogo80.png" />
     <Content Include="Common\ReadMe.txt" />
     <None Include="Package.StoreAssociation.xml" />
