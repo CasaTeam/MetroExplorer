@@ -80,6 +80,7 @@
             }
             MyVariableGridView.ItemsSource = GalleryItems;
             LoadingProgressBar.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            LoadingProgressBar.Opacity = 0;
         }
 
         protected override void SaveState(Dictionary<String, Object> pageState)
@@ -146,6 +147,8 @@
             ImageFlipVIew.Visibility = Windows.UI.Xaml.Visibility.Visible;
             StartFlipView(MyVariableGridView.SelectedIndex);
 
+            if (_sliderDispatcher == null)
+                _sliderDispatcher = new DispatcherTimer();
             _sliderDispatcher.Tick += SliderDispatcher_Tick;
             _sliderDispatcher.Interval = new TimeSpan(0, 0, 0, 3);
             _sliderDispatcher.Start();
@@ -154,18 +157,24 @@
 
         void SliderDispatcher_Tick(object sender, object e)
         {
-            if (ImageFlipVIew.Items.Count - 1 == ImageFlipVIew.SelectedIndex)
-                ImageFlipVIew.SelectedIndex = 0;
-            else
-                ImageFlipVIew.SelectedIndex++;
+            if (ImageFlipVIew != null && ImageFlipVIew.Items != null && ImageFlipVIew.Items.Count > 0)
+            {
+                if (ImageFlipVIew.Items.Count - 1 == ImageFlipVIew.SelectedIndex)
+                    ImageFlipVIew.SelectedIndex = 0;
+                else
+                    ImageFlipVIew.SelectedIndex++;
+            }
         }
 
         private void UnSliderModeButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             UnSliderModeButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             SliderModeButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
-            _sliderDispatcher.Stop();
-            _sliderDispatcher = null;
+            if (_sliderDispatcher != null)
+            {
+                _sliderDispatcher.Stop();
+                _sliderDispatcher = null;
+            }
         }
 
         private void Button_SetInterval_Click(object sender, object e)
