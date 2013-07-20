@@ -31,5 +31,50 @@
                     return null;
             }
         }
+
+        public async Task Add(DataSourceType serviceName, MapModel map)
+        {
+            switch (serviceName)
+            {
+                case DataSourceType.Design:
+                    await MapServiceDesign.Add(map);
+                    break;
+                case DataSourceType.Sqlite:
+                    await MapServiceSQLite.Add(map);
+                    break;
+                default:
+                    return;
+            }
+        }
+
+        public async Task Remove(DataSourceType serviceName, MapModel map)
+        {
+            switch (serviceName)
+            {
+                case DataSourceType.Design:
+                    await MapServiceDesign.Remove(map);
+                    break;
+                case DataSourceType.Sqlite:
+                    await MapServiceSQLite.Remove(map);
+                    break;
+                default:
+                    return;
+            }
+        }
+
+        public async Task Update(DataSourceType serviceName, MapModel map)
+        {
+            switch (serviceName)
+            {
+                case DataSourceType.Design:
+                    await MapServiceDesign.Update(map);
+                    break;
+                case DataSourceType.Sqlite:
+                    await MapServiceSQLite.Update(map);
+                    break;
+                default:
+                    return;
+            }
+        }
     }
 }

@@ -34,5 +34,23 @@
 
             return null;
         }
+
+        public async Task Add(DataSourceType dataSourceType, MapModel map)
+        {
+            if (_controller != null)
+                await _controller.Add(dataSourceType, map);
+        }
+
+        public async Task Remove(DataSourceType dataSourceType, MapModel map)
+        {
+            if (_controller != null)
+                await _controller.Remove(dataSourceType, map);
+        }
+
+        public async Task Update(DataSourceType dataSourceType, MapModel map)
+        {
+            if (_controller != null)
+                await _controller.Update(dataSourceType, map);
+        }
     }
 }

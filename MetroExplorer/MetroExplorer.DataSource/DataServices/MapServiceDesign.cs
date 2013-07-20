@@ -12,14 +12,11 @@
 
     public class MapServiceDesign : IMapService
     {
-        public Task<IEnumerable<MapModel>> Load()
+        public async Task<IEnumerable<MapModel>> Load()
         {
             string thumbnailPath = @"ms-appx:///MetroExplorer.Components.Maps/DesignAssets/MapBackground.bmp";
 
-
-            return new Task<IEnumerable<MapModel>>(() =>
-            {
-                return new List<MapModel>{
+            return new List<MapModel>{
                 new MapModel(Guid.NewGuid(),"Map1",thumbnailPath)
                 ,new MapModel(Guid.NewGuid(),"Map2",thumbnailPath)
                 ,new MapModel(Guid.NewGuid(),"Map3",thumbnailPath)
@@ -32,8 +29,21 @@
                 ,new MapModel(Guid.NewGuid(),"Map10",thumbnailPath)
                 ,new MapModel(Guid.NewGuid(),"Map11",thumbnailPath)
                 ,new MapModel(Guid.NewGuid(),"Map12",thumbnailPath)};
-            }
-           );
+        }
+
+        public Task Add(MapModel map)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Remove(MapModel map)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Update(MapModel map)
+        {
+            throw new NotImplementedException();
         }
     }
 }

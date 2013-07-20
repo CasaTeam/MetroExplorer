@@ -150,6 +150,9 @@
     <Compile Include="Pages\MapPage\PageMap.xaml.cs">
       <DependentUpon>PageMap.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\MapPage\PageMapList.xaml.cs">
+      <DependentUpon>PageMapList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserPreferenceRecord\TextFileAccess.cs" />
     <Compile Include="UserPreferenceRecord\FirstUsingRecord.cs" />
     <Compile Include="UserPreferenceRecord\UserPreferenceRecord.cs" />
@@ -262,6 +265,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\MapPage\PageMap.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\MapPage\PageMapList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

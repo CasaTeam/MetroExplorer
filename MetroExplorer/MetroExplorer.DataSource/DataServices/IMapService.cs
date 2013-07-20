@@ -10,5 +10,11 @@
     public interface IMapService
     {
         Task<IEnumerable<MapModel>> Load();
+
+        Task Add(MapModel map);
+
+        Task Remove(MapModel map);
+
+        Task Update(MapModel map);
     }
 }

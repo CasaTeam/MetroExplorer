@@ -11,5 +11,11 @@
     public interface IController<T>
     {
         Task<IEnumerable<T>> GetSources(DataSourceType serviceName);
+
+        Task Add(DataSourceType serviceName, MapModel map);
+
+        Task Remove(DataSourceType serviceName, MapModel map);
+
+        Task Update(DataSourceType serviceName, MapModel map);
     }
 }

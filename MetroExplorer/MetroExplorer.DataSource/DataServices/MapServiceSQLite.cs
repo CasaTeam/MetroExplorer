@@ -28,7 +28,26 @@
         public async Task<IEnumerable<MapModel>> Load()
         {
             SQLiteAsyncConnection connection = new SQLiteAsyncConnection(SQLiteConfiguration.ConnectionString);
+            
             return new List<MapModel>(await connection.QueryAsync<MapModel>("SELECT * FROM Maps"));
+        }
+
+        public Task Add(MapModel map)
+        {
+            SQLiteAsyncConnection connection = new SQLiteAsyncConnection(SQLiteConfiguration.ConnectionString);
+            return connection.InsertAsync(map);
+        }
+
+        public Task Remove(MapModel map)
+        {
+            SQLiteAsyncConnection connection = new SQLiteAsyncConnection(SQLiteConfiguration.ConnectionString);
+            return connection.DeleteAsync(map);
+        }
+
+        public Task Update(MapModel map)
+        {
+            SQLiteAsyncConnection connection = new SQLiteAsyncConnection(SQLiteConfiguration.ConnectionString);
+            return connection.UpdateAsync(map);
         }
     }
 }
