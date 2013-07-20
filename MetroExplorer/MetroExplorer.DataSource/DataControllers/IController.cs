@@ -10,6 +10,6 @@
 
     public interface IController<T>
     {
-        IEnumerable<T> GetSources(DataSourceType serviceName);
+        Task<IEnumerable<T>> GetSources(DataSourceType serviceName);
     }
 }

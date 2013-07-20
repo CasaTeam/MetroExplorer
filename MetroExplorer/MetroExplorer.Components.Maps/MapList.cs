@@ -10,8 +10,8 @@
     using Windows.UI.Xaml.Input;
     using Windows.UI.Xaml.Media;
     using DataSource;
-    using DataSource.Maps.DataControllers;
-    using DataSource.Maps.DataModels;
+    using DataSource.DataControllers;
+    using DataSource.DataModels;
     using DataSource.DataConfigurations;
     using Windows.ApplicationModel;
 
@@ -49,13 +49,13 @@
 
         #region Override Methods
 
-        protected override void OnApplyTemplate()
+        protected override async void OnApplyTemplate()
         {
             base.OnApplyTemplate();
 
             DataAccess<MapModel> dataAccess = new DataAccess<MapModel>();
 
-            _dataSource = dataAccess.GetSources(
+            _dataSource = await dataAccess.GetSources(
                 DesignMode.DesignModeEnabled ? DataSourceType.Design : DataSourceType.Sqlite);
 
             _gridViewMapList = (GridView)GetTemplateChild(GridViewMapListElement);

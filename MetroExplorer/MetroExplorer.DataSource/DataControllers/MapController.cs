@@ -19,14 +19,14 @@
         [Dependency("MapServiceSQLite")]
         public IMapService MapServiceSQLite { get; set; }
 
-        public IEnumerable<MapModel> GetSources(DataSourceType serviceName)
+        public async Task<IEnumerable<MapModel>> GetSources(DataSourceType serviceName)
         {
             switch (serviceName)
             {
                 case DataSourceType.Design:
-                    return MapServiceDesign.Load();
+                    return await MapServiceDesign.Load();
                 case DataSourceType.Sqlite:
-                    
+                    return await MapServiceSQLite.Load();
                 default:
                     return null;
             }

@@ -9,6 +9,6 @@
 
     public interface IMapService
     {
-        IEnumerable<MapModel> Load();
+        Task<IEnumerable<MapModel>> Load();
     }
 }

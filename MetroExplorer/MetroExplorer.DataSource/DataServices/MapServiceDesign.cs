@@ -12,41 +12,28 @@
 
     public class MapServiceDesign : IMapService
     {
-        public IEnumerable<MapModel> Load()
+        public Task<IEnumerable<MapModel>> Load()
         {
             string thumbnailPath = @"ms-appx:///MetroExplorer.Components.Maps/DesignAssets/MapBackground.bmp";
 
-            return new List<MapModel>{
-                new MapModel(Guid.NewGuid(),"Map1",thumbnailPath, GenerateThumbnail(thumbnailPath))
-                ,new MapModel(Guid.NewGuid(),"Map2",thumbnailPath, GenerateThumbnail(thumbnailPath))
-                ,new MapModel(Guid.NewGuid(),"Map3",thumbnailPath, GenerateThumbnail(thumbnailPath))
-                ,new MapModel(Guid.NewGuid(),"Map4",thumbnailPath, GenerateThumbnail(thumbnailPath))
-                ,new MapModel(Guid.NewGuid(),"Map5",thumbnailPath, GenerateThumbnail(thumbnailPath))
-                ,new MapModel(Guid.NewGuid(),"Map6",thumbnailPath, GenerateThumbnail(thumbnailPath))
-                ,new MapModel(Guid.NewGuid(),"Map7",thumbnailPath, GenerateThumbnail(thumbnailPath))
-                ,new MapModel(Guid.NewGuid(),"Map8",thumbnailPath, GenerateThumbnail(thumbnailPath))
-                ,new MapModel(Guid.NewGuid(),"Map9",thumbnailPath, GenerateThumbnail(thumbnailPath))
-                ,new MapModel(Guid.NewGuid(),"Map10",thumbnailPath, GenerateThumbnail(thumbnailPath))
-                ,new MapModel(Guid.NewGuid(),"Map11",thumbnailPath, GenerateThumbnail(thumbnailPath))
-                ,new MapModel(Guid.NewGuid(),"Map12",thumbnailPath, GenerateThumbnail(thumbnailPath))
-            };
-        }
 
-        private BitmapImage GenerateThumbnail(string uri)
-        {
-            try
+            return new Task<IEnumerable<MapModel>>(() =>
             {
-                //BitmapImage bitmapImage = new BitmapImage(new Uri("ms-appx:/" + url));
-                //StorageFile storageFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri(uri));
-                //StorageItemThumbnail fileThumbnail = await storageFile.GetThumbnailAsync(ThumbnailMode.SingleItem, 800);
-                BitmapImage bitmapImage = new BitmapImage(new Uri(uri));
-                //bitmapImage.SetSource(fileThumbnail);
-                return bitmapImage;
+                return new List<MapModel>{
+                new MapModel(Guid.NewGuid(),"Map1",thumbnailPath)
+                ,new MapModel(Guid.NewGuid(),"Map2",thumbnailPath)
+                ,new MapModel(Guid.NewGuid(),"Map3",thumbnailPath)
+                ,new MapModel(Guid.NewGuid(),"Map4",thumbnailPath)
+                ,new MapModel(Guid.NewGuid(),"Map5",thumbnailPath)
+                ,new MapModel(Guid.NewGuid(),"Map6",thumbnailPath)
+                ,new MapModel(Guid.NewGuid(),"Map7",thumbnailPath)
+                ,new MapModel(Guid.NewGuid(),"Map8",thumbnailPath)
+                ,new MapModel(Guid.NewGuid(),"Map9",thumbnailPath)
+                ,new MapModel(Guid.NewGuid(),"Map10",thumbnailPath)
+                ,new MapModel(Guid.NewGuid(),"Map11",thumbnailPath)
+                ,new MapModel(Guid.NewGuid(),"Map12",thumbnailPath)};
             }
-            catch (Exception)
-            {
-                throw;
-            }
+           );
         }
     }
 }

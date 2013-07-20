@@ -21,18 +21,27 @@
 
         public string ThumbnailUri { get; private set; }
 
-        public BitmapImage Thumbnail { get; private set; }
+        [Ignore]
+        public BitmapImage Thumbnail
+        {
+            get
+            {
+                BitmapImage bitmapImage = new BitmapImage(new Uri(ThumbnailUri));
+                return bitmapImage;
+            }
+        }
 
         #endregion
 
         #region Constructors
 
-        public MapModel(Guid id, string name, string thumbnailUri, BitmapImage thumbnail)
+        public MapModel() { }
+
+        public MapModel(Guid id, string name, string thumbnailUri)
         {
             ID = id;
             Name = name;
             ThumbnailUri = thumbnailUri;
-            Thumbnail = thumbnail;
         }
 
         #endregion

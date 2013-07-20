@@ -27,10 +27,10 @@
             }
         }
 
-        public IEnumerable<T> GetSources(DataSourceType dataSourceType)
+        public async Task<IEnumerable<T>> GetSources(DataSourceType dataSourceType)
         {
             if (_controller != null)
-                return _controller.GetSources(dataSourceType);
+                return await _controller.GetSources(dataSourceType);
 
             return null;
         }
