@@ -22,9 +22,7 @@
     using MainPage;
     using Windows.Storage.Streams;
 
-    /// <summary>
-    /// 
-    /// </summary>
+    
     public sealed partial class PageExplorer
     {
         private void Button_PlayFolder_Click(object sender, RoutedEventArgs e)
