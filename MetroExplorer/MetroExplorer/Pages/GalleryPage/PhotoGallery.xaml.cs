@@ -41,8 +41,6 @@
             }
         }
 
-        private readonly MetroExplorerLocalDataSource _dataSource;
-
         DispatcherTimer _sliderDispatcher = new DispatcherTimer();
 
         public PhotoGallery()
