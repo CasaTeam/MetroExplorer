@@ -27,6 +27,8 @@
               <FileType>.PNG</FileType>
               <FileType>.JPG</FileType>
               <FileType>.BMP</FileType>
+              <FileType>.MP4</FileType>
+              <FileType>.MWV</FileType>
             </SupportedFileTypes>
           </FileTypeAssociation>
         </Extension>

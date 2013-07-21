@@ -90,6 +90,8 @@
                   Visibility="Collapsed" SelectionChanged="ImageFlipVIew_SelectionChanged"/>
 
         <core:VariableGridView x:Name="MyVariableGridView" IsItemClickEnabled="True"
+                               IsSwipeEnabled="True" IsRightTapEnabled="True" IsHoldingEnabled="True" 
+                               CanReorderItems="True"
                                Padding="116,70,116,46"
                                ItemClick="MyVariableGridView_ItemClick">
             <core:VariableGridView.ItemTemplate>

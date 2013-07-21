@@ -97,8 +97,7 @@
                 item.Name.ToUpper().EndsWith(".JPEG") ||
                 item.Name.ToUpper().EndsWith(".PNG") ||
                 item.Name.ToUpper().EndsWith(".BMP") ||
-                item.Name.ToUpper().EndsWith(".MP4") || item.Name.ToUpper().EndsWith(".RMVB") ||
-                item.Name.ToUpper().EndsWith(".MKV"))
+                item.Name.ToUpper().EndsWith(".MP4") || item.Name.ToUpper().EndsWith(".WMV"))
                 item.ImageStretch = "UniformToFill";
             else
                 item.ImageStretch = "Uniform";

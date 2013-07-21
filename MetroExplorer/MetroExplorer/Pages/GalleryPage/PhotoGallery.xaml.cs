@@ -54,6 +54,11 @@
             this.Unloaded += PhotoGallery_Unloaded;
         }
 
+        void ImageFlipVIew_Unloaded(object sender, RoutedEventArgs e)
+        {
+           
+        }
+
         void PhotoGallery_Unloaded(object sender, RoutedEventArgs e)
         {
         }
@@ -133,6 +138,9 @@
             {
                 MyVariableGridView.Visibility = Windows.UI.Xaml.Visibility.Visible;
                 ImageFlipVIew.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                if (_currentPlayMedia != null && (_currentPlayMedia.CurrentState != MediaElementState.Closed &&
+                 _currentPlayMedia.CurrentState != MediaElementState.Stopped))
+                    CloseAndUnloadLastMedia();
             }
             else
             {
@@ -182,11 +190,12 @@
             }
         }
 
-        private void StartFlipView(ExplorerItem item)
+        private async void StartFlipView(ExplorerItem item)
         {
             if(ImageFlipVIew.ItemsSource == null)
                 ImageFlipVIew.ItemsSource = GalleryItems;
             ImageFlipVIew.SelectedItem = item;
+            await PlayAVideo();
         }
 
         private void videoElement_MediaOpened(object sender, RoutedEventArgs e)
@@ -195,6 +204,11 @@
         }
 
         private async void ImageFlipVIew_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            await PlayAVideo();
+        }
+
+        private async System.Threading.Tasks.Task PlayAVideo()
         {
             if (_currentPlayMedia != null && (_currentPlayMedia.CurrentState != MediaElementState.Closed &&
                  _currentPlayMedia.CurrentState != MediaElementState.Stopped))
@@ -208,8 +222,8 @@
                 var media = GetMediaElement(container);
                 if (media == null) return;
                 media.SetSource(await item.StorageFile.OpenAsync(Windows.Storage.FileAccessMode.Read), item.StorageFile.FileType);
-                media.MediaOpened += media_MediaOpened;
-                _sliderDispatcher.Stop();
+                if (_sliderDispatcher != null)
+                    _sliderDispatcher.Stop();
                 media.MediaFailed += media_MediaFailed;
                 media.MediaEnded += media_MediaEnded;
                 _currentPlayMedia = media;
@@ -220,10 +234,15 @@
 
         private void CloseAndUnloadLastMedia()
         {
-            _currentPlayMedia.Stop();
-            //_currentPlayMedia.SetSource(null, null);
-            _currentPlayMedia.Source = null;
-            _currentPlayMedia = null;
+            if (_currentPlayMedia != null)
+            {
+                _currentPlayMedia.MediaFailed -= media_MediaFailed;
+                _currentPlayMedia.MediaEnded -= media_MediaEnded;
+                _currentPlayMedia.Stop();
+                _currentPlayMedia.Source = null;
+                _currentPlayMedia = null;
+                
+            }
         }
 
         void media_MediaEnded(object sender, RoutedEventArgs e)
