@@ -18,11 +18,12 @@
     using Common;
     using UserPreferenceRecord;
     using MetroExplorer.Pages.ExplorerPage;
+    using Windows.UI.Xaml.Data;
+    using Windows.UI.Xaml.Media;
 
     /// <summary>
     /// Page affichant une collection groupée d'éléments.
     /// </summary>
-
     public sealed partial class PhotoGallery : LayoutAwarePage, INotifyPropertyChanged
     {
         public static double ActualScreenHeight = 0;
@@ -42,6 +43,8 @@
         }
 
         DispatcherTimer _sliderDispatcher = new DispatcherTimer();
+
+        MediaElement _currentPlayMedia;
 
         public PhotoGallery()
         {
@@ -77,6 +80,7 @@
                 }
             }
             MyVariableGridView.ItemsSource = GalleryItems;
+            ImageFlipVIew.ItemsSource = GalleryItems;
             LoadingProgressBar.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             LoadingProgressBar.Opacity = 0;
         }
@@ -101,7 +105,7 @@
 
         private async System.Threading.Tasks.Task<bool> PhotoThumbnail(ExplorerItem photo)
         {
-            if (photo.StorageFile == null || !photo.StorageFile.IsImageFile()) return false;
+            if (photo.StorageFile == null || (!photo.StorageFile.IsImageFile() && !photo.StorageFile.IsVideoFile())) return false;
             try
             {
                 StorageItemThumbnail fileThumbnail = await photo.StorageFile.GetThumbnailAsync(ThumbnailMode.SingleItem, (uint)ActualScreenHeight, ThumbnailOptions.UseCurrentScale);
@@ -138,12 +142,15 @@
 
         private void SliderModeButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
+            if (GalleryItems.Count == 0) return;
             SliderModeButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             UnSliderModeButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
 
             MyVariableGridView.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             ImageFlipVIew.Visibility = Windows.UI.Xaml.Visibility.Visible;
-            StartFlipView(MyVariableGridView.SelectedIndex);
+
+            if (ImageFlipVIew.Items != null && ImageFlipVIew.SelectedItem == null && ImageFlipVIew.Items.Count > 0)
+                ImageFlipVIew.SelectedIndex = 0;
 
             if (_sliderDispatcher == null)
                 _sliderDispatcher = new DispatcherTimer();
@@ -175,166 +182,88 @@
             }
         }
 
-        private void Button_SetInterval_Click(object sender, object e)
-        {
-
-        }
-
-        private void SliderSettingButton_Click(object sender, RoutedEventArgs e)
-        {
-            Popup_SetInterval.IsOpen = true;
-            Popup_SetInterval.Visibility = Windows.UI.Xaml.Visibility.Visible;
-            Popup_SetInterval.Margin = new Thickness(0, 0, 0, 232);
-        }
-
-        private void MyVariableGridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            MyVariableGridView.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-            ImageFlipVIew.Visibility = Windows.UI.Xaml.Visibility.Visible;
-            StartFlipView(MyVariableGridView.SelectedIndex);
-        }
-
-        private void StartFlipView(int startPosition = 0)
+        private void StartFlipView(ExplorerItem item)
         {
             if(ImageFlipVIew.ItemsSource == null)
                 ImageFlipVIew.ItemsSource = GalleryItems;
-            ImageFlipVIew.SelectedIndex = startPosition;
+            ImageFlipVIew.SelectedItem = item;
         }
 
-        private void SliderModeButton_Click_1(object sender, RoutedEventArgs e)
+        private void videoElement_MediaOpened(object sender, RoutedEventArgs e)
         {
-
-        }
-    }
-
-    /// <summary>
-    /// Properties for change theme color
-    /// </summary>
-    public sealed partial class PhotoGallery
-    {
-        private string _backgroundColor = Theme.ThemeLibarary.BackgroundColor;
-        public string BackgroundColor
-        {
-            get
-            {
-                return _backgroundColor;
-            }
-            set
-            {
-                _backgroundColor = value;
-                NotifyPropertyChanged("BackgroundColor");
-            }
+            
         }
 
-        private string _bottomBarBackground = Theme.ThemeLibarary.BottomBarBackground;
-        public string BottomBarBackground
+        private async void ImageFlipVIew_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            get
+            if (_currentPlayMedia != null && (_currentPlayMedia.CurrentState != MediaElementState.Closed &&
+                 _currentPlayMedia.CurrentState != MediaElementState.Stopped))
+                CloseAndUnloadLastMedia();
+
+            if (ImageFlipVIew.SelectedItem == null) return;
+            var item = (ImageFlipVIew.SelectedItem as ExplorerItem);
+            if (item.StorageFile.IsVideoFile())
             {
-                return _bottomBarBackground;
+                var container = ImageFlipVIew.ItemContainerGenerator.ContainerFromItem(item);
+                var media = GetMediaElement(container);
+                if (media == null) return;
+                media.SetSource(await item.StorageFile.OpenAsync(Windows.Storage.FileAccessMode.Read), item.StorageFile.FileType);
+                media.MediaOpened += media_MediaOpened;
+                _sliderDispatcher.Stop();
+                media.MediaFailed += media_MediaFailed;
+                media.MediaEnded += media_MediaEnded;
+                _currentPlayMedia = media;
             }
-            set
-            {
-                _bottomBarBackground = value;
-                NotifyPropertyChanged("BottomBarBackground");
-            }
+
+            GC.Collect();
         }
 
-        private string _titleForeground = Theme.ThemeLibarary.TitleForeground;
-        public string TitleForeground
+        private void CloseAndUnloadLastMedia()
         {
-            get
-            {
-                return _titleForeground;
-            }
-            set
-            {
-                _titleForeground = value;
-                NotifyPropertyChanged("TitleForeground");
-            }
+            _currentPlayMedia.Stop();
+            //_currentPlayMedia.SetSource(null, null);
+            _currentPlayMedia.Source = null;
+            _currentPlayMedia = null;
         }
 
-        private string _itemBackground = Theme.ThemeLibarary.ItemBackground;
-        public string ItemBackground
+        void media_MediaEnded(object sender, RoutedEventArgs e)
         {
-            get
-            {
-                return _itemBackground;
-            }
-            set
-            {
-                _itemBackground = value;
-                NotifyPropertyChanged("ItemBackground");
-            }
+            if (_sliderDispatcher != null && UnSliderModeButton.Visibility == Windows.UI.Xaml.Visibility.Visible)
+                _sliderDispatcher.Start();
         }
 
-        private string _itemSmallBackground = Theme.ThemeLibarary.ItemSmallBackground;
-        public string ItemSmallBackground
+        void media_MediaFailed(object sender, ExceptionRoutedEventArgs e)
         {
-            get
-            {
-                return _itemSmallBackground;
-            }
-            set
-            {
-                _itemSmallBackground = value;
-                NotifyPropertyChanged("ItemSmallBackground");
-            }
+            if (_sliderDispatcher != null && UnSliderModeButton.Visibility == Windows.UI.Xaml.Visibility.Visible)
+                _sliderDispatcher.Start();
         }
 
-        private string _itemSelectedBorderColor = Theme.ThemeLibarary.ItemSelectedBorderColor;
-        public string ItemSelectedBorderColor
+        void media_MediaOpened(object sender, RoutedEventArgs e)
         {
-            get
-            {
-                return _itemSelectedBorderColor;
-            }
-            set
-            {
-                _itemSelectedBorderColor = value;
-                NotifyPropertyChanged("ItemSelectedBorderColor");
-            }
+            if (_sliderDispatcher != null && UnSliderModeButton.Visibility == Windows.UI.Xaml.Visibility.Visible)
+                _sliderDispatcher.Stop();
         }
 
-        private string _itemTextForeground = Theme.ThemeLibarary.ItemSelectedBorderColor;
-        public string ItemTextForeground
+        public MediaElement GetMediaElement(DependencyObject parent)
         {
-            get
+            if (parent == null)
+                return null;
+            var list = new List<MediaElement> { };
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
             {
-                return _itemTextForeground;
+                var child = VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(parent, i), i), i), 1);
+                if (child is MediaElement)
+                    return child as MediaElement;
             }
-            set
-            {
-                _itemTextForeground = value;
-                NotifyPropertyChanged("ItemTextForeground");
-            }
+            return null;
         }
 
-        private string _itemBigBackground = Theme.ThemeLibarary.ItemBigBackground;
-        public string ItemBigBackground
+        private void MyVariableGridView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            get
-            {
-                return _itemBigBackground;
-            }
-            set
-            {
-                _itemBigBackground = value;
-                NotifyPropertyChanged("ItemBigBackground");
-            }
-        }
-
-        private void InitTheme()
-        {
-            Theme.ThemeLibarary.ChangeTheme();
-            BackgroundColor = Theme.ThemeLibarary.BackgroundColor;
-            BottomBarBackground = Theme.ThemeLibarary.BottomBarBackground;
-            TitleForeground = Theme.ThemeLibarary.TitleForeground;
-            ItemBackground = Theme.ThemeLibarary.ItemBackground;
-            ItemSmallBackground = Theme.ThemeLibarary.ItemSmallBackground;
-            ItemSelectedBorderColor = Theme.ThemeLibarary.ItemSelectedBorderColor;
-            ItemTextForeground = Theme.ThemeLibarary.ItemTextForeground;
-            ItemBigBackground = Theme.ThemeLibarary.ItemBigBackground;
+            MyVariableGridView.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            ImageFlipVIew.Visibility = Windows.UI.Xaml.Visibility.Visible;
+            if (e.ClickedItem != null)
+                StartFlipView(e.ClickedItem as ExplorerItem);
         }
     }
 
@@ -351,5 +280,24 @@
 
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
+    }
+
+    public sealed class FileTypeVisibilityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            if (value != null)
+            {
+                var storageFile = (value as StorageFile);
+                return storageFile.IsVideoFile() ? "Visible" : "Collapsed";
+            }
+            else
+                return "Collapsed";
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            return !(value is bool && (bool)value);
+        }
     }
 }

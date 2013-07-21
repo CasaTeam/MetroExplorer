@@ -20,5 +20,10 @@
                 file.FileType.ToUpper().EndsWith(".MP4") ||
                 file.FileType.ToUpper().EndsWith(".PNG");
         }
+
+        public static bool IsVideoFile(this StorageFile file)
+        {
+            return file.FileType.ToUpper().Equals(".MP4");
+        }
     }
 }

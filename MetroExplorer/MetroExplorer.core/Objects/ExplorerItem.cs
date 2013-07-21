@@ -5,6 +5,7 @@
     using System.ComponentModel;
     using System.Xml.Serialization;
     using Windows.Storage;
+    using Windows.Storage.Streams;
     using Windows.UI.Xaml.Media.Imaging;
 
     /// <summary>
@@ -27,7 +28,18 @@
         private BitmapImage _image;
         [XmlIgnore]
         public string _imageStretch = "None";
+        [XmlIgnore]
+        private IRandomAccessStream _stream = null;
 
+        public IRandomAccessStream Stream
+        {
+            get { return _stream; }
+            set
+            {
+                _stream = value;
+                NotifyPropertyChanged("Stream");
+            }
+        }
         public string Name
         {
             get { return _name; }

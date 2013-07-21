@@ -4,13 +4,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:common="using:MetroExplorer.Common"
     xmlns:core="using:MetroExplorer.Core"
+    xmlns:local="using:MetroExplorer"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     DataContext="{Binding DefaultViewModel, RelativeSource={RelativeSource Self}}"
     mc:Ignorable="d">
 
-
     <Page.Resources>
+        <local:FileTypeVisibilityConverter x:Key="FileTypeVisibilityConverter" />
         <DataTemplate x:Key="FlipViewItemTemplate">
             <Grid>
                 <Image Source="{Binding Image}" Width="Auto" Height="Auto" Stretch="Uniform" Opacity="1"/>
@@ -18,6 +19,8 @@
                     <TextBlock Text="{Binding Name}" FontFamily="Segoe UI" FontSize="26.667" 
                                        Foreground="#CCFFFFFF" Padding="15,20"/>
                 </Border>-->
+                <MediaElement Source="{Binding}"
+                              AutoPlay="True" />
             </Grid>
         </DataTemplate>
 
@@ -40,7 +43,7 @@
     </common:LayoutAwarePage.TopAppBar>
     <common:LayoutAwarePage.BottomAppBar>
         <AppBar x:Name="AppBar_BottomAppBar"
-				Background="{Binding Path=BottomBarBackground}" BorderBrush="{Binding Path=BottomBarBackground}">
+				Background="#FF1E90CD" BorderBrush="#FF1E90CD">
             <Grid Height="100" x:Name="Grid_BottomAppBar" HorizontalAlignment="Stretch">
                 <Grid HorizontalAlignment="Left">
                     <!--<Button FontWeight="ExtraLight" Click="SliderSettingButton_Click"
@@ -84,10 +87,11 @@
         
         <ProgressBar IsIndeterminate="True" Height="8" Margin="0,0,0,0" VerticalAlignment="Top" x:Name="LoadingProgressBar"/>
         <FlipView x:Name="ImageFlipVIew" Grid.Row="1" ItemTemplate="{StaticResource FlipViewItemTemplate}"
-                  Visibility="Collapsed"/>
-        
-        <core:VariableGridView x:Name="MyVariableGridView"
-                               Padding="116,70,116,46" SelectionChanged="MyVariableGridView_SelectionChanged">
+                  Visibility="Collapsed" SelectionChanged="ImageFlipVIew_SelectionChanged"/>
+
+        <core:VariableGridView x:Name="MyVariableGridView" IsItemClickEnabled="True"
+                               Padding="116,70,116,46"
+                               ItemClick="MyVariableGridView_ItemClick">
             <core:VariableGridView.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0" VariableSizedWrapGrid.ColumnSpan="{Binding Width}">
@@ -95,15 +99,8 @@
                                Stretch="UniformToFill"
                                VerticalAlignment="Stretch"
                                HorizontalAlignment="Stretch" />
-                        <!--<StackPanel Margin="2" Background="#AA000000"
-                                    VerticalAlignment="Bottom"
-                                    HorizontalAlignment="Left">
-                            <TextBlock Text="{Binding Name}"
-                                       HorizontalAlignment="Center"
-                                       Foreground="White"
-                                       FontSize="16"
-                                       Margin="6" />
-                        </StackPanel>-->
+                        <Image Source="ms-appx:///Assets/play.png" Width="48" Height="48" VerticalAlignment="Center" HorizontalAlignment="Center"
+                               Visibility="{Binding StorageFile, Converter={StaticResource FileTypeVisibilityConverter}}"/>
                     </Grid>
                 </DataTemplate>
             </core:VariableGridView.ItemTemplate>
@@ -116,19 +113,5 @@
                 </ItemsPanelTemplate>
             </core:VariableGridView.ItemsPanel>
         </core:VariableGridView>
-
-        
-        <Popup HorizontalAlignment="Left" VerticalAlignment="Bottom" IsLightDismissEnabled="True"
-			   Visibility="Collapsed" x:Name="Popup_SetInterval">
-            <Border BorderBrush="{Binding Path=TitleForeground}" BorderThickness="2">
-                <Grid Width="230" Height="123" Background="White">
-                    <TextBox x:Name="TextBox_SetInterval" BorderBrush="{Binding Path=TitleForeground}" FontSize="18" 
-									 x:Uid="Uid_TextBox_CreateNewFolder" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="20,25,20,10" />
-                    <Button x:Uid="Uid_Button_SetInterval" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5,70,15,0" Click="Button_SetInterval_Click"
-									Foreground="#DDFFFFFF" FontSize="16" 
-									Style="{StaticResource ButtonBlueStyle}" />
-                </Grid>
-            </Border>
-        </Popup>
     </Grid>
 </common:LayoutAwarePage>
