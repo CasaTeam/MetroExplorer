@@ -320,24 +320,27 @@
             if (GridViewItem.SelectedItems == null || GridViewItem.SelectedItems.Count == 0) return;
             while (GridViewItem.SelectedItems.Count > 0)
             {
-                if (!_dicItemToken.ContainsKey((GridViewItem.SelectedItems[0] as HomeItem)))
+                try
                 {
-                    if (GridViewItem.SelectedItems.Count == 1)
-                        break;
-                    continue;
+                    if (!_dicItemToken.ContainsKey((GridViewItem.SelectedItems[0] as HomeItem)))
+                    {
+                        if (GridViewItem.SelectedItems.Count == 1)
+                            break;
+                        continue;
+                    }
+                    StorageApplicationPermissions.FutureAccessList.Remove(_dicItemToken[(GridViewItem.SelectedItems[0] as HomeItem)]);
+                    if (ExplorerGroups[0].Contains(GridViewItem.SelectedItems[0] as HomeItem))
+                    {
+                        _dicItemToken.Remove(GridViewItem.SelectedItems[0] as HomeItem);
+                        ExplorerGroups[0].Remove(GridViewItem.SelectedItems[0] as HomeItem);
+                    }
+                    else if (ExplorerGroups[1].Contains(GridViewItem.SelectedItems[0] as HomeItem))
+                    {
+                        _dicItemToken.Remove(GridViewItem.SelectedItems[0] as HomeItem);
+                        ExplorerGroups[1].Remove(GridViewItem.SelectedItems[0] as HomeItem);
+                    }
                 }
-                StorageApplicationPermissions.FutureAccessList.Remove(_dicItemToken[(GridViewItem.SelectedItems[0] as HomeItem)]);
-                if (ExplorerGroups[0].Contains(GridViewItem.SelectedItems[0] as HomeItem))
-                {
-                    _dicItemToken.Remove(GridViewItem.SelectedItems[0] as HomeItem);
-                    ExplorerGroups[0].Remove(GridViewItem.SelectedItems[0] as HomeItem);
-                }
-                else if (ExplorerGroups[1].Contains(GridViewItem.SelectedItems[0] as HomeItem))
-                {
-                    _dicItemToken.Remove(GridViewItem.SelectedItems[0] as HomeItem);
-                    ExplorerGroups[1].Remove(GridViewItem.SelectedItems[0] as HomeItem);
-                }
-
+                catch { }
             }
             BottomAppBar.IsOpen = false;
         }

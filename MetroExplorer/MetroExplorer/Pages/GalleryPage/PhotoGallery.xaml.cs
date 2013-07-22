@@ -86,6 +86,7 @@
             }
             MyVariableGridView.ItemsSource = GalleryItems;
             ImageFlipVIew.ItemsSource = GalleryItems;
+            ImageFlipVIew.SelectedIndex = -1;
             LoadingProgressBar.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             LoadingProgressBar.Opacity = 0;
         }
@@ -138,9 +139,12 @@
             {
                 MyVariableGridView.Visibility = Windows.UI.Xaml.Visibility.Visible;
                 ImageFlipVIew.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                SliderModeButton.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                UnSliderModeButton.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
                 if (_currentPlayMedia != null && (_currentPlayMedia.CurrentState != MediaElementState.Closed &&
                  _currentPlayMedia.CurrentState != MediaElementState.Stopped))
                     CloseAndUnloadLastMedia();
+                ImageFlipVIew.SelectedIndex = -1;
             }
             else
             {
@@ -190,25 +194,19 @@
             }
         }
 
-        private async void StartFlipView(ExplorerItem item)
+        private void StartFlipView(ExplorerItem item)
         {
             if(ImageFlipVIew.ItemsSource == null)
                 ImageFlipVIew.ItemsSource = GalleryItems;
-            ImageFlipVIew.SelectedItem = item;
-            await PlayAVideo();
-        }
-
-        private void videoElement_MediaOpened(object sender, RoutedEventArgs e)
-        {
-            
+            if (item != null && GalleryItems.Contains(item))
+            {
+                ImageFlipVIew.SelectedIndex = GalleryItems.IndexOf(item);
+            }
+            else if (ImageFlipVIew.Items.Count > 0)
+                ImageFlipVIew.SelectedIndex = 0;
         }
 
         private async void ImageFlipVIew_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            await PlayAVideo();
-        }
-
-        private async System.Threading.Tasks.Task PlayAVideo()
         {
             if (_currentPlayMedia != null && (_currentPlayMedia.CurrentState != MediaElementState.Closed &&
                  _currentPlayMedia.CurrentState != MediaElementState.Stopped))
@@ -219,6 +217,8 @@
             if (item.StorageFile.IsVideoFile())
             {
                 var container = ImageFlipVIew.ItemContainerGenerator.ContainerFromItem(item);
+                if (container == null)
+                    return;
                 var media = GetMediaElement(container);
                 if (media == null) return;
                 media.SetSource(await item.StorageFile.OpenAsync(Windows.Storage.FileAccessMode.Read), item.StorageFile.FileType);
@@ -241,7 +241,6 @@
                 _currentPlayMedia.Stop();
                 _currentPlayMedia.Source = null;
                 _currentPlayMedia = null;
-                
             }
         }
 

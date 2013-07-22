@@ -86,8 +86,6 @@
     <Grid Background="{StaticResource AppBarBackgroundThemeBrush}">
         
         <ProgressBar IsIndeterminate="True" Height="8" Margin="0,0,0,0" VerticalAlignment="Top" x:Name="LoadingProgressBar"/>
-        <FlipView x:Name="ImageFlipVIew" Grid.Row="1" ItemTemplate="{StaticResource FlipViewItemTemplate}"
-                  Visibility="Collapsed" SelectionChanged="ImageFlipVIew_SelectionChanged"/>
 
         <core:VariableGridView x:Name="MyVariableGridView" IsItemClickEnabled="True"
                                IsSwipeEnabled="True" IsRightTapEnabled="True" IsHoldingEnabled="True" 
@@ -115,5 +113,8 @@
                 </ItemsPanelTemplate>
             </core:VariableGridView.ItemsPanel>
         </core:VariableGridView>
+        
+        <FlipView x:Name="ImageFlipVIew" Grid.Row="1" ItemTemplate="{StaticResource FlipViewItemTemplate}"
+                  Visibility="Collapsed" SelectionChanged="ImageFlipVIew_SelectionChanged"/>
     </Grid>
 </common:LayoutAwarePage>

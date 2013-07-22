@@ -28,7 +28,8 @@
         private void Button_PlayFolder_Click(object sender, RoutedEventArgs e)
         {
             PhotoGallery.ActualScreenHeight = this.ActualHeight;
-            Frame.Navigate(typeof(PhotoGallery), ExplorerItems.ToList());
+            if (ExplorerItems != null)
+                Frame.Navigate(typeof(PhotoGallery), ExplorerItems.ToList());
         }
 
         #region Home Button
