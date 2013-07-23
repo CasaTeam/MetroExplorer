@@ -10,6 +10,7 @@
     using DataModels;
     using DataServices;
     using DataConfigurations;
+    using System.Collections.ObjectModel;
 
     public class DataAccess<T>
     {
@@ -27,7 +28,7 @@
             }
         }
 
-        public async Task<IEnumerable<T>> GetSources(DataSourceType dataSourceType)
+        public async Task<ObservableCollection<T>> GetSources(DataSourceType dataSourceType)
         {
             if (_controller != null)
                 return await _controller.GetSources(dataSourceType);

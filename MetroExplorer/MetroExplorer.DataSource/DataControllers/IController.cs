@@ -1,7 +1,7 @@
 ﻿namespace MetroExplorer.DataSource.DataControllers
 {
     using System;
-    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
@@ -10,7 +10,7 @@
 
     public interface IController<T>
     {
-        Task<IEnumerable<T>> GetSources(DataSourceType serviceName);
+        Task<ObservableCollection<T>> GetSources(DataSourceType serviceName);
 
         Task Add(DataSourceType serviceName, MapModel map);
 

@@ -9,7 +9,7 @@
 				<ControlTemplate TargetType="local:MapList">
 					<Grid
 						Background="{TemplateBinding Background}">
-						<GridView x:Name="GridViewMapList" ItemsPanel="{StaticResource MapItemsPanelTemplate}" ItemTemplate="{StaticResource MapDataTemplate}"/>
+						<GridView x:Name="GridViewMapList" ItemsPanel="{StaticResource MapItemsPanelTemplate}" ItemTemplate="{StaticResource MapDataTemplate}" ItemsSource="{TemplateBinding MapSource}"/>
 					</Grid>
 				</ControlTemplate>
 			</Setter.Value>

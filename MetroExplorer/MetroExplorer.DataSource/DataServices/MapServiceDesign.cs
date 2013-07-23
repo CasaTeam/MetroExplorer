@@ -1,7 +1,7 @@
 ﻿namespace MetroExplorer.DataSource.DataServices
 {
     using System;
-    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
@@ -12,11 +12,11 @@
 
     public class MapServiceDesign : IMapService
     {
-        public async Task<IEnumerable<MapModel>> Load()
+        public async Task<ObservableCollection<MapModel>> Load()
         {
             string thumbnailPath = @"ms-appx:///MetroExplorer.Components.Maps/DesignAssets/MapBackground.bmp";
 
-            return new List<MapModel>{
+            return new ObservableCollection<MapModel>{
                 new MapModel(Guid.NewGuid(),"Map1",thumbnailPath)
                 ,new MapModel(Guid.NewGuid(),"Map2",thumbnailPath)
                 ,new MapModel(Guid.NewGuid(),"Map3",thumbnailPath)

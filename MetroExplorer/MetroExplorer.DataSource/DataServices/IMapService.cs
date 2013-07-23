@@ -1,7 +1,7 @@
 ﻿namespace MetroExplorer.DataSource.DataServices
 {
     using System;
-    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
@@ -9,7 +9,7 @@
 
     public interface IMapService
     {
-        Task<IEnumerable<MapModel>> Load();
+        Task<ObservableCollection<MapModel>> Load();
 
         Task Add(MapModel map);
 

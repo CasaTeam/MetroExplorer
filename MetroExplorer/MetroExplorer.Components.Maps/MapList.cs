@@ -14,6 +14,7 @@
     using DataSource.DataModels;
     using DataSource.DataConfigurations;
     using Windows.ApplicationModel;
+    using System.Collections.ObjectModel;
 
     [TemplatePart(Name = GridViewMapListElement, Type = typeof(GridView))]
     public sealed class MapList : Control
@@ -26,9 +27,32 @@
 
         #region Fields
 
-        private IEnumerable<MapModel> _dataSource;
-
         private GridView _gridViewMapList;
+
+        #endregion
+
+        #region Properties
+
+        public MapModel SelectedMap { get; set; }
+
+        public ObservableCollection<MapModel> MapSource
+        {
+            get
+            {
+                return (ObservableCollection<MapModel>)GetValue(MapSourceProperty);
+            }
+            set
+            {
+                SetValue(MapSourceProperty, value);
+            }
+        }
+
+        #endregion
+
+        #region Dependency Properties
+
+        public static DependencyProperty MapSourceProperty = DependencyProperty
+            .Register("MapSource", typeof(ObservableCollection<MapModel>), typeof(MapList), null);
 
         #endregion
 
@@ -49,29 +73,23 @@
 
         #region Override Methods
 
-        protected override async void OnApplyTemplate()
+        protected async override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-
-            DataAccess<MapModel> dataAccess = new DataAccess<MapModel>();
-
-            _dataSource = await dataAccess.GetSources(
-                DesignMode.DesignModeEnabled ? DataSourceType.Design : DataSourceType.Sqlite);
 
             _gridViewMapList = (GridView)GetTemplateChild(GridViewMapListElement);
             if (_gridViewMapList != null)
             {
-                _gridViewMapList.ItemsSource = _dataSource;
-                _gridViewMapList.SelectionChanged += GridViewMapListSelectionChanged;
+                if (DesignMode.DesignModeEnabled)
+                {
+                    DataAccess<MapModel> dataAccess = new DataAccess<MapModel>();
+
+                    _gridViewMapList.ItemsSource = await dataAccess.GetSources(DataSourceType.Design);
+                }
             }
         }
 
-        void GridViewMapListSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (SelectionChanged != null)
-                SelectionChanged(this, e);
-        }
-
         #endregion
+
     }
 }

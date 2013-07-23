@@ -1,14 +1,13 @@
 ﻿namespace MetroExplorer.DataSource.DataServices
 {
     using System;
-    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
     using SQLite;
     using DataModels;
     using DataConfigurations;
-    using System.Collections.ObjectModel;
 
     public class MapServiceSQLite : IMapService
     {
@@ -25,11 +24,11 @@
             }
         }
 
-        public async Task<IEnumerable<MapModel>> Load()
+        public async Task<ObservableCollection<MapModel>> Load()
         {
             SQLiteAsyncConnection connection = new SQLiteAsyncConnection(SQLiteConfiguration.ConnectionString);
-            
-            return new List<MapModel>(await connection.QueryAsync<MapModel>("SELECT * FROM Maps"));
+
+            return new ObservableCollection<MapModel>(await connection.QueryAsync<MapModel>("SELECT * FROM Maps"));
         }
 
         public Task Add(MapModel map)

@@ -1,7 +1,7 @@
 ﻿namespace MetroExplorer.DataSource.DataControllers
 {
     using System;
-    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
@@ -19,7 +19,7 @@
         [Dependency("MapServiceSQLite")]
         public IMapService MapServiceSQLite { get; set; }
 
-        public async Task<IEnumerable<MapModel>> GetSources(DataSourceType serviceName)
+        public async Task<ObservableCollection<MapModel>> GetSources(DataSourceType serviceName)
         {
             switch (serviceName)
             {

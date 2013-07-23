@@ -95,6 +95,7 @@
 
             groupedItemsViewSource.Source = ExplorerGroups;
             BottomAppBar.IsOpen = true;
+            
 
             _folderImageChangeDispatcher = new DispatcherTimer();
             _folderImageChangeDispatcher.Interval = new TimeSpan(0, 0, 0, 1, 500);
