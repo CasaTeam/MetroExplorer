@@ -69,5 +69,10 @@
             if (MapListElement.SelectedMap != null)
                 await _dataSourceMaps.Remove(DataSourceType.Sqlite, MapListElement.SelectedMap);
         }
+
+        private void ButtonOpenClick(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(PageMap));
+        }
     }
 }

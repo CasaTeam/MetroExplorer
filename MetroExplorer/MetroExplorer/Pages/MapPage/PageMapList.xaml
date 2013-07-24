@@ -26,7 +26,9 @@
 					<Button x:Name="ButtonAdd" Content="Add" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ButtonAddClick"/>
 					<Button x:Name="ButtonDelete" Content="Delete" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ButtonDeleteClick" Visibility="{Binding RemoveVisibility, ElementName=MapListElement}"/>
 				</StackPanel>
-				<StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal"/>
+				<StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
+					<Button x:Name="ButtonOpen" Content="Open" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ButtonOpenClick"/>
+				</StackPanel>
 			</Grid>
 		</AppBar>
 	</Page.BottomAppBar>
