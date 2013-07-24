@@ -12,10 +12,10 @@
     {
         Task<ObservableCollection<T>> GetSources(DataSourceType serviceName);
 
-        Task Add(DataSourceType serviceName, MapModel map);
+        Task Add(DataSourceType serviceName, T source);
 
-        Task Remove(DataSourceType serviceName, MapModel map);
+        Task Remove(DataSourceType serviceName, T source);
 
-        Task Update(DataSourceType serviceName, MapModel map);
+        Task Update(DataSourceType serviceName, T source);
     }
 }

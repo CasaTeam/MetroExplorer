@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.IO;
     using System.Linq;
     using Windows.ApplicationModel;
@@ -18,14 +19,13 @@
     using DataSource.DataConfigurations;
     using DataSource.DataModels;
     using Common;
-    using System.Collections.ObjectModel;
 
     /// <summary>
     /// Une page vide peut être utilisée seule ou constituer une page de destination au sein d'un frame.
     /// </summary>
     public sealed partial class PageMapList : LayoutAwarePage
     {
-        private ObservableCollection<MapModel> _maps;
+        private DataAccess<MapModel> _dataSourceMaps;
 
         public PageMapList()
         {
@@ -42,8 +42,8 @@
         /// antérieure. Null lors de la première visite de la page.</param>
         protected override async void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
-            DataAccess<MapModel> dataAccess = new DataAccess<MapModel>();
-            DefaultViewModel["Maps"] = _maps = await dataAccess.GetSources(DataSourceType.Sqlite);
+            _dataSourceMaps = new DataAccess<MapModel>();
+            DefaultViewModel["Maps"] = await _dataSourceMaps.GetSources(DataSourceType.Sqlite);
         }
 
         /// <summary>
@@ -57,14 +57,17 @@
 
         }
 
-        private void ButtonAddClick(object sender, RoutedEventArgs e)
+        private async void ButtonAddClick(object sender, RoutedEventArgs e)
         {
-            _maps.Add(new MapModel(Guid.NewGuid(), "New Map", @"ms-appx:///MetroExplorer.Components.Maps/DesignAssets/MapBackground.bmp"));
+            await _dataSourceMaps.Add(
+                DataSourceType.Sqlite, 
+                new MapModel(Guid.NewGuid(), "New Map", @"ms-appx:///MetroExplorer.Components.Maps/DesignAssets/MapBackground.bmp"));
         }
 
-        private void ButtonDeleteClick(object sender, RoutedEventArgs e)
+        private async void ButtonDeleteClick(object sender, RoutedEventArgs e)
         {
-
+            if (MapListElement.SelectedMap != null)
+                await _dataSourceMaps.Remove(DataSourceType.Sqlite, MapListElement.SelectedMap);
         }
     }
 }

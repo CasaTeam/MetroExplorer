@@ -31,27 +31,29 @@
         public async Task<ObservableCollection<T>> GetSources(DataSourceType dataSourceType)
         {
             if (_controller != null)
+            {
                 return await _controller.GetSources(dataSourceType);
+            }
 
             return null;
         }
 
-        public async Task Add(DataSourceType dataSourceType, MapModel map)
+        public async Task Add(DataSourceType dataSourceType, T source)
         {
             if (_controller != null)
-                await _controller.Add(dataSourceType, map);
+                await _controller.Add(dataSourceType, source);
         }
 
-        public async Task Remove(DataSourceType dataSourceType, MapModel map)
+        public async Task Remove(DataSourceType dataSourceType, T source)
         {
             if (_controller != null)
-                await _controller.Remove(dataSourceType, map);
+                await _controller.Remove(dataSourceType, source);
         }
 
-        public async Task Update(DataSourceType dataSourceType, MapModel map)
+        public async Task Update(DataSourceType dataSourceType, T source)
         {
             if (_controller != null)
-                await _controller.Update(dataSourceType, map);
+                await _controller.Update(dataSourceType, source);
         }
     }
 }

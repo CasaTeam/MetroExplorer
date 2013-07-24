@@ -11,6 +11,8 @@
 
     public class MapServiceSQLite : IMapService
     {
+        private ObservableCollection<MapModel> _dataSources;
+
         public MapServiceSQLite()
         {
             using (SQLiteConnection connection = new SQLiteConnection(SQLiteConfiguration.ConnectionString))
@@ -28,24 +30,30 @@
         {
             SQLiteAsyncConnection connection = new SQLiteAsyncConnection(SQLiteConfiguration.ConnectionString);
 
-            return new ObservableCollection<MapModel>(await connection.QueryAsync<MapModel>("SELECT * FROM Maps"));
+            _dataSources = new ObservableCollection<MapModel>(await connection.QueryAsync<MapModel>("SELECT * FROM Maps"));
+
+            return _dataSources;
         }
 
         public Task Add(MapModel map)
         {
             SQLiteAsyncConnection connection = new SQLiteAsyncConnection(SQLiteConfiguration.ConnectionString);
+            _dataSources.Add(map);
             return connection.InsertAsync(map);
         }
 
         public Task Remove(MapModel map)
         {
             SQLiteAsyncConnection connection = new SQLiteAsyncConnection(SQLiteConfiguration.ConnectionString);
+            _dataSources.Remove(map);
             return connection.DeleteAsync(map);
         }
 
         public Task Update(MapModel map)
         {
             SQLiteAsyncConnection connection = new SQLiteAsyncConnection(SQLiteConfiguration.ConnectionString);
+            _dataSources.Remove(_dataSources.First(source => source.ID.Equals(map.ID)));
+            _dataSources.Add(map);
             return connection.UpdateAsync(map);
         }
     }

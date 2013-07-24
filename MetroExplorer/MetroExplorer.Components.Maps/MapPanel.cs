@@ -40,8 +40,6 @@
         {
             base.OnApplyTemplate();
             _mapList = (MapList)GetTemplateChild(MapListElement);
-            if(_mapList!=null)
-                _mapList.SelectionChanged += MapListSelectionChanged;
         }
 
         void MapListSelectionChanged(object sender, SelectionChangedEventArgs e)

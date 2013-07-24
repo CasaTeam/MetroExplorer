@@ -33,7 +33,24 @@
 
         #region Properties
 
-        public MapModel SelectedMap { get; set; }
+        public MapModel SelectedMap
+        {
+            get
+            {
+                if (_gridViewMapList != null && _gridViewMapList.SelectedItem != null)
+                    return (MapModel)_gridViewMapList.SelectedItem;
+                return null;
+            }
+        }
+
+        public Visibility RemoveVisibility
+        {
+            get
+            {
+                return Visibility.Collapsed;
+                //return SelectedMap != null ? Visibility.Visible : Visibility.Collapsed;
+            }
+        }
 
         public ObservableCollection<MapModel> MapSource
         {
@@ -65,12 +82,6 @@
 
         #endregion
 
-        #region EventHandlers
-
-        public event SelectionChangedEventHandler SelectionChanged;
-
-        #endregion
-
         #region Override Methods
 
         protected async override void OnApplyTemplate()
@@ -90,6 +101,5 @@
         }
 
         #endregion
-
     }
 }

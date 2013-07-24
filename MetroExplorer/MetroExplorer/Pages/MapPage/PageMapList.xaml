@@ -24,7 +24,7 @@
 				</Grid.ColumnDefinitions>
 				<StackPanel Orientation="Horizontal">
 					<Button x:Name="ButtonAdd" Content="Add" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ButtonAddClick"/>
-					<Button x:Name="ButtonDelete" Content="Delete" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ButtonDeleteClick"/>
+					<Button x:Name="ButtonDelete" Content="Delete" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="ButtonDeleteClick" Visibility="{Binding RemoveVisibility, ElementName=MapListElement}"/>
 				</StackPanel>
 				<StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal"/>
 			</Grid>
