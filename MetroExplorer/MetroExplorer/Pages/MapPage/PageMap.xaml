@@ -10,6 +10,7 @@
 	x:Name="pageRoot"
 	x:Class="MetroExplorer.Pages.MapPage.PageMap"
 	DataContext="{Binding DefaultViewModel, RelativeSource={RelativeSource Mode=Self}}"
+	d:ExtensionType="Search"
 	mc:Ignorable="d">
 
 	<common:LayoutAwarePage.Resources>
@@ -68,6 +69,6 @@
 			<Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
 			<TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource AppName}" Style="{StaticResource PageHeaderTextStyle}"/>
 		</Grid>
-		<Maps:Map Grid.Row="1" Credentials="Avs9-NFwIrWEbtFgLLePRSktqWRMX8X5Kmz5NiZyxgzL0JCG-S0K65VltPBX3uV1" Tapped="MapTapped"/>
+		<Maps:Map x:Name="MapView" Grid.Row="1" Credentials="Avs9-NFwIrWEbtFgLLePRSktqWRMX8X5Kmz5NiZyxgzL0JCG-S0K65VltPBX3uV1" Tapped="MapTapped"/>
 	</Grid>
 </common:LayoutAwarePage>

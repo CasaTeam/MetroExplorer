@@ -1,29 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-
-// Pour en savoir plus sur le modèle d'élément Page de base, consultez la page http://go.microsoft.com/fwlink/?LinkId=234237
-
-namespace MetroExplorer.Pages.MapPage
+﻿namespace MetroExplorer.Pages.MapPage
 {
-    /// <summary>
-    /// Page de base qui inclut des caractéristiques communes à la plupart des applications.
-    /// </summary>
-    public sealed partial class PageMap : MetroExplorer.Common.LayoutAwarePage
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using Windows.ApplicationModel.Search;
+    using Windows.Foundation;
+    using Windows.Foundation.Collections;
+    using Windows.UI.Xaml;
+    using Windows.UI.Xaml.Controls;
+    using Windows.UI.Xaml.Controls.Primitives;
+    using Windows.UI.Xaml.Data;
+    using Windows.UI.Xaml.Input;
+    using Windows.UI.Xaml.Media;
+    using Windows.UI.Xaml.Navigation;
+    using Common;
+    using Bing.Maps.Search;
+
+    public sealed partial class PageMap : LayoutAwarePage
     {
+        private SearchPane _searchPane;
+        private SearchManager _searchManager;
+        private LocationDataResponse _searchResponse;
+
         public PageMap()
         {
             this.InitializeComponent();
+
+            _searchPane = SearchPane.GetForCurrentView();
+            _searchPane.PlaceholderText = "Please enter your address";
+            _searchPane.ShowOnKeyboardInput = true;
+            _searchPane.SearchHistoryEnabled = false;
         }
 
         /// <summary>
@@ -37,7 +44,11 @@ namespace MetroExplorer.Pages.MapPage
         /// antérieure. Null lors de la première visite de la page.</param>
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
+            _searchPane.QueryChanged += SearchPaneQueryChanged;
+            _searchPane.QuerySubmitted += SearchPaneQuerySubmitted;
+            _searchPane.SuggestionsRequested += SearchPaneSuggestionsRequested;
         }
+
 
         /// <summary>
         /// Conserve l'état associé à cette page en cas de suspension de l'application ou de la
@@ -45,13 +56,47 @@ namespace MetroExplorer.Pages.MapPage
         /// exigences en matière de sérialisation de <see cref="SuspensionManager.SessionState"/>.
         /// </summary>
         /// <param name="pageState">Dictionnaire vide à remplir à l'aide de l'état sérialisable.</param>
-        protected override void SaveState(Dictionary<String, Object> pageState)
+        protected override void SaveState(
+            Dictionary<String, Object> pageState)
         {
+            _searchPane.QuerySubmitted -= SearchPaneQuerySubmitted;
+            _searchPane.SuggestionsRequested -= SearchPaneSuggestionsRequested;
         }
 
-        private void MapTapped(object sender, TappedRoutedEventArgs e)
+        private void MapTapped(
+            object sender,
+            TappedRoutedEventArgs e)
         {
 
         }
+
+        private async void SearchPaneSuggestionsRequested(
+            SearchPane sender,
+            SearchPaneSuggestionsRequestedEventArgs args)
+        {
+            SearchPaneSuggestionsRequestDeferral deferral = args.Request.GetDeferral();
+            GeocodeRequestOptions requests = new GeocodeRequestOptions(args.QueryText);
+            _searchManager = MapView.SearchManager;
+            _searchResponse = await _searchManager.GeocodeAsync(requests);
+            foreach (GeocodeLocation locationData in _searchResponse.LocationData)
+                args.Request.SearchSuggestionCollection.AppendQuerySuggestion(locationData.Address.FormattedAddress);
+
+            deferral.Complete();
+        }
+
+        private void SearchPaneQuerySubmitted(
+            SearchPane sender,
+            SearchPaneQuerySubmittedEventArgs args)
+        {
+
+        }
+
+        private void SearchPaneQueryChanged(
+            SearchPane sender,
+            SearchPaneQueryChangedEventArgs args)
+        {
+
+        }
+
     }
 }
