@@ -8,7 +8,7 @@
 
     /// <summary>
     /// This partial Class is used for fixing the conflict between Search Event and other keyboard typing Events.
-    /// ToDo: We should think a better way to manage when should the ShowOnKeyboardInput disabled.
+    /// ToDo: We should think a better way to manage when should the ShowOnKeyboardInput be disabled.
     /// </summary>
     public sealed partial class PageExplorer
     {

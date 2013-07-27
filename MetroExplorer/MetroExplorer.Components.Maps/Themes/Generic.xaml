@@ -1,0 +1,61 @@
+﻿<ResourceDictionary
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="using:MetroExplorer.Components.Maps" xmlns:Maps="using:Bing.Maps" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
+
+	<Style TargetType="local:MapList">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="local:MapList">
+					<Grid
+						Background="{TemplateBinding Background}">
+						<GridView x:Name="GridViewMapList" ItemsPanel="{StaticResource MapItemsPanelTemplate}" ItemTemplate="{StaticResource MapDataTemplate}" ItemsSource="{TemplateBinding MapSource}"/>
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+
+	<Style TargetType="local:MapPin">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="local:MapPin">
+					<Border
+						Background="{TemplateBinding Background}"
+						BorderBrush="{TemplateBinding BorderBrush}"
+						BorderThickness="{TemplateBinding BorderThickness}">
+						<Button x:Name="ButtonPinElement" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Template="{StaticResource ButtonPinTemplate}"/>
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+    <Style TargetType="local:MapPanel">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:MapPanel">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}" d:DesignWidth="320" d:DesignHeight="162">
+                    	<Grid>
+                    		<Grid.ColumnDefinitions>
+                    			<ColumnDefinition Width="221*"/>
+                    			<ColumnDefinition Width="99*"/>
+                    		</Grid.ColumnDefinitions>
+                    		<Grid.RowDefinitions>
+                    			<RowDefinition Height="37*"/>
+                    			<RowDefinition Height="125*"/>
+                    		</Grid.RowDefinitions>
+                    		<ListBox Grid.Row="1" Margin="5" ItemTemplate="{StaticResource MapPanelListBoxDataTemplate}" Background="#CC000000" Grid.ColumnSpan="2"/>
+                    		<TextBlock TextWrapping="Wrap" Margin="5" Text="Adresse"/>
+                    		<Button x:Name="ButtonLinkElement" Content="Link" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="2" Margin="5,0"/>
+                    	</Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
