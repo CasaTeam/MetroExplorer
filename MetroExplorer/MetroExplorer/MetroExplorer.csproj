@@ -224,6 +224,7 @@
     <Content Include="Assets\Logos\Logo620300.png" />
     <Content Include="Assets\Music.png" />
     <Content Include="Assets\Photo.png" />
+    <Content Include="Assets\play.png" />
     <Content Include="Assets\SmallLogo.scale-100.png" />
     <Content Include="Assets\SmallLogo.scale-140.png" />
     <Content Include="Assets\SmallLogo.scale-180.png" />

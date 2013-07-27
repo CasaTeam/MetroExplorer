@@ -16,9 +16,14 @@
         public static bool IsMediaFile(this StorageFile file)
         {
             return file.IsImageFile() ||
-                file.FileType.ToUpper().EndsWith(".RMVB") ||
+                file.FileType.ToUpper().EndsWith(".WMV") ||
                 file.FileType.ToUpper().EndsWith(".MP4") ||
                 file.FileType.ToUpper().EndsWith(".PNG");
+        }
+
+        public static bool IsVideoFile(this StorageFile file)
+        {
+            return file.FileType.ToUpper().Equals(".MP4") || file.FileType.ToUpper().Equals(".WMV");
         }
     }
 }

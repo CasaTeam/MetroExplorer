@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-  <Identity Name="41404comisciencebo.MetroExplorer" Publisher="CN=7CC2A853-0A94-4DFB-9120-4E6F1563BE8C" Version="1.8.0.16" />
+  <Identity Name="41404comisciencebo.MetroExplorer" Publisher="CN=7CC2A853-0A94-4DFB-9120-4E6F1563BE8C" Version="1.8.0.18" />
   <Properties>
     <DisplayName>Link File</DisplayName>
     <PublisherDisplayName>Surface Knight</PublisherDisplayName>
@@ -27,6 +27,8 @@
               <FileType>.PNG</FileType>
               <FileType>.JPG</FileType>
               <FileType>.BMP</FileType>
+              <FileType>.MP4</FileType>
+              <FileType>.MWV</FileType>
             </SupportedFileTypes>
           </FileTypeAssociation>
         </Extension>

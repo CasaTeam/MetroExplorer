@@ -26,7 +26,8 @@
         private void Button_PlayFolder_Click(object sender, RoutedEventArgs e)
         {
             PhotoGallery.ActualScreenHeight = this.ActualHeight;
-            Frame.Navigate(typeof(PhotoGallery), ExplorerItems.ToList());
+            if (ExplorerItems != null)
+                Frame.Navigate(typeof(PhotoGallery), ExplorerItems.ToList());
         }
 
         #region Home Button
@@ -46,6 +47,15 @@
         }
 
         private void HomeButtonImage_PointerReleased(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+            HomeCircleBackgroundEllipse.Opacity = 0;
+            DataSource.NavigatorStorageFolders = new List<StorageFolder>();
+            StopImageChangingDispatcher();
+            CurrentItems = null;
+            Frame.Navigate(typeof(PageMain));
+        }
+
+        private void pageTitle_PointerReleased(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
         {
             HomeCircleBackgroundEllipse.Opacity = 0;
             DataSource.NavigatorStorageFolders = new List<StorageFolder>();
