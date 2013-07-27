@@ -16,64 +16,46 @@
 		</Setter>
 	</Style>
 
-	<Style TargetType="local:MapPanel">
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="local:MapPanel">
-					<Grid x:Name="grid"
-						Background="{TemplateBinding Background}" ScrollViewer.VerticalScrollBarVisibility="Disabled">
-						<VisualStateManager.VisualStateGroups>
-							<VisualStateGroup x:Name="Common">
-								<VisualState x:Name="ShowMap">
-									<Storyboard>
-										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="map">
-											<DiscreteObjectKeyFrame KeyTime="0">
-												<DiscreteObjectKeyFrame.Value>
-													<Visibility>Visible</Visibility>
-												</DiscreteObjectKeyFrame.Value>
-											</DiscreteObjectKeyFrame>
-										</ObjectAnimationUsingKeyFrames>
-										<DoubleAnimation Duration="0" To="0.8" Storyboard.TargetProperty="(Border.Background).(Brush.Opacity)" Storyboard.TargetName="border" d:IsOptimized="True"/>
-										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.VerticalAlignment)" Storyboard.TargetName="border">
-											<DiscreteObjectKeyFrame KeyTime="0">
-												<DiscreteObjectKeyFrame.Value>
-													<VerticalAlignment>Top</VerticalAlignment>
-												</DiscreteObjectKeyFrame.Value>
-											</DiscreteObjectKeyFrame>
-										</ObjectAnimationUsingKeyFrames>
-									</Storyboard>
-								</VisualState>
-								<VisualState x:Name="HideMap"/>
-							</VisualStateGroup>
-						</VisualStateManager.VisualStateGroups>
-						<Maps:Map x:Name="map" Credentials="Avs9-NFwIrWEbtFgLLePRSktqWRMX8X5Kmz5NiZyxgzL0JCG-S0K65VltPBX3uV1" Visibility="Collapsed"/>
-						<Border x:Name="border" Padding="20,10" Background="Black">
-							<Grid ScrollViewer.VerticalScrollBarVisibility="Disabled">
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="0*"/>
-									<ColumnDefinition Width="1000"/>
-								</Grid.ColumnDefinitions>
-								<local:MapList x:Name="MapList" Grid.Column="1" HorizontalAlignment="Right"/>
-								<Border/>
-							</Grid>
-						</Border>
-					</Grid>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-		<Setter Property="Background" Value="White"/>
-	</Style>
 
-	<Style TargetType="local:MapView">
+	<Style TargetType="local:MapPin">
 		<Setter Property="Template">
 			<Setter.Value>
-				<ControlTemplate TargetType="local:MapView">
+				<ControlTemplate TargetType="local:MapPin">
 					<Border
 						Background="{TemplateBinding Background}"
 						BorderBrush="{TemplateBinding BorderBrush}"
-						BorderThickness="{TemplateBinding BorderThickness}"/>
+						BorderThickness="{TemplateBinding BorderThickness}">
+						<Button x:Name="ButtonPinElement" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Template="{StaticResource ButtonPinTemplate}"/>
+					</Border>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
 	</Style>
+
+    <Style TargetType="local:MapPanel">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:MapPanel">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}" d:DesignWidth="320" d:DesignHeight="162">
+                    	<Grid>
+                    		<Grid.ColumnDefinitions>
+                    			<ColumnDefinition Width="221*"/>
+                    			<ColumnDefinition Width="99*"/>
+                    		</Grid.ColumnDefinitions>
+                    		<Grid.RowDefinitions>
+                    			<RowDefinition Height="37*"/>
+                    			<RowDefinition Height="125*"/>
+                    		</Grid.RowDefinitions>
+                    		<ListBox Grid.Row="1" Margin="5" ItemTemplate="{StaticResource MapPanelListBoxDataTemplate}" Background="#CC000000" Grid.ColumnSpan="2"/>
+                    		<TextBlock TextWrapping="Wrap" Margin="5" Text="Adresse"/>
+                    		<Button x:Name="ButtonLinkElement" Content="Link" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="2" Margin="5,0"/>
+                    	</Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

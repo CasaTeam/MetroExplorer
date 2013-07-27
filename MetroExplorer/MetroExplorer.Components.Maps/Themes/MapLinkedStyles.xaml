@@ -15,5 +15,15 @@
 			<Image Margin="5" Source="{Binding Thumbnail}"/>
 		</Grid>
 	</DataTemplate>
+	<ControlTemplate x:Key="ButtonPinTemplate" TargetType="Button">
+		<Grid>
+			<Path Stretch="Fill" Fill="#FFC03434" Data="F1 M 24,17.15C 27.7831,17.15 30.85,20.2169 30.85,24C 30.85,27.7832 27.7831,30.85 24,30.85C 20.2168,30.85 17.15,27.7832 17.15,24C 17.15,20.2169 20.2168,17.15 24,17.15M 24,10.5C 31.4558,10.5 37.5,16.5442 37.5,24C 37.5,31.4558 31.4558,37.5 24,37.5C 16.5442,37.5 10.5,31.4558 10.5,24C 10.5,16.5442 16.5442,10.5 24,10.5 Z M 24,13C 17.9249,13 13,17.9249 13,24C 13,30.0751 17.9249,35 24,35C 30.0751,35 35,30.0751 35,24C 35,17.9249 30.0751,13 24,13 Z " UseLayoutRounding="False" Margin="1" Width="27" Height="27"/>
+		</Grid>
+	</ControlTemplate>
+	<DataTemplate x:Key="MapPanelListBoxDataTemplate">
+		<Grid d:DesignWidth="130" d:DesignHeight="46">
+			<Border BorderBrush="Black" BorderThickness="2"/>
+		</Grid>
+	</DataTemplate>
 	
 </ResourceDictionary>

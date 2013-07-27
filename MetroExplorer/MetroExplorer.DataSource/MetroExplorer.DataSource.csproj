@@ -104,6 +104,7 @@
     <Compile Include="DataConfigurations\SQLiteConfiguration.cs" />
     <Compile Include="DataControllers\IController.cs" />
     <Compile Include="DataControllers\MapController.cs" />
+    <Compile Include="DataModels\MapLocationModel.cs" />
     <Compile Include="DataModels\MapModel.cs" />
     <Compile Include="DataServices\IMapService.cs" />
     <Compile Include="DataServices\MapServiceDesign.cs" />

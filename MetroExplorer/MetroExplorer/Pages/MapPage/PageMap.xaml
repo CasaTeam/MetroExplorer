@@ -70,5 +70,6 @@
 			<TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource AppName}" Style="{StaticResource PageHeaderTextStyle}"/>
 		</Grid>
 		<Maps:Map x:Name="MapView" Grid.Row="1" Credentials="Avs9-NFwIrWEbtFgLLePRSktqWRMX8X5Kmz5NiZyxgzL0JCG-S0K65VltPBX3uV1" Tapped="MapTapped"/>
+		<MapsControl:MapPanel x:Name="MapPanel" Margin="920,30,44,398" Grid.Row="1" Link="MapPanelLink"/>
 	</Grid>
 </common:LayoutAwarePage>

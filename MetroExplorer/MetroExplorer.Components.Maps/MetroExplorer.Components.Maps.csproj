@@ -115,7 +115,7 @@
   <ItemGroup>
     <Compile Include="MapList.cs" />
     <Compile Include="MapPanel.cs" />
-    <Compile Include="MapView.cs" />
+    <Compile Include="MapPin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -137,9 +137,6 @@
     <Content Include="DesignAssets\MapBackground.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <SDKReference Include="Bing.Maps.Xaml, Version=1.113.0601.1">
-      <Name>Bing Maps for C#, C++, or Visual Basic</Name>
-    </SDKReference>
     <SDKReference Include="Microsoft.VCLibs, Version=11.0">
       <Name>Microsoft Visual C++ Runtime Package</Name>
     </SDKReference>

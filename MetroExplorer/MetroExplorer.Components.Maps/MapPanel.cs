@@ -10,44 +10,35 @@
     using Windows.UI.Xaml.Input;
     using Windows.UI.Xaml.Media;
 
-    [TemplatePart(Name = MapListElement, Type = typeof(MapList))]
+    [TemplatePart(Name = ButtonLinkElement, Type = typeof(Button))]
     public sealed class MapPanel : Control
     {
-        #region Contents
+        internal const string ButtonLinkElement = "ButtonLinkElement";
 
-        internal const string MapListElement = "MapList";
+        private Button _buttonLink;
 
-        #endregion
+        public event EventHandler Link;
 
-        #region Fields
-
-        private MapList _mapList;
-
-        #endregion
-
-        #region Constructors
-        
         public MapPanel()
         {
             this.DefaultStyleKey = typeof(MapPanel);
         }
 
-        #endregion
-
-        #region Override Methods
-
         protected override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            _mapList = (MapList)GetTemplateChild(MapListElement);
+
+            _buttonLink = (Button)GetTemplateChild(ButtonLinkElement);
+            if (_buttonLink != null)
+            {
+                _buttonLink.Click += ButtonLinkClick;
+            }
         }
 
-        void MapListSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ButtonLinkClick(object sender, RoutedEventArgs e)
         {
-            _mapList.Height = 200.0;
-            VisualStateManager.GoToState(this, "ShowMap", true);
+            if (Link != null)
+                Link(this, new EventArgs());
         }
-
-        #endregion
     }
 }

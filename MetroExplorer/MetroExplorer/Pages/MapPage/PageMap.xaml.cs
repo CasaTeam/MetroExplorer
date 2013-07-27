@@ -15,7 +15,10 @@
     using Windows.UI.Xaml.Media;
     using Windows.UI.Xaml.Navigation;
     using Common;
+    using Components.Maps;
     using Bing.Maps.Search;
+    using Bing.Maps;
+    using MainPage;
 
     public sealed partial class PageMap : LayoutAwarePage
     {
@@ -44,7 +47,6 @@
         /// antérieure. Null lors de la première visite de la page.</param>
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
-            _searchPane.QueryChanged += SearchPaneQueryChanged;
             _searchPane.QuerySubmitted += SearchPaneQuerySubmitted;
             _searchPane.SuggestionsRequested += SearchPaneSuggestionsRequested;
         }
@@ -88,15 +90,22 @@
             SearchPane sender,
             SearchPaneQuerySubmittedEventArgs args)
         {
+            GeocodeLocation geoCodeLocation = _searchResponse.LocationData
+                .FirstOrDefault(locationData => locationData.Address.FormattedAddress == args.QueryText) ??
+                _searchResponse.LocationData.FirstOrDefault();
 
+            if (geoCodeLocation != null)
+            {
+                MapPin mapPinElement = new MapPin();
+                MapView.Children.Add(mapPinElement);
+                MapLayer.SetPosition(mapPinElement, geoCodeLocation.Location);
+                MapView.SetView(geoCodeLocation.Location, 15.0f);
+            }
         }
 
-        private void SearchPaneQueryChanged(
-            SearchPane sender,
-            SearchPaneQueryChangedEventArgs args)
+        private void MapPanelLink(object sender, EventArgs e)
         {
-
+            Frame.Navigate(typeof(PageMain), null);
         }
-
     }
 }
