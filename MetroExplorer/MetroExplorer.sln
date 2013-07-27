@@ -3,13 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroExplorer", "MetroExplorer\MetroExplorer.csproj", "{68121672-25A8-4A15-A449-A75133CDA6EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroExplorer.Core", "MetroExplorer.core\MetroExplorer.Core.csproj", "{EFFF2BC1-84E8-4343-9E49-07CC4D0C8F7B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroExplorer.Core", "MetroExplorer.Core\MetroExplorer.Core.csproj", "{EFFF2BC1-84E8-4343-9E49-07CC4D0C8F7B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Components", "Components", "{A54D228B-4CF2-4CC0-AE45-C1D2392DBE6A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroExplorer.Components.Navigator", "MetroExplorer.Components.Navigator\MetroExplorer.Components.Navigator.csproj", "{D7F662D5-755F-4A66-AE24-C07654AF3B04}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroExplorer.Test", "MetroExplorer.Test\MetroExplorer.Test.csproj", "{97E3E5A3-82CE-4BD4-9D98-A67899B1C31D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroExplorer.Components.Maps", "MetroExplorer.Components.Maps\MetroExplorer.Components.Maps.csproj", "{36359216-CFEC-4164-AF39-3F4F8AA4C764}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroExplorer.DataSource", "MetroExplorer.DataSource\MetroExplorer.DataSource.csproj", "{4D3EECF8-7C0A-4F21-BDBC-4E36D6C7D304}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -103,11 +107,44 @@ Global
 		{97E3E5A3-82CE-4BD4-9D98-A67899B1C31D}.Release|x86.ActiveCfg = Release|x86
 		{97E3E5A3-82CE-4BD4-9D98-A67899B1C31D}.Release|x86.Build.0 = Release|x86
 		{97E3E5A3-82CE-4BD4-9D98-A67899B1C31D}.Release|x86.Deploy.0 = Release|x86
+		{36359216-CFEC-4164-AF39-3F4F8AA4C764}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36359216-CFEC-4164-AF39-3F4F8AA4C764}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36359216-CFEC-4164-AF39-3F4F8AA4C764}.Debug|ARM.ActiveCfg = Debug|ARM
+		{36359216-CFEC-4164-AF39-3F4F8AA4C764}.Debug|ARM.Build.0 = Debug|ARM
+		{36359216-CFEC-4164-AF39-3F4F8AA4C764}.Debug|x64.ActiveCfg = Debug|x64
+		{36359216-CFEC-4164-AF39-3F4F8AA4C764}.Debug|x64.Build.0 = Debug|x64
+		{36359216-CFEC-4164-AF39-3F4F8AA4C764}.Debug|x86.ActiveCfg = Debug|x86
+		{36359216-CFEC-4164-AF39-3F4F8AA4C764}.Debug|x86.Build.0 = Debug|x86
+		{36359216-CFEC-4164-AF39-3F4F8AA4C764}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36359216-CFEC-4164-AF39-3F4F8AA4C764}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36359216-CFEC-4164-AF39-3F4F8AA4C764}.Release|ARM.ActiveCfg = Release|ARM
+		{36359216-CFEC-4164-AF39-3F4F8AA4C764}.Release|ARM.Build.0 = Release|ARM
+		{36359216-CFEC-4164-AF39-3F4F8AA4C764}.Release|x64.ActiveCfg = Release|x64
+		{36359216-CFEC-4164-AF39-3F4F8AA4C764}.Release|x64.Build.0 = Release|x64
+		{36359216-CFEC-4164-AF39-3F4F8AA4C764}.Release|x86.ActiveCfg = Release|x86
+		{36359216-CFEC-4164-AF39-3F4F8AA4C764}.Release|x86.Build.0 = Release|x86
+		{4D3EECF8-7C0A-4F21-BDBC-4E36D6C7D304}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D3EECF8-7C0A-4F21-BDBC-4E36D6C7D304}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D3EECF8-7C0A-4F21-BDBC-4E36D6C7D304}.Debug|ARM.ActiveCfg = Debug|ARM
+		{4D3EECF8-7C0A-4F21-BDBC-4E36D6C7D304}.Debug|ARM.Build.0 = Debug|ARM
+		{4D3EECF8-7C0A-4F21-BDBC-4E36D6C7D304}.Debug|x64.ActiveCfg = Debug|x64
+		{4D3EECF8-7C0A-4F21-BDBC-4E36D6C7D304}.Debug|x64.Build.0 = Debug|x64
+		{4D3EECF8-7C0A-4F21-BDBC-4E36D6C7D304}.Debug|x86.ActiveCfg = Debug|x86
+		{4D3EECF8-7C0A-4F21-BDBC-4E36D6C7D304}.Debug|x86.Build.0 = Debug|x86
+		{4D3EECF8-7C0A-4F21-BDBC-4E36D6C7D304}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D3EECF8-7C0A-4F21-BDBC-4E36D6C7D304}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D3EECF8-7C0A-4F21-BDBC-4E36D6C7D304}.Release|ARM.ActiveCfg = Release|ARM
+		{4D3EECF8-7C0A-4F21-BDBC-4E36D6C7D304}.Release|ARM.Build.0 = Release|ARM
+		{4D3EECF8-7C0A-4F21-BDBC-4E36D6C7D304}.Release|x64.ActiveCfg = Release|x64
+		{4D3EECF8-7C0A-4F21-BDBC-4E36D6C7D304}.Release|x64.Build.0 = Release|x64
+		{4D3EECF8-7C0A-4F21-BDBC-4E36D6C7D304}.Release|x86.ActiveCfg = Release|x86
+		{4D3EECF8-7C0A-4F21-BDBC-4E36D6C7D304}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D7F662D5-755F-4A66-AE24-C07654AF3B04} = {A54D228B-4CF2-4CC0-AE45-C1D2392DBE6A}
+		{36359216-CFEC-4164-AF39-3F4F8AA4C764} = {A54D228B-4CF2-4CC0-AE45-C1D2392DBE6A}
 	EndGlobalSection
 EndGlobal
