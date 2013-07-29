@@ -1,5 +1,6 @@
 ﻿namespace MetroExplorer.Components.Maps
 {
+    using MetroExplorer.Components.Maps.Objects;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -10,32 +11,68 @@
     using Windows.UI.Xaml.Input;
     using Windows.UI.Xaml.Media;
 
-    [TemplatePart(Name = ButtonPinElement, Type = typeof(Button))]
     public sealed class MapPin : Control
     {
-        internal const string ButtonPinElement = "ButtonPinElement";
+        public Guid ID { get; set; }
 
-        private Button _buttonPin;
+        public string Name { get; private set; }
+
+        public string Description { get; private set; }
+
+        public double Latitude { get; private set; }
+
+        public double Longitude { get; private set; }
+
+        public bool Marked { get; set; }
+
+        public event EventHandler<MapPinTappedEventArgs> MapPinTapped;
 
         public MapPin()
         {
             this.DefaultStyleKey = typeof(MapPin);
         }
 
+        public MapPin(
+            string name,
+            string description,
+            double latitude,
+            double longitude)
+            : this()
+        {
+            Name = name;
+            Description = description;
+            Latitude = latitude;
+            Longitude = longitude;
+        }
+
         protected override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-
-            _buttonPin = (Button)GetTemplateChild(ButtonPinElement);
-            if (_buttonPin != null)
-            {
-                _buttonPin.Click += ButtonPinClick;
-            }
+            Tapped += OnTapped;
         }
 
-        private void ButtonPinClick(object sender, RoutedEventArgs e)
+        private void OnTapped(object sender, TappedRoutedEventArgs e)
         {
+            Focus();
+            VisualStateManager.GoToState(this, Marked ? "UnMarked" : "Marked", true);
+            Marked = !Marked;
+            if (MapPinTapped != null)
+                MapPinTapped(this, new MapPinTappedEventArgs(Marked));
+        }
 
+        public void Focus()
+        {
+            VisualStateManager.GoToState(this, "Focused", true);
+        }
+
+        public void UnFocus()
+        {
+            VisualStateManager.GoToState(this, "UnFocused", true);
+        }
+
+        public void Mark()
+        {
+            VisualStateManager.GoToState(this, "Marked", true);
         }
     }
 }

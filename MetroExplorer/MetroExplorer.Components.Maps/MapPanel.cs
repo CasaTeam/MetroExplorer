@@ -30,9 +30,7 @@
 
             _buttonLink = (Button)GetTemplateChild(ButtonLinkElement);
             if (_buttonLink != null)
-            {
                 _buttonLink.Click += ButtonLinkClick;
-            }
         }
 
         private void ButtonLinkClick(object sender, RoutedEventArgs e)

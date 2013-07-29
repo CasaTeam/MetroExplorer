@@ -116,6 +116,7 @@
     <Compile Include="MapList.cs" />
     <Compile Include="MapPanel.cs" />
     <Compile Include="MapPin.cs" />
+    <Compile Include="Objects\MapPinTappedEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

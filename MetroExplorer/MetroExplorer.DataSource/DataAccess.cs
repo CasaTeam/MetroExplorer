@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
@@ -10,28 +11,32 @@
     using DataModels;
     using DataServices;
     using DataConfigurations;
-    using System.Collections.ObjectModel;
 
     public class DataAccess<T>
     {
         private IController<T> _controller;
 
+        public Guid MapId { get; set; }
+
         public DataAccess()
         {
             IUnityContainer container = new UnityContainer();
             container = new UnityContainer();
+            container.RegisterType<IMapService, MapServiceDesign>(typeof(MapServiceDesign).Name)
+                     .RegisterType<IMapService, MapServiceSQLite>(typeof(MapServiceSQLite).Name);
+
             if (typeof(T) == typeof(MapModel))
-            {
-                container.RegisterType<IMapService, MapServiceDesign>(typeof(MapServiceDesign).Name)
-                         .RegisterType<IMapService, MapServiceSQLite>(typeof(MapServiceSQLite).Name);
                 _controller = (IController<T>)container.Resolve<MapController>();
-            }
+            if (typeof(T) == typeof(MapLocationModel))
+                _controller = (IController<T>)container.Resolve<MapLocationController>();
         }
 
         public async Task<ObservableCollection<T>> GetSources(DataSourceType dataSourceType)
         {
             if (_controller != null)
             {
+                if (typeof(T) == typeof(MapLocationModel))
+                    ((MapLocationController)_controller).MapId = MapId;
                 return await _controller.GetSources(dataSourceType);
             }
 
@@ -41,7 +46,14 @@
         public async Task Add(DataSourceType dataSourceType, T source)
         {
             if (_controller != null)
-                await _controller.Add(dataSourceType, source);
+                if (typeof(T) == typeof(MapModel))
+                    await _controller.Add(dataSourceType, source);
+                else if (typeof(T) == typeof(MapLocationModel))
+                {
+                    MapLocationController controller = (MapLocationController)_controller;
+                    controller.MapId = MapId;
+                    await _controller.Add(DataSourceType.Sqlite, source);
+                }
         }
 
         public async Task Remove(DataSourceType dataSourceType, T source)

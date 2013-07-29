@@ -23,6 +23,8 @@
                     {
                         connection.Insert(new MapModel(Guid.NewGuid(), "Default Map", @"ms-appx:///MetroExplorer.Components.Maps/DesignAssets/MapBackground.bmp"));
                     });
+
+                connection.CreateTable<MapLocationModel>();
             }
         }
 
@@ -55,6 +57,50 @@
             _dataSources.Remove(_dataSources.First(source => source.ID.Equals(map.ID)));
             _dataSources.Add(map);
             return connection.UpdateAsync(map);
+        }
+
+        private ObservableCollection<MapLocationModel> _locations;
+
+        public async Task<ObservableCollection<MapLocationModel>> LoadLocations(Guid mapId)
+        {
+            SQLiteAsyncConnection connection = new SQLiteAsyncConnection(SQLiteConfiguration.ConnectionString);
+
+            _locations = new ObservableCollection<MapLocationModel>(await connection.QueryAsync<MapLocationModel>("SELECT * FROM MapLocations WHERE MapId = ?", mapId));
+            //_locations = new ObservableCollection<MapLocationModel>(await connection.QueryAsync<MapLocationModel>("SELECT * FROM MapLocations"));
+
+            return _locations;
+        }
+
+        public Task AddLocation(MapLocationModel mapLocation, Guid mapId)
+        {
+            SQLiteAsyncConnection connection = new SQLiteAsyncConnection(SQLiteConfiguration.ConnectionString);
+
+            mapLocation.MapId = mapId;
+
+            _locations.Add(mapLocation);
+
+            return connection.InsertAsync(mapLocation);
+        }
+
+        public Task RemoveLocation(MapLocationModel mapLocation)
+        {
+            SQLiteAsyncConnection connection = new SQLiteAsyncConnection(SQLiteConfiguration.ConnectionString);
+
+            _locations.Remove(mapLocation);
+
+            return connection.DeleteAsync(mapLocation);
+
+        }
+
+        public Task UpdateLocation(MapLocationModel mapLocation)
+        {
+            SQLiteAsyncConnection connection = new SQLiteAsyncConnection(SQLiteConfiguration.ConnectionString);
+
+            _locations.Remove(_locations.First(location => location.ID == mapLocation.ID));
+
+            _locations.Add(mapLocation);
+
+            return connection.UpdateAsync(mapLocation);
         }
     }
 }

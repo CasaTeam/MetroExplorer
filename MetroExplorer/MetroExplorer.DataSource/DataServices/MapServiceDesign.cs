@@ -45,5 +45,26 @@
         {
             throw new NotImplementedException();
         }
+
+
+        public Task<ObservableCollection<MapLocationModel>> LoadLocations(Guid mapId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task AddLocation(MapLocationModel mapLocation, Guid mapId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task RemoveLocation(MapLocationModel mapLocation)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateLocation(MapLocationModel mapLocation)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
