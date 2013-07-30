@@ -23,7 +23,9 @@
 
         public double Longitude { get; private set; }
 
-        public bool Marked { get; set; }
+        public bool Marked { get; private set; }
+
+        public bool Focused { get; private set; }
 
         public event EventHandler<MapPinTappedEventArgs> MapPinTapped;
 
@@ -53,25 +55,37 @@
 
         private void OnTapped(object sender, TappedRoutedEventArgs e)
         {
-            Focus();
-            VisualStateManager.GoToState(this, Marked ? "UnMarked" : "Marked", true);
-            Marked = !Marked;
+            if (Focused)
+            {
+                VisualStateManager.GoToState(this, Marked ? "UnMarked" : "Marked", true);
+                Marked = !Marked;
+            }
             if (MapPinTapped != null)
                 MapPinTapped(this, new MapPinTappedEventArgs(Marked));
+
         }
 
         public void Focus()
         {
-            VisualStateManager.GoToState(this, "Focused", true);
+            if (!Focused)
+            {
+                Focused = true;
+                VisualStateManager.GoToState(this, "Focused", true);
+            }
         }
 
         public void UnFocus()
         {
-            VisualStateManager.GoToState(this, "UnFocused", true);
+            if (Focused)
+            {
+                Focused = false;
+                VisualStateManager.GoToState(this, "UnFocused", true);
+            }
         }
 
         public void Mark()
         {
+            Marked = true;
             VisualStateManager.GoToState(this, "Marked", true);
         }
     }

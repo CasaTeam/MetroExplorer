@@ -20,7 +20,7 @@
 
         Task<ObservableCollection<MapLocationModel>> LoadLocations(Guid mapId);
 
-        Task AddLocation(MapLocationModel mapLocation, Guid mapId);
+        Task<int> AddLocation(MapLocationModel mapLocation, Guid mapId);
 
         Task RemoveLocation(MapLocationModel mapLocation);
 

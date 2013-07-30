@@ -66,20 +66,24 @@
             SQLiteAsyncConnection connection = new SQLiteAsyncConnection(SQLiteConfiguration.ConnectionString);
 
             _locations = new ObservableCollection<MapLocationModel>(await connection.QueryAsync<MapLocationModel>("SELECT * FROM MapLocations WHERE MapId = ?", mapId));
-            //_locations = new ObservableCollection<MapLocationModel>(await connection.QueryAsync<MapLocationModel>("SELECT * FROM MapLocations"));
 
             return _locations;
         }
 
-        public Task AddLocation(MapLocationModel mapLocation, Guid mapId)
+        public async Task<int> AddLocation(MapLocationModel mapLocation, Guid mapId)
         {
             SQLiteAsyncConnection connection = new SQLiteAsyncConnection(SQLiteConfiguration.ConnectionString);
+
+            int count = await connection.ExecuteAsync("SELECT * FROM MapLocations WHERE MapId = ? AND Latitude = ? AND Longitude = ?", mapId, mapLocation.Latitude, mapLocation.Longitude);
+
+            if (count > 0)
+                return 0;
 
             mapLocation.MapId = mapId;
 
             _locations.Add(mapLocation);
 
-            return connection.InsertAsync(mapLocation);
+            return await connection.InsertAsync(mapLocation);
         }
 
         public Task RemoveLocation(MapLocationModel mapLocation)

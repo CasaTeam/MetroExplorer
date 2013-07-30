@@ -52,7 +52,7 @@
             throw new NotImplementedException();
         }
 
-        public Task AddLocation(MapLocationModel mapLocation, Guid mapId)
+        public Task<int> AddLocation(MapLocationModel mapLocation, Guid mapId)
         {
             throw new NotImplementedException();
         }

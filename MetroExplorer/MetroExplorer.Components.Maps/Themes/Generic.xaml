@@ -100,8 +100,8 @@
                         BorderThickness="{TemplateBinding BorderThickness}" d:DesignWidth="320" d:DesignHeight="162">
                     	<Grid>
                     		<Grid.ColumnDefinitions>
-                    			<ColumnDefinition Width="93*"/>
-                    			<ColumnDefinition Width="67*"/>
+                    			<ColumnDefinition Width="23*"/>
+                    			<ColumnDefinition Width="9*"/>
                     		</Grid.ColumnDefinitions>
                     		<Grid.RowDefinitions>
                     			<RowDefinition Height="37*"/>
@@ -109,10 +109,7 @@
                     		</Grid.RowDefinitions>
                     		<ListBox Grid.Row="1" Margin="5" ItemTemplate="{StaticResource MapPanelListBoxDataTemplate}" Background="#CC000000" Grid.ColumnSpan="2"/>
                     		<TextBlock TextWrapping="Wrap" Margin="5" Text="Adresse"/>
-                    		<StackPanel Grid.Column="1" Margin="5,0" Orientation="Horizontal">
-                    			<Button x:Name="ButtonLinkElement" Content="Link" />
-                    			<ToggleButton x:Name="ButtonAddElement" Content="Add" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                    		</StackPanel>
+                    		<Button x:Name="ButtonLinkElement" Content="Link" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" />
                     	</Grid>
                     </Border>
                 </ControlTemplate>
