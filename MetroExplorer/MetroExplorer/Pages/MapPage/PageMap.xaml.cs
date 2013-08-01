@@ -15,6 +15,7 @@
     using Windows.UI.Xaml.Input;
     using Windows.UI.Xaml.Media;
     using Windows.UI.Xaml.Navigation;
+    using Windows.UI.Xaml.Shapes;
     using Bing.Maps.Search;
     using Bing.Maps;
     using Common;
@@ -24,7 +25,6 @@
     using DataSource.DataConfigurations;
     using DataSource.DataModels;
     using MainPage;
-    using Windows.UI.Xaml.Shapes;
 
     public sealed partial class PageMap : LayoutAwarePage
     {
@@ -40,7 +40,7 @@
 
         private ObservableCollection<MapPin> _mapPins;
 
-        private MapPin _focusedMapPin;
+        private MapPin _focusedMapPin, _lastFocusedMapPin;
 
         public PageMap()
         {
@@ -77,6 +77,7 @@
         protected override void SaveState(
             Dictionary<String, Object> pageState)
         {
+            MapView.ViewChangeEnded -= MapViewViewChangeEnded;
             _searchPane.QuerySubmitted -= SearchPaneQuerySubmitted;
             _searchPane.SuggestionsRequested -= SearchPaneSuggestionsRequested;
         }
@@ -88,8 +89,14 @@
             Grid grid = e.OriginalSource as Grid;
             if (grid == null && e.OriginalSource != null)
                 grid = (e.OriginalSource as FrameworkElement).Parent as Grid;
-            if ((grid == null || grid.Name != "MapPinRoot") && _focusedMapPin != null && !_focusedMapPin.Marked)
-                MapView.Children.Remove(_focusedMapPin);
+            if ((grid == null || grid.Name != "MapPinRoot") && _focusedMapPin != null)
+            {
+                if (!_focusedMapPin.Marked)
+                    MapView.Children.Remove(_focusedMapPin);
+                else
+                    _focusedMapPin.UnFocus();
+                _focusedMapPin = null;
+            }
         }
 
         private async void SearchPaneSuggestionsRequested(
@@ -115,16 +122,18 @@
                 .FirstOrDefault(locationData => locationData.Address.FormattedAddress == args.QueryText) ??
                 _searchResponse.LocationData.FirstOrDefault();
 
+            _lastFocusedMapPin = _focusedMapPin;
+
             if (geoCodeLocation != null)
             {
                 MapPin exsitedMapPin = _mapPins.FirstOrDefault(mapPin =>
-                    mapPin.Latitude == geoCodeLocation.Location.Latitude
-                    && mapPin.Longitude == geoCodeLocation.Location.Longitude);
+                    mapPin.Latitude == geoCodeLocation.Location.Latitude.ToString()
+                    && mapPin.Longitude == geoCodeLocation.Location.Longitude.ToString());
                 if (exsitedMapPin == null)
                 {
                     MapPin mapPinElement = new MapPin(string.Empty, string.Empty,
-                        geoCodeLocation.Location.Latitude,
-                        geoCodeLocation.Location.Longitude);
+                        geoCodeLocation.Location.Latitude.ToString(),
+                        geoCodeLocation.Location.Longitude.ToString());
 
                     mapPinElement.MapPinTapped += MapPinElementMapPinTapped;
                     MapView.Children.Add(mapPinElement);
@@ -134,21 +143,23 @@
                 }
                 else
                     _focusedMapPin = exsitedMapPin;
+
             }
         }
 
         private void MapViewViewChangeEnded(object sender, ViewChangeEndedEventArgs e)
         {
-            foreach (MapPin mapPin in _mapPins)
-                mapPin.UnFocus();
+            if (_lastFocusedMapPin != null && _lastFocusedMapPin.Focused)
+                _lastFocusedMapPin.UnFocus();
 
-            if (_focusedMapPin != null)
+            if (_focusedMapPin != null && !_focusedMapPin.Focused)
                 _focusedMapPin.Focus();
         }
 
         private async void MapPinElementMapPinTapped(object sender, MapPinTappedEventArgs e)
         {
             MapPin mapPinElement = (MapPin)sender;
+
             if (mapPinElement.Focused)
             {
                 if (e.Marked)
@@ -160,13 +171,13 @@
                         ID = Guid.NewGuid(),
                         Name = mapPinElement.Name,
                         Description = mapPinElement.Description,
-                        Latitude = mapPinElement.Latitude,
-                        Longitude = mapPinElement.Longitude,
+                        Latitude = mapPinElement.Latitude.ToString(),
+                        Longitude = mapPinElement.Longitude.ToString(),
                         MapId = _map.ID
                     });
 
                     MapLocationModel addedLocation = _mapLocations.FirstOrDefault(location =>
-                        location.Latitude == mapPinElement.Latitude &&
+                        location.Latitude == mapPinElement.Latitude.ToString() &&
                         location.Longitude == location.Longitude);
                     if (addedLocation != null)
                         mapPinElement.ID = addedLocation.ID;
@@ -184,12 +195,14 @@
                 }
             }
 
+            _lastFocusedMapPin = _focusedMapPin;
             _focusedMapPin = mapPinElement;
 
-            foreach (MapPin mapPin in _mapPins)
-                mapPin.UnFocus();
+            if (_lastFocusedMapPin != null)
+                _lastFocusedMapPin.UnFocus();
 
-            _focusedMapPin.Focus();
+            if (!_focusedMapPin.Focused)
+                _focusedMapPin.Focus();
         }
 
         private void MapPanelLink(object sender, EventArgs e)
@@ -203,23 +216,27 @@
             {
                 MapPin mapPinElement = new MapPin(mapLocation.Name,
                     mapLocation.Description,
-                    mapLocation.Latitude,
-                    mapLocation.Longitude) { ID = mapLocation.ID };
+                    mapLocation.Latitude.ToString(),
+                    mapLocation.Longitude.ToString()) { ID = mapLocation.ID };
 
                 mapPinElement.MapPinTapped += MapPinElementMapPinTapped;
 
                 MapView.Children.Add(mapPinElement);
-                Location location = new Location(mapLocation.Latitude, mapLocation.Longitude);
+                Location location = new Location(double.Parse(mapLocation.Latitude), double.Parse(mapLocation.Longitude));
                 MapLayer.SetPosition(mapPinElement, location);
-                MapView.ViewChanged += MapViewViewChanged;
+                mapPinElement.Mark();
                 _mapPins.Add(mapPinElement);
             }
+            MapView.ViewChanged += MapViewViewChanged;
         }
 
         private void MapViewViewChanged(object sender, ViewChangedEventArgs e)
         {
             foreach (MapPin mapPin in _mapPins)
                 mapPin.Mark();
+
+
+            MapView.ViewChanged -= MapViewViewChanged;
         }
     }
 }

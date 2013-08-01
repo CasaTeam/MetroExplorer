@@ -15,22 +15,23 @@
         [PrimaryKey]
         public Guid ID { get; set; }
 
+        [Indexed]
         public Guid MapId { get; set; }
 
         public string Name { get; set; }
 
         public string Description { get; set; }
 
-        public double Latitude { get; set; }
+        public string Latitude { get; set; }
 
-        public double Longitude { get; set; }
+        public string Longitude { get; set; }
 
 
         #endregion
 
         public bool Equals(MapLocationModel other)
         {
-            return ID.Equals(other.MapId);
+            return ID.Equals(other.ID);
         }
     }
 }

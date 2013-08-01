@@ -74,7 +74,7 @@
         {
             SQLiteAsyncConnection connection = new SQLiteAsyncConnection(SQLiteConfiguration.ConnectionString);
 
-            int count = await connection.ExecuteAsync("SELECT * FROM MapLocations WHERE MapId = ? AND Latitude = ? AND Longitude = ?", mapId, mapLocation.Latitude, mapLocation.Longitude);
+            int count = await connection.ExecuteScalarAsync<int>("SELECT COUNT(*) FROM MapLocations WHERE MapId = ? AND Latitude = ? AND Longitude = ?", mapId, mapLocation.Latitude, mapLocation.Longitude);
 
             if (count > 0)
                 return 0;

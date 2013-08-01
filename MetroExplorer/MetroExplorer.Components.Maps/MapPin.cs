@@ -15,13 +15,13 @@
     {
         public Guid ID { get; set; }
 
-        public string Name { get; private set; }
+        public string PinName { get; private set; }
 
         public string Description { get; private set; }
 
-        public double Latitude { get; private set; }
+        public string Latitude { get; private set; }
 
-        public double Longitude { get; private set; }
+        public string Longitude { get; private set; }
 
         public bool Marked { get; private set; }
 
@@ -35,13 +35,13 @@
         }
 
         public MapPin(
-            string name,
+            string pinName,
             string description,
-            double latitude,
-            double longitude)
+            string latitude,
+            string longitude)
             : this()
         {
-            Name = name;
+            PinName = pinName;
             Description = description;
             Latitude = latitude;
             Longitude = longitude;
@@ -62,7 +62,6 @@
             }
             if (MapPinTapped != null)
                 MapPinTapped(this, new MapPinTappedEventArgs(Marked));
-
         }
 
         public void Focus()
