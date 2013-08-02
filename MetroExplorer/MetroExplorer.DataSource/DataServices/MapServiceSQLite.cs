@@ -106,5 +106,11 @@
 
             return connection.UpdateAsync(mapLocation);
         }
+
+
+        public Task<ObservableCollection<MapLocationFolderModel>> LoadLocationFolders(Guid locationId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

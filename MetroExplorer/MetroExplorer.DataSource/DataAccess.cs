@@ -29,6 +29,8 @@
                 _controller = (IController<T>)container.Resolve<MapController>();
             if (typeof(T) == typeof(MapLocationModel))
                 _controller = (IController<T>)container.Resolve<MapLocationController>();
+            if (typeof(T) == typeof(MapLocationFolderModel))
+                _controller = (IController<T>)container.Resolve<MapLocationFolderController>();
         }
 
         public async Task<ObservableCollection<T>> GetSources(DataSourceType dataSourceType)

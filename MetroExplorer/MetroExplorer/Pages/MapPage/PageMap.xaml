@@ -15,6 +15,8 @@
 
 	<common:LayoutAwarePage.Resources>
 
+		<common:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+
 		<!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
 		<x:String x:Key="AppName">My Application</x:String>
 	</common:LayoutAwarePage.Resources>
@@ -85,5 +87,6 @@
 
 		<!-- Back button and page title -->
 		<Maps:Map x:Name="MapView" Grid.Row="1" Credentials="Avs9-NFwIrWEbtFgLLePRSktqWRMX8X5Kmz5NiZyxgzL0JCG-S0K65VltPBX3uV1" Tapped="MapTapped"/>
+		<MapsControl:MapFolderList Margin="442,516,20,84" Background="Black" Visibility="{Binding Focused, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 	</Grid>
 </common:LayoutAwarePage>

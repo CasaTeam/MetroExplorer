@@ -66,5 +66,17 @@
         {
             throw new NotImplementedException();
         }
+
+
+        public async Task<ObservableCollection<MapLocationFolderModel>> LoadLocationFolders(Guid locationId)
+        {
+            return new ObservableCollection<MapLocationFolderModel>{
+                new MapLocationFolderModel{ID = Guid.NewGuid(), Name= "Folder 1"},
+                new MapLocationFolderModel{ID = Guid.NewGuid(), Name= "Folder 2"},
+                new MapLocationFolderModel{ID = Guid.NewGuid(), Name= "Folder 3"},
+                new MapLocationFolderModel{ID = Guid.NewGuid(), Name= "Folder 4"},
+                new MapLocationFolderModel{ID = Guid.NewGuid(), Name= "Folder 5"}
+            };
+        }
     }
 }

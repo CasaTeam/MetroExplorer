@@ -90,45 +90,19 @@
 		<Setter Property="Height" Value="30"/>
 	</Style>
 
-    <Style TargetType="local:MapPanel">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="local:MapPanel">
-                    <Border
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}" d:DesignWidth="320" d:DesignHeight="162">
-                    	<Grid>
-                    		<Grid.ColumnDefinitions>
-                    			<ColumnDefinition Width="23*"/>
-                    			<ColumnDefinition Width="9*"/>
-                    		</Grid.ColumnDefinitions>
-                    		<Grid.RowDefinitions>
-                    			<RowDefinition Height="37*"/>
-                    			<RowDefinition Height="125*"/>
-                    		</Grid.RowDefinitions>
-                    		<ListBox Grid.Row="1" Margin="5" ItemTemplate="{StaticResource MapPanelListBoxDataTemplate}" Background="#CC000000" Grid.ColumnSpan="2"/>
-                    		<TextBlock TextWrapping="Wrap" Margin="5" Text="Adresse"/>
-                    		<Button x:Name="ButtonLinkElement" Content="Link" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" />
-                    	</Grid>
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style TargetType="local:MapFolderList">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="local:MapFolderList">
-                    <Border
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}">
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-        <Setter Property="ItemTemplate" Value="{StaticResource MapFolderListItemDataTemplate}"/>
-    </Style>
+	<Style TargetType="local:MapFolderList">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="local:MapFolderList">
+					<Border
+						Background="{TemplateBinding Background}"
+						BorderBrush="{TemplateBinding BorderBrush}"
+						BorderThickness="{TemplateBinding BorderThickness}">
+						<ListBox x:Name="ListBoxElement" Height="100" Width="100" ItemTemplate="{StaticResource MapFolderListItemDataTemplate}" ItemsPanel="{StaticResource MapItemsPanelTemplate}" Background="{x:Null}" ItemContainerStyle="{StaticResource MapFolderListBoxItemStyle}"/>
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+		<Setter Property="Background" Value="{x:Null}"/>
+	</Style>
 </ResourceDictionary>

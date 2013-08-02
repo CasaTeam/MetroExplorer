@@ -25,5 +25,8 @@
         Task RemoveLocation(MapLocationModel mapLocation);
 
         Task UpdateLocation(MapLocationModel mapLocation);
+
+
+        Task<ObservableCollection<MapLocationFolderModel>> LoadLocationFolders(Guid locationId);
     }
 }

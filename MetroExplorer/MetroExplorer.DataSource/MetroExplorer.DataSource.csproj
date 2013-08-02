@@ -105,6 +105,7 @@
     <Compile Include="DataControllers\IController.cs" />
     <Compile Include="DataControllers\MapController.cs" />
     <Compile Include="DataControllers\MapLocationController.cs" />
+    <Compile Include="DataControllers\MapLocationFolderController.cs" />
     <Compile Include="DataModels\MapLocationFolderModel.cs" />
     <Compile Include="DataModels\MapLocationModel.cs" />
     <Compile Include="DataModels\MapModel.cs" />

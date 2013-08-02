@@ -68,6 +68,8 @@
 
             SetLocations(_mapLocations);
 
+            DefaultViewModel["Focused"] = false;
+
             MapView.ViewChangeEnded += MapViewViewChangeEnded;
 
             _searchPane.QuerySubmitted += SearchPaneQuerySubmitted;
@@ -96,7 +98,10 @@
                 else
                     _focusedMapPin.UnFocus();
                 _focusedMapPin = null;
+                DefaultViewModel["Focused"] = false;
             }
+            else
+                DefaultViewModel["Focused"] = true;
         }
 
         private async void SearchPaneSuggestionsRequested(
@@ -148,7 +153,7 @@
                     existedMapPin.Focus();
                     _focusedMapPin = existedMapPin;
                 }
-
+                DefaultViewModel["Focused"] = true;
             }
         }
 
