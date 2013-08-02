@@ -126,10 +126,10 @@
 
             if (geoCodeLocation != null)
             {
-                MapPin exsitedMapPin = _mapPins.FirstOrDefault(mapPin =>
+                MapPin existedMapPin = _mapPins.FirstOrDefault(mapPin =>
                     mapPin.Latitude == geoCodeLocation.Location.Latitude.ToString()
                     && mapPin.Longitude == geoCodeLocation.Location.Longitude.ToString());
-                if (exsitedMapPin == null)
+                if (existedMapPin == null)
                 {
                     MapPin mapPinElement = new MapPin(string.Empty, string.Empty,
                         geoCodeLocation.Location.Latitude.ToString(),
@@ -142,7 +142,12 @@
                     _focusedMapPin = mapPinElement;
                 }
                 else
-                    _focusedMapPin = exsitedMapPin;
+                {
+                    Location location = new Location(double.Parse(existedMapPin.Latitude), double.Parse(existedMapPin.Longitude));
+                    MapView.SetView(location, 15.0f);
+                    existedMapPin.Focus();
+                    _focusedMapPin = existedMapPin;
+                }
 
             }
         }
@@ -203,11 +208,6 @@
 
             if (!_focusedMapPin.Focused)
                 _focusedMapPin.Focus();
-        }
-
-        private void MapPanelLink(object sender, EventArgs e)
-        {
-            Frame.Navigate(typeof(PageMain), null);
         }
 
         private void SetLocations(ObservableCollection<MapLocationModel> locations)

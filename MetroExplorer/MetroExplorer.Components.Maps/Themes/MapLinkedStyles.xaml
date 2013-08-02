@@ -20,5 +20,8 @@
 			<Border BorderBrush="Black" BorderThickness="2"/>
 		</Grid>
 	</DataTemplate>
+	<DataTemplate x:Key="MapFolderListItemDataTemplate">
+		<Grid/>
+	</DataTemplate>
 	
 </ResourceDictionary>

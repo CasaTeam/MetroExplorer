@@ -116,4 +116,19 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style TargetType="local:MapFolderList">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:MapFolderList">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemTemplate" Value="{StaticResource MapFolderListItemDataTemplate}"/>
+    </Style>
 </ResourceDictionary>
