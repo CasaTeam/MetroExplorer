@@ -598,9 +598,18 @@
 					</ControlTemplate>
 				</Setter.Value>
 			</Setter>
-		</Style>  
-		
-	</common:LayoutAwarePage.Resources>
+		</Style>
+        <Style x:Key="PinAppBarButtonStyle" TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
+            <Setter Property="AutomationProperties.AutomationId" Value="PinAppBarButton"/>
+            <Setter Property="AutomationProperties.Name" Value="Pin to Start"/>
+            <Setter Property="Content" Value="&#xE141;"/>
+        </Style>
+        <Style x:Key="UnpinAppBarButtonStyle" TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
+            <Setter Property="AutomationProperties.AutomationId" Value="UnpinAppBarButton"/>
+            <Setter Property="AutomationProperties.Name" Value="Unpin from Start"/>
+            <Setter Property="Content" Value="&#xE196;"/>
+        </Style>
+    </common:LayoutAwarePage.Resources>
 
 	<common:LayoutAwarePage.BottomAppBar>
 		<AppBar x:Name="AppBar_BottomAppBar" Opened="AppBar_BottomAppBar_Opened_1"
@@ -627,6 +636,10 @@
 							</Style>
 						</Button.Style>
 					</Button>
+                    <Button x:Name="Button_PinUnPinToStart" Click="PinUnPinToStart"
+						x:Uid="Uid_Page_Main_Button_PinUnPinToStart" VerticalAlignment="Stretch"
+						Margin="0,0" HorizontalAlignment="Center">
+                    </Button>
                     <!--<Button x:Name="Button_RotatePhoto" Click="RotatePhotoButtonClick"
 						x:Uid="Uid_Page_Main_Button_RotatePhoto" VerticalAlignment="Stretch"
 						Margin="0,0" HorizontalAlignment="Center">

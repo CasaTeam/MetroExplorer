@@ -81,6 +81,7 @@
 
             await InitializeSearch(navigationParameter);
             InitializeShare();
+            InitializePinToStart();
 
             FolderNameTextBlock.Text = DataSource.CurrentStorageFolder.Name;
             await RefreshLocalFiles();
