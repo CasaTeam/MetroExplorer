@@ -19,25 +19,27 @@
         [Dependency("MapServiceSQLite")]
         public IMapService MapServiceSQLite { get; set; }
 
+        public Guid MapLocationId { get; set; }
+
         public async Task<ObservableCollection<MapLocationFolderModel>> GetSources(DataSourceType serviceName)
         {
             switch (serviceName)
             {
                 case DataSourceType.Design:
-                    return await MapServiceDesign.LoadLocationFolders(Guid.NewGuid());
+                    return await MapServiceDesign.LoadLocationFolders(MapLocationId);
                 case DataSourceType.Sqlite:
-                    return await MapServiceSQLite.LoadLocationFolders(Guid.NewGuid());
+                    return await MapServiceSQLite.LoadLocationFolders(MapLocationId);
                 default:
                     return null;
             }
         }
 
-        public Task Add(DataSourceType serviceName, MapLocationFolderModel source)
+        public async Task Add(DataSourceType serviceName, MapLocationFolderModel source)
         {
-            throw new NotImplementedException();
+            await MapServiceSQLite.AddLocationFolder(source);
         }
 
-        public Task Remove(DataSourceType serviceName, MapLocationFolderModel source)
+        public Task Remove(DataSourceType serviceName, List<MapLocationFolderModel> source)
         {
             throw new NotImplementedException();
         }
@@ -45,6 +47,17 @@
         public Task Update(DataSourceType serviceName, MapLocationFolderModel source)
         {
             throw new NotImplementedException();
+        }
+
+
+        public Task Remove(DataSourceType serviceName, MapLocationFolderModel source)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task RemoveMany(DataSourceType serviceName, List<MapLocationFolderModel> sources)
+        {
+            await MapServiceSQLite.RemoveLocationFolders(sources);
         }
     }
 }

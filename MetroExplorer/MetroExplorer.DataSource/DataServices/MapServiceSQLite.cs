@@ -8,6 +8,7 @@
     using SQLite;
     using DataModels;
     using DataConfigurations;
+    using System.Collections.Generic;
 
     public class MapServiceSQLite : IMapService
     {
@@ -25,6 +26,7 @@
                     });
 
                 connection.CreateTable<MapLocationModel>();
+                connection.CreateTable<MapLocationFolderModel>();
             }
         }
 
@@ -92,8 +94,9 @@
 
             _locations.Remove(mapLocation);
 
-            return connection.DeleteAsync(mapLocation);
+            connection.ExecuteAsync("DELETE FROM MapLocationFolders WHERE MapLocationId = ?", mapLocation.ID);
 
+            return connection.DeleteAsync(mapLocation);
         }
 
         public Task UpdateLocation(MapLocationModel mapLocation)
@@ -107,8 +110,43 @@
             return connection.UpdateAsync(mapLocation);
         }
 
+        private ObservableCollection<MapLocationFolderModel> _locationFolders;
 
-        public Task<ObservableCollection<MapLocationFolderModel>> LoadLocationFolders(Guid locationId)
+        public async Task<ObservableCollection<MapLocationFolderModel>> LoadLocationFolders(Guid locationId)
+        {
+            SQLiteAsyncConnection connection = new SQLiteAsyncConnection(SQLiteConfiguration.ConnectionString);
+
+            _locationFolders = new ObservableCollection<MapLocationFolderModel>(
+                await connection.QueryAsync<MapLocationFolderModel>("SELECT * FROM MapLocationFolders WHERE MapLocationId = ?", locationId));
+
+            return _locationFolders;
+        }
+
+        //ToDo: AddLocationFolders
+        public async Task<int> AddLocationFolder(MapLocationFolderModel locationFolder)
+        {
+            SQLiteAsyncConnection connection = new SQLiteAsyncConnection(SQLiteConfiguration.ConnectionString);
+
+            _locationFolders.Add(locationFolder);
+
+            return await connection.InsertAsync(locationFolder);
+        }
+
+        public Task RemoveLocationFolders(List<MapLocationFolderModel> locationFolders)
+        {
+            string query = "DELETE FROM MapLocationFolders WHERE ID IN (" +
+                locationFolders.Aggregate(string.Empty, (current, next) =>
+                {
+                    _locationFolders.Remove(next);
+                    return current + "'" + next.ID + "',";
+                }).TrimEnd(',') + ")";
+
+            SQLiteAsyncConnection connection = new SQLiteAsyncConnection(SQLiteConfiguration.ConnectionString);
+
+            return connection.ExecuteAsync(query);
+        }
+
+        public Task UpdateLocationFolder(MapLocationFolderModel locationFolder)
         {
             throw new NotImplementedException();
         }

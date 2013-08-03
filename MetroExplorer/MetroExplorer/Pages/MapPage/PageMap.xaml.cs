@@ -8,6 +8,8 @@
     using Windows.ApplicationModel.Search;
     using Windows.Foundation;
     using Windows.Foundation.Collections;
+    using Windows.Storage;
+    using Windows.Storage.AccessCache;
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Controls;
     using Windows.UI.Xaml.Controls.Primitives;
@@ -25,6 +27,7 @@
     using DataSource.DataConfigurations;
     using DataSource.DataModels;
     using MainPage;
+    using Core;
 
     public sealed partial class PageMap : LayoutAwarePage
     {
@@ -34,9 +37,11 @@
 
         private MapModel _map;
         private ObservableCollection<MapLocationModel> _mapLocations;
+        private ObservableCollection<MapLocationFolderModel> _mapLocationFolders;
 
         private DataAccess<MapModel> _mapDataAccess;
         private DataAccess<MapLocationModel> _mapLocationAccess;
+        private DataAccess<MapLocationFolderModel> _mapLocationFolderAccess;
 
         private ObservableCollection<MapPin> _mapPins;
 
@@ -53,6 +58,7 @@
 
             _mapDataAccess = new DataAccess<MapModel>();
             _mapLocationAccess = new DataAccess<MapLocationModel>();
+            _mapLocationFolderAccess = new DataAccess<MapLocationFolderModel>();
 
             _mapPins = new ObservableCollection<MapPin>();
         }
@@ -66,9 +72,10 @@
             _mapLocationAccess.MapId = _map.ID;
             _mapLocations = await _mapLocationAccess.GetSources(DataSourceType.Sqlite);
 
-            SetLocations(_mapLocations);
-
             DefaultViewModel["Focused"] = false;
+            DefaultViewModel["MapLocationFolders"] = _mapLocationFolders;
+
+            SetLocations(_mapLocations);
 
             MapView.ViewChangeEnded += MapViewViewChangeEnded;
 
@@ -84,7 +91,7 @@
             _searchPane.SuggestionsRequested -= SearchPaneSuggestionsRequested;
         }
 
-        private void MapTapped(
+        private async void MapTapped(
             object sender,
             TappedRoutedEventArgs e)
         {
@@ -98,10 +105,14 @@
                 else
                     _focusedMapPin.UnFocus();
                 _focusedMapPin = null;
-                DefaultViewModel["Focused"] = false;
             }
-            else
-                DefaultViewModel["Focused"] = true;
+            else if (_focusedMapPin != null)
+            {
+                _mapLocationFolderAccess.MapLocationId = _focusedMapPin.ID;
+                _mapLocationFolders = await _mapLocationFolderAccess.GetSources(DataSourceType.Sqlite);
+                DefaultViewModel["MapLocationFolders"] = _mapLocationFolders;
+            }
+            DefaultViewModel["Focused"] = _focusedMapPin != null && _focusedMapPin.Marked;
         }
 
         private async void SearchPaneSuggestionsRequested(
@@ -217,6 +228,7 @@
 
         private void SetLocations(ObservableCollection<MapLocationModel> locations)
         {
+
             foreach (MapLocationModel mapLocation in locations)
             {
                 MapPin mapPinElement = new MapPin(mapLocation.Name,
@@ -232,16 +244,72 @@
                 mapPinElement.Mark();
                 _mapPins.Add(mapPinElement);
             }
+            
             MapView.ViewChanged += MapViewViewChanged;
+
         }
 
         private void MapViewViewChanged(object sender, ViewChangedEventArgs e)
         {
             foreach (MapPin mapPin in _mapPins)
-                mapPin.Mark();
+            {
+                if (DataSource.FocusedLocationId != null && DataSource.FocusedLocationId.Value.Equals(mapPin.ID))
+                {
+                    _focusedMapPin = mapPin;
+                    UpdateMapFolderList(DataSource.FocusedLocationId.Value);
+                    //ToDo: Empty DataSource.SelectedStorageFolders
 
+                    mapPin.Focus();
+                    DefaultViewModel["Focused"] = true;
+                    DataSource.FocusedLocationId = null;
+                }
+                mapPin.Mark();
+            }
 
             MapView.ViewChanged -= MapViewViewChanged;
+        }
+
+        private async void UpdateMapFolderList(Guid mapLocationId)
+        {
+            _mapLocationFolderAccess.MapLocationId = mapLocationId;
+            _mapLocationFolders = await _mapLocationFolderAccess.GetSources(DataSourceType.Sqlite);
+            DefaultViewModel["MapLocationFolders"] = _mapLocationFolders;
+
+            List<MapLocationFolderModel> removedFoders = new List<MapLocationFolderModel>();
+            foreach (MapLocationFolderModel removedFolder in _mapLocationFolders)
+            {
+                StorageFolder folder = await StorageApplicationPermissions.FutureAccessList.GetFolderAsync(removedFolder.Token, AccessCacheOptions.FastLocationsOnly);
+                if (folder == null || !DataSource.SelectedStorageFolders.Any(storageFolder => storageFolder.EqualTo(folder)))
+                    removedFoders.Add(removedFolder);
+            }
+
+            await _mapLocationFolderAccess.RemoveMany(DataSourceType.Sqlite, removedFoders);
+
+            foreach (StorageFolder folder in DataSource.SelectedStorageFolders)
+            {
+                string token = StorageApplicationPermissions.FutureAccessList.Add(folder, "link");
+                if (!_mapLocationFolders.Any(locationFolder => locationFolder.Token.Equals(token)))
+                {
+                    MapLocationFolderModel locationFolder = new MapLocationFolderModel
+                    {
+                        ID = Guid.NewGuid(),
+                        Name = folder.Name,
+                        Description = folder.DateCreated.ToString(),
+                        MapLocationId = mapLocationId,
+                        Token = token
+                    };
+                    await _mapLocationFolderAccess.Add(DataSourceType.Sqlite, locationFolder);
+                }
+            }
+        }
+
+        private void ButtonLinkClick(object sender, RoutedEventArgs e)
+        {
+            DataSource.SelectedStorageFolders = new List<StorageFolder>();
+            // ToDo: DataSource.SelectedStorageFolders
+
+            DataSource.FocusedLocationId = _focusedMapPin.ID;
+            Frame.Navigate(typeof(PageMain));
         }
     }
 }

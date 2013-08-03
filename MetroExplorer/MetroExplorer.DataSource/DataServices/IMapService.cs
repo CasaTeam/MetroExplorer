@@ -6,6 +6,7 @@
     using System.Text;
     using System.Threading.Tasks;
     using DataModels;
+    using System.Collections.Generic;
 
     public interface IMapService
     {
@@ -28,5 +29,11 @@
 
 
         Task<ObservableCollection<MapLocationFolderModel>> LoadLocationFolders(Guid locationId);
+
+        Task<int> AddLocationFolder(MapLocationFolderModel locationFolder);
+
+        Task RemoveLocationFolders(List<MapLocationFolderModel> locationFolders);
+
+        Task UpdateLocationFolder(MapLocationFolderModel locationFolder);
     }
 }

@@ -37,5 +37,11 @@
         {
             await MapServiceSQLite.UpdateLocation(location);
         }
+
+
+        public Task RemoveMany(DataSourceType serviceName, List<MapLocationModel> sources)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -16,13 +16,13 @@
 		</Grid>
 	</DataTemplate>
 	<DataTemplate x:Key="MapFolderListItemDataTemplate">
-		<Grid Background="#FFA26A6A">
+		<Grid Background="Black">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="3*"/>
 				<RowDefinition/>
 			</Grid.RowDefinitions>
-			<TextBlock TextWrapping="Wrap" Text="TextBlock" Grid.Row="1" Foreground="Black"/>
-			<Image/>
+			<TextBlock TextWrapping="Wrap" Text="{Binding Name}" Grid.Row="1" Foreground="White" HorizontalAlignment="Center" Margin="0,5"/>
+			<Image Source="ms-appx:///MetroExplorer.Components.Maps/DesignAssets/folder.png" Width="50" Height="50"/>
 		</Grid>
 	</DataTemplate>
 	<ItemsPanelTemplate x:Key="MapFolderListItemsPanelTemplate">
@@ -135,10 +135,134 @@
 						</VisualStateManager.VisualStateGroups>
 						<Grid x:Name="InnerGrid" Background="Transparent">
 							<Rectangle x:Name="PressedBackground" Fill="{StaticResource ListBoxItemPressedBackgroundThemeBrush}" Opacity="0"/>
-							<ContentPresenter x:Name="ContentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+							<ContentPresenter x:Name="ContentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" Margin="2"/>
 							<Rectangle x:Name="FocusVisualWhite" Opacity="0" StrokeDashOffset=".5" StrokeEndLineCap="Square" Stroke="{StaticResource FocusVisualWhiteStrokeThemeBrush}" StrokeDashArray="1,1"/>
 							<Rectangle x:Name="FocusVisualBlack" Opacity="0" StrokeDashOffset="1.5" StrokeEndLineCap="Square" Stroke="{StaticResource FocusVisualBlackStrokeThemeBrush}" StrokeDashArray="1,1"/>
 						</Grid>
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<Style x:Key="MapLocationFolderListBoxStyle" TargetType="ListBox">
+		<Setter Property="Foreground" Value="{StaticResource ListBoxForegroundThemeBrush}"/>
+		<Setter Property="Background" Value="{StaticResource ListBoxBackgroundThemeBrush}"/>
+		<Setter Property="BorderBrush" Value="{StaticResource ListBoxBorderThemeBrush}"/>
+		<Setter Property="BorderThickness" Value="{StaticResource ListBoxBorderThemeThickness}"/>
+		<Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+		<Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+		<Setter Property="ScrollViewer.HorizontalScrollMode" Value="Disabled"/>
+		<Setter Property="ScrollViewer.IsHorizontalRailEnabled" Value="True"/>
+		<Setter Property="ScrollViewer.VerticalScrollMode" Value="Enabled"/>
+		<Setter Property="ScrollViewer.IsVerticalRailEnabled" Value="True"/>
+		<Setter Property="ScrollViewer.ZoomMode" Value="Disabled"/>
+		<Setter Property="ScrollViewer.IsDeferredScrollingEnabled" Value="False"/>
+		<Setter Property="ScrollViewer.BringIntoViewOnFocusChange" Value="True"/>
+		<Setter Property="IsTabStop" Value="False"/>
+		<Setter Property="TabNavigation" Value="Once"/>
+		<Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}"/>
+		<Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}"/>
+		<Setter Property="ItemsPanel">
+			<Setter.Value>
+				<ItemsPanelTemplate>
+					<VirtualizingStackPanel/>
+				</ItemsPanelTemplate>
+			</Setter.Value>
+		</Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="ListBox">
+					<Border x:Name="LayoutRoot" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+						<VisualStateManager.VisualStateGroups>
+							<VisualStateGroup x:Name="CommonStates">
+								<VisualState x:Name="Normal"/>
+								<VisualState x:Name="Disabled">
+									<Storyboard>
+										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="LayoutRoot">
+											<DiscreteObjectKeyFrame KeyTime="0" Value="Transparent"/>
+										</ObjectAnimationUsingKeyFrames>
+										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="LayoutRoot">
+											<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ListBoxDisabledForegroundThemeBrush}"/>
+										</ObjectAnimationUsingKeyFrames>
+									</Storyboard>
+								</VisualState>
+							</VisualStateGroup>
+							<VisualStateGroup x:Name="FocusStates">
+								<VisualState x:Name="Focused">
+									<Storyboard>
+										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="LayoutRoot">
+											<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ListBoxFocusBackgroundThemeBrush}"/>
+										</ObjectAnimationUsingKeyFrames>
+									</Storyboard>
+								</VisualState>
+								<VisualState x:Name="Unfocused"/>
+							</VisualStateGroup>
+						</VisualStateManager.VisualStateGroups>
+						<ScrollViewer x:Name="ScrollViewer" BringIntoViewOnFocusChange="{TemplateBinding ScrollViewer.BringIntoViewOnFocusChange}" HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}" HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}" IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}" IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}" Padding="{TemplateBinding Padding}" TabNavigation="{TemplateBinding TabNavigation}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}" ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}">
+							<ItemsPresenter/>
+						</ScrollViewer>
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<Style x:Key="MapFolderListBoxStyle" TargetType="ListBox">
+		<Setter Property="Foreground" Value="{StaticResource ListBoxForegroundThemeBrush}"/>
+		<Setter Property="Background" Value="{StaticResource ListBoxBackgroundThemeBrush}"/>
+		<Setter Property="BorderBrush" Value="{StaticResource ListBoxBorderThemeBrush}"/>
+		<Setter Property="BorderThickness" Value="{StaticResource ListBoxBorderThemeThickness}"/>
+		<Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+		<Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+		<Setter Property="ScrollViewer.HorizontalScrollMode" Value="Disabled"/>
+		<Setter Property="ScrollViewer.IsHorizontalRailEnabled" Value="True"/>
+		<Setter Property="ScrollViewer.VerticalScrollMode" Value="Enabled"/>
+		<Setter Property="ScrollViewer.IsVerticalRailEnabled" Value="True"/>
+		<Setter Property="ScrollViewer.ZoomMode" Value="Disabled"/>
+		<Setter Property="ScrollViewer.IsDeferredScrollingEnabled" Value="False"/>
+		<Setter Property="ScrollViewer.BringIntoViewOnFocusChange" Value="True"/>
+		<Setter Property="IsTabStop" Value="False"/>
+		<Setter Property="TabNavigation" Value="Once"/>
+		<Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}"/>
+		<Setter Property="FontSize" Value="{StaticResource ControlContentThemeFontSize}"/>
+		<Setter Property="ItemsPanel">
+			<Setter.Value>
+				<ItemsPanelTemplate>
+					<VirtualizingStackPanel/>
+				</ItemsPanelTemplate>
+			</Setter.Value>
+		</Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="ListBox">
+					<Border x:Name="LayoutRoot" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+						<VisualStateManager.VisualStateGroups>
+							<VisualStateGroup x:Name="CommonStates">
+								<VisualState x:Name="Normal"/>
+								<VisualState x:Name="Disabled">
+									<Storyboard>
+										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="LayoutRoot">
+											<DiscreteObjectKeyFrame KeyTime="0" Value="Transparent"/>
+										</ObjectAnimationUsingKeyFrames>
+										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="LayoutRoot">
+											<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ListBoxDisabledForegroundThemeBrush}"/>
+										</ObjectAnimationUsingKeyFrames>
+									</Storyboard>
+								</VisualState>
+							</VisualStateGroup>
+							<VisualStateGroup x:Name="FocusStates">
+								<VisualState x:Name="Focused">
+									<Storyboard>
+										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="LayoutRoot">
+											<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ListBoxFocusBackgroundThemeBrush}"/>
+										</ObjectAnimationUsingKeyFrames>
+									</Storyboard>
+								</VisualState>
+								<VisualState x:Name="Unfocused"/>
+							</VisualStateGroup>
+						</VisualStateManager.VisualStateGroups>
+						<ScrollViewer x:Name="ScrollViewer" BringIntoViewOnFocusChange="{TemplateBinding ScrollViewer.BringIntoViewOnFocusChange}" HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}" HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}" IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}" IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}" Padding="{TemplateBinding Padding}" TabNavigation="{TemplateBinding TabNavigation}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}" ZoomMode="{TemplateBinding ScrollViewer.ZoomMode}">
+							<ItemsPresenter/>
+						</ScrollViewer>
 					</Border>
 				</ControlTemplate>
 			</Setter.Value>

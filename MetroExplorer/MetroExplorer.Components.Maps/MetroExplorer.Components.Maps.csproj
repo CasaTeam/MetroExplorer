@@ -135,6 +135,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DesignAssets\folder.png" />
     <Content Include="DesignAssets\MapBackground.bmp" />
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,7 @@
 ﻿namespace MetroExplorer.DataSource.DataControllers
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Text;
@@ -75,6 +76,12 @@
                 default:
                     return;
             }
+        }
+
+
+        public Task RemoveMany(DataSourceType serviceName, List<MapModel> sources)
+        {
+            throw new NotImplementedException();
         }
     }
 }

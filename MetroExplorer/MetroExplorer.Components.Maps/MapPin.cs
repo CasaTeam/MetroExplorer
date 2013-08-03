@@ -29,6 +29,8 @@
 
         public event EventHandler<MapPinTappedEventArgs> MapPinTapped;
 
+        public event EventHandler GetFocused;
+
         public MapPin()
         {
             this.DefaultStyleKey = typeof(MapPin);
@@ -70,6 +72,8 @@
             {
                 Focused = true;
                 VisualStateManager.GoToState(this, "Focused", true);
+                if (GetFocused != null)
+                    GetFocused(this, new EventArgs());
             }
         }
 

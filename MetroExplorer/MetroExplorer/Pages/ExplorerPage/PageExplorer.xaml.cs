@@ -23,6 +23,7 @@
     using Core;
     using Core.Objects;
     using Core.Utils;
+    using MapPage;
     using UserPreferenceRecord;
 
     /// <summary>
@@ -83,10 +84,20 @@
             InitializeShare();
 
             FolderNameTextBlock.Text = DataSource.CurrentStorageFolder.Name;
+
             await RefreshLocalFiles();
             ItemsViewSource.Source = ExplorerItems;
 
             InitializeChangingDispatcher();
+
+            DefaultViewModel["Linkable"] = DataSource.FocusedLocationId != null;
+            // ToDo: AutoSelection by DataSource.SelectedStorageFolders
+            //foreach (StorageFolder storageFolder in DataSource.SelectedStorageFolders)
+            //{
+            //    ExplorerItem explorerItem = 
+            //        ExplorerItems.FirstOrDefault(item => storageFolder.EqualTo(item.StorageFolder));
+            //}
+
             GC.Collect();
         }
 
@@ -182,6 +193,40 @@
 
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
+
+        private void ButtonLinkClick(object sender, RoutedEventArgs e)
+        {
+            itemGridView.SelectionChanged -= itemGridViewSelectionChanged;
+            Frame.Navigate(typeof(PageMap));
+        }
+
+        private void itemGridViewSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            foreach (object removedItem in e.RemovedItems)
+            {
+                if (removedItem is ExplorerItem && ((ExplorerItem)removedItem).StorageFolder != null)
+                {
+                    StorageFolder folder = ((ExplorerItem)removedItem).StorageFolder;
+
+                    DataSource.SelectedStorageFolders.Remove(
+                        DataSource.SelectedStorageFolders.FirstOrDefault(storageFolder =>
+                            storageFolder.EqualTo(folder)));
+                }
+            }
+
+            foreach (object addedItem in e.AddedItems)
+            {
+                if (addedItem is ExplorerItem && ((ExplorerItem)addedItem).StorageFolder != null)
+                {
+                    StorageFolder folder = ((ExplorerItem)addedItem).StorageFolder;
+
+                    if (!DataSource.SelectedStorageFolders.Any(storageFolder =>
+                            storageFolder.EqualTo(folder)))
+                        DataSource.SelectedStorageFolders.Add(folder);
+                }
+            }
+
+        }
     }
 
     /// <summary>

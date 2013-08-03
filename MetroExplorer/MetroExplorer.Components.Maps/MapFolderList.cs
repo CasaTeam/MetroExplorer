@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq;
     using Windows.ApplicationModel;
     using Windows.UI.Xaml;
@@ -20,6 +21,29 @@
         internal const string ListBoxElement = "ListBoxElement";
 
         private ListBox _listBox;
+
+        #region
+
+        public ObservableCollection<MapLocationFolderModel> MapLocationFolderSource
+        {
+            get
+            {
+                return (ObservableCollection<MapLocationFolderModel>)GetValue(MapLocationFolderSourceProperty);
+            }
+            set
+            {
+                SetValue(MapLocationFolderSourceProperty, value);
+            }
+        }
+
+        #endregion
+
+        #region Dependency Properties
+
+        public static DependencyProperty MapLocationFolderSourceProperty = DependencyProperty
+            .Register("MapLocationFolderSource", typeof(ObservableCollection<MapLocationFolderModel>), typeof(MapFolderList), null);
+
+        #endregion
 
         public MapFolderList()
         {

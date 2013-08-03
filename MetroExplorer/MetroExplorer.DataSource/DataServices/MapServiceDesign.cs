@@ -9,6 +9,7 @@
     using Windows.Storage;
     using Windows.Storage.FileProperties;
     using DataModels;
+    using System.Collections.Generic;
 
     public class MapServiceDesign : IMapService
     {
@@ -77,6 +78,23 @@
                 new MapLocationFolderModel{ID = Guid.NewGuid(), Name= "Folder 4"},
                 new MapLocationFolderModel{ID = Guid.NewGuid(), Name= "Folder 5"}
             };
+        }
+
+
+        public Task<int> AddLocationFolder(MapLocationFolderModel locationFolder)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public Task RemoveLocationFolders(List<MapLocationFolderModel> locationFolder)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateLocationFolder(MapLocationFolderModel locationFolder)
+        {
+            throw new NotImplementedException();
         }
     }
 }
