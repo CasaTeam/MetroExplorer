@@ -263,7 +263,7 @@
                 {
                     _focusedMapPin = mapPin;
                     UpdateMapFolderList(DataSource.FocusedLocationId.Value);
-                    DataSource.SelectedStorageFolders = new List<StorageFolder>();
+                    //DataSource.SelectedStorageFolders = new List<StorageFolder>();
 
                     mapPin.Focus();
                     DefaultViewModel["Focused"] = true;
