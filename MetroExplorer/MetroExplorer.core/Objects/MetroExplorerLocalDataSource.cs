@@ -1,5 +1,6 @@
 ﻿namespace MetroExplorer.Core.Objects
 {
+    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
@@ -36,6 +37,10 @@
         {
             get { return _navigatorStorageFolders.LastOrDefault(); }
         }
+
+        public Guid? FocusedLocationId { get; set; }
+
+        public IList<StorageFolder> SelectedStorageFolders { get; set; }
 
         public bool FromSearch { get; set; }
 
