@@ -20,6 +20,7 @@
     using MetroExplorer.Pages.ExplorerPage;
     using Windows.UI.Xaml.Data;
     using Windows.UI.Xaml.Media;
+    using Windows.UI.Xaml.Input;
 
     /// <summary>
     /// Page affichant une collection groupée d'éléments.
@@ -45,6 +46,7 @@
         DispatcherTimer _sliderDispatcher = new DispatcherTimer();
 
         MediaElement _currentPlayMedia;
+        Slider _currentVideoTimerSlider;
 
         public PhotoGallery()
         {
@@ -221,12 +223,15 @@
                     return;
                 var media = GetMediaElement(container);
                 if (media == null) return;
+                _currentVideoTimerSlider = GetSlider(container);
                 media.SetSource(await item.StorageFile.OpenAsync(Windows.Storage.FileAccessMode.Read), item.StorageFile.FileType);
                 if (_sliderDispatcher != null)
                     _sliderDispatcher.Stop();
                 media.MediaFailed += media_MediaFailed;
                 media.MediaEnded += media_MediaEnded;
+                media.MediaOpened += media_MediaOpened;
                 _currentPlayMedia = media;
+                
             }
 
             GC.Collect();
@@ -242,24 +247,84 @@
                 _currentPlayMedia.Source = null;
                 _currentPlayMedia = null;
             }
+            if (_currentVideoTimerSlider != null)
+            { 
+                _currentVideoTimerSlider.ValueChanged -= _currentVideoTimerSlider_ValueChanged;
+                _currentVideoTimerSlider.StepFrequency = 0;
+                _currentVideoTimerSlider.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                _currentVideoTimerSlider = null;
+            }
+            StopTimerForVideoSlider();
         }
 
         void media_MediaEnded(object sender, RoutedEventArgs e)
         {
             if (_sliderDispatcher != null && UnSliderModeButton.Visibility == Windows.UI.Xaml.Visibility.Visible)
                 _sliderDispatcher.Start();
+            CloseAndUnloadLastMedia();
         }
 
         void media_MediaFailed(object sender, ExceptionRoutedEventArgs e)
         {
             if (_sliderDispatcher != null && UnSliderModeButton.Visibility == Windows.UI.Xaml.Visibility.Visible)
                 _sliderDispatcher.Start();
+            CloseAndUnloadLastMedia();
         }
 
         void media_MediaOpened(object sender, RoutedEventArgs e)
         {
             if (_sliderDispatcher != null && UnSliderModeButton.Visibility == Windows.UI.Xaml.Visibility.Visible)
                 _sliderDispatcher.Stop();
+            if (_currentPlayMedia != null && _currentVideoTimerSlider != null)
+            { 
+                double absvalue = (int)Math.Round(
+                    _currentPlayMedia.NaturalDuration.TimeSpan.TotalSeconds,
+                    MidpointRounding.AwayFromZero);
+                _currentVideoTimerSlider.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                _currentVideoTimerSlider.Maximum = absvalue;
+                _currentVideoTimerSlider.ValueChanged += _currentVideoTimerSlider_ValueChanged;
+                _currentVideoTimerSlider.StepFrequency = SliderFrequency(_currentPlayMedia.NaturalDuration.TimeSpan);
+                SetupTimerForVideoSlider();
+
+            }
+        }
+
+        void _currentVideoTimerSlider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        {
+            if (_currentPlayMedia != null)
+            {
+                _currentPlayMedia.Position = TimeSpan.FromSeconds(e.NewValue);
+            }
+        }
+
+        private double SliderFrequency(TimeSpan timevalue)
+        {
+            double stepfrequency = -1;
+
+            double absvalue = (int)Math.Round(
+                timevalue.TotalSeconds, MidpointRounding.AwayFromZero);
+
+            stepfrequency = (int)(Math.Round(absvalue / 100));
+
+            if (timevalue.TotalMinutes >= 10 && timevalue.TotalMinutes < 30)
+            {
+                stepfrequency = 10;
+            }
+            else if (timevalue.TotalMinutes >= 30 && timevalue.TotalMinutes < 60)
+            {
+                stepfrequency = 30;
+            }
+            else if (timevalue.TotalHours >= 1)
+            {
+                stepfrequency = 60;
+            }
+            if (stepfrequency == 0) stepfrequency += 1;
+
+            if (stepfrequency == 1)
+            {
+                stepfrequency = absvalue / 100;
+            }
+            return stepfrequency;
         }
 
         public MediaElement GetMediaElement(DependencyObject parent)
@@ -272,6 +337,19 @@
                 var child = VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(parent, i), i), i), 1);
                 if (child is MediaElement)
                     return child as MediaElement;
+            }
+            return null;
+        }
+
+        public Slider GetSlider(DependencyObject parent)
+        {
+            if (parent == null)
+                return null;
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+            {
+                var child = VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(parent, i), i), i), 2);
+                if (child is Slider)
+                    return child as Slider;
             }
             return null;
         }
@@ -301,6 +379,54 @@
                 {
                     _currentPlayMedia.Play();
                 }
+            }
+        }
+
+        private DispatcherTimer _timerForVideoSlider;
+
+        private void SetupTimerForVideoSlider()
+        {
+            _timerForVideoSlider = new DispatcherTimer();
+            _timerForVideoSlider.Interval = TimeSpan.FromSeconds(_currentVideoTimerSlider.StepFrequency);
+            StartTimerForVideoSlider();
+        }
+
+        private void __timerForVideoSlider_Tick(object sender, object e)
+        {
+            if (!_sliderpressed && _currentVideoTimerSlider != null && _currentPlayMedia != null)
+            {
+                _currentVideoTimerSlider.Value = _currentPlayMedia.Position.TotalSeconds;
+            }
+        }
+
+        private void StartTimerForVideoSlider()
+        {
+            _timerForVideoSlider.Tick += __timerForVideoSlider_Tick;
+            _timerForVideoSlider.Start();
+        }
+
+        private void StopTimerForVideoSlider()
+        {
+            if (_timerForVideoSlider != null)
+            {
+                _timerForVideoSlider.Stop();
+                _timerForVideoSlider.Tick -= __timerForVideoSlider_Tick;
+            }
+        }
+
+        private bool _sliderpressed = false;
+
+        void slider_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            _sliderpressed = true;
+        }
+
+        void slider_PointerCaptureLost(object sender, PointerRoutedEventArgs e)
+        {
+            if (_currentVideoTimerSlider != null && _currentPlayMedia != null)
+            {
+                _currentPlayMedia.Position = TimeSpan.FromSeconds(_currentVideoTimerSlider.Value);
+                _sliderpressed = false;
             }
         }
     }

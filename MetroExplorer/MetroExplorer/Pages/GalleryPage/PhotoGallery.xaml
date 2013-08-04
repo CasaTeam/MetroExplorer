@@ -19,11 +19,9 @@
                     <TextBlock Text="{Binding Name}" FontFamily="Segoe UI" FontSize="26.667" 
                                        Foreground="#CCFFFFFF" Padding="15,20"/>
                 </Border>-->
-                <Grid>
-                    <MediaElement Source="{Binding}" PointerPressed="MediaElement_PointerPressed"
-                              AutoPlay="True" />
-                    <Slider Name="timelineSlider" Margin="10,0" Width="200"/>
-                </Grid>
+                <MediaElement Source="{Binding}" PointerPressed="MediaElement_PointerPressed"
+                            AutoPlay="True" />
+                <Slider Margin="10,100" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Visibility="Collapsed" />
             </Grid>
         </DataTemplate>
 
