@@ -19,6 +19,7 @@
 			Collection d'éléments groupés affichés par cette page, liée à un sous-ensemble
 			de la liste d'éléments complète, car les éléments de groupes ne peuvent pas être virtualisés
 		-->
+		<common:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 		<!--<CollectionViewSource
 			x:Name="GroupedItemsViewSource"
 			Source="{Binding ExplorerGroups}"
@@ -33,12 +34,12 @@
 		<!-- TODO: supprimez cette ligne si la clé AppName est déclarée dans App.xaml -->
 		<x:String x:Key="AppName">Mon application</x:String>
 
-		<SolidColorBrush x:Key="ItemBackground" Color="{Binding Path=ItemBackground}"/>
-		<SolidColorBrush x:Key="ItemSmallBackground" Color="{Binding Path=ItemSmallBackground}"/>
-		<SolidColorBrush x:Key="ItemSelectedBorderColor" Color="{Binding Path=ItemSelectedBorderColor}"/>
-		<SolidColorBrush x:Key="ItemTextForeground" Color="{Binding Path=ItemTextForeground}"/>
-		<SolidColorBrush x:Key="ItemBigBackground" Color="{Binding Path=ItemBigBackground}"/>
-		<SolidColorBrush x:Key="TitleForeground" Color="{Binding Path=TitleForeground}"/>
+		<SolidColorBrush x:Key="ItemBackground" Color="{Binding ItemBackground}"/>
+		<SolidColorBrush x:Key="ItemSmallBackground" Color="{Binding ItemSmallBackground}"/>
+		<SolidColorBrush x:Key="ItemSelectedBorderColor" Color="{Binding ItemSelectedBorderColor}"/>
+		<SolidColorBrush x:Key="ItemTextForeground" Color="{Binding ItemTextForeground}"/>
+		<SolidColorBrush x:Key="ItemBigBackground" Color="{Binding ItemBigBackground}"/>
+		<SolidColorBrush x:Key="TitleForeground" Color="{Binding TitleForeground}"/>
 
 		<local:RenameBoxVisibilityConverter x:Key="RenameBoxVisibilityConverter" />
 		<local:FolderFace1Converter x:Key="FolderFace1Converter" />
@@ -67,8 +68,7 @@
 		<DataTemplate x:Key="Standard300x80ItemTemplate">
 			<Grid HorizontalAlignment="Left" Width="330" Height="65" Margin="0" Background="{StaticResource ItemBackground}">
 				<Image x:Name="ExplorerItemImage" Source="{Binding Image}" Height="65" Width="65"
-					   HorizontalAlignment="Left" VerticalAlignment="Center" Stretch="UniformToFill" >
-				</Image>
+					   HorizontalAlignment="Left" VerticalAlignment="Center" Stretch="UniformToFill" />
 				<Grid VerticalAlignment="Stretch" HorizontalAlignment="Left" Margin="75,5,5,5" Width="280">
 					<TextBlock Foreground="{StaticResource ItemTextForeground}" Text="{Binding Name}" VerticalAlignment="Top" Margin="0,0,0,20" HorizontalAlignment="Left" 
 								FontSize="18" FontWeight="Light" Width="270" />
@@ -92,30 +92,6 @@
 				<Setter.Value>
 					<ControlTemplate TargetType="Button">
 						<Grid x:Name="RootGrid" Width="30" Height="30">
-							<Grid Margin="-6,-6,0,0">
-								<TextBlock x:Name="BackgroundGlyph" Text="&#xE0D4;" Foreground="Transparent"/>
-								<TextBlock x:Name="NormalGlyph" Text="{StaticResource BackButtonSnappedGlyph}" Foreground="Black"/>
-								<TextBlock x:Name="ArrowGlyph" Text="&#xE0C4;" Foreground="#00b2f0" Opacity="0"/>
-							</Grid>
-							<Rectangle
-								x:Name="FocusVisualWhite"
-								IsHitTestVisible="False"
-								Stroke="{StaticResource FocusVisualWhiteStrokeThemeBrush}" 
-								StrokeEndLineCap="Square"
-								StrokeDashArray="1,1"
-								Opacity="0"
-								StrokeDashOffset="1.5"
-								/>
-
-							<Rectangle
-								x:Name="FocusVisualBlack"
-								IsHitTestVisible="False"
-								Stroke="{StaticResource FocusVisualBlackStrokeThemeBrush}" 
-								StrokeEndLineCap="Square"
-								StrokeDashArray="1,1"
-								Opacity="0"
-								StrokeDashOffset="0.5"
-								/>
 
 							<VisualStateManager.VisualStateGroups>
 								<VisualStateGroup x:Name="CommonStates">
@@ -171,6 +147,31 @@
 									<VisualState x:Name="PointerFocused" />
 								</VisualStateGroup>
 							</VisualStateManager.VisualStateGroups>
+							<Grid Margin="-6,-6,0,0">
+								<TextBlock x:Name="BackgroundGlyph" Text="&#xE0D4;" Foreground="Transparent"/>
+								<TextBlock x:Name="NormalGlyph" Text="{StaticResource BackButtonSnappedGlyph}" Foreground="Black"/>
+								<TextBlock x:Name="ArrowGlyph" Text="&#xE0C4;" Foreground="#00b2f0" Opacity="0"/>
+							</Grid>
+							<Rectangle
+								x:Name="FocusVisualWhite"
+								IsHitTestVisible="False"
+								Stroke="{StaticResource FocusVisualWhiteStrokeThemeBrush}" 
+								StrokeEndLineCap="Square"
+								StrokeDashArray="1,1"
+								Opacity="0"
+								StrokeDashOffset="1.5"
+								/>
+
+							<Rectangle
+								x:Name="FocusVisualBlack"
+								IsHitTestVisible="False"
+								Stroke="{StaticResource FocusVisualBlackStrokeThemeBrush}" 
+								StrokeEndLineCap="Square"
+								StrokeDashArray="1,1"
+								Opacity="0"
+								StrokeDashOffset="0.5"
+								/>
+
 						</Grid>
 					</ControlTemplate>
 				</Setter.Value>
@@ -627,17 +628,17 @@
 							</Style>
 						</Button.Style>
 					</Button>
-                    <!--<Button x:Name="Button_RotatePhoto" Click="RotatePhotoButtonClick"
+					<!--<Button x:Name="Button_RotatePhoto" Click="RotatePhotoButtonClick"
 						x:Uid="Uid_Page_Main_Button_RotatePhoto" VerticalAlignment="Stretch"
 						Margin="0,0" HorizontalAlignment="Center">
-                        <Button.Style>
-                            <Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
-                                <Setter Property="AutomationProperties.Name" Value=""/>
-                                <Setter Property="Content" Value="&#xE124;"/>
-                            </Style>
-                        </Button.Style>
-                    </Button>-->
-                </StackPanel>
+						<Button.Style>
+							<Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
+								<Setter Property="AutomationProperties.Name" Value=""/>
+								<Setter Property="Content" Value="&#xE124;"/>
+							</Style>
+						</Button.Style>
+					</Button>-->
+				</StackPanel>
 				<StackPanel Orientation="Horizontal" Height="105" HorizontalAlignment="Right" VerticalAlignment="Stretch">
 					<Button Click="Button_PlayFolder_Click" 
 							x:Uid="Uid_Page_Explorer_Button_PlayFolder"
@@ -733,6 +734,7 @@
 							</Style>
 						</Button.Style>
 					</Button>
+					<Button x:Name="ButtonLink" Content="Link" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="{Binding Linkable, Converter={StaticResource BooleanToVisibilityConverter}}" Click="ButtonLinkClick"/>
 				</StackPanel>
 			</Grid>
 		</AppBar>
@@ -787,7 +789,7 @@
 							  AllowDrop="True" IsTapEnabled="True"
 							  ItemClick="ItemGridView_ItemClick_1"
 							  SelectionMode="Multiple" 
-							  ItemContainerStyle="{StaticResource ExplorerGridViewItemStyle}">
+							  ItemContainerStyle="{StaticResource ExplorerGridViewItemStyle}" SelectionChanged="itemGridViewSelectionChanged">
 						<!--<GridView.ItemsPanel>
 							<ItemsPanelTemplate>
 								<VirtualizingStackPanel VirtualizingStackPanel.VirtualizationMode="Recycling"  Orientation="Horizontal"/>

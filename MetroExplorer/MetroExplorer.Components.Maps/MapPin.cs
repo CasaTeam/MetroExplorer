@@ -1,5 +1,6 @@
 ﻿namespace MetroExplorer.Components.Maps
 {
+    using MetroExplorer.Components.Maps.Objects;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -10,32 +11,85 @@
     using Windows.UI.Xaml.Input;
     using Windows.UI.Xaml.Media;
 
-    [TemplatePart(Name = ButtonPinElement, Type = typeof(Button))]
     public sealed class MapPin : Control
     {
-        internal const string ButtonPinElement = "ButtonPinElement";
+        public Guid ID { get; set; }
 
-        private Button _buttonPin;
+        public string PinName { get; private set; }
+
+        public string Description { get; private set; }
+
+        public string Latitude { get; private set; }
+
+        public string Longitude { get; private set; }
+
+        public bool Marked { get; private set; }
+
+        public bool Focused { get; private set; }
+
+        public event EventHandler<MapPinTappedEventArgs> MapPinTapped;
+
+        public event EventHandler GetFocused;
 
         public MapPin()
         {
             this.DefaultStyleKey = typeof(MapPin);
         }
 
+        public MapPin(
+            string pinName,
+            string description,
+            string latitude,
+            string longitude)
+            : this()
+        {
+            PinName = pinName;
+            Description = description;
+            Latitude = latitude;
+            Longitude = longitude;
+        }
+
         protected override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
+            Tapped += OnTapped;
+        }
 
-            _buttonPin = (Button)GetTemplateChild(ButtonPinElement);
-            if (_buttonPin != null)
+        private void OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (Focused)
             {
-                _buttonPin.Click += ButtonPinClick;
+                VisualStateManager.GoToState(this, Marked ? "UnMarked" : "Marked", true);
+                Marked = !Marked;
+            }
+            if (MapPinTapped != null)
+                MapPinTapped(this, new MapPinTappedEventArgs(Marked));
+        }
+
+        public void Focus()
+        {
+            if (!Focused)
+            {
+                Focused = true;
+                VisualStateManager.GoToState(this, "Focused", true);
+                if (GetFocused != null)
+                    GetFocused(this, new EventArgs());
             }
         }
 
-        private void ButtonPinClick(object sender, RoutedEventArgs e)
+        public void UnFocus()
         {
+            if (Focused)
+            {
+                Focused = false;
+                VisualStateManager.GoToState(this, "UnFocused", true);
+            }
+        }
 
+        public void Mark()
+        {
+            Marked = true;
+            VisualStateManager.GoToState(this, "Marked", true);
         }
     }
 }
