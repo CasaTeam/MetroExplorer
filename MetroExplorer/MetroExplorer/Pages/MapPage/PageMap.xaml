@@ -15,9 +15,40 @@
 
 	<common:LayoutAwarePage.Resources>
 
+		<common:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+
 		<!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
 		<x:String x:Key="AppName">My Application</x:String>
 	</common:LayoutAwarePage.Resources>
+	<common:LayoutAwarePage.BottomAppBar>
+		<AppBar FontFamily="Global User Interface">
+			<AppBar.Background>
+				<SolidColorBrush Color="#E5000000" Opacity="0.9"/>
+			</AppBar.Background>
+			<StackPanel Orientation="Horizontal">
+				<Button x:Name="ButtonLink" Content="Link" HorizontalAlignment="Left" Visibility="{Binding Focused, Converter={StaticResource BooleanToVisibilityConverter}}" Click="ButtonLinkClick"/>
+				<Button x:Name="ButtonShow" Content="Show" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2,0,0,0" Visibility="{Binding FolderSelected, Converter={StaticResource BooleanToVisibilityConverter}}" Click="ButtonShowClick"/>
+				<Button x:Name="ButtonDelete" Content="Delete" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2,0,0,0" Visibility="{Binding FolderSelected, Converter={StaticResource BooleanToVisibilityConverter}}" Click="ButtonDeleteClick"/>
+			</StackPanel>
+		</AppBar>
+	</common:LayoutAwarePage.BottomAppBar>
+	<common:LayoutAwarePage.TopAppBar>
+		<AppBar>
+			<AppBar.Background>
+				<SolidColorBrush Color="#E5000000" Opacity="0.9"/>
+			</AppBar.Background>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="28*"/>
+					<ColumnDefinition Width="645*"/>
+				</Grid.ColumnDefinitions>
+				<StackPanel Orientation="Horizontal">
+					<Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0"/>
+				</StackPanel>
+				<StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal" Width="0"/>
+			</Grid>
+		</AppBar>
+	</common:LayoutAwarePage.TopAppBar>
 
 	<!--
 		This grid acts as a root panel for the page that defines two rows:
@@ -25,10 +56,6 @@
 		* Row 1 contains the rest of the page layout
 	-->
 	<Grid Style="{StaticResource LayoutRootStyle}">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="140"/>
-			<RowDefinition Height="*"/>
-		</Grid.RowDefinitions>
 
 		<VisualStateManager.VisualStateGroups>
 
@@ -52,24 +79,17 @@
 						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="backButton" Storyboard.TargetProperty="Style">
 							<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedBackButtonStyle}"/>
 						</ObjectAnimationUsingKeyFrames>
-						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="pageTitle" Storyboard.TargetProperty="Style">
-							<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedPageHeaderTextStyle}"/>
-						</ObjectAnimationUsingKeyFrames>
 					</Storyboard>
 				</VisualState>
 			</VisualStateGroup>
 		</VisualStateManager.VisualStateGroups>
 
 		<!-- Back button and page title -->
-		<Grid>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="Auto"/>
-				<ColumnDefinition Width="*"/>
-			</Grid.ColumnDefinitions>
-			<Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
-			<TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource AppName}" Style="{StaticResource PageHeaderTextStyle}"/>
-		</Grid>
 		<Maps:Map x:Name="MapView" Grid.Row="1" Credentials="Avs9-NFwIrWEbtFgLLePRSktqWRMX8X5Kmz5NiZyxgzL0JCG-S0K65VltPBX3uV1" Tapped="MapTapped"/>
-		<MapsControl:MapPanel x:Name="MapPanel" Margin="920,30,44,398" Grid.Row="1" Link="MapPanelLink"/>
+		<MapsControl:MapFolderList x:Name="MapFolderListView" Margin="894,572,20,84" Visibility="{Binding Focused, Converter={StaticResource BooleanToVisibilityConverter}}" MapLocationFolderSource="{Binding MapLocationFolders}" SelectionChanged="MapFolderListViewSelectionChanged">
+			<MapsControl:MapFolderList.Background>
+				<SolidColorBrush Color="Black" Opacity="0.89999997615814209"/>
+			</MapsControl:MapFolderList.Background>
+		</MapsControl:MapFolderList>
 	</Grid>
 </common:LayoutAwarePage>

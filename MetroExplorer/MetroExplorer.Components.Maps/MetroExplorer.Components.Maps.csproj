@@ -113,9 +113,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MapFolderList.cs" />
     <Compile Include="MapList.cs" />
-    <Compile Include="MapPanel.cs" />
     <Compile Include="MapPin.cs" />
+    <Compile Include="Objects\MapPinTappedEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -134,6 +135,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DesignAssets\folder.png" />
     <Content Include="DesignAssets\MapBackground.bmp" />
   </ItemGroup>
   <ItemGroup>

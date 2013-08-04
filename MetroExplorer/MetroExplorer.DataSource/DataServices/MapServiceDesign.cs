@@ -9,6 +9,7 @@
     using Windows.Storage;
     using Windows.Storage.FileProperties;
     using DataModels;
+    using System.Collections.Generic;
 
     public class MapServiceDesign : IMapService
     {
@@ -42,6 +43,56 @@
         }
 
         public Task Update(MapModel map)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public Task<ObservableCollection<MapLocationModel>> LoadLocations(Guid mapId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> AddLocation(MapLocationModel mapLocation, Guid mapId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task RemoveLocation(MapLocationModel mapLocation)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateLocation(MapLocationModel mapLocation)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public async Task<ObservableCollection<MapLocationFolderModel>> LoadLocationFolders(Guid locationId)
+        {
+            return new ObservableCollection<MapLocationFolderModel>{
+                new MapLocationFolderModel{ID = Guid.NewGuid(), Name= "Folder 1"},
+                new MapLocationFolderModel{ID = Guid.NewGuid(), Name= "Folder 2"},
+                new MapLocationFolderModel{ID = Guid.NewGuid(), Name= "Folder 3"},
+                new MapLocationFolderModel{ID = Guid.NewGuid(), Name= "Folder 4"},
+                new MapLocationFolderModel{ID = Guid.NewGuid(), Name= "Folder 5"}
+            };
+        }
+
+
+        public Task<int> AddLocationFolder(MapLocationFolderModel locationFolder)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public Task RemoveLocationFolders(List<MapLocationFolderModel> locationFolder)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateLocationFolder(MapLocationFolderModel locationFolder)
         {
             throw new NotImplementedException();
         }

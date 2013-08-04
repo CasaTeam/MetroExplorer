@@ -119,6 +119,9 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
+	<ItemsPanelTemplate x:Key="MapFolderListItemsPanelTemplate">
+		<StackPanel/>
+	</ItemsPanelTemplate>
 	
 
 </ResourceDictionary>

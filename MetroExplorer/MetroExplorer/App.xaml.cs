@@ -71,8 +71,8 @@
                     // configuring the new page by passing required information as a navigation
                     // parameter
                 //if (!rootFrame.Navigate(typeof(PageMapList), args.Arguments))
-                if (!rootFrame.Navigate(typeof(PageMap), args.Arguments))
-                //if (!rootFrame.Navigate(typeof(PageMain), args.Arguments))
+                //if (!rootFrame.Navigate(typeof(PageMap), args.Arguments))
+                if (!rootFrame.Navigate(typeof(PageMain), args.Arguments))
                         throw new Exception("Failed to create initial page");
                 //}
                 //else if (!rootFrame.Navigate(typeof(PageMain), args.Arguments))

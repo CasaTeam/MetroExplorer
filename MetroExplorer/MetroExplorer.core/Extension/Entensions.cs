@@ -92,5 +92,10 @@
         {
             itemList.Add(new ExplorerItem());
         }
+
+        public static bool EqualTo(this StorageFolder folder, StorageFolder other)
+        {
+            return folder.DateCreated == other.DateCreated && folder.Name == other.Name && folder.Path == other.Path;
+        }
     }
 }
