@@ -22,7 +22,11 @@
 
         private ListBox _listBox;
 
-        #region
+        public event EventHandler SelectionChanged;
+
+        #region properties
+
+        public MapLocationFolderModel SelectedItem { get; private set; }
 
         public ObservableCollection<MapLocationFolderModel> MapLocationFolderSource
         {
@@ -48,6 +52,7 @@
         public MapFolderList()
         {
             this.DefaultStyleKey = typeof(MapFolderList);
+            SelectedItem = null;
         }
 
         protected async override void OnApplyTemplate()
@@ -64,7 +69,16 @@
 
                     _listBox.ItemsSource = await dataAccess.GetSources(DataSourceType.Design);
                 }
+
+                _listBox.SelectionChanged += ListBoxSelectionChanged;
             }
+        }
+
+        private void ListBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SelectedItem = (MapLocationFolderModel)e.AddedItems.FirstOrDefault();
+            if (SelectionChanged != null)
+                SelectionChanged(this, new EventArgs());
         }
     }
 }

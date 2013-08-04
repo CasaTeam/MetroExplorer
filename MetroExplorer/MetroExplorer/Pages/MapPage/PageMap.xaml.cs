@@ -20,14 +20,15 @@
     using Windows.UI.Xaml.Shapes;
     using Bing.Maps.Search;
     using Bing.Maps;
+    using Core;
     using Common;
     using Components.Maps;
     using Components.Maps.Objects;
     using DataSource;
     using DataSource.DataConfigurations;
     using DataSource.DataModels;
+    using ExplorerPage;
     using MainPage;
-    using Core;
 
     public sealed partial class PageMap : LayoutAwarePage
     {
@@ -73,6 +74,7 @@
             _mapLocations = await _mapLocationAccess.GetSources(DataSourceType.Sqlite);
 
             DefaultViewModel["Focused"] = false;
+            DefaultViewModel["FolderSelected"] = false;
             DefaultViewModel["MapLocationFolders"] = _mapLocationFolders;
 
             SetLocations(_mapLocations);
@@ -105,6 +107,7 @@
                 else
                     _focusedMapPin.UnFocus();
                 _focusedMapPin = null;
+                DefaultViewModel["FolderSelected"] = false;
             }
             else if (_focusedMapPin != null)
             {
@@ -168,7 +171,8 @@
             }
         }
 
-        private void MapViewViewChangeEnded(object sender, ViewChangeEndedEventArgs e)
+        private void MapViewViewChangeEnded(object sender,
+            ViewChangeEndedEventArgs e)
         {
             if (_lastFocusedMapPin != null && _lastFocusedMapPin.Focused)
                 _lastFocusedMapPin.UnFocus();
@@ -177,7 +181,8 @@
                 _focusedMapPin.Focus();
         }
 
-        private async void MapPinElementMapPinTapped(object sender, MapPinTappedEventArgs e)
+        private async void MapPinElementMapPinTapped(object sender,
+            MapPinTappedEventArgs e)
         {
             MapPin mapPinElement = (MapPin)sender;
 
@@ -244,12 +249,13 @@
                 mapPinElement.Mark();
                 _mapPins.Add(mapPinElement);
             }
-            
+
             MapView.ViewChanged += MapViewViewChanged;
 
         }
 
-        private void MapViewViewChanged(object sender, ViewChangedEventArgs e)
+        private void MapViewViewChanged(object sender,
+            ViewChangedEventArgs e)
         {
             foreach (MapPin mapPin in _mapPins)
             {
@@ -257,7 +263,7 @@
                 {
                     _focusedMapPin = mapPin;
                     UpdateMapFolderList(DataSource.FocusedLocationId.Value);
-                    //ToDo: Empty DataSource.SelectedStorageFolders
+                    DataSource.SelectedStorageFolders = new List<StorageFolder>();
 
                     mapPin.Focus();
                     DefaultViewModel["Focused"] = true;
@@ -303,13 +309,42 @@
             }
         }
 
-        private void ButtonLinkClick(object sender, RoutedEventArgs e)
+        private async void ButtonLinkClick(object sender, RoutedEventArgs e)
         {
             DataSource.SelectedStorageFolders = new List<StorageFolder>();
+
             // ToDo: DataSource.SelectedStorageFolders
+            foreach (MapLocationFolderModel folder in _mapLocationFolders)
+            {
+                StorageFolder storageFolder = await StorageApplicationPermissions.FutureAccessList.GetFolderAsync(folder.Token, AccessCacheOptions.FastLocationsOnly);
+                if (storageFolder != null)
+                    DataSource.SelectedStorageFolders.Add(storageFolder);
+            }
 
             DataSource.FocusedLocationId = _focusedMapPin.ID;
             Frame.Navigate(typeof(PageMain));
+        }
+
+        private void MapFolderListViewSelectionChanged(object sender, EventArgs e)
+        {
+            DefaultViewModel["FolderSelected"] = MapFolderListView.SelectedItem != null;
+        }
+
+        private async void ButtonShowClick(object sender, RoutedEventArgs e)
+        {
+            StorageFolder folder = await StorageApplicationPermissions.FutureAccessList
+                .GetFolderAsync(MapFolderListView.SelectedItem.Token);
+
+            // ToDo: show storageFolder in page Explorer
+            if (folder != null)
+                Frame.Navigate(typeof(PageExplorer));
+        }
+
+        private async void ButtonDeleteClick(object sender, RoutedEventArgs e)
+        {
+            if (MapFolderListView.SelectedItem != null)
+                await _mapLocationFolderAccess.RemoveMany(
+                    DataSourceType.Sqlite, new List<MapLocationFolderModel> { MapFolderListView.SelectedItem });
         }
     }
 }
