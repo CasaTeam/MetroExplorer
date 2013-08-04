@@ -20,6 +20,10 @@
     using Core.Utils;
     using UserPreferenceRecord;
     using MainPage;
+    using Windows.Storage.Streams;
+    using Windows.UI.StartScreen;
+    using Windows.Foundation;
+    using Windows.UI.Xaml.Media;
 
     public sealed partial class PageExplorer
     {
@@ -209,6 +213,69 @@
         }
     }
 
+    /// <summary>
+    /// PinUnPinToStart
+    /// </summary>
+    public sealed partial class PageExplorer
+    {
+
+        async void PinUnPinToStart(object sender, RoutedEventArgs e)
+        {
+            if (!String.IsNullOrEmpty(DataSource.CurrentStorageFolder.Path))
+            {
+                string secondaryTileId = DataSource.CurrentStorageFolder.Path.GetHashCode().ToString();
+                BottomAppBar.IsSticky = true;
+
+                if (SecondaryTile.Exists(secondaryTileId))
+                {
+                    SecondaryTile secondaryTile = new SecondaryTile(secondaryTileId);
+                    bool isUnpinned = await secondaryTile.RequestDeleteForSelectionAsync(GetCenteredElementRect((FrameworkElement)sender), Windows.UI.Popups.Placement.Above);
+
+                    ToggleAppBarButton(isUnpinned);
+                }
+                else
+                {
+                    Uri logo = new Uri("ms-appx:///Assets/AddNewFolder.png");
+                    string tileActivationArguments = secondaryTileId + " was pinned at " + DateTime.Now.ToLocalTime().ToString();
+                    string ss = DataSource.CurrentStorageFolder.Name;
+                    SecondaryTile secondaryTile = new SecondaryTile(secondaryTileId,
+                                                                    DataSource.CurrentStorageFolder.DisplayName,
+                                                                    DataSource.CurrentStorageFolder.DisplayName,
+                                                                    tileActivationArguments,
+                                                                    TileOptions.ShowNameOnLogo,
+                                                                    logo);
+
+                    secondaryTile.ForegroundText = ForegroundText.Dark;
+                    secondaryTile.SmallLogo = new Uri("ms-appx:///Assets/appbar.home.png");
+
+                    bool isPinned = await secondaryTile.RequestCreateForSelectionAsync(GetCenteredElementRect((FrameworkElement)sender), Windows.UI.Popups.Placement.Above);
+
+                    ToggleAppBarButton(!isPinned);
+                }
+                BottomAppBar.IsSticky = false;
+            }
+        }
+
+        private void InitializePinToStart()
+        {
+            ToggleAppBarButton(!SecondaryTile.Exists(DataSource.CurrentStorageFolder.Path.GetHashCode().ToString()));
+        }
+
+        private Rect GetCenteredElementRect(FrameworkElement sender)
+        {
+            Windows.UI.Xaml.Media.GeneralTransform buttonTransform = sender.TransformToVisual(null);
+            Windows.Foundation.Point point = buttonTransform.TransformPoint(new Point());
+            return new Rect(point, new Size(sender.ActualWidth, sender.ActualHeight));
+        }
+
+        private void ToggleAppBarButton(bool showPinButton)
+        {
+            if (Button_PinUnPinToStart != null)
+            {
+                Button_PinUnPinToStart.Style = (showPinButton) ? (this.Resources["PinAppBarButtonStyle"] as Style) : (this.Resources["UnpinAppBarButtonStyle"] as Style);
+            }
+        }
+    }
 
     /// <summary>
     /// Rotate photo
