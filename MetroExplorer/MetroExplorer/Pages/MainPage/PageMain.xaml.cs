@@ -23,6 +23,7 @@
     using Core.Objects;
     using Core.Utils;
     using ExplorerPage;
+    using MetroExplorer.Pages.MapPage;
 
     public sealed partial class PageMain : LayoutAwarePage, INotifyPropertyChanged
     {
@@ -174,18 +175,6 @@
             }
         }
 
-        private void AddDefaultDiskC()
-        {
-            HomeItem diskC = new HomeItem()
-            {
-                Name = "C:\\",
-                Path = "",
-                StorageFolder = null,
-            };
-            ExplorerGroups[0].Add(diskC);
-            _dicItemToken.Add(diskC, diskC.Name);
-        }
-
         private HomeItem AddNewItem(GroupInfoList<HomeItem> itemList, StorageFolder retrievedFolder, string token)
         {
             HomeItem item = new HomeItem()
@@ -241,6 +230,15 @@
                 Name = KnownFolders.VideosLibrary.Name,
                 Path = KnownFolders.VideosLibrary.Path,
                 StorageFolder = KnownFolders.VideosLibrary,
+                DefautImage = GetBitMapImageFromLocalSource("Assets/Video.png"),
+                ImageStretch = "None",
+                IfImageChanged = "Collapsed"
+            });
+            ExplorerGroups[0].Add(new HomeItem()
+            {
+                Name = StringResources.ResourceLoader.GetString("String_MapButton"),
+                Path = "Map",
+                StorageFolder = null,
                 DefautImage = GetBitMapImageFromLocalSource("Assets/Video.png"),
                 ImageStretch = "None",
                 IfImageChanged = "Collapsed"
@@ -380,6 +378,11 @@
 
         private async Task ClickedOnUndefinedDiskCItem(HomeItem item)
         {
+            if (item.Path == "Map" && item.StorageFolder == null)
+            {
+                Frame.Navigate(typeof(PageMap), null);
+                return;
+            }
             var storageFolder = await GetStorageFolderFromFolderPicker();
             if (storageFolder != null && storageFolder.Name == item.Name)
             {
@@ -397,10 +400,10 @@
         private void NavigateToExplorer(HomeItem item)
         {
             Singleton<MetroExplorerLocalDataSource>.Instance.NavigatorStorageFolders =
-                new List<StorageFolder>
-                {
-                    item.StorageFolder
-                };
+            new List<StorageFolder>
+                        {
+                            item.StorageFolder
+                        };
             Frame.Navigate(typeof(PageExplorer), null);
         }
 

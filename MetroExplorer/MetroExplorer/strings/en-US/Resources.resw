@@ -162,6 +162,9 @@
   <data name="String_AddNewShortCutFolder" xml:space="preserve">
     <value>Create a shortcut folder</value>
   </data>
+  <data name="String_MapButton" xml:space="preserve">
+    <value>My Map</value>
+  </data>
   <data name="String_NewFolder" xml:space="preserve">
     <value>New folder</value>
   </data>

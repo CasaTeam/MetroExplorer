@@ -283,6 +283,26 @@
             if (e.ClickedItem != null)
                 StartFlipView(e.ClickedItem as ExplorerItem);
         }
+
+        private void MediaElement_PointerPressed_1(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+
+        }
+
+        private void MediaElement_PointerPressed(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+            if (_currentPlayMedia != null)
+            {
+                if (_currentPlayMedia.CurrentState == MediaElementState.Playing)
+                {
+                    _currentPlayMedia.Pause();
+                }
+                else if (_currentPlayMedia.CurrentState == MediaElementState.Paused)
+                {
+                    _currentPlayMedia.Play();
+                }
+            }
+        }
     }
 
     public sealed partial class PhotoGallery

@@ -19,7 +19,7 @@
                     <TextBlock Text="{Binding Name}" FontFamily="Segoe UI" FontSize="26.667" 
                                        Foreground="#CCFFFFFF" Padding="15,20"/>
                 </Border>-->
-                <MediaElement Source="{Binding}"
+                <MediaElement Source="{Binding}" PointerPressed="MediaElement_PointerPressed"
                               AutoPlay="True" />
             </Grid>
         </DataTemplate>

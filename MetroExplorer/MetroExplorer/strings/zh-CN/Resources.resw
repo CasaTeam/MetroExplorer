@@ -162,6 +162,9 @@
   <data name="String_AddNewShortCutFolder" xml:space="preserve">
     <value>添加快捷文件夹</value>
   </data>
+  <data name="String_MapButton" xml:space="preserve">
+    <value>地图</value>
+  </data>
   <data name="String_NewFolder" xml:space="preserve">
     <value>新建文件夹</value>
   </data>

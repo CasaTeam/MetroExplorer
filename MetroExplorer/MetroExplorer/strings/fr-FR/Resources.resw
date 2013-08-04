@@ -162,6 +162,9 @@
   <data name="String_AddNewShortCutFolder" xml:space="preserve">
     <value>Créer un raccourci de dossier</value>
   </data>
+  <data name="String_MapButton" xml:space="preserve">
+    <value>Ma Carte</value>
+  </data>
   <data name="String_NewFolder" xml:space="preserve">
     <value>Nouveau dossier</value>
   </data>
