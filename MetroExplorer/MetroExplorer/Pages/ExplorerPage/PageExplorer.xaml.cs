@@ -90,7 +90,7 @@
 
             InitializeChangingDispatcher();
 
-            DefaultViewModel["Linkable"] = DataSource.FocusedLocationId != null;
+            DefaultViewModel["Linkable"] = false;//DataSource.FocusedLocationId != null;
             // ToDo: AutoSelection by DataSource.SelectedStorageFolders
             //foreach (StorageFolder storageFolder in DataSource.SelectedStorageFolders)
             //{

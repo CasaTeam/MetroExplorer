@@ -29,24 +29,34 @@
     using DataSource.DataModels;
     using ExplorerPage;
     using MainPage;
+    using Windows.Storage.Pickers;
 
     public sealed partial class PageMap : LayoutAwarePage
     {
+        #region Fields
+
+        // Search
         private SearchPane _searchPane;
         private SearchManager _searchManager;
         private LocationDataResponse _searchResponse;
 
+        // Datas
         private MapModel _map;
         private ObservableCollection<MapLocationModel> _mapLocations;
         private ObservableCollection<MapLocationFolderModel> _mapLocationFolders;
 
+        // Accessors
         private DataAccess<MapModel> _mapDataAccess;
         private DataAccess<MapLocationModel> _mapLocationAccess;
         private DataAccess<MapLocationFolderModel> _mapLocationFolderAccess;
 
+        // MapPins
         private ObservableCollection<MapPin> _mapPins;
-
         private MapPin _focusedMapPin, _lastFocusedMapPin;
+
+        #endregion
+
+        #region Constructors
 
         public PageMap()
         {
@@ -64,6 +74,10 @@
             _mapPins = new ObservableCollection<MapPin>();
         }
 
+        #endregion
+
+        #region Events
+
         protected override async void LoadState(
             Object navigationParameter,
             Dictionary<String, Object> pageState)
@@ -74,6 +88,7 @@
             _mapLocations = await _mapLocationAccess.GetSources(DataSourceType.Sqlite);
 
             DefaultViewModel["Focused"] = false;
+            DefaultViewModel["Linkable²"] = false;
             DefaultViewModel["FolderSelected"] = false;
             DefaultViewModel["MapLocationFolders"] = _mapLocationFolders;
 
@@ -115,7 +130,8 @@
                 _mapLocationFolders = await _mapLocationFolderAccess.GetSources(DataSourceType.Sqlite);
                 DefaultViewModel["MapLocationFolders"] = _mapLocationFolders;
             }
-            DefaultViewModel["Focused"] = _focusedMapPin != null && _focusedMapPin.Marked;
+            DefaultViewModel["Focused"] = _focusedMapPin != null;
+            DefaultViewModel["Linkable"] = (bool)DefaultViewModel["Focused"] && _focusedMapPin.Marked;
         }
 
         private async void SearchPaneSuggestionsRequested(
@@ -169,6 +185,7 @@
                 }
                 DefaultViewModel["Focused"] = true;
             }
+            DefaultViewModel["Linkable"] = (bool)DefaultViewModel["Focused"] && _focusedMapPin.Marked;
         }
 
         private void MapViewViewChangeEnded(object sender,
@@ -309,7 +326,7 @@
             }
         }
 
-        private async void ButtonLinkClick(object sender, RoutedEventArgs e)
+        private async void ButtonLinkExplorerClick(object sender, RoutedEventArgs e)
         {
             DataSource.SelectedStorageFolders = new List<StorageFolder>();
 
@@ -323,6 +340,29 @@
 
             DataSource.FocusedLocationId = _focusedMapPin.ID;
             Frame.Navigate(typeof(PageMain));
+        }
+
+        private async void ButtonLinkClick(object sender, RoutedEventArgs e)
+        {
+            FolderPicker folderPicker = new FolderPicker();
+            folderPicker.ViewMode = PickerViewMode.List;
+            folderPicker.SuggestedStartLocation = PickerLocationId.Desktop;
+            folderPicker.FileTypeFilter.Add("*");
+            StorageFolder storageFolder = await folderPicker.PickSingleFolderAsync();
+
+            string token = StorageApplicationPermissions.FutureAccessList.Add(storageFolder, "link");
+
+            if (!_mapLocationFolders.Any(folder => folder.Token.Equals(token)))
+            {
+                await _mapLocationFolderAccess.Add(DataSourceType.Sqlite, new MapLocationFolderModel
+                    {
+                        ID = Guid.NewGuid(),
+                        Name = storageFolder.Name,
+                        Description = storageFolder.DateCreated.ToString(),
+                        MapLocationId = _focusedMapPin.ID,
+                        Token = token
+                    });
+            }
         }
 
         private void MapFolderListViewSelectionChanged(object sender, EventArgs e)
@@ -346,5 +386,8 @@
                 await _mapLocationFolderAccess.RemoveMany(
                     DataSourceType.Sqlite, new List<MapLocationFolderModel> { MapFolderListView.SelectedItem });
         }
+
+        #endregion
+
     }
 }

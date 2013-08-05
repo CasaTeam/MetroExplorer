@@ -26,7 +26,8 @@
 				<SolidColorBrush Color="#E5000000" Opacity="0.9"/>
 			</AppBar.Background>
 			<StackPanel Orientation="Horizontal">
-				<Button x:Name="ButtonLink" Content="Link" HorizontalAlignment="Left" Visibility="{Binding Focused, Converter={StaticResource BooleanToVisibilityConverter}}" Click="ButtonLinkClick"/>
+				<Button x:Name="ButtonLink" Content="Link" HorizontalAlignment="Left" VerticalAlignment="Center" Click="ButtonLinkClick" Visibility="{Binding Linkable, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <Button x:Name="ButtonLinkExplorer" Content="Link From Explorer" HorizontalAlignment="Left" Visibility="{Binding Linkable, Converter={StaticResource BooleanToVisibilityConverter}}" Click="ButtonLinkExplorerClick"/>
 				<Button x:Name="ButtonShow" Content="Show" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2,0,0,0" Visibility="{Binding FolderSelected, Converter={StaticResource BooleanToVisibilityConverter}}" Click="ButtonShowClick"/>
 				<Button x:Name="ButtonDelete" Content="Delete" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2,0,0,0" Visibility="{Binding FolderSelected, Converter={StaticResource BooleanToVisibilityConverter}}" Click="ButtonDeleteClick"/>
 			</StackPanel>
