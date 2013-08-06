@@ -374,8 +374,8 @@
         {
             StorageFolder folder = await StorageApplicationPermissions.FutureAccessList
                 .GetFolderAsync(MapFolderListView.SelectedItem.Token);
+            DataSource.NavigatorStorageFolders.Add(folder);
 
-            // ToDo: show storageFolder in page Explorer
             if (folder != null)
                 Frame.Navigate(typeof(PageExplorer));
         }

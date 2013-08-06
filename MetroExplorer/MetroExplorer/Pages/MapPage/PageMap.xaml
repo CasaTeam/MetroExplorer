@@ -87,7 +87,7 @@
 
 		<!-- Back button and page title -->
 		<Maps:Map x:Name="MapView" Grid.Row="1" Credentials="Avs9-NFwIrWEbtFgLLePRSktqWRMX8X5Kmz5NiZyxgzL0JCG-S0K65VltPBX3uV1" Tapped="MapTapped"/>
-		<MapsControl:MapFolderList x:Name="MapFolderListView" Margin="894,572,20,84" Visibility="{Binding Focused, Converter={StaticResource BooleanToVisibilityConverter}}" MapLocationFolderSource="{Binding MapLocationFolders}" SelectionChanged="MapFolderListViewSelectionChanged">
+		<MapsControl:MapFolderList x:Name="MapFolderListView" Margin="884,580,30,74" Visibility="{Binding Focused, Converter={StaticResource BooleanToVisibilityConverter}}" MapLocationFolderSource="{Binding MapLocationFolders}" SelectionChanged="MapFolderListViewSelectionChanged" Width="400" Height="100">
 			<MapsControl:MapFolderList.Background>
 				<SolidColorBrush Color="Black" Opacity="0.89999997615814209"/>
 			</MapsControl:MapFolderList.Background>
