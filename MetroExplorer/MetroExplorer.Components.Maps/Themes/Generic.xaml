@@ -94,16 +94,17 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="local:MapFolderList">
-					<Border
-						Background="{TemplateBinding Background}"
-						BorderBrush="{TemplateBinding BorderBrush}"
-						BorderThickness="{TemplateBinding BorderThickness}">
-						<ListBox x:Name="ListBoxElement" ItemTemplate="{StaticResource MapFolderListItemDataTemplate}" ItemsPanel="{StaticResource MapItemsPanelTemplate}" Background="{x:Null}" ItemContainerStyle="{StaticResource MapFolderListBoxItemStyle}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="1" Style="{StaticResource MapFolderListBoxStyle}" ItemsSource="{TemplateBinding MapLocationFolderSource}"/>
-					</Border>
+					<Viewbox>
+						<ListBox x:Name="ListBoxElement" ItemTemplate="{StaticResource MapFolderListItemDataTemplate}" ItemsPanel="{StaticResource MapItemsPanelTemplate}" Background="{TemplateBinding Background}" ItemContainerStyle="{StaticResource MapFolderListBoxItemStyle}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="1" Style="{StaticResource MapFolderListBoxStyle}" ItemsSource="{TemplateBinding MapLocationFolderSource}"/>
+					</Viewbox>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
-		<Setter Property="Background" Value="{x:Null}"/>
+		<Setter Property="Background">
+			<Setter.Value>
+				<SolidColorBrush Color="Black" Opacity="0.6"/>
+			</Setter.Value>
+		</Setter>
 		<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
 		<Setter Property="VerticalContentAlignment" Value="Stretch"/>
 	</Style>

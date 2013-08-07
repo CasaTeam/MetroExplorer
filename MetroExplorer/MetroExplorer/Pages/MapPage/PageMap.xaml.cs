@@ -29,24 +29,34 @@
     using DataSource.DataModels;
     using ExplorerPage;
     using MainPage;
+    using Windows.Storage.Pickers;
 
     public sealed partial class PageMap : LayoutAwarePage
     {
+        #region Fields
+
+        // Search
         private SearchPane _searchPane;
         private SearchManager _searchManager;
         private LocationDataResponse _searchResponse;
 
+        // Datas
         private MapModel _map;
         private ObservableCollection<MapLocationModel> _mapLocations;
         private ObservableCollection<MapLocationFolderModel> _mapLocationFolders;
 
+        // Accessors
         private DataAccess<MapModel> _mapDataAccess;
         private DataAccess<MapLocationModel> _mapLocationAccess;
         private DataAccess<MapLocationFolderModel> _mapLocationFolderAccess;
 
+        // MapPins
         private ObservableCollection<MapPin> _mapPins;
-
         private MapPin _focusedMapPin, _lastFocusedMapPin;
+
+        #endregion
+
+        #region Constructors
 
         public PageMap()
         {
@@ -64,6 +74,10 @@
             _mapPins = new ObservableCollection<MapPin>();
         }
 
+        #endregion
+
+        #region Events
+
         protected override async void LoadState(
             Object navigationParameter,
             Dictionary<String, Object> pageState)
@@ -74,6 +88,9 @@
             _mapLocations = await _mapLocationAccess.GetSources(DataSourceType.Sqlite);
 
             DefaultViewModel["Focused"] = false;
+            DefaultViewModel["Linkable"] = false;
+            DefaultViewModel["Markable"] = false;
+            DefaultViewModel["UnMarkable"] = false;
             DefaultViewModel["FolderSelected"] = false;
             DefaultViewModel["MapLocationFolders"] = _mapLocationFolders;
 
@@ -115,7 +132,10 @@
                 _mapLocationFolders = await _mapLocationFolderAccess.GetSources(DataSourceType.Sqlite);
                 DefaultViewModel["MapLocationFolders"] = _mapLocationFolders;
             }
-            DefaultViewModel["Focused"] = _focusedMapPin != null && _focusedMapPin.Marked;
+            DefaultViewModel["Focused"] = _focusedMapPin != null;
+            DefaultViewModel["Linkable"] = (bool)DefaultViewModel["Focused"] && _focusedMapPin.Marked;
+            DefaultViewModel["Markable"] = (bool)DefaultViewModel["Focused"] && !(bool)DefaultViewModel["Linkable"];
+            DefaultViewModel["UnMarkable"] = (bool)DefaultViewModel["Linkable"];
         }
 
         private async void SearchPaneSuggestionsRequested(
@@ -169,6 +189,9 @@
                 }
                 DefaultViewModel["Focused"] = true;
             }
+            DefaultViewModel["Linkable"] = (bool)DefaultViewModel["Focused"] && _focusedMapPin.Marked;
+            DefaultViewModel["Markable"] = (bool)DefaultViewModel["Focused"] && !(bool)DefaultViewModel["Linkable"];
+            DefaultViewModel["UnMarkable"] = (bool)DefaultViewModel["Linkable"];
         }
 
         private void MapViewViewChangeEnded(object sender,
@@ -309,7 +332,7 @@
             }
         }
 
-        private async void ButtonLinkClick(object sender, RoutedEventArgs e)
+        private async void ButtonLinkExplorerClick(object sender, RoutedEventArgs e)
         {
             DataSource.SelectedStorageFolders = new List<StorageFolder>();
 
@@ -325,6 +348,37 @@
             Frame.Navigate(typeof(PageMain));
         }
 
+        private async void ButtonLinkClick(object sender, RoutedEventArgs e)
+        {
+            FolderPicker folderPicker = new FolderPicker();
+            folderPicker.ViewMode = PickerViewMode.List;
+            folderPicker.SuggestedStartLocation = PickerLocationId.Desktop;
+            folderPicker.FileTypeFilter.Add("*");
+            StorageFolder storageFolder = await folderPicker.PickSingleFolderAsync();
+
+            if (storageFolder == null) return;
+
+            string token = StorageApplicationPermissions.FutureAccessList.Add(storageFolder, "link");
+
+            if (!_mapLocationFolders.Any(folder => folder.Token.Equals(token)))
+            {
+                await _mapLocationFolderAccess.Add(DataSourceType.Sqlite, new MapLocationFolderModel
+                    {
+                        ID = Guid.NewGuid(),
+                        Name = storageFolder.Name,
+                        Description = storageFolder.DateCreated.ToString(),
+                        MapLocationId = _focusedMapPin.ID,
+                        Token = token
+                    });
+
+                _mapLocationFolders = await _mapLocationFolderAccess.GetSources(DataSourceType.Sqlite);
+                DefaultViewModel["MapLocationFolders"] = _mapLocationFolders;
+                DefaultViewModel["Linkable"] = (bool)DefaultViewModel["Focused"] && _focusedMapPin.Marked;
+                DefaultViewModel["Markable"] = (bool)DefaultViewModel["Focused"] && !(bool)DefaultViewModel["Linkable"];
+                DefaultViewModel["UnMarkable"] = (bool)DefaultViewModel["Linkable"];
+            }
+        }
+
         private void MapFolderListViewSelectionChanged(object sender, EventArgs e)
         {
             DefaultViewModel["FolderSelected"] = MapFolderListView.SelectedItem != null;
@@ -334,8 +388,9 @@
         {
             StorageFolder folder = await StorageApplicationPermissions.FutureAccessList
                 .GetFolderAsync(MapFolderListView.SelectedItem.Token);
+            DataSource.NavigatorStorageFolders.Clear();
+            DataSource.NavigatorStorageFolders.Add(folder);
 
-            // ToDo: show storageFolder in page Explorer
             if (folder != null)
                 Frame.Navigate(typeof(PageExplorer));
         }
@@ -346,5 +401,51 @@
                 await _mapLocationFolderAccess.RemoveMany(
                     DataSourceType.Sqlite, new List<MapLocationFolderModel> { MapFolderListView.SelectedItem });
         }
+
+        private async void ButtonMarkClick(object sender, RoutedEventArgs e)
+        {
+            await _mapLocationAccess.Add(
+                        DataSourceType.Sqlite,
+                        new MapLocationModel
+                        {
+                            ID = Guid.NewGuid(),
+                            Name = _focusedMapPin.Name,
+                            Description = _focusedMapPin.Description,
+                            Latitude = _focusedMapPin.Latitude.ToString(),
+                            Longitude = _focusedMapPin.Longitude.ToString(),
+                            MapId = _map.ID
+                        });
+
+            MapLocationModel addedLocation = _mapLocations.FirstOrDefault(location =>
+                location.Latitude == _focusedMapPin.Latitude.ToString() &&
+                location.Longitude == location.Longitude);
+            if (addedLocation != null)
+                _focusedMapPin.ID = addedLocation.ID;
+
+            _mapPins.Add(_focusedMapPin);
+            _focusedMapPin.Mark();
+            _mapLocationFolderAccess.MapLocationId = addedLocation.ID;
+            _mapLocationFolders = await _mapLocationFolderAccess.GetSources(DataSourceType.Sqlite);
+            DefaultViewModel["MapLocationFolders"] = _mapLocationFolders;
+            DefaultViewModel["Linkable"] = (bool)DefaultViewModel["Focused"] && _focusedMapPin.Marked;
+            DefaultViewModel["Markable"] = (bool)DefaultViewModel["Focused"] && !(bool)DefaultViewModel["Linkable"];
+            DefaultViewModel["UnMarkable"] = (bool)DefaultViewModel["Linkable"];
+        }
+
+        private async void ButtonUnMarkClick(object sender, RoutedEventArgs e)
+        {
+            MapLocationModel deleteLocation = _mapLocations.FirstOrDefault(location =>
+                        location.ID.Equals(_focusedMapPin.ID));
+            if (deleteLocation != null)
+                await _mapLocationAccess.Remove(DataSourceType.Sqlite, deleteLocation);
+
+            _mapPins.Remove(_focusedMapPin);
+            _focusedMapPin.UnMark();
+            DefaultViewModel["Linkable"] = (bool)DefaultViewModel["Focused"] && _focusedMapPin.Marked;
+            DefaultViewModel["Markable"] = (bool)DefaultViewModel["Focused"] && !(bool)DefaultViewModel["Linkable"];
+            DefaultViewModel["UnMarkable"] = (bool)DefaultViewModel["Linkable"];
+        }
+
+        #endregion
     }
 }

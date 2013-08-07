@@ -91,5 +91,11 @@
             Marked = true;
             VisualStateManager.GoToState(this, "Marked", true);
         }
+
+        public void UnMark()
+        {
+            Marked = false;
+            VisualStateManager.GoToState(this, "UnMarked", true);
+        }
     }
 }
