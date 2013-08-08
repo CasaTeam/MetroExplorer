@@ -16,12 +16,12 @@
 		</Grid>
 	</DataTemplate>
 	<DataTemplate x:Key="MapFolderListItemDataTemplate">
-		<Grid Background="Black">
+		<Grid Background="Black" Width="80">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="3*"/>
 				<RowDefinition/>
 			</Grid.RowDefinitions>
-			<TextBlock TextWrapping="Wrap" Text="{Binding Name}" Grid.Row="1" Foreground="White" HorizontalAlignment="Center" Margin="0,5"/>
+			<TextBlock Text="{Binding Name}" Grid.Row="1" Foreground="White" Margin="0,5" TextTrimming="WordEllipsis" TextAlignment="Center"/>
 			<Image Source="ms-appx:///MetroExplorer.Components.Maps/DesignAssets/folder.png" Width="50" Height="50"/>
 		</Grid>
 	</DataTemplate>
