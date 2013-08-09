@@ -94,9 +94,9 @@
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="local:MapFolderList">
-					<Viewbox>
-						<ListBox x:Name="ListBoxElement" ItemTemplate="{StaticResource MapFolderListItemDataTemplate}" ItemsPanel="{StaticResource MapItemsPanelTemplate}" Background="{TemplateBinding Background}" ItemContainerStyle="{StaticResource MapFolderListBoxItemStyle}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="1" Style="{StaticResource MapFolderListBoxStyle}" ItemsSource="{TemplateBinding MapLocationFolderSource}"/>
-					</Viewbox>
+					<Border>
+						<ListBox x:Name="ListBoxElement" ItemTemplate="{StaticResource MapFolderListItemDataTemplate}" ItemsPanel="{StaticResource MapItemsPanelTemplate}" Background="{TemplateBinding Background}" ItemContainerStyle="{StaticResource MapFolderListBoxItemStyle}" VerticalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Disabled" Style="{StaticResource MapFolderListBoxStyle}" ItemsSource="{TemplateBinding MapLocationFolderSource}" HorizontalContentAlignment="Stretch"/>
+					</Border>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
