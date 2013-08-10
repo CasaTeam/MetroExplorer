@@ -202,6 +202,7 @@
     <Content Include="Assets\BadgeLogo.scale-100.png" />
     <Content Include="Assets\BadgeLogo.scale-140.png" />
     <Content Include="Assets\BadgeLogo.scale-180.png" />
+    <Content Include="Assets\BingMapLogo.png" />
     <Content Include="Assets\Facebook.png" />
     <Content Include="Assets\File.png" />
     <Content Include="Assets\Disk.png" />

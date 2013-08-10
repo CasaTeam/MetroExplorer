@@ -231,7 +231,6 @@
                 media.MediaEnded += media_MediaEnded;
                 media.MediaOpened += media_MediaOpened;
                 _currentPlayMedia = media;
-                
             }
 
             GC.Collect();
@@ -280,7 +279,7 @@
                 double absvalue = (int)Math.Round(
                     _currentPlayMedia.NaturalDuration.TimeSpan.TotalSeconds,
                     MidpointRounding.AwayFromZero);
-                _currentVideoTimerSlider.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                _currentVideoTimerSlider.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
                 _currentVideoTimerSlider.Maximum = absvalue;
                 _currentVideoTimerSlider.ValueChanged += _currentVideoTimerSlider_ValueChanged;
                 _currentVideoTimerSlider.StepFrequency = SliderFrequency(_currentPlayMedia.NaturalDuration.TimeSpan);
@@ -374,10 +373,12 @@
                 if (_currentPlayMedia.CurrentState == MediaElementState.Playing)
                 {
                     _currentPlayMedia.Pause();
+                    _currentVideoTimerSlider.Visibility = Windows.UI.Xaml.Visibility.Visible;
                 }
                 else if (_currentPlayMedia.CurrentState == MediaElementState.Paused)
                 {
                     _currentPlayMedia.Play();
+                    _currentVideoTimerSlider.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
                 }
             }
         }

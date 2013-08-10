@@ -381,25 +381,25 @@
 
         private void MapFolderListViewSelectionChanged(object sender, EventArgs e)
         {
-            DefaultViewModel["FolderSelected"] = MapFolderListView.SelectedItem != null;
+            //DefaultViewModel["FolderSelected"] = MapFolderListView.SelectedItem != null;
         }
 
-        private async void ButtonShowClick(object sender, RoutedEventArgs e)
+        private void ButtonShowClick(object sender, RoutedEventArgs e)
         {
-            StorageFolder folder = await StorageApplicationPermissions.FutureAccessList
-                .GetFolderAsync(MapFolderListView.SelectedItem.Token);
-            DataSource.NavigatorStorageFolders.Clear();
-            DataSource.NavigatorStorageFolders.Add(folder);
+            //StorageFolder folder = await StorageApplicationPermissions.FutureAccessList
+            //    .GetFolderAsync(MapFolderListView.SelectedItem.Token);
+            //DataSource.NavigatorStorageFolders.Clear();
+            //DataSource.NavigatorStorageFolders.Add(folder);
 
-            if (folder != null)
+            //if (folder != null)
                 Frame.Navigate(typeof(PageExplorer));
         }
 
-        private async void ButtonDeleteClick(object sender, RoutedEventArgs e)
+        private void ButtonDeleteClick(object sender, RoutedEventArgs e)
         {
-            if (MapFolderListView.SelectedItem != null)
-                await _mapLocationFolderAccess.RemoveMany(
-                    DataSourceType.Sqlite, new List<MapLocationFolderModel> { MapFolderListView.SelectedItem });
+            //if (MapFolderListView.SelectedItem != null)
+            //    await _mapLocationFolderAccess.RemoveMany(
+            //        DataSourceType.Sqlite, new List<MapLocationFolderModel> { MapFolderListView.SelectedItem });
         }
 
         private async void ButtonMarkClick(object sender, RoutedEventArgs e)

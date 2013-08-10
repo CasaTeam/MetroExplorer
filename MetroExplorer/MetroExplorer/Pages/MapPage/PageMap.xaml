@@ -21,10 +21,7 @@
 		<x:String x:Key="AppName">My Application</x:String>
 	</common:LayoutAwarePage.Resources>
 	<common:LayoutAwarePage.BottomAppBar>
-		<AppBar FontFamily="Global User Interface">
-			<AppBar.Background>
-				<SolidColorBrush Color="#E5000000" Opacity="0.9"/>
-			</AppBar.Background>
+        <AppBar FontFamily="Global User Interface" Background="#FF1e90cd" BorderBrush="Transparent">
 			<StackPanel Orientation="Horizontal">
 				<Button x:Name="ButtonUnMark" Content="UnMark" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="{Binding UnMarkable, Converter={StaticResource BooleanToVisibilityConverter}}" Click="ButtonUnMarkClick"/>
 				<Button x:Name="ButtonMark" Content="Mark" HorizontalAlignment="Left" VerticalAlignment="Center" Click="ButtonMarkClick" Visibility="{Binding Markable, Converter={StaticResource BooleanToVisibilityConverter}}"/>
@@ -89,10 +86,10 @@
 
 		<!-- Back button and page title -->
 		<Maps:Map x:Name="MapView" Grid.Row="1" Credentials="Avs9-NFwIrWEbtFgLLePRSktqWRMX8X5Kmz5NiZyxgzL0JCG-S0K65VltPBX3uV1" Tapped="MapTapped"/>
-		<MapsControl:MapFolderList x:Name="MapFolderListView" Margin="910,587,56,79" Visibility="{Binding UnMarkable, Converter={StaticResource BooleanToVisibilityConverter}}" MapLocationFolderSource="{Binding MapLocationFolders}" SelectionChanged="MapFolderListViewSelectionChanged" Width="400" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+		<!--<MapsControl:MapFolderList x:Name="MapFolderListView" Margin="910,587,56,79" Visibility="{Binding UnMarkable, Converter={StaticResource BooleanToVisibilityConverter}}" MapLocationFolderSource="{Binding MapLocationFolders}" SelectionChanged="MapFolderListViewSelectionChanged" Width="400" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Disabled">
 			<MapsControl:MapFolderList.Background>
 				<SolidColorBrush Color="Black" Opacity="0.89999997615814209"/>
 			</MapsControl:MapFolderList.Background>
-		</MapsControl:MapFolderList>
+		</MapsControl:MapFolderList>-->
 	</Grid>
 </common:LayoutAwarePage>
