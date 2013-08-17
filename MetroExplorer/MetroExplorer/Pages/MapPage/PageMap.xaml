@@ -37,6 +37,7 @@
 							</Style>
 						</Button.Style>
 				</Button>
+				<Button Content="Button" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
 			</StackPanel>
 		</AppBar>
 	</common:LayoutAwarePage.BottomAppBar>
