@@ -239,7 +239,7 @@
                 Name = StringResources.ResourceLoader.GetString("String_MapButton"),
                 Path = "Map",
                 StorageFolder = null,
-                DefautImage = GetBitMapImageFromLocalSource("Assets/Video.png"),
+                DefautImage = GetBitMapImageFromLocalSource("Assets/BingMapLogo.png"),
                 ImageStretch = "None",
                 IfImageChanged = "Collapsed"
             });
