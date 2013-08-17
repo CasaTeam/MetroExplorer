@@ -22,29 +22,49 @@
 	</common:LayoutAwarePage.Resources>
 	<common:LayoutAwarePage.BottomAppBar>
         <AppBar FontFamily="Global User Interface" Background="#FF1e90cd" BorderBrush="Transparent">
-			<StackPanel Orientation="Horizontal">
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                
 				<Button x:Name="ButtonUnMark" Content="UnMark" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="{Binding UnMarkable, Converter={StaticResource BooleanToVisibilityConverter}}" Click="ButtonUnMarkClick"/>
 				<Button x:Name="ButtonMark" Content="Mark" HorizontalAlignment="Left" VerticalAlignment="Center" Click="ButtonMarkClick" Visibility="{Binding Markable, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 				<Button x:Name="ButtonLink" Content="Link" HorizontalAlignment="Left" VerticalAlignment="Center" Click="ButtonLinkClick" Visibility="{Binding Linkable, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 				<Button x:Name="ButtonLinkExplorer" Content="Link From Explorer" HorizontalAlignment="Left" Visibility="{Binding Linkable, Converter={StaticResource BooleanToVisibilityConverter}}" Click="ButtonLinkExplorerClick"/>
 				<Button x:Name="ButtonShow" Content="Show" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2,0,0,0" Visibility="{Binding FolderSelected, Converter={StaticResource BooleanToVisibilityConverter}}" Click="ButtonShowClick"/>
 				<Button x:Name="ButtonDelete" Content="Delete" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2,0,0,0" Visibility="{Binding FolderSelected, Converter={StaticResource BooleanToVisibilityConverter}}" Click="ButtonDeleteClick"/>
-				<Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-				<Button.Style>
-							<Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
-								<Setter Property="AutomationProperties.Name" Value=""/>
-								<Setter Property="Content" Value="&#xE1D2;"/>
-							</Style>
-						</Button.Style>
+                <Button HorizontalAlignment="Right" VerticalAlignment="Stretch"
+                        x:Uid="UidMapPageAppBarMyPosition">
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
+                            <Setter Property="AutomationProperties.Name" Value=""/>
+                            <Setter Property="Content" Value="&#xE10F;"/>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button HorizontalAlignment="Right" VerticalAlignment="Stretch"
+                        x:Uid="UidMapPageAppBarMyPosition">
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
+                            <Setter Property="AutomationProperties.Name" Value=""/>
+                            <Setter Property="Content" Value="&#xE10F;"/>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button HorizontalAlignment="Right" VerticalAlignment="Stretch"
+                        x:Uid="UidMapPageAppBarSearchButton">
+				    <Button.Style>
+						<Style TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
+							<Setter Property="AutomationProperties.Name" Value=""/>
+							<Setter Property="Content" Value="&#xE11A;"/>
+						</Style>
+					</Button.Style>
 				</Button>
 				<Button Content="Button" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
 			</StackPanel>
 		</AppBar>
 	</common:LayoutAwarePage.BottomAppBar>
 	<common:LayoutAwarePage.TopAppBar>
-		<AppBar>
+		<AppBar BorderThickness="0">
 			<AppBar.Background>
-				<SolidColorBrush Color="#E5000000" Opacity="0.9"/>
+                <SolidColorBrush Color="#FF1e90cd" Opacity="1"/>
 			</AppBar.Background>
 			<Grid>
 				<Grid.ColumnDefinitions>
