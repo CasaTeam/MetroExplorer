@@ -168,6 +168,9 @@
   <data name="String_NewFolder" xml:space="preserve">
     <value>New folder</value>
   </data>
+  <data name="UidMapPageAppBarAddLinkPin.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Add pin</value>
+  </data>
   <data name="Uid_Button_CreateNewFolder.Content" xml:space="preserve">
     <value>Create</value>
   </data>
