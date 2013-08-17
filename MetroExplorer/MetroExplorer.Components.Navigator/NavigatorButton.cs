@@ -1,13 +1,13 @@
 ﻿namespace MetroExplorer.Components.Navigator
 {
     using System.Collections.Generic;
+    using System.Windows.Input;
     using Windows.UI.Xaml;
     using Windows.UI.Xaml.Controls;
-    using Objects;
-    using Core;
-    using System.Windows.Input;
     using Windows.UI.Xaml.Input;
     using Windows.UI.Xaml.Media.Animation;
+    using Core;
+    using Objects;
 
     public sealed class NavigatorButton : Control
     {
