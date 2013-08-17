@@ -168,6 +168,12 @@
   <data name="String_NewFolder" xml:space="preserve">
     <value>Nouveau dossier</value>
   </data>
+  <data name="UidMapPageAppBarAddLinkPin.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Ajouter un repère</value>
+  </data>
+  <data name="UidMapPageAppBarMyPosition.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
+    <value>Ma position</value>
+  </data>
   <data name="UidMapPageAppBarSearchButton.[using:Windows.UI.Xaml.Automation]AutomationProperties.Name" xml:space="preserve">
     <value>Rechercher lieu</value>
   </data>
